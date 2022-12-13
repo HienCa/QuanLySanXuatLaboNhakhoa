@@ -52,6 +52,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             Phieunhapkho phieunhap = _context.Phieunhapkho.Where(pn => pn.Idpnk == pnkID).FirstOrDefault();
+            ViewData["sophieu"] = phieunhap.Sophieu;
             List<Noidungphieunhap> noidungphieunhap = await _context.Noidungphieunhap
                 .Include(n => n.PhieunhapkhoidpnkNavigation)
                 .Include(n => n.VatlieuidvlNavigation)

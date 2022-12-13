@@ -113,11 +113,12 @@
             <div id="clock"></div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="tile">
-                    <div class="tile-body">
-                        <div class="tile-title">Danh Sách Phiếu Nhập Kho
+        <div class="row" >
+            <div class="col-md-6 col-sm-12" >
+                <div class="tile"style="height:80vh; overflow-y:scroll">
+                    <div class="tile-body" >
+                        <div class="tile-title">
+                            Danh Sách Phiếu Nhập Kho
                             <div class="row ">
 
                                 <div class="col-sm-2">
@@ -126,9 +127,9 @@
                                 </div>
 
                                 @*<div class="col-sm-2">
-            <a class="btn btn-delete btn-sm print-file" title="In"
-               onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
-        </div>*@
+                    <a class="btn btn-delete btn-sm print-file" title="In"
+                       onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                </div>*@
 
 
                                 <div class="col-sm-2">
@@ -144,56 +145,59 @@
 
                             </div>
                         </div>
-                        
-                        <table class="table table-hover table-bordered" id="sampleTable" style="height:47vh; overflow-y:scroll">
-                            <thead>
-                                <tr>
-                                    <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Số phiếu</th>
-                                    <th>Nhân viên nhập</th>
-                                    <th>Ngày lập phiếu</th>
-                                    <th>Số hóa đơn</th>
-                                    <th>Ngày hóa đơn</th>
-                                    <th>Ghi chú</th>
+                        <div >
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in TempData["phieunhapkho"] as List<Phieunhapkho>)
-                                {
+                            <table class="table table-hover table-bordered" id="sampleTable">
+                                <thead>
                                     <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>#@item.Sophieu</td>
-                                        <td>@item.NhanvienidnvNavigation.Tennv</td>
-                                        <td>@item.Ngaynhap</td>
-                                        <td>@item.Sohd</td>
-                                        <td>@item.Ngayhd</td>
-                                        <td>@item.Ghichu</td>
+                                        <th width="10"><input type="checkbox" id="all"></th>
+                                        <th>Số phiếu</th>
+                                        <th>Nhân viên nhập</th>
+                                        <th>Ngày lập phiếu</th>
+                                        <th>Số hóa đơn</th>
+                                        <th>Ngày hóa đơn</th>
+                                        <th>Ghi chú</th>
 
-
-                                        @*<td>
-
-                                            <a asp-action="Details" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk" class="btn btn-info"><i class="fas fa-info text-white"></i></a>
-                                            <a asp-action="EditPN" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk" class="btn btn-warning"> <i class="fas fa-edit text-white"></i></a>
-                                            <a asp-action="Delete" asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk" class="btn btn-danger"> <i class="fas fa-trash-alt text-white"></i></a>
-
-
-
-                                        </td>*@
                                     </tr>
-                                }
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in TempData["phieunhapkho"] as List<Phieunhapkho>)
+                                    {
+                                        <tr>
+                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                            <td>#@item.Sophieu</td>
+                                            <td>@item.NhanvienidnvNavigation.Tennv</td>
+                                            <td>@item.Ngaynhap</td>
+                                            <td>@item.Sohd</td>
+                                            <td>@item.Ngayhd</td>
+                                            <td>@item.Ghichu</td>
 
 
-                            </tbody>
-                        </table>
+                                            @*<td>
+
+                                <a asp-action="Details" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk" class="btn btn-info"><i class="fas fa-info text-white"></i></a>
+                                <a asp-action="EditPN" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk" class="btn btn-warning"> <i class="fas fa-edit text-white"></i></a>
+                                <a asp-action="Delete" asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk" class="btn btn-danger"> <i class="fas fa-trash-alt text-white"></i></a>
+
+
+
+                            </td>*@
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="tile">
+            <div class="col-md-6 col-sm-12" >
+                <div class="tile" style="height:80vh; overflow-y:scroll">
                     <div class="tile-body">
                         <div class="tile-title">
-                            Danh Sách Phiếu Nhập Kho
+                            Danh Sách Phiếu Xuất Kho
                             <div class="row ">
 
                                 <div class="col-sm-2">
