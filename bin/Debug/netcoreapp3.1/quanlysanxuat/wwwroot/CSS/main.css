@@ -3,7 +3,7 @@
 :root {
     --font_family: 'Roboto', sans-serif;
     --main_color: #001C40;
-    --main_bg: #FFD43B;
+    --main_bg: #138496;
     --login_bg: #001C40;
     --white_bg: #ffffff;
     --onehundred_percent: 100%;
@@ -352,7 +352,7 @@ iframe {
 input[type=submit] {
     font-size: var(--font_15);
     /*background: linear-gradient(var(--back_bg) 5%, var(--back_bg) var(--onehundred_percent));*/
-   /* background: var(--main_bg);*/
+    background: var(--main_bg);
 /*    border: var(--px_1) solid var(--back_bg);*/
     color: rgb(255, 255, 255);
     font-weight: bold;

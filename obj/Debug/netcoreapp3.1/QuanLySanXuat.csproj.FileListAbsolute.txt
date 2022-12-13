@@ -470,3 +470,15 @@ D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\V
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieunhapkho\Details.cshtml.g.cs
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieunhapkho\Edit.cshtml.g.cs
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieunhapkho\Index.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Noidungphieunhap\Create.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Noidungphieunhap\Delete.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Noidungphieunhap\Details.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Noidungphieunhap\Edit.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Noidungphieunhap\Index.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Noidungphieunhap\Create.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Noidungphieunhap\Delete.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Noidungphieunhap\Details.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Noidungphieunhap\Edit.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Noidungphieunhap\Index.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Phieunhapkho\EditPN.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieunhapkho\EditPN.cshtml.g.cs

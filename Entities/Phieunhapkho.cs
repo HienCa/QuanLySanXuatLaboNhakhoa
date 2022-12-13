@@ -18,12 +18,20 @@ namespace QuanLySanXuat.Entities
 
         public int Idpnk { get; set; }
         [Display(Name ="Số phiếu")]
+        [Required]
+
         [StringLength(255, ErrorMessage = "Thông tin nhập quá dài!", MinimumLength = 1)]
         public string Sophieu { get; set; }
+        [Required]
+        [Display(Name = "Ngày nhập")]
+
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public string Ngaynhap { get; set; }
+        [Display(Name = "Số hóa đơn")]
+
         public string Sohd { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Ngày hóa đơn")]
 
         public string Ngayhd { get; set; }
         [Display(Name = "Ghi chú")]

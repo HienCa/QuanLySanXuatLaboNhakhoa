@@ -22,11 +22,12 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> Index()
         {
             var productionManagementSoftwareContext = _context.Phieunhapkho.Include(p => p.NhanvienidnvNavigation);
+
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
 
         // GET: Phieunhapkho/Details/5
-        public async Task<IActionResult> Details(int? pnkID)
+        public async Task<IActionResult> EditPN(int? pnkID)
         {
             if (pnkID == null)
             {
@@ -42,6 +43,26 @@ namespace QuanLySanXuat.Controllers
             }
 
             return View(phieunhapkho);
+        }
+        public async Task<IActionResult> Details(int? pnkID)
+        {
+            if (pnkID == null)
+            {
+                return NotFound();
+            }
+
+            Phieunhapkho phieunhap = _context.Phieunhapkho.Where(pn => pn.Idpnk == pnkID).FirstOrDefault();
+            List<Noidungphieunhap> noidungphieunhap = await _context.Noidungphieunhap
+                .Include(n => n.PhieunhapkhoidpnkNavigation)
+                .Include(n => n.VatlieuidvlNavigation)
+                .Where(pn => pn.Phieunhapkhoidpnk == phieunhap.Idpnk)
+                .ToListAsync();
+            //if (noidungphieunhap == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return View(noidungphieunhap);
         }
 
         // GET: Phieunhapkho/Create
@@ -151,7 +172,8 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var phieunhapkho = await _context.Phieunhapkho.FindAsync(id);
-            _context.Phieunhapkho.Remove(phieunhapkho);
+            phieunhapkho.Active = 0;
+            _context.Phieunhapkho.Update(phieunhapkho);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

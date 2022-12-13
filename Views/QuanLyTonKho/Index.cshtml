@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<QuanLySanXuat.Entities.Phieunhapkho>
+@using QuanLySanXuat.Entities;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -96,170 +98,144 @@
             <ul class="app-breadcrumb breadcrumb side">
                 <li class="breadcrumb-item active"><a href="#"><b>Quản lý Tồn Kho</b></a></li>
             </ul>
+            <div class="row ">
+                <div class="col-3">
+                    @Html.ActionLink("Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-add btn-sm" })
+                </div>
+                <div class="col-3">
+                    @Html.ActionLink("Xuất Kho", "QuanLyXuatKho", "QuanLyTonKho", null, new { @class = "btn btn-add btn-sm" })
+                </div>
+                <div class="col-3">
+                    @Html.ActionLink("Phiếu Nháp Đã Lưu", "BangNhap", "QuanLyTonKho", null, new { @class = "btn btn-add btn-sm" })
+                </div>
+
+            </div>
             <div id="clock"></div>
         </div>
+
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6 col-sm-12">
                 <div class="tile">
                     <div class="tile-body">
-                        <div class="row element-button">
-                            <div class="col-sm-2">
+                        <div class="tile-title">Danh Sách Phiếu Nhập Kho
+                            <div class="row ">
+
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm nhap-tu-file" title="Nhập"
+                                       onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
+                                </div>
+
+                                @*<div class="col-sm-2">
+            <a class="btn btn-delete btn-sm print-file" title="In"
+               onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+        </div>*@
 
 
-                                @Html.ActionLink("Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
+                                <div class="col-sm-2">
+                                    <a class="btn btn-excel btn-sm" href="" title="In">
+                                        <i class="fas fa-file-excel"></i>
+                                        Xuất Excel
+                                    </a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm pdf-file" title="In"
+                                       onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
+                                </div>
 
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất Kho", "QuanLyXuatKho", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Phiếu Nháp Đã Lưu", "BangNhap", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-                        <h3 class="tile-title">Danh Sách Phiếu Nhập Kho</h3>
-                        <div class="row element-button">
-
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm nhap-tu-file" title="Nhập"
-                                   onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm print-file" title="In"
-                                   onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm print-file js-textareacopybtn"
-                                   title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
-                            </div>
-
-                            <div class="col-sm-2">
-                                <a class="btn btn-excel btn-sm" href="" title="In">
-                                    <i class="fas fa-file-excel"></i>
-                                    Xuất Excel
-                                </a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm pdf-file" title="In"
-                                   onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm" title="Xóa" onclick="myFunction(this)">
-                                    <i class="fas fa-trash-alt"></i> Xóa tất cả
-                                </a>
                             </div>
                         </div>
-                        <table class="table table-hover table-bordered" id="sampleTable">
+                        
+                        <table class="table table-hover table-bordered" id="sampleTable" style="height:47vh; overflow-y:scroll">
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã Phiếu Nhập</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Nhà Cung Cấp</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn vị</th>
-                                    <th>Tổng Tiền (VNĐ)</th>
-                                    <th>Ngày Nhập</th>
-                                    <th>Chức năng</th>
+                                    <th>Số phiếu</th>
+                                    <th>Nhân viên nhập</th>
+                                    <th>Ngày lập phiếu</th>
+                                    <th>Số hóa đơn</th>
+                                    <th>Ngày hóa đơn</th>
+                                    <th>Ghi chú</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                    <td>#MPN001</td>
-                                    <td>Tên sản phẩm</td>
-                                    <td>Nhà cung cấp A</td>
-                                    <td>40</td>
-                                    <td>Cái</td>
-                                    <td>100.600.000</td>
-                                    <td>01/11/2022</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction(this)">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                                data-toggle="modal" data-target="#ModalUP">
-                                            <i class="fas fa-info"></i>
-                                        </button>
+                                @foreach (var item in TempData["phieunhapkho"] as List<Phieunhapkho>)
+                                {
+                                    <tr>
+                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                        <td>#@item.Sophieu</td>
+                                        <td>@item.NhanvienidnvNavigation.Tennv</td>
+                                        <td>@item.Ngaynhap</td>
+                                        <td>@item.Sohd</td>
+                                        <td>@item.Ngayhd</td>
+                                        <td>@item.Ghichu</td>
 
-                                    </td>
-                                </tr>
+
+                                        @*<td>
+
+                                            <a asp-action="Details" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk" class="btn btn-info"><i class="fas fa-info text-white"></i></a>
+                                            <a asp-action="EditPN" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk" class="btn btn-warning"> <i class="fas fa-edit text-white"></i></a>
+                                            <a asp-action="Delete" asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk" class="btn btn-danger"> <i class="fas fa-trash-alt text-white"></i></a>
+
+
+
+                                        </td>*@
+                                    </tr>
+                                }
+
 
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6 col-sm-12">
                 <div class="tile">
                     <div class="tile-body">
-                        <h3 class="tile-title">Danh Sách Phiếu Xuất Kho</h3>
+                        <div class="tile-title">
+                            Danh Sách Phiếu Xuất Kho
+                            <div class="row ">
 
-                        <div class="row element-button">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm nhap-tu-file" title="Nhập"
+                                       onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
+                                </div>
 
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm nhap-tu-file" title="Nhập"
-                                   onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
-                            </div>
+                                @*<div class="col-sm-2">
+                    <a class="btn btn-delete btn-sm print-file" title="In"
+                       onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                </div>*@
 
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm print-file" title="In"
-                                   onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm print-file js-textareacopybtn"
-                                   title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
-                            </div>
 
-                            <div class="col-sm-2">
-                                <a class="btn btn-excel btn-sm" href="" title="In">
-                                    <i class="fas fa-file-excel"></i>
-                                    Xuất Excel
-                                </a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm pdf-file" title="In"
-                                   onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-delete btn-sm" title="Xóa" onclick="myFunction(this)">
-                                    <i class="fas fa-trash-alt"></i> Xóa tất cả
-                                </a>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-excel btn-sm" href="" title="In">
+                                        <i class="fas fa-file-excel"></i>
+                                        Xuất Excel
+                                    </a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-delete btn-sm pdf-file" title="In"
+                                       onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
+                                </div>
+
                             </div>
                         </div>
-                        <table class="table table-hover table-bordered" id="sampleTable">
+                        <table class="table table-hover table-bordered" id="sampleTable" style="height:47vh; overflow-y:scroll">
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã Phiếu Xuất</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn vị</th>
-                                    <th>Ngày Xuất</th>
-                                    <th>Chức năng</th>
+                                    <th>Số phiếu</th>
+                                    <th>Nhân viên xuất</th>
+                                    <th>Ngày lập phiếu</th>
+                                    <th>Số hóa đơn</th>
+                                    <th>Ngày hóa đơn</th>
+                                    <th>Ghi chú</th>
+                                    @*<th>Chức năng</th>*@
                                 </tr>
                             </thead>
                             <tbody>
+                                @*@foreach (var item in TempData["phieuxuatkho"] as List<Phieubanhang>)
+                {*@
                                 <tr>
                                     <td width="10"><input type="checkbox" name="check1" value="1"></td>
                                     <td>#MaPX223</td>
@@ -267,22 +243,24 @@
                                     <td>4</td>
                                     <td>Kg</td>
                                     <td>01/11/2022</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction(this)">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                                data-toggle="modal" data-target="#ModalUP">
-                                            <i class="fas fa-info"></i>
-                                        </button>
+                                    @*<td>
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                onclick="myFunction(this)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                                id="show-emp" data-toggle="modal" data-target="#ModalUP">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                data-toggle="modal" data-target="#ModalUP">
+                            <i class="fas fa-info"></i>
+                        </button>
 
-                                    </td>
+                    </td>*@
                                 </tr>
+                                @*}*@
+
 
                             </tbody>
                         </table>
@@ -290,79 +268,13 @@
                 </div>
             </div>
         </div>
+        
     </main>
 
     <!--
       MODAL
     -->
-    <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-         data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group  col-md-12">
-
-                            <h5 class="thong-tin-thanh-toan">Chỉnh sửa thông tin sản phẩm cơ bản</h5>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Mã sản phẩm </label>
-                            <input class="form-control" type="number" value="71309005">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Tên sản phẩm</label>
-                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                        </div>
-                        <div class="form-group  col-md-6">
-                            <label class="control-label">Số lượng</label>
-                            <input class="form-control" type="number" required value="20">
-                        </div>
-                        <div class="form-group col-md-6 ">
-                            <label for="exampleSelect1" class="control-label">Tình trạng sản phẩm</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>Còn hàng</option>
-                                <option>Hết hàng</option>
-                                <option>Đang nhập hàng</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Giá bán</label>
-                            <input class="form-control" type="text" value="5.600.000">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleSelect1" class="control-label">Danh mục</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>Bàn ăn</option>
-                                <option>Bàn thông minh</option>
-                                <option>Tủ</option>
-                                <option>Ghế gỗ</option>
-                                <option>Ghế sắt</option>
-                                <option>Giường người lớn</option>
-                                <option>Giường trẻ em</option>
-                                <option>Bàn trang điểm</option>
-                                <option>Giá đỡ</option>
-                            </select>
-                        </div>
-                    </div>
-                    <BR>
-                    <a href="#" style="    float: right;
-    font-weight: 600;
-    color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
-                    <BR>
-                    <BR>
-                    <button class="btn btn-save" type="button">Lưu lại</button>
-                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                    <BR>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!--
     MODAL
     -->

@@ -215,10 +215,10 @@
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item">Danh sách sản phẩm</li>
-                <li class="breadcrumb-item"><a href="#">Thêm sản phẩm</a></li>
+                <li class="breadcrumb-item">Quản lý nhập kho</li>
+                <li class="breadcrumb-item"><a href="#">Nhập kho</a></li>
             </ul>
-            <div class="row element-button">
+            <div class="row ">
                 <div class="col-3">
                     <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#themvatlieu">
                         <i class="fas fa-folder-plus"></i> Thêm vật liệu mới
@@ -292,7 +292,7 @@
                 <div class="tile">
                     <div class="tile-body">
                         <h3 class="tile-title">Danh Sách Phiếu Nhập Kho</h3>
-                        <div class="row element-button">
+                        <div class="row ">
 
                             <div class="col-sm-2">
                                 <a class="btn btn-delete btn-sm nhap-tu-file" title="Nhập"
@@ -324,7 +324,7 @@
                                 </a>
                             </div>
                         </div>
-                        <table class="table table-hover table-bordered" id="sampleTable">
+                        <table class="table table-hover table-striped "  id="sampleTable">
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
@@ -336,18 +336,19 @@
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
-                            <tbody style=" height: 45vh; overflow-y: scroll;">
+                            <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr>
                                         <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>@item.Sophieu</td>
+                                        <td>#@item.Sophieu</td>
                                         <td>@item.Ngaynhap</td>
                                         <td>@item.Sohd</td>
                                         <td>@item.Ngayhd</td>
 
                                         <td>
-                                            <a asp-action="Details" class="btn btn-info" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk">Chỉnh sửa phiếu nhập</a>
+                                            <a asp-action="Details" class="btn btn-info text-white" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk"><i class="fas fa-info text-white"></i></a>
+                                            <a asp-action="EditPN" class="btn btn-warning text-white" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk">Chỉnh sửa phiếu nhập</a>
 
                                         </td>
                                     </tr>
@@ -538,21 +539,21 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
 
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-4 col-sm-12">
                                     <label class="control-label">MÃ NHÀ CUNG CẤP</label>
                                     <input class="form-control" type="text" required name="Mancc">
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-8 col-sm-12">
 
                                     <label class="control-label">TÊN NHÀ CUNG CẤP</label>
                                     <input class="form-control" type="text" required name="Tenncc">
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-4 col-sm-12">
 
                                     <label class="control-label">SỐ ĐIỆN THOẠI</label>
                                     <input class="form-control" type="text" required name="Sdt">
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-8 col-sm-12">
 
                                     <label class="control-label">ĐỊA CHỈ</label>
                                     <input class="form-control" type="text" required name="Diachi">
@@ -639,12 +640,12 @@
 
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
-                                <div class="form-group col-md-4 col-sm-12">
+                                <div class="form-group col-md-3 col-sm-12">
 
                                     <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
                                     <input class="form-control" type="text" required name="Mnvl">
                                 </div>
-                                <div class="form-group col-md-4 col-sm-12">
+                                <div class="form-group col-md-5 col-sm-12">
 
                                     <label class="control-label">TÊN NHÓM VẬT LIỆU</label>
                                     <input class="form-control" type="text" required name="Tennvl">
@@ -718,11 +719,11 @@
                         <div class="" >
 
                             <div class="row">
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-4 col-sm-12">
                                     <label class="control-label">Nhập mã hãng</label>
                                     <input class="form-control w-100" type="text" required name="Mahsx">
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-8 col-sm-12">
 
                                     <label class="control-label">Nhập tên hãng</label>
                                     <input class="form-control" type="text" required name="Tenhsx">
@@ -733,7 +734,7 @@
                         <button class="btn btn-save w-100" style="float:right"  type="submit">Lưu lại</button>
                      
                         <BR>
-                        <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
+                        <div class="form-group  col-md-12" style="height:30vh; overflow-y:scroll">
                             <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
                             <ul style="padding-left: 20px;">
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QuanLySanXuat.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,13 @@ namespace QuanLySanXuat.Controllers
     public class QuanLyTonKhoController : Controller
     {
         ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+          var phieunhap= context.Phieunhapkho.Where(pn=>pn.Active==1).Include(p => p.NhanvienidnvNavigation); 
+            TempData["phieunhapkho"] = context.Phieunhapkho.Where(pn => pn.Active == 1).Include(p => p.NhanvienidnvNavigation).ToList();
+            //TempData["phieuxuatkho"] = context.Phieubanhang.Where(px => px.Active == 1).Include(p => p.NhanvienidnvNavigation).ToList();
+     //có thể do null nên báo lỗi, kiểm tra null trước
+            return View(await phieunhap.ToListAsync());
         }
         public IActionResult QuanLyNhapKho()
         {

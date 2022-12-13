@@ -4,6 +4,8 @@
     List<Nhomvatlieu> nhomvatlieu = _context.Nhomvatlieu.Where(n => n.Active == 1).ToList();
     List<Nhacungcap> nhacungcap = _context.Nhacungcap.Where(n => n.Active == 1).ToList();
     List<Hangsanxuat> hangsanxuat = _context.Hangsanxuat.Where(n => n.Active == 1).ToList();
+    List<Vatlieu> vatlieu = _context.Vatlieu.Where(n => n.Active == 1).ToList();
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -214,127 +216,167 @@
                 <li class="breadcrumb-item">Danh sách sản phẩm</li>
                 <li class="breadcrumb-item"><a href="#">Thêm sản phẩm</a></li>
             </ul>
+            <div class="row ">
+                <div class="col-3">
+                    @Html.ActionLink("Tạo phiếu nhập kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-add" })
+                </div>
+                <div class="col-3">
+                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-folder-plus"></i> Thêm nhà cung cấp
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc">
+                        <i class="fas fa-folder-plus"></i> Thêm nhóm sản phẩm
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang">
+                        <i class="fas fa-folder-plus"></i> Thêm hãng sản xuất
+                    </a>
+                </div>
+            </div>
+            <div id="clock"></div>
+
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
                     <h3 class="tile-title">Tạo mới sản phẩm</h3>
                     <div class="tile-body">
-                        <div class="row element-button">
-                            <div class="col-sm-2">
-                                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
-                                    <i class="fas fa-folder-plus"></i> Thêm nhà cung cấp
-                                </a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc">
-                                    <i class="fas fa-folder-plus"></i> Thêm nhóm sản phẩm
-                                </a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang">
-                                    <i class="fas fa-folder-plus"></i> Thêm hãng sản xuất
-                                </a>
-                            </div>
-                        </div>
-                        <form class="row" asp-action="Create" asp-controller="Vatlieu">
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Mã vật liệu </label>
-                                <input class="form-control" type="number" placeholder="" name="Mavl">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Tên vật liệu</label>
-                                <input class="form-control" type="text" name="Tenvl">
-                            </div>
 
+                        <form asp-action="Create" asp-controller="Vatlieu" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-md-4 col-sm-12">
 
-                            <div class="form-group  col-md-3">
-                                <label class="control-label">Quy cách</label>
-                                <input class="form-control" type="number" name="Quycach">
-                            </div>
-                            <div class="form-group  col-md-3">
-                                <label class="control-label">Đơn vị tính</label>
-                                <input class="form-control" type="text" name="Donvitinh">
-                            </div>
-                            @*<div class="form-group col-md-3 ">
-            <label for="exampleSelect1" class="control-label">Tình trạng</label>
-            <select class="form-control" id="exampleSelect1">
-                <option>-- Chọn tình trạng --</option>
-                <option>Còn hàng</option>
-                <option>Hết hàng</option>
-            </select>
-        </div>*@
-                            <div class="form-group col-md-3 ">
-                                <label for="exampleSelect1" class="control-label">Hãng sản xuất</label>
-                                <select class="form-control" id="exampleSelect1" name="Hangsanxuatidhsx">
-                                    <option>-- Chọn hãng sản xuất --</option>
-                                    @foreach (var item in hangsanxuat)
-                                    {
-                                        <option value="@item.Idhsx">@item.Tenhsx</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
-                                <select class="form-control" id="exampleSelect1" name="Nhomvatlieuidnvl">
-                                    <option>-- Chọn nhóm vật liệu --</option>
-                                    @foreach (var item in nhomvatlieu)
-                                    {
-                                        <option value="@item.Idnvl">@item.Tennvl</option>
-                                    }
-
-
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3 ">
-                                <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
-                                <select class="form-control" id="exampleSelect1" name="Nhacungcapidncc">
-                                    <option>-- Chọn nhà cung cấp --</option>
-                                    @foreach (var item in nhacungcap)
-                                    {
-                                        <option value="@item.Idncc">@item.Tenncc</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Giá bán</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Giá vốn</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">Ảnh sản phẩm</label>
-                                <div id="myfileupload">
-                                    <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                                    <label for="exampleSelect1" class="control-label">Hãng sản xuất</label>
+                                    <select class="form-control" id="exampleSelect1" name="Hangsanxuatidhsx">
+                                        <option>-- Chọn hãng sản xuất --</option>
+                                        @foreach (var item in hangsanxuat)
+                                        {
+                                            <option value="@item.Idhsx">@item.Tenhsx</option>
+                                        }
+                                    </select>
                                 </div>
-                                <div id="thumbbox">
-                                    <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
-                                    <a class="removeimg" href="javascript:"></a>
+                                <div class="form-group col-md-4 col-sm-12">
+
+                                    <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
+                                    <select class="form-control" id="exampleSelect1" name="Nhomvatlieuidnvl">
+                                        <option>-- Chọn nhóm vật liệu --</option>
+                                        @foreach (var item in nhomvatlieu)
+                                        {
+                                            <option value="@item.Idnvl">@item.Tennvl</option>
+                                        }
+
+
+                                    </select>
                                 </div>
-                                <div id="boxchoice">
-                                    <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                                    <p style="clear:both"></p>
+                                <div class="form-group col-md-4 col-sm-12">
+
+                                    <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+                                    <select class="form-control" id="exampleSelect1" name="Nhacungcapidncc">
+                                        <option>-- Chọn nhà cung cấp --</option>
+                                        @foreach (var item in nhacungcap)
+                                        {
+                                            <option value="@item.Idncc">@item.Tenncc</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Mã vật liệu </label>
+                                    <input class="form-control" type="text" placeholder="" name="Mavl">
+                                </div>
+                                <div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Tên vật liệu</label>
+                                    <input class="form-control" type="text" name="Tenvl">
                                 </div>
 
+
+                                <div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Quy cách</label>
+                                    <input class="form-control" type="text" name="Quycach">
+                                </div>
+                                <div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Đơn vị tính</label>
+                                    <input class="form-control" type="text" name="Donvitinh">
+                                </div>
+
+
+                                <div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Giá bán</label>
+                                    <input class="form-control" type="text">
+                                </div>
+                                <div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Giá vốn</label>
+                                    <input class="form-control" type="text">
+                                </div>
+                                @*<div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Ảnh sản phẩm</label>
+                                    <div id="myfileupload">
+                                        <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                                    </div>
+                                    <div id="thumbbox">
+                                        <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
+                                        <a class="removeimg" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice">
+                                        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                                        <p style="clear:both"></p>
+                                    </div>
+
+                                </div>*@
                             </div>
                             @*<div class="form-group col-md-12">
-                                <label class="control-label">Mô tả sản phẩm</label>
-                                <textarea class="form-control" name="mota" id="mota"></textarea>
-                                <script>CKEDITOR.replace('mota');</script>
-                            </div>*@
+            <label class="control-label">Mô tả sản phẩm</label>
+            <textarea class="form-control" name="mota" id="mota"></textarea>
+            <script>CKEDITOR.replace('mota');</script>
+        </div>*@
 
-                            <button class="btn bg-white text-success" style="border: 1px solid green" type="submit">
-                                Lưu
-                                nháp
-                            </button>
-                            <button class="btn btn-save" type="submit">Xác nhận nhập</button>
+                            @*<button class="btn bg-white text-success" style="border: 1px solid green" type="submit">
+            Lưu
+            nháp
+        </button>*@
+                            <button class="btn btn-save w-100" style="float:right" type="submit">Xác nhận nhập</button>
+                            <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
+                                <h3 class="control-label text-center mt-2 mb-2">Danh sách vật liệu</h3>
+                                <ul style="padding-left: 20px;">
+
+                                    @foreach (var item in vatlieu)
+                                    {
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    @item.Mavl - @item.Tenvl
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"><i class="fas fa-edit"></i></a>
+                                                    <a asp-action="Details" class="btn btn-info " asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"> <i class="fas fa-info-circle"></i></a>
+
+                                                    <a asp-action="Delete" class="btn btn-danger " asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                            </div>
+
+                                        </li>
+
+
+
+                                    }
+
+
+                                </ul>
+                            </div>
                         </form>
 
                     </div>
-                    <button class="btn btn-save" type="button">Lưu lại</button>
-                    <a class="btn btn-cancel" asp-action="Index" asp-controller="Vatlieu">Hủy bỏ</a>
+               
                 </div>
             </div>
         </div>
@@ -354,47 +396,62 @@
                     <div class="row">
                         <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
 
-                            <h2 class="thong-tin-thanh-toan text-center">Thêm mới nhà cung cấp</h2>
+                 
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <h3 class="thong-tin-thanh-toan text-center col-4">Thêm mới nhà cung cấp</h3>
+                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                            </div>
                             @using (Html.BeginForm("Create", "Nhacungcaps"))
                             {
+                                <div class="">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="row">
 
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">MÃ NHÀ CUNG CẤP</label>
-                                    <input class="form-control" type="text" required name="Mancc">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">TÊN NHÀ CUNG CẤP</label>
-                                    <input class="form-control" type="text" required name="Tenncc">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">ĐỊA CHỈ</label>
-                                    <input class="form-control" type="text" required name="Diachi">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">SỐ ĐIỆN THOẠI</label>
-                                    <input class="form-control" type="text" required name="Sdt">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">EMAIL</label>
-                                    <input class="form-control" type="text" required name="Email">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">MÃ SỐ THUẾ</label>
-                                    <input class="form-control" type="text" required name="Masothue">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">GHI CHÚ</label>
-                                    <input class="form-control" type="text" name="Ghichu">
-                                </div>
+                                        <div class="form-group col-md-4 col-sm-12">
+                                            <label class="control-label">MÃ NHÀ CUNG CẤP</label>
+                                            <input class="form-control" type="text" required name="Mancc">
+                                        </div>
+                                        <div class="form-group col-md-8 col-sm-12">
 
+                                            <label class="control-label">TÊN NHÀ CUNG CẤP</label>
+                                            <input class="form-control" type="text" required name="Tenncc">
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-12">
+
+                                            <label class="control-label">SỐ ĐIỆN THOẠI</label>
+                                            <input class="form-control" type="text" required name="Sdt">
+                                        </div>
+                                        <div class="form-group col-md-8 col-sm-12">
+
+                                            <label class="control-label">ĐỊA CHỈ</label>
+                                            <input class="form-control" type="text" required name="Diachi">
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-12">
+
+                                            <label class="control-label">EMAIL</label>
+                                            <input class="form-control" type="text" required name="Email">
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-12">
+
+                                            <label class="control-label">MÃ SỐ THUẾ</label>
+                                            <input class="form-control" type="text" required name="Masothue">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12">
+
+                                            <label class="control-label">GHI CHÚ</label>
+                                            <textarea class="form-control" cols="10" rows="5" type="text" name="Ghichu"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <BR>
-                                <button class="btn btn-save" type="submit">Lưu lại</button>
-                                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+
                                 <BR>
                                 <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                    <h2 class="control-label text-center mt-2 mb-2">Danh sách nhà cung cấp hiện hợp tác</h2>
+                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nhà cung cấp hiện hợp tác</h3>
                                     <ul style="padding-left: 20px;">
 
                                         @foreach (var item in nhacungcap)
@@ -406,10 +463,10 @@
 
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <a asp-action="Edit" class="btn btn-warning"  asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"><i class="fas fa-edit"></i></a>
+                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"><i class="fas fa-edit"></i></a>
                                                         <a asp-action="Details" class="btn btn-info " asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"> <i class="fas fa-info-circle"></i></a>
 
-                                                        <a asp-action="Delete" class="btn btn-danger "  asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"><i class="fas fa-trash-alt"></i></a>
+                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
                                                 </div>
 
@@ -428,12 +485,12 @@
                     </div>
 
                 </div>
-               
+
             </div>
         </div>
     </div>
 
-   
+
     <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
@@ -441,32 +498,42 @@
 
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
-                            <h2 class="thong-tin-thanh-toan text-center">Thêm mới nhóm sản phẩm</h2>
+                        <div class="form-group  col-md-12">
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <h3 class="thong-tin-thanh-toan text-center col-4">Thêm nhóm vật liệu mới</h3>
+                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                            </div>
 
                             @using (Html.BeginForm("Create", "Nhomvatlieu"))
                             {
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="">
 
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
-                                    <input class="form-control" type="text" required name="Mnvl">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">TÊN NHÓM VẬT LIỆU</label>
-                                    <input class="form-control" type="text" required name="Tennvl">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">LOẠI VẬT LIỆU</label>
-                                    <input class="form-control" type="text" required name="Loaivl">
-                                </div>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="row">
+                                        <div class="form-group col-md-33 col-sm-12">
 
+                                            <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
+                                            <input class="form-control" type="text" required name="Mnvl">
+                                        </div>
+                                        <div class="form-group col-md-5 col-sm-12">
+
+                                            <label class="control-label">TÊN NHÓM VẬT LIỆU</label>
+                                            <input class="form-control" type="text" required name="Tennvl">
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-12">
+
+                                            <label class="control-label">LOẠI VẬT LIỆU</label>
+                                            <input class="form-control" type="text" required name="Loaivl">
+                                        </div>
+                                    </div>
+                                </div>
                                 <BR>
-                                <button class="btn btn-save" type="submit">Lưu lại</button>
-                                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                                <button class="btn btn-save w-100 " style="float:right" type="submit">Lưu lại</button>
+
                                 <BR>
                                 <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                    <h2 class="control-label text-center mt-2 mb-2">Danh sách nhóm sản phẩm hiện dùng</h2>
+                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nhóm sản phẩm hiện dùng</h3>
                                     <ul style="padding-left: 20px;">
 
                                         @foreach (var item in nhomvatlieu)
@@ -478,8 +545,8 @@
 
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <a asp-action="Edit" class="btn btn-warning"  asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-edit"></i></a>
-                                                        <a asp-action="Details" class="btn btn-info "  asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"> <i class="fas fa-info-circle"></i></a>
+                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-edit"></i></a>
+                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"> <i class="fas fa-info-circle"></i></a>
 
                                                         <a asp-action="Delete" class="btn btn-danger" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
@@ -516,24 +583,33 @@
                     <div class="row">
                         <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
 
-                            <h2 class="thong-tin-thanh-toan text-center">Thêm mới hãng sản xuất</h2>
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <h3 class="thong-tin-thanh-toan text-center col-4">Thêm hãng mới</h3>
+                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                            </div>
                             @using (Html.BeginForm("Create", "Hangsanxuat"))
                             {
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Nhập mã hãng</label>
-                                    <input class="form-control w-100" type="text" required name="Mahsx">
+                                <div class="">
+
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-sm-12">
+                                            <label class="control-label">Nhập mã hãng</label>
+                                            <input class="form-control w-100" type="text" required name="Mahsx">
+                                        </div>
+                                        <div class="form-group col-md-8 col-sm-12">
+
+                                            <label class="control-label">Nhập tên hãng</label>
+                                            <input class="form-control" type="text" required name="Tenhsx">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Nhập tên hãng</label>
-                                    <input class="form-control" type="text" required name="Tenhsx">
-                                </div>
+                                <BR>
+                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
 
                                 <BR>
-                                <button class="btn btn-save" type="submit">Lưu lại</button>
-                                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                                <BR>
-                                <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                    <h2 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h2>
+                                <div class="form-group  col-md-12" style="height:30vh; overflow-y:scroll">
+                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
                                     <ul style="padding-left: 20px;">
 
                                         @foreach (var item in hangsanxuat)
@@ -545,10 +621,10 @@
 
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Nhacungcaps" asp-route-id="@item.Idhsx"><i class="fas fa-edit"></i></a>
-                                                        <a asp-action="Details" class="btn btn-info "  asp-controller="Nhacungcaps" asp-route-id="@item.Idhsx"> <i class="fas fa-info-circle"></i></a>
+                                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-edit"></i></a>
+                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"> <i class="fas fa-info-circle"></i></a>
 
-                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Nhacungcaps" asp-route-id="@item.Idhsx"><i class="fas fa-trash-alt"></i></a>
+                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
                                                 </div>
                                             </li>

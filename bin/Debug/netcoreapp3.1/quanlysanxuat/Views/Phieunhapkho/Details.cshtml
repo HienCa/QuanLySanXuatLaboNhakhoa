@@ -1,362 +1,46 @@
-﻿@model QuanLySanXuat.Entities.Phieunhapkho
+﻿@model IEnumerable<QuanLySanXuat.Entities.Noidungphieunhap>
 @using QuanLySanXuat.Entities;
-@{
-    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    List<Nhanvien> nhanvien = _context.Nhanvien.Where(active => active.Active == 1).ToList();
-    List<Vatlieu> vatlieu = _context.Vatlieu.Where(active => active.Active == 1).ToList();
 
-}
-@{
-    Layout = null;
-}
-
-
-@*<a asp-action="Edit" asp-route-id="@Model.Idpnk">Edit</a> |
-    <a asp-action="Index">Back to List</a>*@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Quản lý kho | Quản trị Admin</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
-    <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <!-- or -->
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
-    <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-
-</head>
-
-<body onload="time()" class="app sidebar-mini rtl">
-    <!-- Navbar-->
-    <header class="app-header">
-        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                        aria-label="Hide Sidebar"></a>
-        <!-- Navbar Right Menu-->
-        <ul class="app-nav">
-
-
-            <!-- User Menu-->
-            <li>
-                @*<a class="app-nav__item" href="Home/DangNhap"><i class='bx bx-log-out bx-rotate-180'></i> </a>*@
-                @Html.ActionLink("Đăng Xuất", "DangXuat", "Home", null, new { @class = "app-nav__item " })
-            </li>
-        </ul>
-    </header>
-    <!-- Sidebar menu-->
-    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <aside class="app-sidebar">
-        <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="~/Images/hien.jpg" style="width: 50px"
-                 alt="User Image">
-            <div>
-                <p class="app-sidebar__user-name"><b>Văn Hiền</b></p>
-                <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-            </div>
-        </div>
-        <hr>
-        <ul class="app-menu">
-            <li>
-
-
-                @Html.ActionLink("Đơn Hàng", "DonHang", "Admin", null, new { @class = "app-menu__item haha app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Bảng Điều Khiển", "Index", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Nhân Viên", "QuanLyNhanVien", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Khách Hàng", "QuanLyKhachHang", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Sản Phẩm", "QuanLySanPham", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Kho", "Index", "QuanLyTonKho", null, new { @class = "app-menu__item app-menu__label text-center active" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Đơn Hàng", "QuanLyDonHang", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Đội Nhóm", "QuanLyDoiNhom", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-
-            <li>
-
-                @Html.ActionLink("Báo Cáo Thống Kê", "BaoCaoDanhThu", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-        </ul>
-    </aside>
-    <main class="app-content">
-        <div class="app-title">
-            <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Quản lý Tồn Kho</b></a></li>
-            </ul>
-            <div id="clock"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-                        <div class="row element-button">
-                            <div class="col-sm-2">
-
-
-                                @Html.ActionLink("Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất Kho", "QuanLyXuatKho", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Phiếu Nháp Đã Lưu", "BangNhap", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="tile">
-            <div class="tile-body">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Idpnk" />
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="row">
-
-                                <div class="form-group col-md-3 col-sm-3">
-                                    <label asp-for="Sophieu" class="control-label"></label>
-                                    <input asp-for="Sophieu" class="form-control" />
-                                    <span asp-validation-for="Sophieu" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-3 col-sm-3">
-                                    <label asp-for="Ngaynhap" class="control-label"></label>
-                                    <input asp-for="Ngaynhap" class="form-control" />
-                                    <span asp-validation-for="Ngaynhap" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-3 col-sm-3">
-                                    <label asp-for="Sohd" class="control-label"></label>
-                                    <input asp-for="Sohd" class="form-control" />
-                                    <span asp-validation-for="Sohd" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-3 col-sm-3">
-                                    <label asp-for="Ngayhd" class="control-label"></label>
-                                    <input asp-for="Ngayhd" class="form-control" />
-                                    <span asp-validation-for="Ngayhd" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group col-md-4 col-sm-3">
-                                    <label class="control-label">Số lượng</label>
-                                    <input name="Soluong" type="number" class="form-control" />
-                                    <span class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-3">
-                                    <label class="control-label">Đơn giá nhập</label>
-                                    <input name="Dongia" type="number" class="form-control" />
-                                    <span class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-4">
-                                    <label class="control-label">Nhân viên lập phiếu</label>
-                                    <select class="form-control" id="exampleSelect1" name="Nhanvienidnv">
-                                        <option>-- Chọn nhân viên --</option>
-                                        @foreach (var item in nhanvien)
-                                        {
-                                            <option value="@item.Idnv">@item.Tennv</option>
-                                        }
-                                    </select>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label asp-for="Ghichu" class="control-label"></label>
-                                    <textarea asp-for="Ghichu" class="form-control"></textarea>
-                                    <span asp-validation-for="Ghichu" class="text-danger"></span>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="row">
-
-
-                                //mỗi lần thêm thêm vào nội dung nhập kho cùng với khóa ngoại phiếu nhập (1 phiếu nhiều sp)
-                                <div class="form-group col-12">
-                                    <h4 class="control-label text-center">Danh sách vật liệu</h4>
-                                    <div class="row text-center">
-                                        <div class="col-4 text-center">
-                                            Mã vật liệu
-                                        </div>
-                                        <div class="col-4 text-center">
-                                            Tên vật liệu
-                                        </div>
-                                        <div class="col-4 text-center">
-                                            Thêm
-                                        </div>
-
-                                    </div>
-                                    @foreach (var item in vatlieu)
-                                    {
-                                        <input type="hidden" value="@item.Idvl" name="Idvl" />
-
-                                        <div class="form-group p-2 mb-2" style="height: 40vh; overflow-y: scroll; background-color: #abb2ab78; border-radius: 5px ">
-                                            <div class="p-1" style="background-color: #fff8f8; border-radius:10px">
-                                                <div class="row">
-                                                    <div class="col-md-10 col-sm-12">
-
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                @item.Mavl
-                                                            </div>
-                                                            <div class="col-6">
-                                                                @item.Tenvl
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-12">
-                                                        <button type="submit" class="btn btn-save text-white">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    }
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-
-    </main>
-
-    <!--
-      MODAL
-    -->
-    <!--
-    MODAL
-    -->
-    <!-- Essential javascripts for application to work-->
-    <script src="~/Javascript/plugins/pace.min.js"></script>
-    <script src="~/Javascript/jquery-3.2.1.min.js"></script>
-    <script src="~/Javascript/popper.min.js"></script>
-    <script src="~/Javascript/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="src/jquery.table2excel.js"></script>
-    <script src="~/Javascript/main.js"></script>
-
-    <script src="src/jquery.table2excel.js"></script>
-    <script src="~/Javascript/main.js"></script>
-    <!-- Data table plugin-->
-    <script type="text/javascript" src="~/Javascript/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/Javascript/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $('#sampleTable').DataTable();
-        //Thời Gian
-        function time() {
-            var today = new Date();
-            var weekday = new Array(7);
-            weekday[0] = "Chủ Nhật";
-            weekday[1] = "Thứ Hai";
-            weekday[2] = "Thứ Ba";
-            weekday[3] = "Thứ Tư";
-            weekday[4] = "Thứ Năm";
-            weekday[5] = "Thứ Sáu";
-            weekday[6] = "Thứ Bảy";
-            var day = weekday[today.getDay()];
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1;
-            var yyyy = today.getFullYear();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            nowTime = h + " giờ " + m + " phút " + s + " giây";
-            if (dd < 10) {
-                dd = '0' + dd
-            }
-            if (mm < 10) {
-                mm = '0' + mm
-            }
-            today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-            tmp = '<span class="date"> ' + today + ' - ' + nowTime +
-                '</span>';
-            document.getElementById("clock").innerHTML = tmp;
-            clocktime = setTimeout("time()", "1000", "Javascript");
-
-            function checkTime(i) {
-                if (i < 10) {
-                    i = "0" + i;
-                }
-                return i;
-            }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Soluong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dongia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VatlieuidvlNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Soluong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dongia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VatlieuidvlNavigation.Idvl)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
         }
-    </script>
-    <script>
-        function deleteRow(r) {
-            var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("myTable").deleteRow(i);
-        }
-        jQuery(function () {
-            jQuery(".trash").click(function () {
-                swal({
-                    title: "Cảnh báo",
-                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                    buttons: ["Hủy bỏ", "Đồng ý"],
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Đã xóa thành công.!", {
-
-                            });
-                        }
-                    });
-            });
-        });
-        oTable = $('#sampleTable').dataTable();
-        $('#all').click(function (e) {
-            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-            e.stopImmediatePropagation();
-        });
-    </script>
-</body>
-
-</html>
+    </tbody>
+</table>
