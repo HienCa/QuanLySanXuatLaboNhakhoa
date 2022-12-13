@@ -1,0 +1,60 @@
+﻿@model QuanLySanXuat.Entities.Tosanxuat
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Tosanxuat</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Idtsx" />
+            <div class="form-group">
+                <label asp-for="Matsx" class="control-label"></label>
+                <input asp-for="Matsx" class="form-control" />
+                <span asp-validation-for="Matsx" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tentsx" class="control-label"></label>
+                <input asp-for="Tentsx" class="form-control" />
+                <span asp-validation-for="Tentsx" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ghichu" class="control-label"></label>
+                <input asp-for="Ghichu" class="form-control" />
+                <span asp-validation-for="Ghichu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Active" class="control-label"></label>
+                <input asp-for="Active" class="form-control" />
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Giaidoansanxuatidgdsx" class="control-label"></label>
+                <select asp-for="Giaidoansanxuatidgdsx" class="form-control" asp-items="ViewBag.Giaidoansanxuatidgdsx"></select>
+                <span asp-validation-for="Giaidoansanxuatidgdsx" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

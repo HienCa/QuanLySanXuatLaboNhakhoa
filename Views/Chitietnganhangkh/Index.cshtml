@@ -1,0 +1,375 @@
+﻿@model IEnumerable<QuanLySanXuat.Entities.Chitietnganhangkh>
+@using QuanLySanXuat.Entities;
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Thông tin ngân hàng | Khách Hàng</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+</head>
+
+<body onload="time()" class="app sidebar-mini rtl">
+    <!-- Navbar-->
+    <header class="app-header">
+        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+                                        aria-label="Hide Sidebar"></a>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+
+
+            <!-- User Menu-->
+            <li>
+                @Html.ActionLink("Đăng Xuất", "DangXuat", "Home", null, new { @class = "app-nav__item " })
+
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="~/Images/hien.jpg" style="width: 50px"
+                 alt="User Image">
+            <div class="text-white">
+                <p class="app-sidebar__user-name text-white"><b>@ViewData["Fullname"]</b></p>
+                <p class="app-sidebar__user-designation text-white">Chào mừng bạn trở lại</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="app-menu">
+            <li>
+                @Html.ActionLink("Theo Dõi Đơn Hàng", "OrderManament", "PersonalInformationManament", null, new { @class = "app-menu__item  app-menu__label text-center" })
+            </li>
+            <li>
+                @Html.ActionLink("Lịch Sử Đơn Hàng", "OrderHistoryManament", "PersonalInformationManament", null, new { @class = "app-menu__item  app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Thông Tin Cá Nhân", "Index", "PersonalInformationManament", null, new { @class = "app-menu__item  app-menu__label text-center" })
+            </li>
+            @*<li>
+
+                    @Html.ActionLink("Tài Khoản Ngân Hàng", "PersonalBankManament", "PersonalInformationManament", null, new { @class = "app-menu__item haha app-menu__label text-center" })
+                </li>*@
+            <li>
+
+                @Html.ActionLink("Tài Khoản Ngân Hàng", "Index", "Chitietnganhangkhs", null, new { @class = "app-menu__item  app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Tài Khoản Ngân Hàng", "Index", "Chitietnganhangkhs", "Chitietnganhangkhs", new { @class = "app-menu__item  app-menu__label text-center" })
+            </li>
+
+        </ul>
+    </aside>
+    <main class="app-content">
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb side">
+                <li class="breadcrumb-item active"><a href="#"><b>Thông tin tài khoản ngân hàng</b></a></li>
+            </ul>
+            <div id="clock"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+
+                        @*<div class="row element-button">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                                        <i class="fas fa-user-edit"></i> Cập nhật thông tin tài khoản ngân hàng
+                                    </a>
+                                </div>
+                                <div class="col-sm-2">
+                                        <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc">
+                                            <i class="fas fa-folder-plus"></i> Tài khoản ngân hàng
+                                        </a>
+                                    </div>
+                                <div class="col-sm-2">
+                                        <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang">
+                                            <i class="fas fa-folder-plus"></i> Thêm hãng sản xuất
+                                        </a>
+                                    </div>
+
+                            </div>*@
+
+                        <h4 class="text-center text-success">@ViewData["Message"]</h4>
+                        <table style="border:none" class=" table-hover  js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+                               id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Tên ngân hàng</th>
+                                    <th width="150">Số tài khoản</th>
+                                    <th width="300">Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>Mã số thuế</th>
+                                    <th>Ghi Chú</th>
+                                    <th>Thao tác</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in TempData["Banks"] as List<Chitietnganhangkh>)
+                                {
+
+                                <tr>
+
+                                    <td>@item.NganhangidnhNavigation.Tennh</td>
+                                    <td>@item.Stk</td>
+                                    <td>@item.NganhangidnhNavigation.Diachi</td>
+                                    <td>@item.NganhangidnhNavigation.Email</td>
+                                    <td>@item.NganhangidnhNavigation.Masothue</td>
+                                    <td>@item.NganhangidnhNavigation.Ghichu</td>
+                                    @*<td>@item.NganhangidnhNavigation.Active</td>*@
+                                    <td>
+
+                                        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Idctnhkh">Tôi không còn sử dụng ngân hàng này</a>
+                                        @*<form asp-action="Edit" method="get">
+                                            <input type="hidden" value="@item.Idctnhkh" name="id" />
+                                            <input type="hidden" value="lock" name="action" />
+
+                                            <div class="form-group w-25 ml-3">
+
+                                                <input type="submit" value="Tôi còn sử dụng" class="btn btn-success w-25 border-0" />
+                                            </div>
+                                        </form>*@
+                                     
+
+
+                                    </td>
+
+                                </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+
+                       
+                        <h4 class="text-center">Tài khoản ngân hàng không còn sử dụng</h4>
+                        <table style="border:none" class=" table-hover  js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+                               id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Tên ngân hàng</th>
+                                    <th width="150">Số tài khoản</th>
+                                    <th width="300">Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>Mã số thuế</th>
+                                    <th>Ghi Chú</th>
+                                    <th>Thao tác</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in TempData["lockedBanks"] as List<Chitietnganhangkh>)
+                                {
+
+                                    <tr>
+
+                                        <td>@item.NganhangidnhNavigation.Tennh</td>
+                                        <td>@item.Stk</td>
+                                        <td>@item.NganhangidnhNavigation.Diachi</td>
+                                        <td>@item.NganhangidnhNavigation.Email</td>
+                                        <td>@item.NganhangidnhNavigation.Masothue</td>
+                                        <td>@item.NganhangidnhNavigation.Ghichu</td>
+                                        @*<td>@item.NganhangidnhNavigation.Active</td>*@
+                                        <td>
+
+                                            <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Idctnhkh">Tôi còn sử dụng</a>
+
+                                            @*<form asp-action="Edit" method="get">
+                                                <input type="hidden" value="@item.Idctnhkh" name="id"/>
+                                                <input type="hidden" value="unlock" name="action" />
+                                                
+                                                <div class="form-group w-25 ml-3">
+                                                    
+                                                    <input type="submit" value="Tôi còn sử dụng" class="btn btn-success w-25 border-0" />
+                                                </div>
+                                            </form>*@
+                                            @*<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Idctnhkh"><i class="fas fa-info-circle"></i></a>*@
+
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    
+    <!-- Essential javascripts for application to work-->
+    <script src="~/Javascript/jquery-3.2.1.min.js"></script>
+    <script src="~/Javascript/popper.min.js"></script>
+    <script src="~/Javascript/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="src/jquery.table2excel.js"></script>
+    <script src="~/Javascript/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    <!-- Page specific javascripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script>
+        function deleteRow(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("myTable").deleteRow(i);
+        }
+        jQuery(function () {
+            jQuery(".trash").click(function () {
+                swal({
+                    title: "Cảnh báo",
+
+                    text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
+                    buttons: ["Hủy bỏ", "Đồng ý"],
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Đã xóa thành công.!", {
+
+                            });
+                        }
+                    });
+            });
+        });
+        oTable = $('#sampleTable').dataTable();
+        $('#all').click(function (e) {
+            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+            e.stopImmediatePropagation();
+        });
+
+        //EXCEL
+        // $(document).ready(function () {
+        //   $('#').DataTable({
+
+        //     dom: 'Bfrtip',
+        //     "buttons": [
+        //       'excel'
+        //     ]
+        //   });
+        // });
+
+
+        //Thời Gian
+        function time() {
+            var today = new Date();
+            var weekday = new Array(7);
+            weekday[0] = "Chủ Nhật";
+            weekday[1] = "Thứ Hai";
+            weekday[2] = "Thứ Ba";
+            weekday[3] = "Thứ Tư";
+            weekday[4] = "Thứ Năm";
+            weekday[5] = "Thứ Sáu";
+            weekday[6] = "Thứ Bảy";
+            var day = weekday[today.getDay()];
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            nowTime = h + " giờ " + m + " phút " + s + " giây";
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+            tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+                '</span>';
+            document.getElementById("clock").innerHTML = tmp;
+            clocktime = setTimeout("time()", "1000", "Javascript");
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
+        }
+        //In dữ liệu
+        var myApp = new function () {
+            this.printTable = function () {
+                var tab = document.getElementById('sampleTable');
+                var win = window.open('', '', 'height=700,width=700');
+                win.document.write(tab.outerHTML);
+                win.document.close();
+                win.print();
+            }
+        }
+        //     //Sao chép dữ liệu
+        //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+
+        // copyTextareaBtn.addEventListener('click', function(event) {
+        //   var copyTextarea = document.querySelector('.js-copytextarea');
+        //   copyTextarea.focus();
+        //   copyTextarea.select();
+
+        //   try {
+        //     var successful = document.execCommand('copy');
+        //     var msg = successful ? 'successful' : 'unsuccessful';
+        //     console.log('Copying text command was ' + msg);
+        //   } catch (err) {
+        //     console.log('Oops, unable to copy');
+        //   }
+        // });
+
+
+        //Modal
+        $("#show-emp").on("click", function () {
+            $("#ModalUP").modal({ backdrop: false, keyboard: false })
+        });
+    </script>
+</body>
+
+</html>

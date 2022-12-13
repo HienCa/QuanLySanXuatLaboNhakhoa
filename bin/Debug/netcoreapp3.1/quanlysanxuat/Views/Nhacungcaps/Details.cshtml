@@ -1,0 +1,66 @@
+﻿@model QuanLySanXuat.Entities.Nhacungcap
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <h3 class="tile-title text-center">CHI TIẾT THÔNG TIN NHÀ CUNG CẤP</h3>
+            <div class="tile-body">
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Mancc)
+
+                    @Html.DisplayFor(model => model.Mancc)
+                </div>
+                <div class="col-md-3">
+
+                    @Html.DisplayNameFor(model => model.Tenncc)
+
+                    @Html.DisplayFor(model => model.Tenncc)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Diachi)
+
+                    @Html.DisplayFor(model => model.Diachi)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Sdt)
+
+                    @Html.DisplayFor(model => model.Sdt)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Email)
+
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Masothue)
+
+                    @Html.DisplayFor(model => model.Masothue)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Ghichu)
+
+                    @Html.DisplayFor(model => model.Ghichu)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.Active)
+
+                    @Html.DisplayFor(model => model.Active)
+                </div>
+
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Idncc" class="btn btn-warning">Cập nhật thông tin</a>
+                <a asp-action="AddInterface" asp-controller="Vatlieu" class="btn btn-cancel">Quay lại</a>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+

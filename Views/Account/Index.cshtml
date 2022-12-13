@@ -1,0 +1,61 @@
+﻿@model IEnumerable<QuanLySanXuat.Entities.Account>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VaitroidvtNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VaitroidvtNavigation.Idvt)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idaccount">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Idaccount">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idaccount">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

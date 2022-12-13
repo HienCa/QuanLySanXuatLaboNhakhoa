@@ -1,0 +1,147 @@
+﻿@model QuanLySanXuat.Entities.Nhacungcap
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+
+
+<div class="" style="height:90vh; overflow-y:scroll;">
+
+
+    @*<h4></h4>*@
+    <!--<hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Idncc" />
+                <div class="form-group">
+                    <label asp-for="Mancc" class="control-label"></label>
+                    <input asp-for="Mancc" class="form-control" />
+                    <span asp-validation-for="Mancc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tenncc" class="control-label"></label>
+                    <input asp-for="Tenncc" class="form-control" />
+                    <span asp-validation-for="Tenncc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Diachi" class="control-label"></label>
+                    <input asp-for="Diachi" class="form-control" />
+                    <span asp-validation-for="Diachi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sdt" class="control-label"></label>
+                    <input asp-for="Sdt" class="form-control" />
+                    <span asp-validation-for="Sdt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Masothue" class="control-label"></label>
+                    <input asp-for="Masothue" class="form-control" />
+                    <span asp-validation-for="Masothue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ghichu" class="control-label"></label>
+                    <input asp-for="Ghichu" class="form-control" />
+                    <span asp-validation-for="Ghichu" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Active" class="control-label"></label>
+                    <input asp-for="Active" class="form-control" />-->
+                    @*<select >
+                            <optiop value="1">
+                                Sử dụng
+                            </optiop>
+                            <optiop value="0">
+                                Không sử dụng
+                            </optiop>
+                        </select>*@
+                    <!--<span asp-validation-for="Active" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>-->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title text-center">CẬP NHẬT THÔNG TIN NHÀ CUNG CẤP</h3>
+                <div class="tile-body">
+
+                    <form asp-action="Edit" class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Idncc" />
+                        <div class="form-group col-md-3">
+                            <label asp-for="Mancc" class="control-label"></label>
+                            <input asp-for="Mancc" class="form-control" />
+                            <span asp-validation-for="Mancc" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Tenncc" class="control-label"></label>
+                            <input asp-for="Tenncc" class="form-control" />
+                            <span asp-validation-for="Tenncc" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Diachi" class="control-label"></label>
+                            <input asp-for="Diachi" class="form-control" />
+                            <span asp-validation-for="Diachi" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Sdt" class="control-label"></label>
+                            <input asp-for="Sdt" class="form-control" />
+                            <span asp-validation-for="Sdt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Masothue" class="control-label"></label>
+                            <input asp-for="Masothue" class="form-control" />
+                            <span asp-validation-for="Masothue" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Ghichu" class="control-label"></label>
+                            <input asp-for="Ghichu" class="form-control" />
+                            <span asp-validation-for="Ghichu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Active" class="control-label"></label>
+                            <input asp-for="Active" class="form-control" />
+                            @*<select >
+                <optiop value="1">
+                    Sử dụng
+                </optiop>
+                <optiop value="0">
+                    Không sử dụng
+                </optiop>
+            </select>*@
+                            <span asp-validation-for="Active" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            @*<input type="submit" value="Save" class="btn btn-success" />*@
+                            <button  class="btn btn-success" type="submit">Lưu</button>
+                        </div>
+                        <div>
+                            <a asp-action="Index" class="btn btn-cancel" asp-controller="Vatlieu">Quay lại</a>
+                        </div>
+                    </form>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+</div>

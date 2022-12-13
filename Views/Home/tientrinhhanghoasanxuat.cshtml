@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo dõi tiến trình hàng hóa sản xuất</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="progress_bar">
+            <ul class="progress_bar-steps" data-cur_step_index="0">
+                <li class="progress_bar-step active" style="position:relative;">
+                    <span>1</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Đang xử lý
+                    </div>
+                </li>
+                <li class="progress_bar-step" style="position:relative;">
+                    <span>2</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Chấp nhận đơn
+                    </div>
+                </li>
+                <li class="progress_bar-step" style="position:relative;">
+                    <span>3</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Tiến hành sản
+                        xuất</div>
+                </li>
+                <li class="progress_bar-step" style="position:relative;">
+                    <span>4</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Đang gia công
+                    </div>
+                </li>
+                <li class="progress_bar-step" style="position:relative;">
+                    <span>5</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Kiểm thử
+                        thành phẩm</div>
+                </li>
+                <li class="progress_bar-step" style="position:relative;">
+                    <span>6</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Đã bàn giao
+                        cho khách</div>
+                </li>
+                <li class="progress_bar-step" style="position:relative;">
+                    <span>7</span>
+                    <div class="" style="position:absolute;top:50px; min-width: 200px; text-align:center;">Hoàn thành
+                    </div>
+                </li>
+                
+
+                <li class="progress_bar-progress"></li>
+            </ul>
+
+            <div class="progress_bar-nav" style="margin-top: 200px;">
+                <button class="prev">Back</button>
+                <button class="next active">Next</button>
+                <a href="./doc/theo-doi-don-hang.html" class=""style="text-decoration: none; padding: 10px; background-color: green; color: white; border-radius:5px; min-width: 100px;text-align: center;">Quay lại</a>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="doc/js/jquery-3.2.1.min.js"></script>
+  <script src="doc/js/popper.min.js"></script>
+  <script src="doc/js/bootstrap.min.js"></script>
+  <script src="doc/js/main.js"></script>
+  <!-- The javascript plugin to display page loading on top-->
+  <script src="doc/js/plugins/pace.min.js"></script>
+</body>
+
+</html>
