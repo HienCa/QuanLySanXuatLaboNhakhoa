@@ -28,12 +28,10 @@
 
 </head>
 
-<body>
+<body >
 
     <!-- Navbar-->
     <header class="app-header">
-        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                        aria-label="Hide Sidebar"></a>
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
 
@@ -70,6 +68,9 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Tennv)
+                                    </th>
+                                    <th>
                                         @Html.DisplayNameFor(model => model.Soluong)
                                     </th>
                                     <th>
@@ -81,36 +82,51 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.VatlieuidvlNavigation.Tenvl)
                                     </th>
-                                    <th></th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Sohd)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Ngayhd)
+                                    </th>
+                                    @*<th></th>*@
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Soluong)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Dongia)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngaynhap)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.VatlieuidvlNavigation.Tenvl)
-                                        </td>
-                                        <td>
-                                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Manv) - @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Tennv)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Soluong)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Dongia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VatlieuidvlNavigation.Tenvl)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Sohd)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngayhd)
+                                    </td>
+                                    @*<td>
+                                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
 
-                                            <a asp-action="Edit" class="btn btn-warning " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-edit"></i></a>
-                                            <a asp-action="Details" class="btn btn-info " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"> <i class="fas fa-info-circle"></i></a>
+                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-edit"></i></a>
+                                        <a asp-action="Details" class="btn btn-info " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"> <i class="fas fa-info-circle"></i></a>
 
-                                            <a asp-action="Delete" class="btn btn-danger " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
+                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt"></i></a>
+                                    </td>*@
+                                </tr>
                                 }
                             </tbody>
                         </table>

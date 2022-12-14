@@ -117,33 +117,7 @@
             </ul>
             <div id="clock"></div>
         </div>
-        @*<div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-                        <div class="row element-button">
-                            <div class="col-sm-2">
-
-
-                                @Html.ActionLink("Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất Kho", "QuanLyXuatKho", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Phiếu Nháp Đã Lưu", "BangNhap", "QuanLyTonKho", null, new { @class = "btn btn-info btn-sm" })
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+        
 
 
         <div class="tile">
@@ -226,37 +200,40 @@
                                         </div>
 
                                     </div>
-                                    @foreach (var item in vatlieu)
-                                    {
-                                        <input type="hidden" value="@item.Idvl" name="Idvl" />
+                                    <div style="height: 65vh; overflow-y: scroll;">
+                                        @foreach (var item in vatlieu)
+                                        {
+                                            <input type="hidden" value="@item.Idvl" name="Idvl" />
 
-                                        <div class="form-group p-2 mb-2" style="height: 65vh; overflow-y: scroll; background-color: #abb2ab78; border-radius: 5px ">
-                                            <div class="p-1" style="background-color: #fff8f8; border-radius:10px">
-                                                <div class="row">
-                                                    <div class="col-md-10 col-sm-12">
+                                            <div class="form-group p-2 mb-2" style="background-color: #abb2ab78; border-radius: 5px ">
+                                                <div class="p-1" >
+                                                    <div class="row">
+                                                        <div class="col-md-10 col-sm-12">
 
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                @item.Mavl
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    @item.Mavl
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @item.Tenvl
+                                                                </div>
+
                                                             </div>
-                                                            <div class="col-6">
-                                                                @item.Tenvl
-                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-12">
+                                                            <button type="submit" class="btn btn-info">
+                                                                <i class="fas fa-plus text-white"></i>
+                                                            </button>
 
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-12">
-                                                        <button type="submit" class="btn btn-info">
-                                                            <i class="fas fa-plus text-white"></i>
-                                                        </button>
 
                                                     </div>
 
                                                 </div>
-
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                    </div>
+                                    
 
                                 </div>
 

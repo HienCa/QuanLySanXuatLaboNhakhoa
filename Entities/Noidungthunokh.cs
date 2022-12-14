@@ -14,6 +14,7 @@ namespace QuanLySanXuat.Entities
         public string Ghichu { get; set; }
         public int Phieuthunokhidptnkh { get; set; }
         public int Phieubanhangidpbh { get; set; }
+        public DateTime Ngaythuno { get; set; }
 
         public virtual Phieubanhang PhieubanhangidpbhNavigation { get; set; }
         public virtual Phieuthunokh PhieuthunokhidptnkhNavigation { get; set; }

@@ -60,10 +60,12 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount")] Khachhang khachhang)
+        public async Task<IActionResult> Create([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,Ngaysinh")] Khachhang khachhang)
         {
             if (ModelState.IsValid)
             {
+                khachhang.Accountidaccount = 5;
+                khachhang.Active = 1;
                 _context.Add(khachhang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -82,7 +84,7 @@ namespace QuanLySanXuat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCustomerAccount([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount")] Khachhang khachhang)
+        public async Task<IActionResult> CreateCustomerAccount([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,Ngaysinh")] Khachhang khachhang)
         {
             if (ModelState.IsValid)
             {
@@ -227,7 +229,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount")] Khachhang khachhang)
+        public async Task<IActionResult> Edit(int id, [Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,Ngaysinh")] Khachhang khachhang)
         {
             if (id != khachhang.Idkh)
             {
@@ -265,7 +267,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-
+            
             var khachhang = await _context.Khachhang
                 .Include(k => k.AccountidaccountNavigation)
                 .FirstOrDefaultAsync(m => m.Idkh == id);
@@ -283,7 +285,8 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var khachhang = await _context.Khachhang.FindAsync(id);
-            _context.Khachhang.Remove(khachhang);
+            khachhang.Active = 0;
+            _context.Khachhang.Update(khachhang);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

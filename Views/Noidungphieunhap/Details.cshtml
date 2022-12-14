@@ -38,11 +38,14 @@
             </td>
             <td>
 
-                @*kiểm tra lại đã nhầm 3 hàng thao tác ở giao diện nào, làm cho giao diện này*@
+            
 
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                <a asp-action="Details" class="btn btn-info" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk"><i class="fas fa-info text-white"></i></a>
+                <a asp-action="Edit" class="btn btn-warning " asp-controller="Vatlieu" asp-route-pnkID="@item.Idpnk"><i class="fas fa-edit text-white"></i></a>
+                <a asp-action="Delete" class="btn btn-danger " asp-controller="Vatlieu" asp-route-pnkID="@item.Idpnk"><i class="fas fa-trash-alt text-white"></i></a>
             </td>
         </tr>
 }

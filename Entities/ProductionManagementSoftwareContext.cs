@@ -56,10 +56,8 @@ namespace QuanLySanXuat.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#pragma warning disable CS1030 // #warning directive
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ProductionManagementSoftware;Persist Security Info=True;User ID=sa;Password=sa");
-#pragma warning restore CS1030 // #warning directive
             }
         }
 
@@ -412,6 +410,8 @@ namespace QuanLySanXuat.Entities
                     .HasColumnName("MASOTHUE")
                     .HasMaxLength(255);
 
+                entity.Property(e => e.NgaySinh).HasColumnType("datetime");
+
                 entity.Property(e => e.Nvidsale).HasColumnName("NVIDSale");
 
                 entity.Property(e => e.Sdt)
@@ -753,6 +753,10 @@ namespace QuanLySanXuat.Entities
                 entity.Property(e => e.Ghichu)
                     .HasColumnName("GHICHU")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.Ngaythuno)
+                    .HasColumnName("NGAYTHUNO")
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.Sotien)
                     .HasColumnName("SOTIEN")
