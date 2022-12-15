@@ -1,0 +1,456 @@
+﻿@model QuanLySanXuat.Entities.Nhanvien
+@using QuanLySanXuat.Entities;
+@{
+    ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
+    List<Loainhanvien> loainhanvien = context.Loainhanvien.Where(a => a.Active == 1).ToList();
+}
+@{
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Thêm nhân viên | Quản trị Admin</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script>
+
+        function readURL(input, thumbimage) {
+            if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#thumbimage").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else { // Sử dụng cho IE
+                $("#thumbimage").attr('src', input.value);
+
+            }
+            $("#thumbimage").show();
+            $('.filename').text($("#uploadfile").val());
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'default');
+            $(".removeimg").show();
+            $(".Choicefile").unbind('click');
+
+        }
+        $(document).ready(function () {
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+
+            });
+            $(".removeimg").click(function () {
+                $("#thumbimage").attr('src', '').hide();
+                $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+                $(".removeimg").hide();
+                $(".Choicefile").bind('click', function () {
+                    $("#uploadfile").click();
+                });
+                $('.Choicefile').css('background', '#14142B');
+                $('.Choicefile').css('cursor', 'pointer');
+                $(".filename").text("");
+            });
+        })
+    </script>
+</head>
+
+<body class="app sidebar-mini rtl">
+    <style>
+        .Choicefile {
+            display: block;
+            background: #14142B;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 150px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 5px 0px;
+            border-radius: 5px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .Choicefile:hover {
+                text-decoration: none;
+                color: white;
+            }
+
+        #uploadfile,
+        .removeimg {
+            display: none;
+        }
+
+        #thumbbox {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .removeimg {
+            height: 25px;
+            position: absolute;
+            background-repeat: no-repeat;
+            top: 5px;
+            left: 5px;
+            background-size: 25px;
+            width: 25px;
+            /* border: 3px solid red; */
+            border-radius: 50%;
+        }
+
+            .removeimg::before {
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                content: '';
+                border: 1px solid red;
+                background: red;
+                text-align: center;
+                display: block;
+                margin-top: 11px;
+                transform: rotate(45deg);
+            }
+
+            .removeimg::after {
+                /* color: #FFF; */
+                /* background-color: #DC403B; */
+                content: '';
+                background: red;
+                border: 1px solid red;
+                text-align: center;
+                display: block;
+                transform: rotate(-45deg);
+                margin-top: -2px;
+            }
+    </style>
+    <!-- Navbar-->
+    <header class="app-header">
+      
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+
+
+            <!-- User Menu-->
+            <li>
+                @Html.ActionLink("Quay lại", "Index", "Nhanvien", null, new { @class = "app-nav__item " })
+
+
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="~/Images/hien.jpg" style="width:50px"
+                 alt="User Image">
+            <div class="text-white">
+                <p class="app-sidebar__user-name"><b>Văn Hiền</b></p>
+                <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="app-menu">
+            <li>
+
+
+                @Html.ActionLink("Đơn Hàng", "DonHang", "Admin", null, new { @class = "app-menu__item haha app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Bảng Điều Khiển", "Index", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Quản Lý Nhân Viên", "QuanLyNhanVien", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Quản Lý Khách Hàng", "QuanLyKhachHang", "Admin", null, new { @class = "app-menu__item app-menu__label text-center active" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Quản Lý Sản Phẩm", "QuanLySanPham", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Quản Lý Kho", "Index", "QuanLyTonKho", null, new { @class = "app-menu__item app-menu__label text-center " })
+            </li>
+            <li>
+
+                @Html.ActionLink("Quản Lý Đơn Hàng", "QuanLyDonHang", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
+            </li>
+            <li>
+
+                @Html.ActionLink("Quản Lý Đội Nhóm", "QuanLyDoiNhom", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
+            </li>
+
+            <li>
+
+                @Html.ActionLink("Báo Cáo Thống Kê", "BaoCaoDanhThu", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
+            </li>
+
+        </ul>
+    </aside>
+    <main class="app-content">
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">Danh sáchnhân viên</li>
+                <li class="breadcrumb-item"><a href="#">Thêm mới nhân viên</a></li>
+            </ul>
+            <div class="row ">
+                <div class="col-sm-2">
+                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                        <b>
+                            <i class="fas fa-folder-plus"></i> Tạo loại nhân viên
+                        </b>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="tile">
+
+                    <h3 class="tile-title">Thêm mới nhân viên</h3>
+                    <div class="tile-body">
+
+
+                        <form asp-action="Create" enctype="multipart/form-data" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="row">
+                                <div class="form-group col-md-2">
+
+                                    <label asp-for="Manv" class="control-label">Mã nhân viên</label>
+                                    <input asp-for="Manv" class="form-control" />
+                                    <span asp-validation-for="Manv" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+
+                                    <label asp-for="Tennv" class="control-label">Họ và tên</label>
+                                    <input asp-for="Tennv" class="form-control" />
+                                    <span asp-validation-for="Tennv" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+
+                                    <label asp-for="Diachi" class="control-label">Địa chỉ</label>
+                                    <input asp-for="Diachi" class="form-control" />
+                                    <span asp-validation-for="Diachi" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+
+                                    <label asp-for="Sdt" class="control-label">Số điện thoại</label>
+                                    <input asp-for="Sdt" class="form-control" />
+                                    <span asp-validation-for="Sdt" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-2">
+
+                                    <label class="control-label">Giới tính</label>
+                                    <select asp-for="Gioitinh" class="form-control" id="exampleSelect2" required>
+                                        <option>-- Chọn giới tính --</option>
+                                        <option>Nam</option>
+                                        <option>Nữ</option>
+                                        <option>Khác</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+
+                                    <label asp-for="Masothue" class="control-label">Mã số thuế</label>
+                                    <input asp-for="Masothue" class="form-control" />
+                                    <span asp-validation-for="Masothue" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+
+                                    <label asp-for="Email" class="control-label">Email</label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="NgaySinh" class="control-label">Ngày sinh</label>
+                                    <input asp-for="NgaySinh" type="date" class="form-control" />
+                                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Loainhanvienidlnv" class="control-label">Loại nhân viên</label>
+                                    <select asp-for="Loainhanvienidlnv" class="form-control">
+                                        @foreach (var item in loainhanvien)
+                                        {
+                                            <option value="@item.Idlnv">@item.Tenlnv</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Loainhanvienidlnv" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+                                    <textarea asp-for="Ghichu" class="form-control"></textarea>
+                                    <span asp-validation-for="Ghichu" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="hinhanh" asp-for="Hinhanh" class="control-label">Ảnh thẻ</label>
+                                    <input asp-for="Hinhanh" id="hinhanh" type="file" class="form-control" />
+                                    <span asp-validation-for="Hinhanh" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @*<img id="imgPre" alt="no image" src="~/Images/@Model.Hinhanh" style="height: 200px;border-radius:20px">*@
+                                    <input asp-for="Hinhanh" class="form-control" type="hidden" />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">Ảnh 3x4 nhân viên</label>
+                                    <div id="myfileupload">
+                                        <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                                    </div>
+                                    <div id="thumbbox">
+                                        <img height="300" width="300" alt="Thumb image" id="thumbimage" style="display: none" />
+                                        <a class="removeimg" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice">
+                                        <a href="javascript:" class="Choicefile"><i class='bx bx-upload'></i></a>
+                                        <p style="clear:both"></p>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-md-4 d-none">
+
+                                    <label asp-for="Accountidaccount" class="control-label">Account</label>
+                                    <select asp-for="Accountidaccount" class="form-control" asp-items="ViewBag.Accountidaccount"></select>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="text-center mt-3">
+                                <button class="btn btn-add w-50" type="submit">Thêm</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+
+    <!--
+      MODAL
+    -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <h3 class="thong-tin-thanh-toan text-center col-10">Thêm loại nhân viên </h3>
+                        <span class="col-1" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                    </div>
+                    <form asp-action="Create" asp-controller="Loainhanvien" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group  col-md-12">
+
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Nhập tên loại nhân viên mới</label>
+                                    <input class="form-control" type="text" name="Malnv">
+
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Nhập tên loại nhân viên mới</label>
+                                    <input class="form-control" type="text" required name="Tenlnv">
+                                </div>
+                            </div>
+                        </div>
+
+                        <BR>
+                        <button class="btn btn-add w-100" type="submit">Lưu lại</button>
+                        <a class="btn btn-cancel w-100" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
+
+                    </form>
+                    <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
+                        <h3 class="control-label text-center mt-2 mb-2">Danh sách loại nhân viên</h3>
+                        <ul style="padding-left: 20px;">
+
+                            @foreach (var item in loainhanvien)
+                            {
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @item.Malnv - @item.Tenlnv
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a asp-action="Edit" class="btn btn-warning" asp-controller="Loainhanvien" asp-route-id="@item.Idlnv"><i class="fas fa-edit"></i></a>
+                                            <a asp-action="Details" class="btn btn-info " asp-controller="Loainhanvien" asp-route-id="@item.Idlnv"> <i class="fas fa-info-circle"></i></a>
+
+                                            <a asp-action="Delete" class="btn btn-danger " asp-controller="Loainhanvien" asp-route-id="@item.Idlnv"><i class="fas fa-trash-alt"></i></a>
+                                        </div>
+                                    </div>
+
+                                </li>
+
+
+
+                            }
+
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--
+      MODAL
+    -->
+    <!-- Essential javascripts for application to work-->
+    <script src="~/Javascript/jquery-3.2.1.min.js"></script>
+    <script src="~/Javascript/popper.min.js"></script>
+    <script src="~/Javascript/bootstrap.min.js"></script>
+    <script src="~/Javascript/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="~/Javascript/plugins/pace.min.js"></script>
+   
+
+</body>
+
+</html>

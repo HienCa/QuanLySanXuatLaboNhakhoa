@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kDq/fvsLkOjoJjrp1LxUAgUvoSpqDETLxv+kJocScU121JFhvPHsfyuF5eTSyF9DVVOApyJlHrG3kh6Lpmkc5Q==",
+  "dgSpecHash": "J2DJw0NxrxGhCq3shzhOV4Qf8zVjlruyX71tjkPIvAjDAWCa5uTe3SddHRkg2CewR6lVUdIxC13j2U0l+4Ca1w==",
   "success": true,
   "projectFilePath": "D:\\ĐH-08CNTT1\\HienCa\\NetFramework\\QuanLySanXuat\\QuanLySanXuat.csproj",
   "expectedPackageFiles": [
@@ -26,8 +26,8 @@
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore\\3.1.31\\microsoft.entityframeworkcore.3.1.31.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.31\\microsoft.entityframeworkcore.abstractions.3.1.31.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\3.1.31\\microsoft.entityframeworkcore.analyzers.3.1.31.nupkg.sha512",
-    "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.design\\3.1.30\\microsoft.entityframeworkcore.design.3.1.30.nupkg.sha512",
-    "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.30\\microsoft.entityframeworkcore.relational.3.1.30.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.design\\3.1.31\\microsoft.entityframeworkcore.design.3.1.31.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.31\\microsoft.entityframeworkcore.relational.3.1.31.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.30\\microsoft.entityframeworkcore.sqlserver.3.1.30.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.30\\microsoft.entityframeworkcore.tools.3.1.30.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.31\\microsoft.extensions.caching.abstractions.3.1.31.nupkg.sha512",

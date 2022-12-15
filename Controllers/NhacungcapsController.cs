@@ -99,6 +99,8 @@ namespace QuanLySanXuat.Controllers
             {
                 try
                 {
+                    nhacungcap.Active = 1;
+
                     _context.Update(nhacungcap);
                     await _context.SaveChangesAsync();
                 }
@@ -145,7 +147,7 @@ namespace QuanLySanXuat.Controllers
             nhacungcap.Active = 0;
             _context.Nhacungcap.Update(nhacungcap);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("AddInterface","Vatlieu");
         }
 
         private bool NhacungcapExists(int id)

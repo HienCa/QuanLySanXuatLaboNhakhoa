@@ -179,7 +179,8 @@
             </ul>
             <div class="row ">
                 <div class="col-3">
-                    @Html.ActionLink("Tạo phiếu nhập kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-add" })
+                    @*@Html.ActionLink("Tạo phiếu nhập kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = "btn btn-add" })*@
+                    <a asp-action="QuanLyNhapKho" asp-controller="QuanLyTonKho" class="btn btn-add">Tạo phiếu nhập kho</a>
                 </div>
                 <div class="col-3">
                     <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -314,10 +315,10 @@
 
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"><i class="fas fa-edit"></i></a>
-                                                    <a asp-action="Details" class="btn btn-info " asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"> <i class="fas fa-info-circle"></i></a>
+                                                    <a asp-action="Edit" class="btn btn-warning" asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-edit"></i></a>
+                                                    <a asp-action="Details" class="btn btn-info " asp-controller="Vatlieu" asp-route-id="@item.Idvl"> <i class="fas fa-info-circle"></i></a>
 
-                                                    <a asp-action="Delete" class="btn btn-danger " asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt"></i></a>
+                                                    <a asp-action="Delete" class="btn btn-danger " asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt"></i></a>
                                                 </div>
                                             </div>
 

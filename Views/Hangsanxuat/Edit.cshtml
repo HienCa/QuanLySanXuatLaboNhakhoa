@@ -1,50 +1,138 @@
 ﻿@model QuanLySanXuat.Entities.Hangsanxuat
 
-@{
-    Layout = null;
-}
+
+
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
+    <title>Cập nhật thông tin | Quản trị Admin</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+    <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+
 </head>
+
 <body>
 
-<h4>Hangsanxuat</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idhsx" />
-            <div class="form-group">
-                <label asp-for="Mahsx" class="control-label"></label>
-                <input asp-for="Mahsx" class="form-control" />
-                <span asp-validation-for="Mahsx" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tenhsx" class="control-label"></label>
-                <input asp-for="Tenhsx" class="form-control" />
-                <span asp-validation-for="Tenhsx" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Active" class="control-label"></label>
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <!-- Navbar-->
+    <header class="app-header">
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
 
+
+            <!-- User Menu-->
+            <li>
+                @Html.ActionLink("Quay Lại", "AddInterface", "VatLieu", null, new { @class = "app-nav__item " })
+
+
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu-->
+
+
+    <main class="mt-5">
+
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">Danh sách sản phẩm</li>
+                <li class="breadcrumb-item"><a style="font-weight:bolder" href="#">Cập nhật thông tin</a></li>
+            </ul>
+
+            <div id="clock"></div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Cập nhật thông tin hãng sản xuất</h3>
+                    <div class="tile-body">
+
+                        <form asp-action="Edit" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Idhsx" />
+                            <div class="row">
+
+                                <div class="form-group col-md-4 col-sm-12">
+
+                                    <label asp-for="Mahsx" class="control-label">Mã hãng sản xuất</label>
+                                    <input asp-for="Mahsx" class="form-control" />
+                                    <span asp-validation-for="Mahsx" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8 col-sm-12">
+
+                                    <label asp-for="Tenhsx" class="control-label">Tên hãng sản xuất</label>
+                                    <input asp-for="Tenhsx" class="form-control" />
+                                    <span asp-validation-for="Tenhsx" class="text-danger"></span>
+                                </div>
+
+
+                                
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-save w-50 mt-3" type="submit">Lưu</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+
+
+
+
+    <script src="~/Javascript/plugins/pace.min.js"></script>
+    <script src="~/Javascript/jquery-3.2.1.min.js"></script>
+    <script src="~/Javascript/popper.min.js"></script>
+    <script src="~/Javascript/bootstrap.min.js"></script>
+    <script src="~/Javascript/main.js"></script>
+
+    <script>
+        const inpFile = document.getElementById("inpFile");
+        const loadFile = document.getElementById("loadFile");
+        const previewContainer = document.getElementById("imagePreview");
+        const previewContainer = document.getElementById("imagePreview");
+        const previewImage = previewContainer.querySelector(".image-preview__image");
+        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+        inpFile.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                previewDefaultText.style.display = "none";
+                previewImage.style.display = "block";
+                reader.addEventListener("load", function () {
+                    previewImage.setAttribute("src", this.result);
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
 </body>
+
 </html>

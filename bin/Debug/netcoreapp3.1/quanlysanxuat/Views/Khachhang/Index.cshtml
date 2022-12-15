@@ -72,11 +72,11 @@
             </li>
             <li>
 
-                @Html.ActionLink("Quản Lý Khách Hàng", "Index", "Khachhang", null, new { @class = "app-menu__item app-menu__label text-center" })
+                @Html.ActionLink("Quản Lý Khách Hàng", "Index", "Khachhang", null, new { @class = "app-menu__item app-menu__label text-center active" })
             </li>
             <li>
 
-                @Html.ActionLink("Quản Lý Vật Liệu", "QuanLySanPham", "Admin", null, new { @class = "app-menu__item app-menu__label text-center active" })
+                @Html.ActionLink("Quản Lý Vật Liệu", "QuanLySanPham", "Admin", null, new { @class = "app-menu__item app-menu__label text-center " })
             </li>
             <li>
 
@@ -115,12 +115,12 @@
                             <div class="col-sm-2">
 
 
-                                @Html.ActionLink("Thêm mới khách hàng", "ThemKhachHang", "Admin", null, new { @class = "btn btn-add btn-sm" })
+                                @Html.ActionLink("Thêm mới khách hàng", "Create", "Khachhang", null, new { @class = "btn btn-add btn-sm" })
 
                             </div>
                             <div class="col-sm-2">
 
-                                @Html.ActionLink("Tải từ file", "ImportKhachHang", "Admin", null, new { @class = "btn btn-delete btn-sm nhap-tu-file" })
+                                @Html.ActionLink("Tải từ file", "ImportKhachHang", "Khachhang", null, new { @class = "btn btn-delete btn-sm nhap-tu-file" })
 
                             </div>
 
@@ -128,22 +128,22 @@
                                 @*<a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()">
                                         <i class="fas fa-print"></i> In dữ liệu
                                     </a>*@
-                                @Html.ActionLink("In dữ liệu", "ThemKhachHang", "Admin", null, new { @class = "btn btn-delete btn-sm print-file" })
+                                @Html.ActionLink("In dữ liệu", "ThemKhachHang", "Khachhang", null, new { @class = "btn btn-delete btn-sm print-file" })
 
                             </div>
 
                             <div class="col-sm-2">
-                                @Html.ActionLink("Xuất Excel", "ExportToExcelKhachHang", "Admin", null, new { @class = "btn btn-excel btn-sm fas fa-file-excel p-2" })
+                                @Html.ActionLink("Xuất Excel", "ExportToExcelKhachHang", "Khachhang", null, new { @class = "btn btn-excel btn-sm fas fa-file-excel p-2" })
 
                             </div>
                             <div class="col-sm-2">
 
-                                @Html.ActionLink("Xuất PDF", "ExportToPDFKhachHang", "Admin", null, new { @class = "btn btn-delete btn-sm pdf-file" })
+                                @Html.ActionLink("Xuất PDF", "ExportToPDFKhachHang", "Khachhang", null, new { @class = "btn btn-delete btn-sm pdf-file" })
 
                             </div>
                             <div class="col-sm-2">
 
-                                @Html.ActionLink("Xuất CSV", "ExportToCSVKhachHang", "Admin", null, new { @class = "btn btn-delete btn-sm pdf-file" })
+                                @Html.ActionLink("Xuất CSV", "ExportToCSVKhachHang", "Khachhang", null, new { @class = "btn btn-delete btn-sm pdf-file" })
 
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                                     @*<th>Giới tính</th>
                                     <th>Ngày sinh</th>
                                     <th>Account</th>*@
-                                    <th width="100">Tính năng</th>
+                                    <th >Tính năng</th>
                                 </tr>
                             </thead>
                             <tbody>

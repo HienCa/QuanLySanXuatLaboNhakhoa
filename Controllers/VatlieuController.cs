@@ -157,6 +157,8 @@ namespace QuanLySanXuat.Controllers
             var vatlieu = await _context.Vatlieu
                 .Include(v => v.HangsanxuatidhsxNavigation)
                 .Include(v => v.NhomvatlieuidnvlNavigation)
+                .Include(v => v.NhacungcapidnccNavigation)
+
                 .FirstOrDefaultAsync(m => m.Idvl == id);
             if (vatlieu == null)
             {

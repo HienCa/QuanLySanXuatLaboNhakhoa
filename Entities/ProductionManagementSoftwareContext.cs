@@ -56,8 +56,10 @@ namespace QuanLySanXuat.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
+#pragma warning disable CS1030 // #warning directive
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ProductionManagementSoftware;Persist Security Info=True;User ID=sa;Password=sa");
+#pragma warning restore CS1030 // #warning directive
             }
         }
 

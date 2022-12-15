@@ -347,8 +347,9 @@
                                         <td>@item.Ngayhd</td>
 
                                         <td>
-                                            <a asp-action="Details" class="btn btn-info text-white" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk"><i class="fas fa-info text-white"></i></a>
-                                            <a asp-action="EditPN" class="btn btn-warning text-white" asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk">Chỉnh sửa phiếu nhập</a>
+                                            <a asp-action="Details" class="btn btn-info " asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk"><i class="fas fa-info text-white"></i></a>
+                                            <a asp-action="EditPN" class="btn btn-warning " asp-controller="Phieunhapkho" asp-route-pnkID="@item.Idpnk"><i class="fas fa-edit text-white"></i></a>
+                                            <a asp-action="Delete" class="btn btn-danger " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt text-white"></i></a>
 
                                         </td>
                                     </tr>
@@ -492,10 +493,10 @@
 
                                             </div>
                                             <div class="col-md-4">
-                                                <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"><i class="fas fa-edit"></i></a>
-                                                <a asp-action="Details" class="btn btn-info " asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"> <i class="fas fa-info-circle"></i></a>
+                                                <a asp-action="Edit" class="btn btn-warning" asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-edit"></i></a>
+                                                <a asp-action="Details" class="btn btn-info " asp-controller="Vatlieu" asp-route-id="@item.Idvl"> <i class="fas fa-info-circle"></i></a>
 
-                                                <a asp-action="Delete" class="btn btn-danger " asp-controller="Nhacungcaps" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt"></i></a>
+                                                <a asp-action="Delete" class="btn btn-danger " asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt"></i></a>
                                             </div>
                                         </div>
 

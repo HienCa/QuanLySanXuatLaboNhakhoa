@@ -97,6 +97,8 @@ namespace QuanLySanXuat.Controllers
             {
                 try
                 {
+                    nhomvatlieu.Active = 1;
+
                     _context.Update(nhomvatlieu);
                     await _context.SaveChangesAsync();
                 }
@@ -143,7 +145,8 @@ namespace QuanLySanXuat.Controllers
             nhomvatlieu.Active = 0;
             _context.Nhomvatlieu.Update(nhomvatlieu);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("AddInterface", "Vatlieu");
+
         }
 
         private bool NhomvatlieuExists(int id)

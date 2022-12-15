@@ -60,11 +60,13 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,Ngaysinh")] Khachhang khachhang)
+        public async Task<IActionResult> Create([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,NgaySinh")] Khachhang khachhang)
         {
             if (ModelState.IsValid)
             {
-                khachhang.Accountidaccount = 5;
+                //Chức năng giành cho khách hàng không đăng ký tài khoản
+                Account accountGuest = _context.Account.Where(a => a.Tk.Equals("Guest")).FirstOrDefault();
+                khachhang.Accountidaccount = accountGuest.Idaccount;
                 khachhang.Active = 1;
                 _context.Add(khachhang);
                 await _context.SaveChangesAsync();
@@ -84,7 +86,7 @@ namespace QuanLySanXuat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCustomerAccount([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,Ngaysinh")] Khachhang khachhang)
+        public async Task<IActionResult> CreateCustomerAccount([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,NgaySinh,Hinhanh")] Khachhang khachhang)
         {
             if (ModelState.IsValid)
             {
@@ -229,7 +231,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,Ngaysinh")] Khachhang khachhang)
+        public async Task<IActionResult> Edit(int id, [Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,NgaySinh,Hinhanh")] Khachhang khachhang)
         {
             if (id != khachhang.Idkh)
             {

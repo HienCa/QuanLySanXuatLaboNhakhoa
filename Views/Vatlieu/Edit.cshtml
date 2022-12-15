@@ -15,7 +15,7 @@
 <html lang="en">
 
 <head>
-    <title>Thêm sản phẩm | Quản trị Admin</title>
+    <title>Cập nhật thông tin | Quản trị Admin</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,15 +40,14 @@
 
     <!-- Navbar-->
     <header class="app-header">
-        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                        aria-label="Hide Sidebar"></a>
+       
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
 
 
             <!-- User Menu-->
             <li>
-                @Html.ActionLink("Quay Lại", "Index", "VatLieu", null, new { @class = "app-nav__item " })
+                @Html.ActionLink("Quay Lại", "AddInterface", "VatLieu", null, new { @class = "app-nav__item " })
 
 
             </li>
@@ -145,13 +144,13 @@
                                 </div>
 
 
-                                <div class="form-group col-md-3 col-sm-12">
+                                <div class="form-group col-md-2 col-sm-12">
 
                                     <label asp-for="Quycach" class="control-label"></label>
                                     <input asp-for="Quycach" class="form-control" />
                                     <span asp-validation-for="Quycach" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-3 col-sm-12">
+                                <div class="form-group col-md-2 col-sm-12">
 
                                     <label asp-for="Donvitinh" class="control-label"></label>
                                     <input asp-for="Donvitinh" class="form-control" />
@@ -165,6 +164,7 @@
                                     <input asp-for="Giaban" type="number" class="form-control" />
                                     <span asp-validation-for="Giaban" class="text-danger"></span>
                                 </div>
+                                
                                 @*<div class="form-group col-md-3 col-sm-12">
 
             <label class="control-label">Ảnh sản phẩm</label>

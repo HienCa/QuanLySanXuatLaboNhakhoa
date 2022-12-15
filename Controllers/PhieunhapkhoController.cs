@@ -156,15 +156,24 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var phieunhapkho = await _context.Phieunhapkho
-                .Include(p => p.NhanvienidnvNavigation)
-                .FirstOrDefaultAsync(m => m.Idpnk == id);
-            if (phieunhapkho == null)
-            {
-                return NotFound();
-            }
+            //var phieunhapkho = await _context.Phieunhapkho
+            //    .Include(p => p.NhanvienidnvNavigation)
+            //    .FirstOrDefaultAsync(m => m.Idpnk == id);
 
-            return View(phieunhapkho);
+            Phieunhapkho phieunhap = _context.Phieunhapkho.Where(pn => pn.Idpnk == id).FirstOrDefault();
+            ViewData["sophieu"] = phieunhap.Sophieu;
+            ViewData["idpnk"] = phieunhap.Idpnk;
+            List<Noidungphieunhap> noidungphieunhap = await _context.Noidungphieunhap
+                .Include(n => n.PhieunhapkhoidpnkNavigation).Include(n => n.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation)
+                .Include(n => n.VatlieuidvlNavigation)
+                .Where(pn => pn.Phieunhapkhoidpnk == phieunhap.Idpnk)
+                .ToListAsync();
+            //if (phieunhapkho == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return View(noidungphieunhap);
         }
 
         // POST: Phieunhapkho/Delete/5
@@ -176,7 +185,7 @@ namespace QuanLySanXuat.Controllers
             phieunhapkho.Active = 0;
             _context.Phieunhapkho.Update(phieunhapkho);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("QuanLyNhapKho","QuanLyTonKho");
         }
 
         private bool PhieunhapkhoExists(int id)

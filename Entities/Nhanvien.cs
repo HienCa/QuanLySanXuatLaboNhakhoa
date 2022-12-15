@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -29,6 +30,12 @@ namespace QuanLySanXuat.Entities
         public int? Active { get; set; }
         public int Loainhanvienidlnv { get; set; }
         public int Accountidaccount { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+
+        public DateTime? NgaySinh { get; set; }
+        public string Hinhanh { get; set; }
+        public string Masothue { get; set; }
+
 
         public virtual Account AccountidaccountNavigation { get; set; }
         public virtual Loainhanvien LoainhanvienidlnvNavigation { get; set; }
