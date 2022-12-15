@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +19,12 @@ namespace QuanLySanXuat.Controllers
     public class NhanvienController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public NhanvienController(ProductionManagementSoftwareContext context)
+        public NhanvienController(ProductionManagementSoftwareContext context, IWebHostEnvironment webHost)
         {
             _context = context;
+            webHostEnvironment = webHost;
         }
 
         // GET: Nhanvien
@@ -49,10 +54,29 @@ namespace QuanLySanXuat.Controllers
             return View(nhanvien);
         }
 
+
+        private string UploadedFile(NhanvienViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.Hinhanh != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Hinhanh.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Hinhanh.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
         // GET: Nhanvien/Create
         public IActionResult Create()
         {
+            //ImageModel imageModel = new ImageModel();
             ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
+            //return View(imageModel);
             return View();
         }
 
@@ -61,8 +85,10 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idnv,Manv,Tennv,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Active,Loainhanvienidlnv,Accountidaccount,NgaySinh")] Nhanvien nhanvien)
+        public async Task<IActionResult> Create([Bind("Idnv,Manv,Tennv,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Active,Loainhanvienidlnv,Accountidaccount,NgaySinh,Hinhanh")] NhanvienViewModel nhanvien)
         {
+            string uniqueFileName = UploadedFile(nhanvien);
+
             if (ModelState.IsValid)
             {
               
@@ -74,9 +100,25 @@ namespace QuanLySanXuat.Controllers
                 await _context.SaveChangesAsync();
                 Account a = _context.Account.Where(n => n.Tk.Equals(accountEmployee.Tk)).FirstOrDefault();
 
-                nhanvien.Accountidaccount = a.Idaccount;
-                nhanvien.Active = 1;
-                _context.Add(nhanvien);
+                //copy lại nhanvien vì NhanvienViewModel không được gán bằng Nhanvien
+                Nhanvien nv = new Nhanvien();
+                //lấy hình ảnh
+                nv.Hinhanh = uniqueFileName;
+                nv.Idnv = nhanvien.Idnv;
+                nv.Manv = nhanvien.Manv;
+                nv.Tennv = nhanvien.Tennv;
+                nv.Diachi = nhanvien.Diachi;
+                nv.Sdt = nhanvien.Sdt;
+                nv.Gioitinh = nhanvien.Gioitinh;
+                nv.Masothue = nhanvien.Masothue;
+                nv.Ghichu = nhanvien.Ghichu;
+                nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
+                nv.Accountidaccount = nhanvien.Accountidaccount;
+                nv.NgaySinh = nhanvien.NgaySinh;
+
+                nv.Accountidaccount = a.Idaccount;
+                nv.Active = 1;
+                _context.Add(nv);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -1,4 +1,4 @@
-﻿@model QuanLySanXuat.Entities.Nhanvien
+﻿@model QuanLySanXuat.Entities.NhanvienViewModel
 @using QuanLySanXuat.Entities;
 @{
     ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
@@ -146,7 +146,7 @@
     </style>
     <!-- Navbar-->
     <header class="app-header">
-      
+
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
 
@@ -310,9 +310,17 @@
                                     <textarea asp-for="Ghichu" class="form-control"></textarea>
                                     <span asp-validation-for="Ghichu" class="text-danger"></span>
                                 </div>
+                                @*<div class="form-group col-md-2">
+            <label for="hinhanh" asp-for="Hinhanh" class="control-label">Ảnh thẻ</label>
+            <input asp-for="Hinhanh" id="hinhanh" type="file" class="form-control" />
+            <span asp-validation-for="Hinhanh" class="text-danger"></span>
+        </div>*@
                                 <div class="form-group col-md-2">
-                                    <label for="hinhanh" asp-for="Hinhanh" class="control-label">Ảnh thẻ</label>
-                                    <input asp-for="Hinhanh" id="hinhanh" type="file" class="form-control" />
+                                    <label asp-for="Hinhanh" class="control-label"></label>
+                                    <div class="custom-file">
+                                        <input asp-for="Hinhanh" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
                                     <span asp-validation-for="Hinhanh" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -439,6 +447,15 @@
             </div>
         </div>
     </div>
+    @section scripts{
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    }
     <!--
       MODAL
     -->
@@ -449,7 +466,7 @@
     <script src="~/Javascript/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="~/Javascript/plugins/pace.min.js"></script>
-   
+
 
 </body>
 

@@ -10,9 +10,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuanLySanXuat.Entities
 {
-    public partial class Nhanvien
+    public partial class NhanvienViewModel
     {
-        public Nhanvien()
+        public NhanvienViewModel()
         {
             Phieubanhang = new HashSet<Phieubanhang>();
             Phieunhapkho = new HashSet<Phieunhapkho>();
@@ -35,8 +35,8 @@ namespace QuanLySanXuat.Entities
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
 
         public DateTime? NgaySinh { get; set; }
-       
-        public string Hinhanh { get; set; }
+
+        public IFormFile Hinhanh { get; set; }
         public string Masothue { get; set; }
 
 
