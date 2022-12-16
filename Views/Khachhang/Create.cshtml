@@ -1,4 +1,4 @@
-﻿@model QuanLySanXuat.Entities.Khachhang
+﻿@model QuanLySanXuat.Entities.KhachhangViewModel
 
 @{
     Layout = null;
@@ -232,7 +232,7 @@
 
                         </div> -->
 
-                        <form asp-action="Create">
+                        <form asp-action="Create" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <div class="row">
@@ -288,10 +288,18 @@
                                     <input asp-for="NgaySinh" type="date" class="form-control" />
                                     <span asp-validation-for="NgaySinh" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-10">
+                                <div class="form-group col-md-5">
                                     <label asp-for="Ghichu" class="control-label">Ghi chú</label>
                                     <textarea asp-for="Ghichu" class="form-control"></textarea>
                                     <span asp-validation-for="Ghichu" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Hinhanh" class="control-label">Hình ảnh</label>
+                                    <div class="custom-file">
+                                        <input asp-for="Hinhanh" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <span asp-validation-for="Hinhanh" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4 d-none">
 
@@ -324,7 +332,7 @@
             </div>
         </div>
 
-        
+
 
 
     </main>
@@ -341,7 +349,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group  col-md-12">
-                                <h5 class="thong-tin-thanh-toan">Tạo chức vụ mới</h5>
+                            <h5 class="thong-tin-thanh-toan">Tạo chức vụ mới</h5>
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label">Nhập tên chức vụ mới</label>
@@ -358,6 +366,16 @@
             </div>
         </div>
     </div>
+
+    @section scripts{
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    }
     <!--
       MODAL
     -->

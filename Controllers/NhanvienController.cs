@@ -30,7 +30,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Nhanvien
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Nhanvien.Where(nv=>nv.Active==1).Include(k => k.AccountidaccountNavigation).Include(k => k.LoainhanvienidlnvNavigation);
+            var productionManagementSoftwareContext = _context.Nhanvien.Where(nv => nv.Active == 1).Include(k => k.AccountidaccountNavigation).Include(k => k.LoainhanvienidlnvNavigation);
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
 
@@ -74,9 +74,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Nhanvien/Create
         public IActionResult Create()
         {
-            //ImageModel imageModel = new ImageModel();
             ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
-            //return View(imageModel);
             return View();
         }
 
@@ -88,10 +86,9 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> Create([Bind("Idnv,Manv,Tennv,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Active,Loainhanvienidlnv,Accountidaccount,NgaySinh,Hinhanh")] NhanvienViewModel nhanvien)
         {
             string uniqueFileName = UploadedFile(nhanvien);
-
             if (ModelState.IsValid)
             {
-              
+
                 Account accountEmployee = new Account();
                 accountEmployee.Tk = nhanvien.Email;
                 accountEmployee.Mk = "NV12345";
@@ -109,6 +106,7 @@ namespace QuanLySanXuat.Controllers
                 nv.Tennv = nhanvien.Tennv;
                 nv.Diachi = nhanvien.Diachi;
                 nv.Sdt = nhanvien.Sdt;
+                nv.Email = nhanvien.Email;
                 nv.Gioitinh = nhanvien.Gioitinh;
                 nv.Masothue = nhanvien.Masothue;
                 nv.Ghichu = nhanvien.Ghichu;
@@ -126,66 +124,6 @@ namespace QuanLySanXuat.Controllers
             return View(nhanvien);
         }
 
-
-        //public IActionResult CreateCustomerAccount()
-        //{
-        //    //ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
-        //    return View();
-        //}
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateCustomerAccount([Bind("Idnv,Manv,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Active,Accountidaccount,NgaySinh,Hinhanh")] Nhanvien nhanvien)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //create account customer
-        //        Account account = new Account();
-        //        account.Tk = nhanvien.Email;
-        //        account.Mk = "KH12345";// default password 
-        //        account.Vaitroidvt = 2;//id =2 is customer
-        //        _context.Account.Add(account);
-        //        await _context.SaveChangesAsync();
-
-        //        var accountOfCustomer = await _context.Account.FirstOrDefaultAsync(email => email.Tk.Equals(nhanvien.Email));
-
-        //        //create customer 
-        //        nhanvien.Accountidaccount = accountOfCustomer.Idaccount;
-        //        _context.Add(nhanvien);
-        //        await _context.SaveChangesAsync();
-
-
-
-        //        var getCustomer = await _context.Nhanvien.FirstOrDefaultAsync(email => email.Email.Equals(nhanvien.Email));
-
-        //        //Khởi tạo trước ngân hàng và chi tiết ngân hàng của khách hàng để thuận tiện cho khách hàng khai báo stk ngân hàng sau này
-        //        Nganhang nganhang = new Nganhang();
-        //        nganhang.Masothue = nhanvien.Masothue;
-        //        nganhang.Email = nhanvien.Email;
-        //        nganhang.Diachi = nhanvien.Diachi;
-        //        //nganhang.Ghichu = khachhang.Ghichu;
-        //        nganhang.Hinhthucthanhtoanidhttt = 1;
-        //        _context.Nganhang.Add(nganhang);
-        //        await _context.SaveChangesAsync();
-
-
-
-        //        //Vấn đề cần giải quyết: khi 1 khách hàng sử dụng nhiều email khác nhau để đăng ký tài khoản ngân hàng
-        //        // Giiari pháp dưới đây chỉ giải quyết cho khách hàng sử dụng 1 email cho nhiều tài khoản ngân hàng
-        //        var getBank = await _context.Nganhang.FirstOrDefaultAsync(email => email.Email.Equals(nhanvien.Email));
-
-        //        Chitietnganhangkh chitietnganhangkh = new Chitietnganhangkh();
-        //        chitietnganhangkh.Khachhangidkh = getCustomer.Idnv;
-        //        chitietnganhangkh.Nganhangidnh = getBank.Idnh;
-        //        _context.Chitietnganhangkh.Add(chitietnganhangkh);
-        //        await _context.SaveChangesAsync();
-
-        //        return RedirectToAction("DangNhap", "Home");
-        //    }
-        //    ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
-        //    return RedirectToAction("CreateCustomerAccount", "Khachhang");
-        //}
 
         public IActionResult ForgotPassword([Bind("Idaccount,Tk,Mk,Active,Vaitroidvt")] Account account)
         {
@@ -244,9 +182,6 @@ namespace QuanLySanXuat.Controllers
 
 
                 }
-         
-
-
 
             }
             catch (Exception e)
@@ -267,14 +202,30 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var Nhanvien = await _context.Nhanvien.FindAsync(id);
-            if (Nhanvien == null)
+            var nhanvien = await _context.Nhanvien.FindAsync(id);
+
+            NhanvienViewModel nv = new NhanvienViewModel();
+            nv.Idnv = nhanvien.Idnv;
+            nv.Manv = nhanvien.Manv;
+            nv.Tennv = nhanvien.Tennv;
+            nv.Diachi = nhanvien.Diachi;
+            nv.Sdt = nhanvien.Sdt;
+            nv.Gioitinh = nhanvien.Gioitinh;
+            nv.Masothue = nhanvien.Masothue;
+            nv.Ghichu = nhanvien.Ghichu;
+            nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
+            nv.Accountidaccount = nhanvien.Accountidaccount;
+            nv.NgaySinh = nhanvien.NgaySinh;
+            nv.Active = nhanvien.Active;
+            nv.ExistingImage = nhanvien.Hinhanh;
+
+            if (nhanvien == null)
             {
                 return NotFound();
             }
-            ViewData["Accountidaccount"] = Nhanvien.Accountidaccount;
+            ViewData["Accountidaccount"] = nhanvien.Accountidaccount;
 
-            return View(Nhanvien);
+            return View(nv);
         }
 
         // POST: Nhanvien/Edit/5
@@ -282,8 +233,9 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idnv,Manv,Tennv,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Active,Loainhanvienidlnv,Accountidaccount,NgaySinh,Hinhanh")] Nhanvien nhanvien)
+        public async Task<IActionResult> Edit(int id,  NhanvienViewModel nhanvien)
         {
+
             if (id != nhanvien.Idnv)
             {
                 return NotFound();
@@ -293,9 +245,39 @@ namespace QuanLySanXuat.Controllers
             {
                 try
                 {
-                    Nhanvien nv = nhanvien;
-                    nhanvien.Active = 1;
-                    _context.Update(nhanvien);
+
+
+                    Nhanvien nv = new Nhanvien();
+
+                    //lấy hình ảnh
+                    //nv.Hinhanh = uniqueFileName;
+                    nv.Idnv = nhanvien.Idnv;
+                    nv.Manv = nhanvien.Manv;
+                    nv.Tennv = nhanvien.Tennv;
+                    nv.Diachi = nhanvien.Diachi;
+                    nv.Sdt = nhanvien.Sdt;
+                    nv.Gioitinh = nhanvien.Gioitinh;
+                    nv.Masothue = nhanvien.Masothue;
+                    nv.Ghichu = nhanvien.Ghichu;
+                    nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
+                    nv.Accountidaccount = nhanvien.Accountidaccount;
+                    nv.NgaySinh = nhanvien.NgaySinh;
+
+                    nv.Active = nhanvien.Active;
+
+                    if (nhanvien.Hinhanh != null)
+                    {
+                        if (nhanvien.ExistingImage != null)
+                        {
+                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images", nhanvien.ExistingImage);
+                            System.IO.File.Delete(filePath);
+                        }
+
+                        nv.Hinhanh = UploadedFile(nhanvien);
+                    }
+
+
+                    _context.Update(nv);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -343,7 +325,7 @@ namespace QuanLySanXuat.Controllers
             nhanvien.Active = 0;
             _context.Nhanvien.Update(nhanvien);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index","Nhanvien");
+            return RedirectToAction("Index", "Nhanvien");
         }
 
         private bool NhanvienExists(int id)

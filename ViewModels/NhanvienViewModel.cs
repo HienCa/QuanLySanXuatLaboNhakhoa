@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using QuanLySanXuat.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuanLySanXuat.Entities
 {
-    public partial class NhanvienViewModel
+    public partial class NhanvienViewModel : EditImageViewModel
     {
         public NhanvienViewModel()
         {
@@ -36,7 +37,7 @@ namespace QuanLySanXuat.Entities
 
         public DateTime? NgaySinh { get; set; }
 
-        public IFormFile Hinhanh { get; set; }
+        //public IFormFile Hinhanh { get; set; }
         public string Masothue { get; set; }
 
 

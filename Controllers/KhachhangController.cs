@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +18,13 @@ namespace QuanLySanXuat.Controllers
     public class KhachhangController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public KhachhangController(ProductionManagementSoftwareContext context)
+        public KhachhangController(ProductionManagementSoftwareContext context, IWebHostEnvironment webHost)
         {
             _context = context;
+            webHostEnvironment = webHost;
+
         }
 
         // GET: Khachhang
@@ -54,21 +59,54 @@ namespace QuanLySanXuat.Controllers
             ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
             return View();
         }
+        private string UploadedFile(KhachhangViewModel model)
+        {
+            string uniqueFileName = null;
 
+            if (model.Hinhanh != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Hinhanh.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Hinhanh.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
         // POST: Khachhang/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,NgaySinh")] Khachhang khachhang)
+        public async Task<IActionResult> Create( KhachhangViewModel khachhang)
         {
+            string uniqueFileName = UploadedFile(khachhang);
+
             if (ModelState.IsValid)
             {
                 //Chức năng giành cho khách hàng không đăng ký tài khoản
+                Khachhang kh = new Khachhang();
+                //lấy hình ảnh
+                kh.Hinhanh = uniqueFileName;
+                kh.Idkh = khachhang.Idkh;
+                kh.Makh = khachhang.Makh;
+                kh.Tenkh = khachhang.Tenkh;
+                kh.Diachi = khachhang.Diachi;
+                kh.Sdt = khachhang.Sdt;
+                kh.Email = khachhang.Email;
+                kh.Gioitinh = khachhang.Gioitinh;
+                kh.Masothue = khachhang.Masothue;
+                kh.Ghichu = khachhang.Ghichu;
+                kh.Accountidaccount = khachhang.Accountidaccount;
+                kh.NgaySinh = khachhang.NgaySinh;
+
+
                 Account accountGuest = _context.Account.Where(a => a.Tk.Equals("Guest")).FirstOrDefault();
-                khachhang.Accountidaccount = accountGuest.Idaccount;
-                khachhang.Active = 1;
-                _context.Add(khachhang);
+                kh.Accountidaccount = accountGuest.Idaccount;
+                kh.Active = 1;
+                _context.Add(kh);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -79,7 +117,6 @@ namespace QuanLySanXuat.Controllers
 
         public IActionResult CreateCustomerAccount()
         {
-            //ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
             return View();
         }
 
@@ -218,12 +255,29 @@ namespace QuanLySanXuat.Controllers
             }
 
             var khachhang = await _context.Khachhang.FindAsync(id);
+
+
+            KhachhangViewModel kh = new KhachhangViewModel();
+            kh.ExistingImage = khachhang.Hinhanh;
+
+            kh.Idkh = khachhang.Idkh;
+            kh.Makh = khachhang.Makh;
+            kh.Tenkh = khachhang.Tenkh;
+            kh.Diachi = khachhang.Diachi;
+            kh.Sdt = khachhang.Sdt;
+            kh.Gioitinh = khachhang.Gioitinh;
+            kh.Masothue = khachhang.Masothue;
+            kh.Ghichu = khachhang.Ghichu;
+            kh.Nvidsale = khachhang.Nvidsale;
+            kh.Accountidaccount = khachhang.Accountidaccount;
+            kh.NgaySinh = khachhang.NgaySinh;
+            kh.Active = khachhang.Active;
             if (khachhang == null)
             {
                 return NotFound();
             }
             ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
-            return View(khachhang);
+            return View(kh);
         }
 
         // POST: Khachhang/Edit/5
@@ -231,8 +285,9 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,NgaySinh,Hinhanh")] Khachhang khachhang)
+        public async Task<IActionResult> Edit(int id,  KhachhangViewModel khachhang)
         {
+            string uniqueFileName = UploadedFile(khachhang);
             if (id != khachhang.Idkh)
             {
                 return NotFound();
@@ -242,7 +297,34 @@ namespace QuanLySanXuat.Controllers
             {
                 try
                 {
-                    _context.Update(khachhang);
+                    Khachhang kh = new Khachhang();
+                    //lấy hình ảnh
+                    kh.Hinhanh = uniqueFileName;
+                    kh.Idkh = khachhang.Idkh;
+                    kh.Makh = khachhang.Makh;
+                    kh.Tenkh = khachhang.Tenkh;
+                    kh.Diachi = khachhang.Diachi;
+                    kh.Sdt = khachhang.Sdt;
+                    kh.Email = khachhang.Email;
+                    kh.Gioitinh = khachhang.Gioitinh;
+                    kh.Masothue = khachhang.Masothue;
+                    kh.Ghichu = khachhang.Ghichu;
+                    //kh.Loainhanvienidlnv = khachhang.Loainhanvienidlnv;
+                    kh.Accountidaccount = khachhang.Accountidaccount;
+                    kh.NgaySinh = khachhang.NgaySinh;
+
+                    if (khachhang.Hinhanh != null)
+                    {
+                        if (khachhang.ExistingImage != null)
+                        {
+                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images", khachhang.ExistingImage);
+                            System.IO.File.Delete(filePath);
+                        }
+
+                        kh.Hinhanh = UploadedFile(khachhang);
+                    }
+
+                    _context.Update(kh);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

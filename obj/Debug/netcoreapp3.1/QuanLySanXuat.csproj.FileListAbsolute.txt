@@ -502,3 +502,16 @@ D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\V
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Loainhanvien\Details.cshtml.g.cs
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Loainhanvien\Edit.cshtml.g.cs
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Loainhanvien\Index.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\347ddad4-82bc-4813-bad6-0cbda0db9ab3_bs1.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\4e03cb99-829a-4fa6-8bd6-5abde422168a_logo.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\eb55f4f1-68a2-4b14-9395-3d982bf42216_logo.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\9f8d2624-0736-4224-8981-fe82a73b3b08_Coffee-Laptop-Wallpapers.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\22eb3981-575c-44e0-8753-087bf1fa9332_h.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\677fe2a7-91df-44e1-99d5-6cafec72cc61_ntb.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\ac2fa00a-77fb-46cc-af9a-472774978978_ntb.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\af341a01-938e-4d04-b692-611988acfa43_h.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\5edfdfeb-cec0-4783-8711-31346e32c2c5_hienca.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\1b523ccb-549f-4553-8815-9a5df01310a3_h.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\5c244190-b94d-45c3-bafb-b5731db63a34_h.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\6f338667-8677-4230-8b89-62cfde76db2b_h.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\861f60bf-5fb4-4610-a183-0a5761e3cdee_h.jpg
