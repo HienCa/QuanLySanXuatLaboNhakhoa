@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -12,31 +11,31 @@ namespace QuanLySanXuat.Entities
     {
         public Khachhang()
         {
-            Chitietnganhangkh = new HashSet<Chitietnganhangkh>();
-            Donhangsanxuat = new HashSet<Donhangsanxuat>();
+            Ctnganhangkh = new HashSet<Ctnganhangkh>();
+            Dondathangsx = new HashSet<Dondathangsx>();
             Phieubanhang = new HashSet<Phieubanhang>();
         }
 
         public int Idkh { get; set; }
         public string Makh { get; set; }
         public string Tenkh { get; set; }
+        public string Cccd { get; set; }
         public string Diachi { get; set; }
         public string Sdt { get; set; }
         public string Email { get; set; }
+        public string Matkhau { get; set; }
         public string Gioitinh { get; set; }
         public string Masothue { get; set; }
         public string Ghichu { get; set; }
         public int? Nvidsale { get; set; }
-        public int? Active { get; set; }
-        public int Accountidaccount { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? NgaySinh { get; set; }
         public string Hinhanh { get; set; }
+        public DateTime? Ngaysinh { get; set; }
+        public string Facebook { get; set; }
+        public string Zalo { get; set; }
+        public int Active { get; set; }
 
-
-        public virtual Account AccountidaccountNavigation { get; set; }
-        public virtual ICollection<Chitietnganhangkh> Chitietnganhangkh { get; set; }
-        public virtual ICollection<Donhangsanxuat> Donhangsanxuat { get; set; }
+        public virtual ICollection<Ctnganhangkh> Ctnganhangkh { get; set; }
+        public virtual ICollection<Dondathangsx> Dondathangsx { get; set; }
         public virtual ICollection<Phieubanhang> Phieubanhang { get; set; }
     }
 }

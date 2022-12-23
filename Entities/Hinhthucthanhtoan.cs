@@ -19,7 +19,7 @@ namespace QuanLySanXuat.Entities
         public int Idhttt { get; set; }
         public string Mahttt { get; set; }
         public string Tenhttt { get; set; }
-        public int? Active { get; set; }
+        public int Active { get; set; }
 
         public virtual ICollection<Nganhang> Nganhang { get; set; }
         public virtual ICollection<Phieuthunokh> Phieuthunokh { get; set; }

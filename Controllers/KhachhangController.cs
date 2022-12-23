@@ -30,7 +30,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Khachhang
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Khachhang.Include(k => k.AccountidaccountNavigation);
+            var productionManagementSoftwareContext = _context.Khachhang.Where(kh=>kh.Active==1);
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
 
@@ -43,7 +43,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             var khachhang = await _context.Khachhang
-                .Include(k => k.AccountidaccountNavigation)
+                //.Include(k => k.AccountidaccountNavigation)
                 .FirstOrDefaultAsync(m => m.Idkh == id);
             if (khachhang == null)
             {
@@ -56,7 +56,6 @@ namespace QuanLySanXuat.Controllers
         // GET: Khachhang/Create
         public IActionResult Create()
         {
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
             return View();
         }
         private string UploadedFile(KhachhangViewModel model)
@@ -99,18 +98,17 @@ namespace QuanLySanXuat.Controllers
                 kh.Gioitinh = khachhang.Gioitinh;
                 kh.Masothue = khachhang.Masothue;
                 kh.Ghichu = khachhang.Ghichu;
-                kh.Accountidaccount = khachhang.Accountidaccount;
-                kh.NgaySinh = khachhang.NgaySinh;
+                //kh.Accountidaccount = khachhang.Accountidaccount;
+                kh.Ngaysinh = khachhang.Ngaysinh;
 
 
-                Account accountGuest = _context.Account.Where(a => a.Tk.Equals("Guest")).FirstOrDefault();
-                kh.Accountidaccount = accountGuest.Idaccount;
+                //Account accountGuest = _context.Account.Where(a => a.Tk.Equals("Guest")).FirstOrDefault();
+                //kh.Accountidaccount = accountGuest.Idaccount;
                 kh.Active = 1;
                 _context.Add(kh);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return View(khachhang);
         }
 
@@ -123,22 +121,23 @@ namespace QuanLySanXuat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCustomerAccount([Bind("Idkh,Makh,Tenkh,Diachi,Sdt,Email,Gioitinh,Masothue,Ghichu,Nvidsale,Active,Accountidaccount,NgaySinh,Hinhanh")] Khachhang khachhang)
+        public async Task<IActionResult> CreateCustomerAccount( Khachhang khachhang)
         {
             if (ModelState.IsValid)
             {
                 //create account customer
-                Account account = new Account();
-                account.Tk = khachhang.Email;
-                account.Mk = "KH12345";// default password 
-                account.Vaitroidvt = 2;//id =2 is customer
-                _context.Account.Add(account);
-                await _context.SaveChangesAsync();
+                //Account account = new Account();
+                //account.Tk = khachhang.Email;
+                //account.Mk = "KH12345";// default password 
+                //account.Vaitroidvt = 2;//id =2 is customer
+                //_context.Account.Add(account);
+                //await _context.SaveChangesAsync();
 
-                var accountOfCustomer = await _context.Account.FirstOrDefaultAsync(email => email.Tk.Equals(khachhang.Email));
+                //var accountOfCustomer = await _context.Account.FirstOrDefaultAsync(email => email.Tk.Equals(khachhang.Email));
 
                 //create customer 
-                khachhang.Accountidaccount = accountOfCustomer.Idaccount;
+                //khachhang.Accountidaccount = accountOfCustomer.Idaccount;
+                khachhang.Matkhau = "KH12345";
                 _context.Add(khachhang);
                 await _context.SaveChangesAsync();
 
@@ -152,7 +151,7 @@ namespace QuanLySanXuat.Controllers
                 nganhang.Email = khachhang.Email;
                 nganhang.Diachi = khachhang.Diachi;
                 //nganhang.Ghichu = khachhang.Ghichu;
-                nganhang.Hinhthucthanhtoanidhttt = 1;
+                nganhang.Idhttt = 1;
                 _context.Nganhang.Add(nganhang);
                 await _context.SaveChangesAsync();
 
@@ -162,15 +161,14 @@ namespace QuanLySanXuat.Controllers
                 // Giiari pháp dưới đây chỉ giải quyết cho khách hàng sử dụng 1 email cho nhiều tài khoản ngân hàng
                 var getBank = await _context.Nganhang.FirstOrDefaultAsync(email => email.Email.Equals(khachhang.Email));
 
-                Chitietnganhangkh chitietnganhangkh = new Chitietnganhangkh();
-                chitietnganhangkh.Khachhangidkh = getCustomer.Idkh;
-                chitietnganhangkh.Nganhangidnh = getBank.Idnh;
-                _context.Chitietnganhangkh.Add(chitietnganhangkh);
+                Ctnganhangkh chitietnganhangkh = new Ctnganhangkh();
+                chitietnganhangkh.Idkh = getCustomer.Idkh;
+                chitietnganhangkh.Idnh = getBank.Idnh;
+                _context.Ctnganhangkh.Add(chitietnganhangkh);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("DangNhap", "Home");
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return RedirectToAction("CreateCustomerAccount", "Khachhang");
         }
 
@@ -216,8 +214,8 @@ namespace QuanLySanXuat.Controllers
 
 
 
-                    Account a = context.Account.Where(tk => tk.Tk.Equals(email)).FirstOrDefault();
-                    a.Mk = newPassword;
+                    Khachhang a = context.Khachhang.Where(tk => tk.Email.Equals(email)).FirstOrDefault();
+                    a.Matkhau = newPassword;
                     context.SaveChanges();
 
                     TempData["Message"] = "Chúng tôi đã gửi mail xác nhận đến cho bạn. Vui lòng kiểm tra mail!";
@@ -269,14 +267,13 @@ namespace QuanLySanXuat.Controllers
             kh.Masothue = khachhang.Masothue;
             kh.Ghichu = khachhang.Ghichu;
             kh.Nvidsale = khachhang.Nvidsale;
-            kh.Accountidaccount = khachhang.Accountidaccount;
-            kh.NgaySinh = khachhang.NgaySinh;
+            //kh.Accountidaccount = khachhang.Accountidaccount;
+            //kh.NgaySinh = khachhang.NgaySinh;
             kh.Active = khachhang.Active;
             if (khachhang == null)
             {
                 return NotFound();
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return View(kh);
         }
 
@@ -309,9 +306,9 @@ namespace QuanLySanXuat.Controllers
                     kh.Gioitinh = khachhang.Gioitinh;
                     kh.Masothue = khachhang.Masothue;
                     kh.Ghichu = khachhang.Ghichu;
-                    //kh.Loainhanvienidlnv = khachhang.Loainhanvienidlnv;
-                    kh.Accountidaccount = khachhang.Accountidaccount;
-                    kh.NgaySinh = khachhang.NgaySinh;
+                
+                    //kh.Accountidaccount = khachhang.Accountidaccount;
+                    kh.Ngaysinh = khachhang.Ngaysinh;
 
                     if (khachhang.Hinhanh != null)
                     {
@@ -340,7 +337,6 @@ namespace QuanLySanXuat.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return View(khachhang);
         }
 
@@ -353,7 +349,7 @@ namespace QuanLySanXuat.Controllers
             }
             
             var khachhang = await _context.Khachhang
-                .Include(k => k.AccountidaccountNavigation)
+                //.Include(k => k.AccountidaccountNavigation)
                 .FirstOrDefaultAsync(m => m.Idkh == id);
             if (khachhang == null)
             {

@@ -1,4 +1,4 @@
-﻿@model QuanLySanXuat.Entities.Chitietnganhangkh
+﻿@model QuanLySanXuat.Entities.Ctnganhangkh
 
 @{
     Layout = null;
@@ -25,12 +25,12 @@
                 <span asp-validation-for="Stk" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nganhangidnh" class="control-label"></label>
-                <select asp-for="Nganhangidnh" class ="form-control" asp-items="ViewBag.Nganhangidnh"></select>
+                <label asp-for="Idnh" class="control-label"></label>
+                <select asp-for="Idnh" class ="form-control" asp-items="ViewBag.Idnh"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Khachhangidkh" class="control-label"></label>
-                <select asp-for="Khachhangidkh" class ="form-control" asp-items="ViewBag.Khachhangidkh"></select>
+                <label asp-for="Idkh" class="control-label"></label>
+                <select asp-for="Idkh" class ="form-control" asp-items="ViewBag.Idkh"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

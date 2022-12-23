@@ -11,8 +11,8 @@ namespace QuanLySanXuat.Entities
     {
         public Nganhang()
         {
-            Chitietnganhangkh = new HashSet<Chitietnganhangkh>();
-            Chitietnganhangncc = new HashSet<Chitietnganhangncc>();
+            Ctnganhangkh = new HashSet<Ctnganhangkh>();
+            Ctnganhangncc = new HashSet<Ctnganhangncc>();
         }
 
         public int Idnh { get; set; }
@@ -21,11 +21,11 @@ namespace QuanLySanXuat.Entities
         public string Email { get; set; }
         public string Masothue { get; set; }
         public string Ghichu { get; set; }
-        public int? Active { get; set; }
-        public int Hinhthucthanhtoanidhttt { get; set; }
+        public int Active { get; set; }
+        public int Idhttt { get; set; }
 
-        public virtual Hinhthucthanhtoan HinhthucthanhtoanidhtttNavigation { get; set; }
-        public virtual ICollection<Chitietnganhangkh> Chitietnganhangkh { get; set; }
-        public virtual ICollection<Chitietnganhangncc> Chitietnganhangncc { get; set; }
+        public virtual Hinhthucthanhtoan IdhtttNavigation { get; set; }
+        public virtual ICollection<Ctnganhangkh> Ctnganhangkh { get; set; }
+        public virtual ICollection<Ctnganhangncc> Ctnganhangncc { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 @using QuanLySanXuat.Entities;
 @{
     ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
-    List<Loainhanvien> loainhanvien = context.Loainhanvien.Where(a => a.Active == 1).ToList();
+    //List<Loainhanvien> loainhanvien = context.Loainhanvien.Where(a => a.Active == 1).ToList();
 }
 @{
     Layout = null;
@@ -279,9 +279,9 @@
                                 </div>
 
                                 <div class="form-group col-md-2">
-                                    <label asp-for="NgaySinh" class="control-label">Ngày sinh</label>
-                                    <input asp-for="NgaySinh" type="date" class="form-control" />
-                                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                    <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
+                                    <input asp-for="Ngaysinh" type="date" class="form-control" />
+                                    <span asp-validation-for="Ngaysinh" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -290,7 +290,7 @@
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group col-md-2">
+                                @*<div class="form-group col-md-2">
                                     <label asp-for="Loainhanvienidlnv" class="control-label">Loại nhân viên</label>
                                     <select asp-for="Loainhanvienidlnv" class="form-control">
                                         @foreach (var item in loainhanvien)
@@ -299,7 +299,7 @@
                                         }
                                     </select>
                                     <span asp-validation-for="Loainhanvienidlnv" class="text-danger"></span>
-                                </div>
+                                </div>*@
                                 <div class="form-group col-md-6">
                                     <label asp-for="Ghichu" class="control-label">Ghi chú</label>
                                     <textarea asp-for="Ghichu" class="form-control"></textarea>
@@ -336,11 +336,11 @@
                                 </div>
                                
 
-                                <div class="form-group d-none">
+                                @*<div class="form-group d-none">
                                     <label asp-for="Accountidaccount" class="control-label"></label>
                                     <input asp-for="Accountidaccount" value="@ViewData["Accountidaccount"]" class="form-control" />
                                     <span asp-validation-for="Accountidaccount" class="text-danger"></span>
-                                </div>
+                                </div>*@
                                 <div class="form-group d-none">
                                     <label asp-for="Active" class="control-label">Email</label>
                                     <input asp-for="Active" class="form-control" />

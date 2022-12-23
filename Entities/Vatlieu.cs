@@ -11,27 +11,28 @@ namespace QuanLySanXuat.Entities
     {
         public Vatlieu()
         {
-            Noidungphieunhap = new HashSet<Noidungphieunhap>();
-            Vatlieusanxuatbandau = new HashSet<Vatlieusanxuatbandau>();
-            Vatlieusanxuatthuc = new HashSet<Vatlieusanxuatthuc>();
+            Noidungpbh = new HashSet<Noidungpbh>();
+            Noidungpnk = new HashSet<Noidungpnk>();
+            Vatlieusxbd = new HashSet<Vatlieusxbd>();
+            Vatlieusxtt = new HashSet<Vatlieusxtt>();
         }
 
         public int Idvl { get; set; }
         public string Mavl { get; set; }
         public string Tenvl { get; set; }
-        public string Donvitinh { get; set; }
         public string Quycach { get; set; }
-        public string Giaban { get; set; }
-        public int? Active { get; set; }
-        public int Nhomvatlieuidnvl { get; set; }
-        public int Hangsanxuatidhsx { get; set; }
-        public int Nhacungcapidncc { get; set; }
+        public float Giaban { get; set; }
+        public int Active { get; set; }
+        public int Idnvl { get; set; }
+        public int Idhsx { get; set; }
+        public int Idnsx { get; set; }
 
-        public virtual Hangsanxuat HangsanxuatidhsxNavigation { get; set; }
-        public virtual Nhacungcap NhacungcapidnccNavigation { get; set; }
-        public virtual Nhomvatlieu NhomvatlieuidnvlNavigation { get; set; }
-        public virtual ICollection<Noidungphieunhap> Noidungphieunhap { get; set; }
-        public virtual ICollection<Vatlieusanxuatbandau> Vatlieusanxuatbandau { get; set; }
-        public virtual ICollection<Vatlieusanxuatthuc> Vatlieusanxuatthuc { get; set; }
+        public virtual Hangsx IdhsxNavigation { get; set; }
+        public virtual Nuocsx IdnsxNavigation { get; set; }
+        public virtual Nhomvl IdnvlNavigation { get; set; }
+        public virtual ICollection<Noidungpbh> Noidungpbh { get; set; }
+        public virtual ICollection<Noidungpnk> Noidungpnk { get; set; }
+        public virtual ICollection<Vatlieusxbd> Vatlieusxbd { get; set; }
+        public virtual ICollection<Vatlieusxtt> Vatlieusxtt { get; set; }
     }
 }

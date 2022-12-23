@@ -21,7 +21,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Hangsanxuat
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Hangsanxuat.Where(n => n.Active==1).ToListAsync());
+            return View(await _context.Hangsx.Where(n => n.Active==1).ToListAsync());
         }
 
         // GET: Hangsanxuat/Details/5
@@ -33,7 +33,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             
-            var hangsanxuat = await _context.Hangsanxuat
+            var hangsanxuat = await _context.Hangsx
                 .FirstOrDefaultAsync(m => m.Idhsx == id);
             if (hangsanxuat == null)
             {
@@ -54,7 +54,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsanxuat hangsanxuat)
+        public async Task<IActionResult> Create([Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsx hangsanxuat)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-            var hangsanxuat = await _context.Hangsanxuat
+            var hangsanxuat = await _context.Hangsx
                 .FirstOrDefaultAsync(m => m.Idhsx == id);
             //var hangsanxuat = await _context.Hangsanxuat.FindAsync(id);
             if (hangsanxuat == null)
@@ -89,7 +89,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsanxuat hangsanxuat)
+        public async Task<IActionResult> Edit(int id, [Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsx hangsanxuat)
         {
             if (id != hangsanxuat.Idhsx)
             {
@@ -128,7 +128,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var hangsanxuat = await _context.Hangsanxuat
+            var hangsanxuat = await _context.Hangsx
                 .FirstOrDefaultAsync(m => m.Idhsx == id);
             if (hangsanxuat == null)
             {
@@ -143,9 +143,9 @@ namespace QuanLySanXuat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hangsanxuat = await _context.Hangsanxuat.FindAsync(id);
+            var hangsanxuat = await _context.Hangsx.FindAsync(id);
             hangsanxuat.Active = 0;
-            _context.Hangsanxuat.Update(hangsanxuat);
+            _context.Hangsx.Update(hangsanxuat);
             await _context.SaveChangesAsync();
             return RedirectToAction("AddInterface", "Vatlieu");
 
@@ -153,7 +153,7 @@ namespace QuanLySanXuat.Controllers
 
         private bool HangsanxuatExists(int id)
         {
-            return _context.Hangsanxuat.Any(e => e.Idhsx == id);
+            return _context.Hangsx.Any(e => e.Idhsx == id);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuanLySanXuat.Entities.Noidungphieunhap>
+﻿@model IEnumerable<QuanLySanXuat.Entities.Noidungpnk>
 @using QuanLySanXuat.Entities;
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,16 +13,16 @@
                 @Html.DisplayNameFor(model => model.Dongia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation)
+                @Html.DisplayNameFor(model => model.IdpnkNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VatlieuidvlNavigation)
+                @Html.DisplayNameFor(model => model.IdvlNavigation)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in TempData["noidungphieunhap"] as List<Noidungphieunhap>) {
+@foreach (var item in TempData["noidungphieunhap"] as List<Noidungpnk>) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Soluong)
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.Dongia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngaylap)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VatlieuidvlNavigation.Idvl)
+                @Html.DisplayFor(modelItem => item.IdvlNavigation.Idvl)
             </td>
             <td>
 

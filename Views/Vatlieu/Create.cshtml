@@ -29,11 +29,7 @@
                 <input asp-for="Tenvl" class="form-control" />
                 <span asp-validation-for="Tenvl" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Donvitinh" class="control-label"></label>
-                <input asp-for="Donvitinh" class="form-control" />
-                <span asp-validation-for="Donvitinh" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <label asp-for="Quycach" class="control-label"></label>
                 <input asp-for="Quycach" class="form-control" />
@@ -50,12 +46,12 @@
                 <span asp-validation-for="Active" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nhomvatlieuidnvl" class="control-label"></label>
-                <select asp-for="Nhomvatlieuidnvl" class ="form-control" asp-items="ViewBag.Nhomvatlieuidnvl"></select>
+                <label asp-for="Idnvl" class="control-label"></label>
+                <select asp-for="Idnvl" class ="form-control" asp-items="ViewBag.Idnvl"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Hangsanxuatidhsx" class="control-label"></label>
-                <select asp-for="Hangsanxuatidhsx" class ="form-control" asp-items="ViewBag.Hangsanxuatidhsx"></select>
+                <label asp-for="Idhsx" class="control-label"></label>
+                <select asp-for="Idhsx" class ="form-control" asp-items="ViewBag.Idhsx"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

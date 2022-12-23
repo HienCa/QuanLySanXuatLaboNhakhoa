@@ -15,13 +15,15 @@ namespace QuanLySanXuat.Entities
         }
 
         public int Idptnncc { get; set; }
+        public string Sophieu { get; set; }
+        public DateTime Ngaylap { get; set; }
         public string Ghichu { get; set; }
-        public int? Active { get; set; }
-        public int Hinhthucthanhtoanidhttt { get; set; }
-        public int Nhanvienidnv { get; set; }
+        public int Active { get; set; }
+        public int Idhttt { get; set; }
+        public int Idnv { get; set; }
 
-        public virtual Hinhthucthanhtoan HinhthucthanhtoanidhtttNavigation { get; set; }
-        public virtual Nhanvien NhanvienidnvNavigation { get; set; }
+        public virtual Hinhthucthanhtoan IdhtttNavigation { get; set; }
+        public virtual Nhanvien IdnvNavigation { get; set; }
         public virtual ICollection<Noidungtranoncc> Noidungtranoncc { get; set; }
     }
 }

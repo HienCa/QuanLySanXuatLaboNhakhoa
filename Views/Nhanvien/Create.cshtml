@@ -2,7 +2,7 @@
 @using QuanLySanXuat.Entities;
 @{
     ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
-    List<Loainhanvien> loainhanvien = context.Loainhanvien.Where(a => a.Active == 1).ToList();
+    //List<Loainhanvien> loainhanvien = context.Loainhanvien.Where(a => a.Active == 1).ToList();
 }
 @{
     Layout = null;
@@ -75,75 +75,7 @@
 </head>
 
 <body class="app sidebar-mini rtl">
-    <style>
-        .Choicefile {
-            display: block;
-            background: #14142B;
-            border: 1px solid #fff;
-            color: #fff;
-            width: 150px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 5px 0px;
-            border-radius: 5px;
-            font-weight: 500;
-            align-items: center;
-            justify-content: center;
-        }
-
-            .Choicefile:hover {
-                text-decoration: none;
-                color: white;
-            }
-
-        #uploadfile,
-        .removeimg {
-            display: none;
-        }
-
-        #thumbbox {
-            position: relative;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .removeimg {
-            height: 25px;
-            position: absolute;
-            background-repeat: no-repeat;
-            top: 5px;
-            left: 5px;
-            background-size: 25px;
-            width: 25px;
-            /* border: 3px solid red; */
-            border-radius: 50%;
-        }
-
-            .removeimg::before {
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                content: '';
-                border: 1px solid red;
-                background: red;
-                text-align: center;
-                display: block;
-                margin-top: 11px;
-                transform: rotate(45deg);
-            }
-
-            .removeimg::after {
-                /* color: #FFF; */
-                /* background-color: #DC403B; */
-                content: '';
-                background: red;
-                border: 1px solid red;
-                text-align: center;
-                display: block;
-                transform: rotate(-45deg);
-                margin-top: -2px;
-            }
-    </style>
+    
     <!-- Navbar-->
     <header class="app-header">
 
@@ -255,7 +187,13 @@
                                     <input asp-for="Tennv" class="form-control" />
                                     <span asp-validation-for="Tennv" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-2">
+
+                                    <label asp-for="Cccd" class="control-label">CCCD</label>
+                                    <input asp-for="Cccd" class="form-control" />
+                                    <span asp-validation-for="Cccd" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
 
                                     <label asp-for="Diachi" class="control-label">Địa chỉ</label>
                                     <input asp-for="Diachi" class="form-control" />
@@ -291,25 +229,25 @@
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="NgaySinh" class="control-label">Ngày sinh</label>
-                                    <input asp-for="NgaySinh" type="date" class="form-control" />
-                                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                    <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
+                                    <input asp-for="Ngaysinh" type="date" class="form-control" />
+                                    <span asp-validation-for="Ngaysinh" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="Loainhanvienidlnv" class="control-label">Loại nhân viên</label>
-                                    <select asp-for="Loainhanvienidlnv" class="form-control">
-                                        @foreach (var item in loainhanvien)
-                                        {
-                                            <option value="@item.Idlnv">@item.Tenlnv</option>
-                                        }
-                                    </select>
-                                    <span asp-validation-for="Loainhanvienidlnv" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Ghichu" class="control-label">Ghi chú</label>
-                                    <textarea asp-for="Ghichu" class="form-control"></textarea>
-                                    <span asp-validation-for="Ghichu" class="text-danger"></span>
-                                </div>
+                                @*<div class="form-group col-md-2">
+            <label asp-for="Loainhanvienidlnv" class="control-label">Loại nhân viên</label>
+            <select asp-for="Loainhanvienidlnv" class="form-control">
+                @foreach (var item in loainhanvien)
+                {
+                    <option value="@item.Idlnv">@item.Tenlnv</option>
+                }
+            </select>
+            <span asp-validation-for="Loainhanvienidlnv" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+            <textarea asp-for="Ghichu" class="form-control"></textarea>
+            <span asp-validation-for="Ghichu" class="text-danger"></span>
+        </div>*@
                                 @*<div class="form-group col-md-2">
             <label for="hinhanh" asp-for="Hinhanh" class="control-label">Ảnh thẻ</label>
             <input asp-for="Hinhanh" id="hinhanh" type="file" class="form-control" />
@@ -323,7 +261,7 @@
                                     </div>
                                     <span asp-validation-for="Hinhanh" class="text-danger"></span>
                                     @*<span asp-validation-for="Hinhanh" class="text-danger"></span>
-                                    <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />*@
+            <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />*@
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -332,26 +270,26 @@
                                 </div>
 
                                 @*<div class="form-group col-md-12">
-                                    <label class="control-label">Ảnh nhân viên</label>
-                                    <div id="myfileupload">
-                                        <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
-                                    </div>
-                                    <div id="thumbbox">
-                                        <img height="300" width="300" alt="Thumb image" id="thumbimage" style="display: none" />
-                                        <a class="removeimg" href="javascript:"></a>
-                                    </div>
-                                    <div id="boxchoice">
-                                        <a href="javascript:" class="Choicefile"><i class='bx bx-upload'></i></a>
-                                        <p style="clear:both"></p>
-                                    </div>
+            <label class="control-label">Ảnh nhân viên</label>
+            <div id="myfileupload">
+                <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+            </div>
+            <div id="thumbbox">
+                <img height="300" width="300" alt="Thumb image" id="thumbimage" style="display: none" />
+                <a class="removeimg" href="javascript:"></a>
+            </div>
+            <div id="boxchoice">
+                <a href="javascript:" class="Choicefile"><i class='bx bx-upload'></i></a>
+                <p style="clear:both"></p>
+            </div>
 
-                                </div>*@
+        </div>*@
 
-                                <div class="form-group col-md-4 d-none">
+                                @*<div class="form-group col-md-4 d-none">
 
-                                    <label asp-for="Accountidaccount" class="control-label">Account</label>
-                                    <select asp-for="Accountidaccount" class="form-control" asp-items="ViewBag.Accountidaccount"></select>
-                                </div>
+            <label asp-for="Accountidaccount" class="control-label">Account</label>
+            <select asp-for="Accountidaccount" class="form-control" asp-items="ViewBag.Accountidaccount"></select>
+        </div>*@
 
 
                             </div>
@@ -381,7 +319,7 @@
     <!--
       MODAL
     -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+    @*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -449,8 +387,8 @@
                 </div>
 
             </div>
-        </div>
-    </div>
+        </div>*@
+    @*</div>*@
     @section scripts{
         <script type="text/javascript">
             // Add the following code if you want the name of the file appear on select

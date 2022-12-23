@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<QuanLySanXuat.Entities.Noidungphieunhap>
+@model IEnumerable<QuanLySanXuat.Entities.Noidungpnk>
 @using QuanLySanXuat.Entities;
 
 
@@ -69,7 +69,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Tennv)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.IdnvNavigation.Tennv)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Soluong)
@@ -78,16 +78,16 @@
                                         @Html.DisplayNameFor(model => model.Dongia)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.Ngaylap)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.VatlieuidvlNavigation.Tenvl)
+                                        @Html.DisplayNameFor(model => model.IdvlNavigation.Tenvl)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Sohd)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.Sohd)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Ngayhd)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.Ngayhd)
                                     </th>
                                     @*<th></th>*@
                                 </tr>
@@ -97,7 +97,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Manv) - @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Tennv)
+                                            @Html.DisplayFor(modelItem => item.IdpnkNavigation.IdnvNavigation.Manv) - @Html.DisplayFor(modelItem => item.IdpnkNavigation.IdnvNavigation.Tennv)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Soluong)
@@ -106,34 +106,34 @@
                                             @Html.DisplayFor(modelItem => item.Dongia)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                                            @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngaylap)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.VatlieuidvlNavigation.Tenvl)
+                                            @Html.DisplayFor(modelItem => item.IdvlNavigation.Tenvl)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Sohd)
+                                            @Html.DisplayFor(modelItem => item.IdpnkNavigation.Sohd)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngayhd)
+                                            @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngayhd)
                                         </td>
                                         @*<td>
-                                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                                                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
 
-                                                    <a asp-action="Edit" class="btn btn-warning " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-edit"></i></a>
-                                                    <a asp-action="Details" class="btn btn-info " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"> <i class="fas fa-info-circle"></i></a>
+                                                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-edit"></i></a>
+                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"> <i class="fas fa-info-circle"></i></a>
 
-                                                    <a asp-action="Delete" class="btn btn-danger " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt"></i></a>
-                                                </td>*@
+                                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Phieunhapkho" asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt"></i></a>
+                                                                    </td>*@
                                     </tr>
                                 }
                             </tbody>
                         </table>
                         <form asp-action="Delete">
                             <input type="hidden" asp-for="@ViewData["idpnk"]" />
-                            <input type="submit" value="Delete" class="btn btn-danger" /> 
+                            <input type="submit" value="Delete" class="btn btn-danger" />
                         </form>
                     </div>
 

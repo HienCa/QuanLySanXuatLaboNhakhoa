@@ -15,6 +15,8 @@
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
     <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
+    <link rel="stylesheet" type="text/css" href="~/CSS/menu.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!-- or -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -28,173 +30,287 @@
 
 </head>
 
-<body onload="time()" class="app sidebar-mini rtl">
+<body onload="time()" class="bg-light">
     <!-- Navbar-->
     <header class="app-header">
-        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                        aria-label="Hide Sidebar"></a>
+
+        <!-- Sidebar toggle button-->
+        <!--<a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+        aria-label="Hide Sidebar"></a>-->
         <!-- Navbar Right Menu-->
-        <ul class="app-nav">
-
-
-            <!-- User Menu-->
-            <li>
+        <!--<ul class="app-nav">-->
+        <!-- User Menu-->
+        <!--<li>
                 @Html.ActionLink("Đăng Xuất", "DangXuat", "Home", null, new { @class = "app-nav__item " })
 
             </li>
-        </ul>
-    </header>
-    <!-- Sidebar menu-->
-    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <aside class="app-sidebar">
-        <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="~/Images/hien.jpg" style="width: 50px"
-                 alt="User Image">
-            <div class="text-white">
-                <p class="app-sidebar__user-name"><b>Văn Hiền</b></p>
-                <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-            </div>
-        </div>
-        <hr>
-        <ul class="app-menu">
-            <li>
+        </ul>-->
+
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Đơn Hàng", "DonHang", "Admin", null, new { @class = "  app-menu__label text-center" })</li>
+                <li> @Html.ActionLink("Bảng Điều Khiển", "Index", "Admin", null, new { @class = " app-menu__label text-center" })</li>
+                <li>
+                    <a class="haha" href="#" title="Quản lý">Quản Lý</a>
+                    <ul>
+
+                        <li>
+                            <a href="#" title="Quản lý vật liệu">Quản lý vật liệu</a>
+                            <ul>
+                                <li>
+                                    <a href="#" title="Quản lý vật liệu">Vật liệu</a>
+                                    <ul>
+                                        <li> @Html.ActionLink("Danh sách vật liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label text-center " })</li>
 
 
-                @Html.ActionLink("Đơn Hàng", "DonHang", "Admin", null, new { @class = "app-menu__item haha app-menu__label text-center" })
-            </li>
-            <li>
+                                        <li> @Html.ActionLink("Thêm mới vật liệu", "AddInterface", "Vatlieu", null, new { @class = " app-menu__label text-center " })</li>
 
-                @Html.ActionLink("Bảng Điều Khiển", "Index", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
 
-                @Html.ActionLink("Quản Lý Nhân Viên", "QuanLyNhanVien", "Admin", null, new { @class = "app-menu__item app-menu__label text-center active" })
-            </li>
-            <li>
+                                    </ul>
 
-                @Html.ActionLink("Quản Lý Khách Hàng", "Index", "Khachhang", null, new { @class = "app-menu__item app-menu__label text-center " })
-            </li>
-            <li>
+                                </li>
+                                <li>
+                                    <a href="#" title="Quản lý nhóm vật liệu">Nhóm vật liệu</a>
+                                    <ul>
+                                        <li> @Html.ActionLink("Danh sách nhóm vật liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label text-center " })</li>
 
-                @Html.ActionLink("Quản Lý Vật Liệu", "QuanLySanPham", "Admin", null, new { @class = "app-menu__item app-menu__label text-center " })
-            </li>
-            <li>
 
-                @Html.ActionLink("Quản Lý Kho", "Index", "QuanLyTonKho", null, new { @class = "app-menu__item app-menu__label text-center " })
-            </li>
-            <li>
+                                        <li> @Html.ActionLink("Thêm mới nhóm vật liệu", "Create", "Nhomvatlieu", null, new { @class = " app-menu__label text-center " })</li>
 
-                @Html.ActionLink("Quản Lý Đơn Hàng", "QuanLyDonHang", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
 
-                @Html.ActionLink("Quản Lý Đội Nhóm", "QuanLyDoiNhom", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
+                                    </ul>
 
-            <li>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Quản lý tồn kho">Quản lý tồn kho</a>
+                            <ul>
+                                <li>
+                                    <a href="#" title="Quản lý nhập kho">Nhập kho</a>
+                                    <ul>
 
-                @Html.ActionLink("Báo Cáo Thống Kê", "BaoCaoDanhThu", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
 
-        </ul>
-    </aside>
-    <main class="app-content">
-        <div class="app-title">
-            <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách nhân viên</b></a></li>
+                                        <li> @Html.ActionLink("Danh sách phiếu nhập kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label text-center " })</li>
+                                        <li> @Html.ActionLink("Phiếu nháp", "PhieuNhap", "Phieunhapkho", null, new { @class = " app-menu__label text-center " })</li>
+
+                                        <li> @Html.ActionLink("Tạo phiếu nhập kho", "Create", "PhieuNhapKho", null, new { @class = " app-menu__label text-center " })</li>
+                                        <li>
+                                        <li> @Html.ActionLink("Thêm mới nhà cung cấp", "Create", "Nhacungcaps", null, new { @class = " app-menu__label text-center " })</li>
+
+                                        <li> @Html.ActionLink("Thêm mới vật liệu", "AddInterface", "Vatlieu", null, new { @class = " app-menu__label text-center " })</li>
+                                        <li> @Html.ActionLink("Thống kê", "ThongKe", "Phieunhapkho", null, new { @class = " app-menu__label text-center " })</li>
+                                    </ul>
+
+                                </li>
+                                <li>
+                                    <a href="#" title="Quản lý xuất kho">Quản lý xuất kho</a>
+                                    <ul>
+
+
+                                        <li> @Html.ActionLink("Danh sách phiếu xuất kho", "QuanLyXuatKho", "QuanLyTonKho", null, new { @class = "  app-menu__label text-center " })</li>
+
+
+                                        <li> @Html.ActionLink("Tạo phiếu bán hàng", "Create", "PhieuXuatKho", null, new { @class = " app-menu__label text-center " })</li>
+
+
+                                        <li> @Html.ActionLink("Tạo phiếu xuất kho", "Create", "PhieuXuatKho", null, new { @class = " app-menu__label text-center " })</li>
+                                        <li>
+                                        <li> @Html.ActionLink("Thống kê", "ThongKe", "PhieuXuatKho", null, new { @class = " app-menu__label text-center " })</li>
+                                    </ul>
+
+                                </li>
+                                <li><a href="#" title="Lịch sử">Lịch sử</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Quản lý tài khoản">Quản lý tài khoản</a>
+                            <ul>
+
+                                <li> @Html.ActionLink("Tài khoản nhân viên", "NhanvienAccount", "Account", null, new { @class = " app-menu__label text-center " })</li>
+
+
+                                <li> @Html.ActionLink("Thêm mới đội nhóm sản xuất", "KhachhangAccount", "Account", null, new { @class = " app-menu__label text-center " })</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Quản lý nhân viên">Quản lý nhân viên</a>
+                            <ul>
+
+                                <li>
+
+                                <li>
+                                    @Html.ActionLink("Danh sách nhân viên", "Index", "Nhanvien", null, new { @class = " app-menu__label text-center active" })
+                                <li>
+                                <li>
+                                    @Html.ActionLink("Thêm mới nhân viên", "Create", "Nhanvien", null, new { @class = " app-menu__label text-center " })
+                                <li>
+
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Quản lý khách hàng">Quản lý khách hàng</a>
+                            <ul>
+
+                                <li>
+
+                                <li>
+
+                                    @Html.ActionLink("Danh sách khách hàng", "Index", "Khachhang", null, new { @class = " app-menu__label text-center " })
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("Thêm mới khách hàng", "Create", "Khachhang", null, new { @class = " app-menu__label text-center " })
+
+                                <li>
+
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Quản lý đội ngũ sản xuất">Quản lý đội ngũ sản xuất</a>
+                            <ul>
+
+                                <li>
+
+                                <li>
+
+                                    @Html.ActionLink("Danh sách đội", "Index", "Tosanxuat", null, new { @class = " app-menu__label text-center " })
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("Thêm mới đội nhóm sản xuất", "Create", "Tosanxuat", null, new { @class = "app-menu__label text-center " })
+
+                                <li>
+
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Báo cáo danh thu">Báo cáo danh thu</a>
+                            <ul>
+
+                                <li>
+                                <li><a href="#" title="Thêm mới vật liệu">Tuần</a>
+                                <li>
+                                <li><a href="#" title="Danh sách đội ngũ">Tháng</a>
+                                <li>
+                                <li><a href="#" title="Thêm mới vật liệu">Qúy</a>
+                                <li>
+                                <li><a href="#" title="Thêm mới vật liệu">Năm</a>
+                                <li>
+
+
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                <li> @Html.ActionLink("Đăng xuất", "DangXuat", "Home", null, new { @class = " app-menu__label text-center " })</li>
+
+
+
+
+
             </ul>
-            <div id="clock"></div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-
-                        <div class="row element-button">
-                            <div class="col-sm-2">
+        </nav>
+    </header>
 
 
-                                @Html.ActionLink("Thêm mới nhân viên", "Create", "Nhanvien", null, new { @class = "btn btn-add btn-sm" })
 
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Tải từ file", "ImportNhanVien", "Nhanvien", null, new { @class = "btn btn-delete btn-sm nhap-tu-file" })
-
-                            </div>
-
-                            <div class="col-sm-2">
-                                @*<a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()">
-                                        <i class="fas fa-print"></i> In dữ liệu
-                                    </a>*@
-                                @Html.ActionLink("In dữ liệu", "ThemNhanVien", "Nhanvien", null, new { @class = "btn btn-delete btn-sm print-file" })
-
-                            </div>
-
-                            <div class="col-sm-2">
-                                @Html.ActionLink("Xuất Excel", "ExportToExcelNhanVien", "Nhanvien", null, new { @class = "btn btn-excel btn-sm fas fa-file-excel p-2" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất PDF", "ExportToPDFNhanVien", "Nhanvien", null, new { @class = "btn btn-delete btn-sm pdf-file" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất CSV", "ExportToCSVNhanVien", "Nhanvien", null, new { @class = "btn btn-delete btn-sm pdf-file" })
-
-                            </div>
+    <div class="row " style="margin-top:50px">
+        <div class="col-md-12">
+            <div class="tile">
+                    <div class="row title-title">
+                        <div class="col-2">
+                            <h3 class=""> Quản Lý Nhân Viên</h3>
                         </div>
-                        <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
-                               border="0" id="sampleTable">
-                            <thead>
-                                <tr>
-                                    <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã nhân viên</th>
-                                    <th width="150">Họ và tên</th>
-                                    <th width="300">Địa chỉ</th>
-                                    <th>Số điện thoại</th>
-                                    @*<th>Giới tính</th>
-                                        <th>Ngày sinh</th>
-                                        <th>Account</th>*@
-                                    <th>Tính năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>#@item.Manv</td>
-                                        <td>@item.Tennv</td>
-                                        <td>@item.Diachi</td>
-                                        <td>@item.Sdt</td>
-                                        @*<td>@item.Gioitinh</td>
-                                            <td>@item.NgaySinh</td>
-                                            <td>@item.AccountidaccountNavigation.Tk</td>*@
+                        <div class="col-sm-2">
 
+                            @Html.ActionLink("Thêm mới nhân viên", "Create", "Nhanvien", null, new { @class = "btn bg-dark text-white btn-sm" })
 
-                                        <td class="table-td-center">
-                                            <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Idnv"><i class="fas fa-info text-white"></i></a>
-                                            <a asp-action="Edit" class="btn btn-warning " asp-route-id="@item.Idnv"><i class="fas fa-edit text-white"></i></a>
-                                            <a asp-action="Delete" class="btn btn-danger " asp-route-id="@item.Idnv"><i class="fas fa-trash-alt text-white"></i></a>
+                        </div>
 
-                                        </td>
-                                    </tr>
-                                }
+                        <div class="col-sm-2">
+                            @Html.ActionLink("Xuất Excel", "ExportToExcel", "Nhanvien", null, new { @class = "btn bg-dark text-white btn-sm fas fa-file-excel p-2" })
 
+                        </div>
+                        <div class="col-sm-2">
 
+                            @Html.ActionLink("Xuất PDF", "ExportToPDFNhanVien", "Nhanvien", null, new { @class = "btn bg-dark text-white btn-sm pdf-file" })
 
+                        </div>
+                        <div class="col-sm-2">
 
-                            </tbody>
-                        </table>
+                            @Html.ActionLink("Xuất CSV", "ExportToCSV", "Nhanvien", null, new { @class = "btn bg-dark text-white btn-sm pdf-file" })
+
+                        </div>
+                        <div class="col-sm-3 ">
+                            <form asp-action="Import" asp-controller="Nhanvien" method="post" enctype="multipart/form-data">
+                                <div class=" d-flex">
+                                    @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
+                                    <input id="fileExcel" class="" required type="file" name="file" />
+                                    <button class="btn  btn-dark" type="submit">Import</button>
+                                </div>
+
+                            </form>
+
+                        </div>
                     </div>
+                <div class="tile-body">
+
+                    
+                    <table class="table table-hover table-bordered js-copytextarea"  cellpadding="0" cellspacing="0"
+                           border="0" id="sampleTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                @*<th width="10"><input type="checkbox" id="all"></th>*@
+                                <th>Mã nhân viên</th>
+                                <th width="150">Họ và tên</th>
+                                <th width="300">Địa chỉ</th>
+                                <th>Số điện thoại</th>
+                                @*<th>Giới tính</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Account</th>*@
+                                <th>Tính năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @*<td width="10"><input type="checkbox" name="check1" value="1"></td>*@
+                                    <td>#@item.Manv</td>
+                                    <td>@item.Tennv</td>
+                                    <td>@item.Diachi</td>
+                                    <td>@item.Sdt</td>
+                                    @*<td>@item.Gioitinh</td>
+                                        <td>@item.NgaySinh</td>
+                                        <td>@item.AccountidaccountNavigation.Tk</td>*@
+
+
+                                    <td class="table-td-center">
+                                        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Idnv"><i class="fas fa-info text-white"></i></a>
+                                        <a asp-action="Edit" class="btn btn-warning " asp-route-id="@item.Idnv"><i class="fas fa-edit text-white"></i></a>
+                                        <a asp-action="Delete" class="btn btn-danger " asp-route-id="@item.Idnv"><i class="fas fa-trash-alt text-white"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <!--
       MODAL
@@ -377,3 +493,6 @@
 </body>
 
 </html>
+
+
+

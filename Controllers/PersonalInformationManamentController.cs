@@ -33,8 +33,8 @@ namespace QuanLySanXuat.Controllers
             string customerEmail = Request.Cookies["HienCaCookie"];
             Khachhang KH = context.Khachhang.Where(kh => kh.Email.Equals(customerEmail)).FirstOrDefault();
             //join 3 bảng
-            var BankDetails = _context.Chitietnganhangkh.Where(idkh=>idkh.Khachhangidkh==KH.Idkh)
-                .Include(c => c.KhachhangidkhNavigation).Include(c => c.NganhangidnhNavigation);
+            var BankDetails = _context.Ctnganhangkh.Where(idkh=>idkh.Idkh==KH.Idkh)
+                .Include(c => c.IdkhNavigation).Include(c => c.IdnhNavigation);
             ViewData["Fullname"] = KH.Tenkh;
 
             
@@ -82,7 +82,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             var khachhang = await _context.Khachhang
-                .Include(k => k.AccountidaccountNavigation)
+                //.Include(k => k.AccountidaccountNavigation)
                 .FirstOrDefaultAsync(m => m.Idkh == id);
             if (khachhang == null)
             {
@@ -95,7 +95,7 @@ namespace QuanLySanXuat.Controllers
         // GET: PersonalInformationManament/Create
         public IActionResult Create()
         {
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
+            //ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount");
             return View();
         }
 
@@ -112,7 +112,7 @@ namespace QuanLySanXuat.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
+            //ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return View(khachhang);
         }
 
@@ -129,7 +129,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
+            //ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return View(khachhang);
         }
 
@@ -147,7 +147,7 @@ namespace QuanLySanXuat.Controllers
                 try
                 {
                     khachhang.Nvidsale = kh.Nvidsale;
-                    khachhang.Accountidaccount = kh.Accountidaccount;
+                    //khachhang.Accountidaccount = kh.Accountidaccount;
                     khachhang.Active = kh.Active;
                     _context.Update(khachhang);
                     await _context.SaveChangesAsync();
@@ -179,7 +179,6 @@ namespace QuanLySanXuat.Controllers
                 }
                 return RedirectToAction("Index", "PersonalInformationManament");
             }
-            ViewData["Accountidaccount"] = new SelectList(_context.Account, "Idaccount", "Idaccount", khachhang.Accountidaccount);
             return RedirectToAction("Index", "PersonalInformationManament");
 
         }
@@ -193,7 +192,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             var khachhang = await _context.Khachhang
-                .Include(k => k.AccountidaccountNavigation)
+                //.Include(k => k.AccountidaccountNavigation)
                 .FirstOrDefaultAsync(m => m.Idkh == id);
             if (khachhang == null)
             {

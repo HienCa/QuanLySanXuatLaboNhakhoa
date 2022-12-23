@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuanLySanXuat.Entities.Chitietnganhangkh>
+﻿@model IEnumerable<QuanLySanXuat.Entities.Ctnganhangkh>
 
 
 <!DOCTYPE html>
@@ -126,12 +126,12 @@
 
                                     <tr>
 
-                                        <td>@item.NganhangidnhNavigation.Tennh</td>
+                                        <td>@item.IdnhNavigation.Tennh</td>
                                         <td>@item.Stk</td>
-                                        <td>@item.NganhangidnhNavigation.Diachi</td>
-                                        <td>@item.NganhangidnhNavigation.Email</td>
-                                        <td>@item.NganhangidnhNavigation.Masothue</td>
-                                        <td>@item.NganhangidnhNavigation.Ghichu</td>
+                                        <td>@item.IdnhNavigation.Diachi</td>
+                                        <td>@item.IdnhNavigation.Email</td>
+                                        <td>@item.IdnhNavigation.Masothue</td>
+                                        <td>@item.IdnhNavigation.Ghichu</td>
                                         <td>
                                             @*<a asp-action="ShowInfo" class="btn btn-warning" asp-controller="Chitietnganhangkhs" asp-route-id="@item.Idctnhkh"><i class="fas fa-edit"></i></a>*@
                                             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })

@@ -11,21 +11,23 @@ namespace QuanLySanXuat.Entities
     {
         public Phieubanhang()
         {
+            Noidungpbh = new HashSet<Noidungpbh>();
             Noidungthunokh = new HashSet<Noidungthunokh>();
         }
 
         public int Idpbh { get; set; }
         public string Sophieu { get; set; }
-        public DateTime? Ngaylap { get; set; }
+        public DateTime Ngaylap { get; set; }
         public string Sohd { get; set; }
-        public string Ngayhd { get; set; }
+        public DateTime? Ngayhd { get; set; }
         public string Ghichu { get; set; }
-        public int? Active { get; set; }
-        public int Nhanvienidnv { get; set; }
-        public int Khachhangidkh { get; set; }
+        public int Active { get; set; }
+        public int Idnv { get; set; }
+        public int Idkh { get; set; }
 
-        public virtual Khachhang KhachhangidkhNavigation { get; set; }
-        public virtual Nhanvien NhanvienidnvNavigation { get; set; }
+        public virtual Khachhang IdkhNavigation { get; set; }
+        public virtual Nhanvien IdnvNavigation { get; set; }
+        public virtual ICollection<Noidungpbh> Noidungpbh { get; set; }
         public virtual ICollection<Noidungthunokh> Noidungthunokh { get; set; }
     }
 }

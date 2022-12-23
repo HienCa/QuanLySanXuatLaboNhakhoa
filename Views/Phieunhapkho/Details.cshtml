@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuanLySanXuat.Entities.Noidungphieunhap>
+﻿@model IEnumerable<QuanLySanXuat.Entities.Noidungpnk>
 @using QuanLySanXuat.Entities;
 
 
@@ -68,7 +68,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Tennv)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.IdnvNavigation.Tennv)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Soluong)
@@ -77,16 +77,16 @@
                                         @Html.DisplayNameFor(model => model.Dongia)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.Ngaylap)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.VatlieuidvlNavigation.Tenvl)
+                                        @Html.DisplayNameFor(model => model.IdvlNavigation.Tenvl)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Sohd)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.Sohd)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation.Ngayhd)
+                                        @Html.DisplayNameFor(model => model.IdpnkNavigation.Ngayhd)
                                     </th>
                                     @*<th></th>*@
                                 </tr>
@@ -96,7 +96,7 @@
                                 {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Manv) - @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation.Tennv)
+                                        @Html.DisplayFor(modelItem => item.IdpnkNavigation.IdnvNavigation.Manv) - @Html.DisplayFor(modelItem => item.IdpnkNavigation.IdnvNavigation.Tennv)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Soluong)
@@ -105,16 +105,16 @@
                                         @Html.DisplayFor(modelItem => item.Dongia)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngaynhap)
+                                        @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngaylap)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.VatlieuidvlNavigation.Tenvl)
+                                        @Html.DisplayFor(modelItem => item.IdvlNavigation.Tenvl)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Sohd)
+                                        @Html.DisplayFor(modelItem => item.IdpnkNavigation.Sohd)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PhieunhapkhoidpnkNavigation.Ngayhd)
+                                        @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngayhd)
                                     </td>
                                     @*<td>
                                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

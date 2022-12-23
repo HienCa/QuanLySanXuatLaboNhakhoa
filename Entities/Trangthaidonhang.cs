@@ -11,7 +11,7 @@ namespace QuanLySanXuat.Entities
     {
         public Trangthaidonhang()
         {
-            Donhangsanxuat = new HashSet<Donhangsanxuat>();
+            Dondathangsx = new HashSet<Dondathangsx>();
         }
 
         public int Idttdh { get; set; }
@@ -19,6 +19,6 @@ namespace QuanLySanXuat.Entities
         public string Tenttdh { get; set; }
         public int? Active { get; set; }
 
-        public virtual ICollection<Donhangsanxuat> Donhangsanxuat { get; set; }
+        public virtual ICollection<Dondathangsx> Dondathangsx { get; set; }
     }
 }

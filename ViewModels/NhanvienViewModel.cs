@@ -24,25 +24,21 @@ namespace QuanLySanXuat.Entities
         public int Idnv { get; set; }
         public string Manv { get; set; }
         public string Tennv { get; set; }
+        public string Cccd { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Ngaysinh { get; set; }
         public string Gioitinh { get; set; }
         public string Diachi { get; set; }
         public string Sdt { get; set; }
         public string Email { get; set; }
+        public string Matkhau { get; set; }
+        public string Masothue { get; set; }
+        public string Facebook { get; set; }
+        public string Zalo { get; set; }
         public int? Tosxid { get; set; }
         public string Ghichu { get; set; }
-        public int? Active { get; set; }
-        public int Loainhanvienidlnv { get; set; }
-        public int Accountidaccount { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        public int Active { get; set; }
 
-        public DateTime? NgaySinh { get; set; }
-
-        //public IFormFile Hinhanh { get; set; }
-        public string Masothue { get; set; }
-
-
-        public virtual Account AccountidaccountNavigation { get; set; }
-        public virtual Loainhanvien LoainhanvienidlnvNavigation { get; set; }
         public virtual ICollection<Phieubanhang> Phieubanhang { get; set; }
         public virtual ICollection<Phieunhapkho> Phieunhapkho { get; set; }
         public virtual ICollection<Phieuthunokh> Phieuthunokh { get; set; }

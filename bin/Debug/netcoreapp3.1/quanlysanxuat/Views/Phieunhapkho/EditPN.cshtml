@@ -4,6 +4,7 @@
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
     ////List<Nhanvien> nhanvien = _context.Nhanvien.Where(active => active.Active == 1).ToList();
     List<Vatlieu> vatlieu = _context.Vatlieu.Where(active => active.Active == 1).ToList();
+    List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
 
 }
 @{
@@ -125,7 +126,7 @@
                 <form asp-action="Create" asp-controller="Noidungphieunhap" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     @*<input type="hidden" asp-for="Idpnk" />*@
-                    <input type="hidden" value="@Model.Idpnk" name="Idpn" />
+                    <input type="hidden" value="@Model.Idpnk" asp-for="Idpnk" />
 
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -137,9 +138,9 @@
                                     <span asp-validation-for="Sophieu" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-3">
-                                    <label asp-for="Ngaynhap" class="control-label"></label>
-                                    <input asp-for="Ngaynhap" class="form-control" />
-                                    <span asp-validation-for="Ngaynhap" class="text-danger"></span>
+                                    <label asp-for="Ngaylap" class="control-label"></label>
+                                    <input asp-for="Ngaylap" class="form-control" />
+                                    <span asp-validation-for="Ngaylap" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-3">
                                     <label asp-for="Sohd" class="control-label"></label>
@@ -154,24 +155,30 @@
 
                                 <div class="form-group col-md-4 col-sm-3">
                                     <label class="control-label">Số lượng</label>
-                                    <input name="Soluong" type="number" class="form-control" />
+                                    <input name="Soluong" type="number" required class="form-control" />
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-3">
                                     <label class="control-label">Đơn giá nhập</label>
-                                    <input name="Dongia" type="number" class="form-control" />
+                                    <input name="Dongia" type="number" required class="form-control" />
                                     <span class="text-danger"></span>
                                 </div>
-                                @*@*<div class="form-group col-4">
-                                        <label class="control-label">Nhân viên lập phiếu</label>
-                                        <select class="form-control" id="exampleSelect1" name="Nhanvienidnv">
-                                            <option>-- Chọn nhân viên --</option>
-                                            @foreach (var item in nhanvien)
-                                            {
-                                                <option value="@item.Idnv">@item.Tennv</option>
-                                            }
-                                        </select>
-                                    </div>*@
+                                <div class="form-group col-md-4 col-sm-12">
+
+                                    <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+                                    <select asp-for="Idncc" class="form-control" id="exampleSelect1" name="Idncc">
+                                        <option>-- Chọn nhà cung cấp --</option>
+                                        @foreach (var item in nhacungcap)
+                                        {
+                                            <option value="@item.Idncc">@item.Tenncc</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-3 d-none">
+                                    <label class="control-label">Nhân viên nhập</label>
+                                    <input asp-for="Idnv"  type="text" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
                                 <div class="form-group col-12">
                                     <label asp-for="Ghichu" class="control-label"></label>
                                     <textarea asp-for="Ghichu" class="form-control"></textarea>

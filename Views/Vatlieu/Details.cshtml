@@ -33,7 +33,7 @@
 
     <!-- Navbar-->
     <header class="app-header">
-    idebar"></a>
+        idebar"></a>
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
 
@@ -47,7 +47,7 @@
         </ul>
     </header>
     <!-- Sidebar menu-->
-    
+
 
     <main class="mt-5">
 
@@ -56,7 +56,7 @@
                 <li class="breadcrumb-item">Danh sách sản phẩm</li>
                 <li class="breadcrumb-item"><a style="font-weight:bolder" href="#">Thông tin chi tiết</a></li>
             </ul>
-            
+
             <div id="clock"></div>
 
         </div>
@@ -66,84 +66,87 @@
                     <h3 class="tile-title">Vật liệu #@Model.Mavl</h3>
                     <div class="tile-body">
 
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Idvl" />
-                            <div class="row">
-                                <div class="form-group col-md-3 col-sm-12">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Idvl" />
+                        <div class="row">
+                            <div class="form-group col-md-3 col-sm-12">
 
-                                    <label class="control-label">Hãng sản xuất</label>
-                                    <div>
-                                        @Model.HangsanxuatidhsxNavigation.Mahsx - @Model.HangsanxuatidhsxNavigation.Tenhsx
-                                    </div>
+                                <label class="control-label">Hãng sản xuất</label>
+                                <div>
+                                    @Model.IdhsxNavigation.Mahsx - @Model.IdhsxNavigation.Tenhsx
                                 </div>
+                            </div>
 
-                                <div class="form-group col-md-3 col-sm-12">
+                            @*<div class="form-group col-md-3 col-sm-12">
 
                                     <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
 
                                     <div>
                                         @Model.NhacungcapidnccNavigation.Mancc - @Model.NhacungcapidnccNavigation.Tenncc
                                     </div>
-                                </div>
-                                <div class="form-group col-md-3 col-sm-12">
+                                </div>*@
+                            <div class="form-group col-md-3 col-sm-12">
 
-                                    <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
-                                    <div>
-                                        @Model.NhomvatlieuidnvlNavigation.Manvl - @Model.NhomvatlieuidnvlNavigation.Tennvl
-                                    </div>
-
-
-                                </div>
-                                <div class="form-group col-md-3 col-sm-12">
-
-                                    <label asp-for="Mavl" class="control-label"></label>
-                                    <div>
-                                        @Model.Mavl - @Model.Tenvl
-                                    </div>
+                                <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
+                                <div>
+                                    @Model.IdnvlNavigation.Manvl - @Model.IdnvlNavigation.Tennvl
                                 </div>
 
 
-                                <div class="form-group col-md-3 col-sm-12">
-
-                                    <label asp-for="Quycach" class="control-label"></label>
-                                    <div>
-                                        @Model.Quycach
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3 col-sm-12">
-
-                                    <label asp-for="Donvitinh" class="control-label"></label>
-                                    <div>
-                                        @Model.Donvitinh
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group col-md-3 col-sm-12">
-
-                                    <label asp-for="Giaban" class="control-label">Giá bán</label>
-                                    <div>
-                                        @Model.Giaban
-                                    </div>
-                                </div>
-                                @*<div class="form-group col-md-3 col-sm-12">
-
-            <label class="control-label">Ảnh sản phẩm</label>
-            <div id="myfileupload">
-                <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
-            </div>
-            <div id="thumbbox">
-                <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
-                <a class="removeimg" href="javascript:"></a>
-            </div>
-            <div id="boxchoice">
-                <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                <p style="clear:both"></p>
-            </div>
-
-        </div>*@
                             </div>
-                            
+                            <div class="form-group col-md-3 col-sm-12">
+
+                                <label for="exampleSelect1" class="control-label">Nước sản xuất</label>
+                                <div>
+                                    @Model.IdnsxNavigation.Mansx - @Model.IdnsxNavigation.Tennsx
+                                </div>
+
+
+                            </div>
+                            <div class="form-group col-md-3 col-sm-12">
+
+                                <label asp-for="Mavl" class="control-label"></label>
+                                <div>
+                                    @Model.Mavl - @Model.Tenvl
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-3 col-sm-12">
+
+                                <label asp-for="Quycach" class="control-label"></label>
+                                <div>
+                                    @Model.Quycach
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group col-md-3 col-sm-12">
+
+                                <label asp-for="Giaban" class="control-label">Giá bán</label>
+                                <div>
+                                    @Model.Giaban
+                                </div>
+                            </div>
+                            @*<div class="form-group col-md-3 col-sm-12">
+
+                                    <label class="control-label">Ảnh sản phẩm</label>
+                                    <div id="myfileupload">
+                                        <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                                    </div>
+                                    <div id="thumbbox">
+                                        <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
+                                        <a class="removeimg" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice">
+                                        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                                        <p style="clear:both"></p>
+                                    </div>
+
+                                </div>*@
+                        </div>
+
 
 
                     </div>

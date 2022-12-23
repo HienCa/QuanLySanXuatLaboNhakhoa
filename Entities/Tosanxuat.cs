@@ -11,17 +11,17 @@ namespace QuanLySanXuat.Entities
     {
         public Tosanxuat()
         {
-            Tosanxuathanghoathanhpham = new HashSet<Tosanxuathanghoathanhpham>();
+            Cttosxhhtp = new HashSet<Cttosxhhtp>();
         }
 
         public int Idtsx { get; set; }
         public string Matsx { get; set; }
         public string Tentsx { get; set; }
         public string Ghichu { get; set; }
-        public int? Active { get; set; }
-        public int Giaidoansanxuatidgdsx { get; set; }
+        public int Active { get; set; }
+        public int Idgdsx { get; set; }
 
-        public virtual Giaidoansanxuat GiaidoansanxuatidgdsxNavigation { get; set; }
-        public virtual ICollection<Tosanxuathanghoathanhpham> Tosanxuathanghoathanhpham { get; set; }
+        public virtual Giaidoansx IdgdsxNavigation { get; set; }
+        public virtual ICollection<Cttosxhhtp> Cttosxhhtp { get; set; }
     }
 }

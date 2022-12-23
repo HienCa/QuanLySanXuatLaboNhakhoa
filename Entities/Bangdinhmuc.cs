@@ -12,16 +12,16 @@ namespace QuanLySanXuat.Entities
         public Bangdinhmuc()
         {
             Hanghoathanhpham = new HashSet<Hanghoathanhpham>();
-            Vatlieusanxuatbandau = new HashSet<Vatlieusanxuatbandau>();
+            Vatlieusxbd = new HashSet<Vatlieusxbd>();
         }
 
         public int Idbdm { get; set; }
         public string Mabdm { get; set; }
         public string Tenbdm { get; set; }
         public string Ghichu { get; set; }
-        public int? Active { get; set; }
+        public int Active { get; set; }
 
         public virtual ICollection<Hanghoathanhpham> Hanghoathanhpham { get; set; }
-        public virtual ICollection<Vatlieusanxuatbandau> Vatlieusanxuatbandau { get; set; }
+        public virtual ICollection<Vatlieusxbd> Vatlieusxbd { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Phieunhapkho
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Phieunhapkho.Include(p => p.NhanvienidnvNavigation);
+            var productionManagementSoftwareContext = _context.Phieunhapkho.Include(p => p.IdnvNavigation);
 
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
@@ -35,7 +35,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             var phieunhapkho = await _context.Phieunhapkho
-                .Include(p => p.NhanvienidnvNavigation)
+                .Include(p => p.IdnvNavigation)
                 .FirstOrDefaultAsync(m => m.Idpnk == pnkID);
             if (phieunhapkho == null)
             {
@@ -53,10 +53,10 @@ namespace QuanLySanXuat.Controllers
 
             Phieunhapkho phieunhap = _context.Phieunhapkho.Where(pn => pn.Idpnk == pnkID).FirstOrDefault();
             ViewData["sophieu"] = phieunhap.Sophieu;
-            List<Noidungphieunhap> noidungphieunhap = await _context.Noidungphieunhap
-                .Include(n => n.PhieunhapkhoidpnkNavigation).Include(n=>n.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation)
-                .Include(n => n.VatlieuidvlNavigation)
-                .Where(pn => pn.Phieunhapkhoidpnk == phieunhap.Idpnk)
+            List<Noidungpnk> noidungphieunhap = await _context.Noidungpnk
+                .Include(n => n.IdpnkNavigation).Include(n=>n.IdpnkNavigation.IdnvNavigation)
+                .Include(n => n.IdvlNavigation)
+                .Where(pn => pn.Idpnk == phieunhap.Idpnk)
                 .ToListAsync();
             //if (noidungphieunhap == null)
             //{
@@ -78,20 +78,20 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idpnk,Sophieu,Ngaynhap,Sohd,Ngayhd,Ghichu,Active,Nhanvienidnv")] Phieunhapkho phieunhapkho)
+        public async Task<IActionResult> Create([Bind("Idpnk,Sophieu,Ngaylap,Sohd,Ngayhd,Ghichu,Active,Idncc,Idnv")] Phieunhapkho phieunhapkho)
         {
             if (ModelState.IsValid)
             {
                 string employeeEmail = Request.Cookies["HienCaCookie"];
                 Nhanvien nhanvien = _context.Nhanvien.Where(nv => nv.Email == employeeEmail).FirstOrDefault();
-                phieunhapkho.Nhanvienidnv = nhanvien.Idnv;
+                phieunhapkho.Idnv = nhanvien.Idnv;
                 phieunhapkho.Active = 1;
 
                 _context.Add(phieunhapkho);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Nhanvienidnv"] = new SelectList(_context.Nhanvien, "Idnv", "Idnv", phieunhapkho.Nhanvienidnv);
+            ViewData["Nhanvienidnv"] = new SelectList(_context.Nhanvien, "Idnv", "Idnv", phieunhapkho.Idnv);
             return RedirectToAction("QuanLyNhapKho", "QuanLyTonKho");
         }
 
@@ -108,7 +108,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-            ViewData["Nhanvienidnv"] = new SelectList(_context.Nhanvien, "Idnv", "Idnv", phieunhapkho.Nhanvienidnv);
+            ViewData["Nhanvienidnv"] = new SelectList(_context.Nhanvien, "Idnv", "Idnv", phieunhapkho.Idnv);
             return View(phieunhapkho);
         }
 
@@ -117,7 +117,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idpnk,Sophieu,Ngaynhap,Sohd,Ngayhd,Ghichu,Active,Nhanvienidnv")] Phieunhapkho phieunhapkho)
+        public async Task<IActionResult> Edit(int id, [Bind("Idpnk,Sophieu,Ngaynhap,Sohd,Ngayhd,Ghichu,Active,Idncc,Idnv")] Phieunhapkho phieunhapkho)
         {
             if (id != phieunhapkho.Idpnk)
             {
@@ -128,6 +128,7 @@ namespace QuanLySanXuat.Controllers
             {
                 try
                 {
+                    
                     _context.Update(phieunhapkho);
                     await _context.SaveChangesAsync();
                 }
@@ -142,10 +143,9 @@ namespace QuanLySanXuat.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("QuanLyNhapKho","QuanLyTonKho");
             }
-            ViewData["Nhanvienidnv"] = new SelectList(_context.Nhanvien, "Idnv", "Idnv", phieunhapkho.Nhanvienidnv);
-            return View(phieunhapkho);
+            return RedirectToAction("QuanLyNhapKho", "QuanLyTonKho");
         }
 
         // GET: Phieunhapkho/Delete/5
@@ -163,10 +163,10 @@ namespace QuanLySanXuat.Controllers
             Phieunhapkho phieunhap = _context.Phieunhapkho.Where(pn => pn.Idpnk == id).FirstOrDefault();
             ViewData["sophieu"] = phieunhap.Sophieu;
             ViewData["idpnk"] = phieunhap.Idpnk;
-            List<Noidungphieunhap> noidungphieunhap = await _context.Noidungphieunhap
-                .Include(n => n.PhieunhapkhoidpnkNavigation).Include(n => n.PhieunhapkhoidpnkNavigation.NhanvienidnvNavigation)
-                .Include(n => n.VatlieuidvlNavigation)
-                .Where(pn => pn.Phieunhapkhoidpnk == phieunhap.Idpnk)
+            List<Noidungpnk> noidungphieunhap = await _context.Noidungpnk
+                .Include(n => n.IdpnkNavigation).Include(n => n.IdpnkNavigation.IdnvNavigation)
+                .Include(n => n.IdvlNavigation)
+                .Where(pn => pn.Idpnk == phieunhap.Idpnk)
                 .ToListAsync();
             //if (phieunhapkho == null)
             //{

@@ -11,24 +11,25 @@ namespace QuanLySanXuat.Entities
     {
         public Hanghoathanhpham()
         {
-            Chitietgiaidoansanxuathoanghoathanhpham = new HashSet<Chitietgiaidoansanxuathoanghoathanhpham>();
-            Noidungdondathangsanxuat = new HashSet<Noidungdondathangsanxuat>();
-            Tosanxuathanghoathanhpham = new HashSet<Tosanxuathanghoathanhpham>();
-            Vatlieusanxuatthuc = new HashSet<Vatlieusanxuatthuc>();
+            Ctgiaidoansxhhtp = new HashSet<Ctgiaidoansxhhtp>();
+            Cttosxhhtp = new HashSet<Cttosxhhtp>();
+            Noidungddhsx = new HashSet<Noidungddhsx>();
+            Vatlieusxtt = new HashSet<Vatlieusxtt>();
         }
 
         public int Idhhtp { get; set; }
         public string Mahhtp { get; set; }
         public string Tenhhtp { get; set; }
+        public float? Dongiachung { get; set; }
         public string Mota { get; set; }
         public string Hinhanh { get; set; }
-        public int? Active { get; set; }
-        public int Bangdinhmucidbdm { get; set; }
+        public int Active { get; set; }
+        public int Idbdm { get; set; }
 
-        public virtual Bangdinhmuc BangdinhmucidbdmNavigation { get; set; }
-        public virtual ICollection<Chitietgiaidoansanxuathoanghoathanhpham> Chitietgiaidoansanxuathoanghoathanhpham { get; set; }
-        public virtual ICollection<Noidungdondathangsanxuat> Noidungdondathangsanxuat { get; set; }
-        public virtual ICollection<Tosanxuathanghoathanhpham> Tosanxuathanghoathanhpham { get; set; }
-        public virtual ICollection<Vatlieusanxuatthuc> Vatlieusanxuatthuc { get; set; }
+        public virtual Bangdinhmuc IdbdmNavigation { get; set; }
+        public virtual ICollection<Ctgiaidoansxhhtp> Ctgiaidoansxhhtp { get; set; }
+        public virtual ICollection<Cttosxhhtp> Cttosxhhtp { get; set; }
+        public virtual ICollection<Noidungddhsx> Noidungddhsx { get; set; }
+        public virtual ICollection<Vatlieusxtt> Vatlieusxtt { get; set; }
     }
 }

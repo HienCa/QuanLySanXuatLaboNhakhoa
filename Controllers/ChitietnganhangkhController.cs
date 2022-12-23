@@ -27,12 +27,12 @@ namespace QuanLySanXuat.Controllers
             string customerEmail = Request.Cookies["HienCaCookie"];
             Khachhang KH = _context.Khachhang.Where(kh => kh.Email.Equals(customerEmail)).FirstOrDefault();
             //join 3 bảng
-            TempData["Banks"] = _context.Chitietnganhangkh.Where(idkh => idkh.Khachhangidkh == KH.Idkh).Where(active=>active.NganhangidnhNavigation.Active==1)
-                .Include(c => c.KhachhangidkhNavigation).Include(c => c.NganhangidnhNavigation).ToList();
+            TempData["Banks"] = _context.Ctnganhangkh.Where(idkh => idkh.Idkh == KH.Idkh).Where(active=>active.IdnhNavigation.Active==1)
+                .Include(c => c.IdkhNavigation).Include(c => c.IdnhNavigation).ToList();
             ViewData["Fullname"] = KH.Tenkh;
 
-            TempData["lockedBanks"] = _context.Chitietnganhangkh.Where(idkh => idkh.Khachhangidkh == KH.Idkh).Where(active => active.NganhangidnhNavigation.Active == 0)
-                .Include(c => c.KhachhangidkhNavigation).Include(c => c.NganhangidnhNavigation).ToList();
+            TempData["lockedBanks"] = _context.Ctnganhangkh.Where(idkh => idkh.Idkh == KH.Idkh).Where(active => active.IdnhNavigation.Active == 0)
+                .Include(c => c.IdkhNavigation).Include(c => c.IdnhNavigation).ToList();
 
             //return View(BankDetails);
 
@@ -47,9 +47,9 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var chitietnganhangkh = await _context.Chitietnganhangkh
-                .Include(c => c.KhachhangidkhNavigation)
-                .Include(c => c.NganhangidnhNavigation)
+            var chitietnganhangkh = await _context.Ctnganhangkh
+                .Include(c => c.IdkhNavigation)
+                .Include(c => c.IdnhNavigation)
                 .FirstOrDefaultAsync(m => m.Idctnhkh == id);
             if (chitietnganhangkh == null)
             {
@@ -72,7 +72,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idctnhkh,Stk,Nganhangidnh,Khachhangidkh")] Chitietnganhangkh chitietnganhangkh)
+        public async Task<IActionResult> Create( Ctnganhangkh chitietnganhangkh)
         {
             if (ModelState.IsValid)
             {
@@ -80,8 +80,7 @@ namespace QuanLySanXuat.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Khachhangidkh"] = new SelectList(_context.Khachhang, "Idkh", "Diachi", chitietnganhangkh.Khachhangidkh);
-            ViewData["Nganhangidnh"] = new SelectList(_context.Nganhang, "Idnh", "Idnh", chitietnganhangkh.Nganhangidnh);
+
             return View(chitietnganhangkh);
         }
 
@@ -94,9 +93,9 @@ namespace QuanLySanXuat.Controllers
             }
 
             //var chitietnganhangkh = await _context.Chitietnganhangkh.FindAsync(id);
-            var chitietnganhangkh = await _context.Chitietnganhangkh
-                .Include(c => c.KhachhangidkhNavigation)
-                .Include(c => c.NganhangidnhNavigation)
+            var chitietnganhangkh = await _context.Ctnganhangkh
+                .Include(c => c.IdkhNavigation)
+                .Include(c => c.IdnhNavigation)
                 .FirstOrDefaultAsync(m => m.Idctnhkh == id);
             string action = HttpContext.Request.Query["action"].ToString();
             //ViewData["unlock"] = "";
@@ -114,8 +113,8 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-            ViewData["Khachhangidkh"] = new SelectList(_context.Khachhang, "Idkh", "Diachi", chitietnganhangkh.Khachhangidkh);
-            ViewData["Nganhangidnh"] = new SelectList(_context.Nganhang, "Idnh", "Idnh", chitietnganhangkh.Nganhangidnh);
+            //ViewData["Khachhangidkh"] = new SelectList(_context.Khachhang, "Idkh", "Diachi", chitietnganhangkh.Khachhangidkh);
+            //ViewData["Nganhangidnh"] = new SelectList(_context.Nganhang, "Idnh", "Idnh", chitietnganhangkh.Nganhangidnh);
 
 
             //return View(chitietnganhangkh);
@@ -130,7 +129,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,string action, string tenng,string Ghichu, [Bind("Idctnhkh,Stk,Nganhangidnh,Khachhangidkh")] Chitietnganhangkh chitietnganhangkh)
+        public async Task<IActionResult> Edit(int id,string action, string tenng,string Ghichu,  Ctnganhangkh chitietnganhangkh)
         {
             if (id != chitietnganhangkh.Idctnhkh)
             {
@@ -143,7 +142,7 @@ namespace QuanLySanXuat.Controllers
                 {
                     //string customerEmail = Request.Cookies["HienCaCookie"];
                     //Khachhang KH = _context.Khachhang.Where(kh => kh.Email.Equals(customerEmail)).FirstOrDefault();
-                    Nganhang nganhang = _context.Nganhang.Where(idng => idng.Idnh == chitietnganhangkh.Nganhangidnh).FirstOrDefault();
+                    Nganhang nganhang = _context.Nganhang.Where(idng => idng.Idnh == chitietnganhangkh.Idnh).FirstOrDefault();
                     nganhang.Tennh = tenng;
                     nganhang.Ghichu = Ghichu;
                     if (action.Equals("lock"))
@@ -176,8 +175,8 @@ namespace QuanLySanXuat.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Khachhangidkh"] = new SelectList(_context.Khachhang, "Idkh", "Diachi", chitietnganhangkh.Khachhangidkh);
-            ViewData["Nganhangidnh"] = new SelectList(_context.Nganhang, "Idnh", "Idnh", chitietnganhangkh.Nganhangidnh);
+            //ViewData["Khachhangidkh"] = new SelectList(_context.Khachhang, "Idkh", "Diachi", chitietnganhangkh.Khachhangidkh);
+            //ViewData["Nganhangidnh"] = new SelectList(_context.Nganhang, "Idnh", "Idnh", chitietnganhangkh.Nganhangidnh);
             return View(chitietnganhangkh);
         }
 
@@ -264,9 +263,9 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var chitietnganhangkh = await _context.Chitietnganhangkh
-                .Include(c => c.KhachhangidkhNavigation)
-                .Include(c => c.NganhangidnhNavigation)
+            var chitietnganhangkh = await _context.Ctnganhangkh
+                .Include(c => c.IdkhNavigation)
+                .Include(c => c.IdnhNavigation)
                 .FirstOrDefaultAsync(m => m.Idctnhkh == id);
             if (chitietnganhangkh == null)
             {
@@ -281,15 +280,15 @@ namespace QuanLySanXuat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var chitietnganhangkh = await _context.Chitietnganhangkh.FindAsync(id);
-            _context.Chitietnganhangkh.Remove(chitietnganhangkh);
+            var chitietnganhangkh = await _context.Ctnganhangkh.FindAsync(id);
+            _context.Ctnganhangkh.Remove(chitietnganhangkh);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ChitietnganhangkhExists(int id)
         {
-            return _context.Chitietnganhangkh.Any(e => e.Idctnhkh == id);
+            return _context.Ctnganhangkh.Any(e => e.Idctnhkh == id);
         }
     }
 }

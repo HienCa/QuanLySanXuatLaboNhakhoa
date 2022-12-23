@@ -15,8 +15,8 @@ namespace QuanLySanXuat.Controllers
         ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
         public async Task<IActionResult> Index()
         {
-          var phieunhap= context.Phieunhapkho.Where(pn=>pn.Active==1).Include(p => p.NhanvienidnvNavigation); 
-            TempData["phieunhapkho"] = context.Phieunhapkho.Where(pn => pn.Active == 1).Include(p => p.NhanvienidnvNavigation).ToList();
+          var phieunhap= context.Phieunhapkho.Where(pn=>pn.Active==1).Include(p => p.IdnvNavigation); 
+            TempData["phieunhapkho"] = context.Phieunhapkho.Where(pn => pn.Active == 1).Include(p => p.IdnvNavigation).ToList();
             //TempData["phieuxuatkho"] = context.Phieubanhang.Where(px => px.Active == 1).Include(p => p.NhanvienidnvNavigation).ToList();
      //có thể do null nên báo lỗi, kiểm tra null trước
             return View(await phieunhap.ToListAsync());

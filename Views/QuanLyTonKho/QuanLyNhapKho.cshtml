@@ -3,11 +3,10 @@
 
 @{
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    List<Nhomvatlieu> nhomvatlieu = _context.Nhomvatlieu.Where(n => n.Active == 1).ToList();
-    List<Nhacungcap> nhacungcap = _context.Nhacungcap.Where(n => n.Active == 1).ToList();
-    List<Hangsanxuat> hangsanxuat = _context.Hangsanxuat.Where(n => n.Active == 1).ToList();
+    List<Nhomvl> nhomvatlieu = _context.Nhomvl.Where(n => n.Active == 1).ToList();
+    List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
+    List<Hangsx> hangsanxuat = _context.Hangsx.Where(n => n.Active == 1).ToList();
     List<Vatlieu> vatlieu = _context.Vatlieu.Where(n => n.Active == 1).ToList();
-
 
 }
 <!DOCTYPE html>
@@ -75,75 +74,7 @@
 </head>
 
 <body class="app sidebar-mini rtl">
-    <style>
-        .Choicefile {
-            display: block;
-            background: #14142B;
-            border: 1px solid #fff;
-            color: #fff;
-            width: 150px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 5px 0px;
-            border-radius: 5px;
-            font-weight: 500;
-            align-items: center;
-            justify-content: center;
-        }
 
-            .Choicefile:hover {
-                text-decoration: none;
-                color: white;
-            }
-
-        #uploadfile,
-        .removeimg {
-            display: none;
-        }
-
-        #thumbbox {
-            position: relative;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .removeimg {
-            height: 25px;
-            position: absolute;
-            background-repeat: no-repeat;
-            top: 5px;
-            left: 5px;
-            background-size: 25px;
-            width: 25px;
-            /* border: 3px solid red; */
-            border-radius: 50%;
-        }
-
-            .removeimg::before {
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                content: '';
-                border: 1px solid red;
-                background: red;
-                text-align: center;
-                display: block;
-                margin-top: 11px;
-                transform: rotate(45deg);
-            }
-
-            .removeimg::after {
-                /* color: #FFF; */
-                /* background-color: #DC403B; */
-                content: '';
-                background: red;
-                border: 1px solid red;
-                text-align: center;
-                display: block;
-                transform: rotate(-45deg);
-                margin-top: -2px;
-            }
-    </style>
     <!-- Navbar-->
     <header class="app-header">
         <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
@@ -257,9 +188,19 @@
                             <div class="form-group col-md-12 col-sm-12">
 
                                 <label class="control-label">Ngày nhập</label>
-                                <input class="form-control" type="date" name="Ngaynhap">
+                                <input class="form-control" type="date" name="Ngaylap">
                             </div>
+                            <div class="form-group col-md-12 col-sm-12">
 
+                                <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+                                <select class="form-control" id="exampleSelect1" name="Idncc">
+                                    <option>-- Chọn nhà cung cấp --</option>
+                                    @foreach (var item in nhacungcap)
+                                    {
+                                        <option value="@item.Idncc">@item.Tenncc</option>
+                                    }
+                                </select>
+                            </div>
 
                             <div class="form-group col-md-12 col-sm-12">
 
@@ -271,14 +212,18 @@
                                 <label class="control-label">Ngày hóa đơn</label>
                                 <input class="form-control" type="date" name="Ngayhd">
                             </div>
+                            <div class="form-group col-md-12 col-sm-12">
 
+                                <label class="control-label">Ghi chú</label>
+                                <textarea class="form-control" type="text" name="Ghichu"></textarea>
+                            </div>
 
                             <div class="form-group col-12">
                                 @*<a class="btn btn-cancel w-100" data-dismiss="modal" href="#">Hủy bỏ</a>*@
                                 @*<button class="btn bg-white text-success" style="border: 1px solid green" type="submit">
-                                        Lưu
-                                        nháp
-                                    </button>*@
+                Lưu
+                nháp
+            </button>*@
                                 <button class="btn btn-save w-100" type="submit">Tạo phiếu nhập kho</button>
                             </div>
 
@@ -324,7 +269,7 @@
                                 </a>
                             </div>
                         </div>
-                        <table class="table table-hover table-striped "  id="sampleTable">
+                        <table class="table table-hover table-striped " id="sampleTable">
                             <thead>
                                 <tr>
                                     <th width="10"><input type="checkbox" id="all"></th>
@@ -342,7 +287,7 @@
                                     <tr>
                                         <td width="10"><input type="checkbox" name="check1" value="1"></td>
                                         <td>#@item.Sophieu</td>
-                                        <td>@item.Ngaynhap</td>
+                                        <td>@item.Ngaylap</td>
                                         <td>@item.Sohd</td>
                                         <td>@item.Ngayhd</td>
 
@@ -378,9 +323,9 @@
                     <div class="row">
                         <div class="col-4"></div>
                         <h3 class="thong-tin-thanh-toan text-center col-4">Thêm vật liệu mới</h3>
-                        <span class="col-4"  data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                        <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
                     </div>
-                    
+
                     <form asp-action="Create" asp-controller="Vatlieu" enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-12">
@@ -410,7 +355,7 @@
                             <div class="form-group col-md-4 col-sm-12">
 
                                 <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
-                                <select class="form-control" id="exampleSelect1" name="Nhacungcapidncc">
+                                <select class="form-control" id="exampleSelect1" name="Idncc">
                                     <option>-- Chọn nhà cung cấp --</option>
                                     @foreach (var item in nhacungcap)
                                     {
@@ -435,11 +380,11 @@
                                 <label class="control-label">Quy cách</label>
                                 <input class="form-control" type="text" name="Quycach">
                             </div>
-                            <div class="form-group col-md-3 col-sm-12">
+                            @*<div class="form-group col-md-3 col-sm-12">
 
                                 <label class="control-label">Đơn vị tính</label>
                                 <input class="form-control" type="text" name="Donvitinh">
-                            </div>
+                            </div>*@
 
 
                             <div class="form-group col-md-3 col-sm-12">
@@ -447,11 +392,11 @@
                                 <label class="control-label">Giá bán</label>
                                 <input class="form-control" type="text">
                             </div>
-                            <div class="form-group col-md-3 col-sm-12">
+                            @*<div class="form-group col-md-3 col-sm-12">
 
                                 <label class="control-label">Giá vốn</label>
                                 <input class="form-control" type="text">
-                            </div>
+                            </div>*@
                             <div class="form-group col-md-3 col-sm-12">
 
                                 <label class="control-label">Ảnh sản phẩm</label>
@@ -470,15 +415,15 @@
                             </div>
                         </div>
                         @*<div class="form-group col-md-12">
-                <label class="control-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" name="mota" id="mota"></textarea>
-                <script>CKEDITOR.replace('mota');</script>
-            </div>*@
+                                <label class="control-label">Mô tả sản phẩm</label>
+                                <textarea class="form-control" name="mota" id="mota"></textarea>
+                                <script>CKEDITOR.replace('mota');</script>
+                            </div>*@
 
                         @*<button class="btn bg-white text-success" style="border: 1px solid green" type="submit">
-                Lưu
-                nháp
-            </button>*@
+                                Lưu
+                                nháp
+                            </button>*@
                         <button class="btn btn-save w-100" style="float:right" type="submit">Xác nhận nhập</button>
                         <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
                             <h3 class="control-label text-center mt-2 mb-2">Danh sách vật liệu</h3>
@@ -536,7 +481,7 @@
                     </div>
                     @using (Html.BeginForm("Create", "Nhacungcaps"))
                     {
-                        <div class="" >
+                        <div class="">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
 
@@ -579,8 +524,8 @@
                         </div>
 
                         <BR>
-                        <button class="btn btn-save w-100" style="float:right"  type="submit">Lưu lại</button>
-                 
+                        <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+
                         <BR>
                         <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
                             <h3 class="control-label text-center mt-2 mb-2">Danh sách nhà cung cấp hiện hợp tác</h3>
@@ -637,7 +582,7 @@
 
                     @using (Html.BeginForm("Create", "Nhomvatlieu"))
                     {
-                        <div class="" >
+                        <div class="">
 
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
@@ -659,8 +604,8 @@
                             </div>
                         </div>
                         <BR>
-                        <button class="btn btn-save w-100 "  style="float:right"  type="submit">Lưu lại</button>
-                      
+                        <button class="btn btn-save w-100 " style="float:right" type="submit">Lưu lại</button>
+
                         <BR>
                         <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
                             <h3 class="control-label text-center mt-2 mb-2">Danh sách nhóm sản phẩm hiện dùng</h3>
@@ -693,7 +638,7 @@
             </div>
 
         </div>
-       
+
     </div>
 
     <!--
@@ -717,7 +662,7 @@
                     </div>
                     @using (Html.BeginForm("Create", "Hangsanxuat"))
                     {
-                        <div class="" >
+                        <div class="">
 
                             <div class="row">
                                 <div class="form-group col-md-4 col-sm-12">
@@ -732,8 +677,8 @@
                             </div>
                         </div>
                         <BR>
-                        <button class="btn btn-save w-100" style="float:right"  type="submit">Lưu lại</button>
-                     
+                        <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+
                         <BR>
                         <div class="form-group  col-md-12" style="height:30vh; overflow-y:scroll">
                             <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
@@ -764,11 +709,11 @@
                     }
                 </div>
 
-                        </div>
-                    </div>
-
             </div>
-      
+        </div>
+
+    </div>
+
 
     <!--
     MODAL
@@ -893,8 +838,8 @@
 
                     </div>
                     <BR>
-                    <button class="btn btn-save w-100" style="float:right"  type="button">Lưu lại</button>
-      
+                    <button class="btn btn-save w-100" style="float:right" type="button">Lưu lại</button>
+
                     <BR>
                 </div>
                 <div class="modal-footer">
@@ -931,8 +876,8 @@
                             </div>
                         </div>
                         <BR>
-                        <button class="btn btn-save w-100"  style="float:right" type="submit">Lưu lại</button>
-                       
+                        <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+
                         <BR>
                         <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
                             <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
@@ -963,10 +908,10 @@
                     }
                 </div>
 
-                </div>
-                </div>
             </div>
-        
+        </div>
+    </div>
+
     <!--
     MODAL
     -->

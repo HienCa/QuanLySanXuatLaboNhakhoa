@@ -45,9 +45,9 @@ namespace QuanLySanXuat.Controllers
             //List<Hangsanxuat> hangsx = _context.Hangsanxuat.ToList();
             //List<Nhomvatlieu> nhomvl = _context.Nhomvatlieu.ToList();
 
-            TempData["NCC"] = _context.Nhacungcap.ToList();
-            TempData["HangSX"] = _context.Hangsanxuat.ToList();
-            TempData["NhomVL"] = _context.Nhomvatlieu.ToList();
+            TempData["NCC"] = _context.Nhacungcapvl.ToList();
+            TempData["HangSX"] = _context.Hangsx.ToList();
+            TempData["NhomVL"] = _context.Nhomvl.ToList();
 
             return View(await _context.Vatlieu.ToListAsync());
         }

@@ -41,7 +41,7 @@ namespace QuanLySanXuat.Controllers
             //    var GHICHU = HttpContext.Request.Query["Ghichu"].ToString();
             //    var MAKH = HttpContext.Request.Query["Makh"].ToString();
             //    //var ACTIVE = 1;
-               
+
             //    kh.Active = 1;
             //    kh.Accountidaccount = 2;
             //    context.Khachhang.Add(kh);
@@ -58,28 +58,23 @@ namespace QuanLySanXuat.Controllers
             //    //context.Database.ExecuteSqlRaw($"CREATECUSTOMERACCOUNT {EMAIL}");
             //    return RedirectToAction("DangNhap", "Home");
             //}
-            
+
             return View();
         }
         //public IActionResult DangNhap()
         //{
         //    return View();
         //}
-        public IActionResult DangNhap(Account a)
+        public IActionResult DangNhap(string TK, string MK)
         {
 
-            
 
-            //if (Request.Form.Count > 0)
-            //{
-            //String TK = Request.Form["TK"];
-            //String MK = Request.Form["MK"];
 
-            Account account = context.Account.Where(n => n.Tk == a.Tk && n.Mk == a.Mk).FirstOrDefault();
-            if (account != null)
+            Khachhang khachhang = context.Khachhang.Where(n => n.Email.Equals(TK)).FirstOrDefault();
+            Nhanvien nhanvien = context.Nhanvien.Where(n => n.Email.Equals(TK)).FirstOrDefault();
+
+            if (khachhang != null)
             {
-                Nhanvien nhanvien = context.Nhanvien.Where(n => n.Accountidaccount == account.Idaccount).FirstOrDefault();
-                Khachhang khachhang = context.Khachhang.Where(n => n.Accountidaccount == account.Idaccount).FirstOrDefault();
 
 
                 //var claims = new List<Claim> { new Claim(ClaimTypes.Name, a.Tk) };
@@ -89,36 +84,21 @@ namespace QuanLySanXuat.Controllers
                 //HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
                 //if (nhanvien.Email != null || khachhang.Email !=null)
                 //{
-                    
-                    if (account.Vaitroidvt == 1)
-                    {
-                    Response.Cookies.Append("HienCaCookie", nhanvien.Email);
-                    return RedirectToAction("Index", "VatLieu");
-                    }
-                    else if (account.Vaitroidvt == 2)
-                    {
-                    Response.Cookies.Append("HienCaCookie", khachhang.Email);
-                    return RedirectToAction("Index", "PersonalInformationManament");
-                    }
 
-                    else if (account.Vaitroidvt == 3)
-                    {
-                    //quản lý
-                    Response.Cookies.Append("HienCaCookie", nhanvien.Email);
-                    return RedirectToAction("Index", "PersonalInformationManament");
-                    }
-                    else if (account.Vaitroidvt == 4)
-                    {
-                        return RedirectToAction("Index", "PersonalInformationManament");
-                    }
-                //}
-                //else
-                //{
-                //    return RedirectToAction("DangNhap", "Home");
-                //}
+
+                Response.Cookies.Append("HienCaCookie", khachhang.Email);
+                return RedirectToAction("Index", "PersonalInformationManament");
+
+
+            }
+            if (nhanvien != null)
+            {
+
+                Response.Cookies.Append("HienCaCookie", nhanvien.Email);
+                return RedirectToAction("Index", "VatLieu");
+
             }
 
-            //}
 
             return View();
 
@@ -130,7 +110,7 @@ namespace QuanLySanXuat.Controllers
             Response.Cookies.Delete("HienCaCookie");
             return RedirectToAction("DangNhap");
         }
-        
+
 
         public IActionResult QuenMatKhau()
         {

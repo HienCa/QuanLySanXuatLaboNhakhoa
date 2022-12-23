@@ -9,14 +9,14 @@ namespace QuanLySanXuat.Entities
 {
     public partial class Noidungthunokh
     {
-        public int Idndtnkh { get; set; }
-        public string Sotien { get; set; }
-        public string Ghichu { get; set; }
-        public int Phieuthunokhidptnkh { get; set; }
-        public int Phieubanhangidpbh { get; set; }
+        public int Idndptnkh { get; set; }
         public DateTime Ngaythuno { get; set; }
+        public float Sotien { get; set; }
+        public string Ghichu { get; set; }
+        public int Idptnkh { get; set; }
+        public int Idpbh { get; set; }
 
-        public virtual Phieubanhang PhieubanhangidpbhNavigation { get; set; }
-        public virtual Phieuthunokh PhieuthunokhidptnkhNavigation { get; set; }
+        public virtual Phieubanhang IdpbhNavigation { get; set; }
+        public virtual Phieuthunokh IdptnkhNavigation { get; set; }
     }
 }

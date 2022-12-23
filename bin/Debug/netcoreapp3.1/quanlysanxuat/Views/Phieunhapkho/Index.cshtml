@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Sophieu)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ngaynhap)
+                @Html.DisplayNameFor(model => model.Ngaylap)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sohd)
@@ -37,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.Active)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NhanvienidnvNavigation)
+                @Html.DisplayNameFor(model => model.IdnvNavigation)
             </th>
             <th></th>
         </tr>
@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Sophieu)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ngaynhap)
+                @Html.DisplayFor(modelItem => item.Ngaylap)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sohd)
@@ -64,7 +64,7 @@
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NhanvienidnvNavigation.Idnv)
+                @Html.DisplayFor(modelItem => item.IdnvNavigation.Idnv)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Idpnk">Edit</a> |

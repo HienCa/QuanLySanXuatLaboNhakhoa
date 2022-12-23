@@ -1,4 +1,4 @@
-﻿@model QuanLySanXuat.Entities.Noidungphieunhap
+﻿@model QuanLySanXuat.Entities.Noidungpnk
 
 @{
     Layout = null;
@@ -31,23 +31,23 @@
             @Html.DisplayFor(model => model.Dongia)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhieunhapkhoidpnkNavigation)
+            @Html.DisplayNameFor(model => model.IdpnkNavigation)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhieunhapkhoidpnkNavigation.Idpnk)
+            @Html.DisplayFor(model => model.IdpnkNavigation.Idpnk)
         </dd class>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VatlieuidvlNavigation)
+            @Html.DisplayNameFor(model => model.IdvlNavigation)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VatlieuidvlNavigation.Idvl)
+            @Html.DisplayFor(model => model.IdvlNavigation.Idvl)
         </dd class>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Idpnk" />
-        <input type="hidden" asp-for="Vatlieuidvl" />
-        <input type="hidden" asp-for="Phieunhapkhoidpnk" />
+        <input type="hidden" asp-for="Idvl" />
+        <input type="hidden" asp-for="Idpnk" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

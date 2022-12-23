@@ -21,7 +21,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Nhacungcaps
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Nhacungcap.Where(n=>n.Active==1).ToListAsync());
+            return View(await _context.Nhacungcapvl.Where(n=>n.Active==1).ToListAsync());
         }
 
         // GET: Nhacungcaps/Details/5
@@ -32,7 +32,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhacungcap = await _context.Nhacungcap
+            var nhacungcap = await _context.Nhacungcapvl
                 .FirstOrDefaultAsync(m => m.Idncc == id);
             if (nhacungcap == null)
             {
@@ -53,7 +53,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idncc,Mancc,Tenncc,Diachi,Sdt,Email,Masothue,Ghichu,Active")] Nhacungcap nhacungcap)
+        public async Task<IActionResult> Create( Nhacungcapvl nhacungcap)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace QuanLySanXuat.Controllers
                 _context.Add(nhacungcap);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                return RedirectToAction("AddInterface", "Vatlieu");
+                return RedirectToAction("QuanLyNhapKho", "QuanLyTonKho");
 
             }
             return View(nhacungcap);
@@ -75,7 +75,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhacungcap = await _context.Nhacungcap.FindAsync(id);
+            var nhacungcap = await _context.Nhacungcapvl.FindAsync(id);
             if (nhacungcap == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idncc,Mancc,Tenncc,Diachi,Sdt,Email,Masothue,Ghichu,Active")] Nhacungcap nhacungcap)
+        public async Task<IActionResult> Edit(int id,  Nhacungcapvl nhacungcap)
         {
             if (id != nhacungcap.Idncc)
             {
@@ -128,7 +128,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhacungcap = await _context.Nhacungcap
+            var nhacungcap = await _context.Nhacungcapvl
                 .FirstOrDefaultAsync(m => m.Idncc == id);
             if (nhacungcap == null)
             {
@@ -143,16 +143,16 @@ namespace QuanLySanXuat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nhacungcap = await _context.Nhacungcap.FindAsync(id);
+            var nhacungcap = await _context.Nhacungcapvl.FindAsync(id);
             nhacungcap.Active = 0;
-            _context.Nhacungcap.Update(nhacungcap);
+            _context.Nhacungcapvl.Update(nhacungcap);
             await _context.SaveChangesAsync();
             return RedirectToAction("AddInterface","Vatlieu");
         }
 
         private bool NhacungcapExists(int id)
         {
-            return _context.Nhacungcap.Any(e => e.Idncc == id);
+            return _context.Nhacungcapvl.Any(e => e.Idncc == id);
         }
     }
 }

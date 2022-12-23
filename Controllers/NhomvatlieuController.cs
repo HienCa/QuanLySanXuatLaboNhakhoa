@@ -21,7 +21,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Nhomvatlieu
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Nhomvatlieu.Where(n=>n.Active==1).ToListAsync());
+            return View(await _context.Nhomvl.Where(n=>n.Active==1).ToListAsync());
         }
 
         // GET: Nhomvatlieu/Details/5
@@ -32,7 +32,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhomvatlieu = await _context.Nhomvatlieu
+            var nhomvatlieu = await _context.Nhomvl
                 .FirstOrDefaultAsync(m => m.Idnvl == id);
             if (nhomvatlieu == null)
             {
@@ -53,7 +53,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idnvl,Manvl,Tennvl,Loaivl,Active")] Nhomvatlieu nhomvatlieu)
+        public async Task<IActionResult> Create([Bind("Idnvl,Manvl,Tennvl,Loainvl,Active")] Nhomvl nhomvatlieu)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhomvatlieu = await _context.Nhomvatlieu.FindAsync(id);
+            var nhomvatlieu = await _context.Nhomvl.FindAsync(id);
             if (nhomvatlieu == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idnvl,Manvl,Tennvl,Loaivl,Active")] Nhomvatlieu nhomvatlieu)
+        public async Task<IActionResult> Edit(int id, [Bind("Idnvl,Manvl,Tennvl,Loainvl,Active")] Nhomvl nhomvatlieu)
         {
             if (id != nhomvatlieu.Idnvl)
             {
@@ -126,7 +126,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhomvatlieu = await _context.Nhomvatlieu
+            var nhomvatlieu = await _context.Nhomvl
                 .FirstOrDefaultAsync(m => m.Idnvl == id);
             if (nhomvatlieu == null)
             {
@@ -141,9 +141,9 @@ namespace QuanLySanXuat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nhomvatlieu = await _context.Nhomvatlieu.FindAsync(id);
+            var nhomvatlieu = await _context.Nhomvl.FindAsync(id);
             nhomvatlieu.Active = 0;
-            _context.Nhomvatlieu.Update(nhomvatlieu);
+            _context.Nhomvl.Update(nhomvatlieu);
             await _context.SaveChangesAsync();
             return RedirectToAction("AddInterface", "Vatlieu");
 
@@ -151,7 +151,7 @@ namespace QuanLySanXuat.Controllers
 
         private bool NhomvatlieuExists(int id)
         {
-            return _context.Nhomvatlieu.Any(e => e.Idnvl == id);
+            return _context.Nhomvl.Any(e => e.Idnvl == id);
         }
     }
 }

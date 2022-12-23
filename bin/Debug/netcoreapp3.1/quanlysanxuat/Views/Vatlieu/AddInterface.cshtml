@@ -1,9 +1,10 @@
 ﻿@using QuanLySanXuat.Entities;
+@model QuanLySanXuat.Entities.Vatlieu
 @{
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    List<Nhomvatlieu> nhomvatlieu = _context.Nhomvatlieu.Where(n => n.Active == 1).ToList();
-    List<Nhacungcap> nhacungcap = _context.Nhacungcap.Where(n => n.Active == 1).ToList();
-    List<Hangsanxuat> hangsanxuat = _context.Hangsanxuat.Where(n => n.Active == 1).ToList();
+    List<Nhomvl> nhomvatlieu = _context.Nhomvl.Where(n => n.Active == 1).ToList();
+    List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
+    List<Hangsx> hangsanxuat = _context.Hangsx.Where(n => n.Active == 1).ToList();
     List<Vatlieu> vatlieu = _context.Vatlieu.Where(n => n.Active == 1).ToList();
 
 }
@@ -212,7 +213,7 @@
                                 <div class="form-group col-md-4 col-sm-12">
 
                                     <label for="exampleSelect1" class="control-label">Hãng sản xuất</label>
-                                    <select class="form-control" id="exampleSelect1" name="Hangsanxuatidhsx">
+                                    <select asp-for="Idhsx" class="form-control" id="exampleSelect1">
                                         <option>-- Chọn hãng sản xuất --</option>
                                         @foreach (var item in hangsanxuat)
                                         {
@@ -223,7 +224,7 @@
                                 <div class="form-group col-md-4 col-sm-12">
 
                                     <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
-                                    <select class="form-control" id="exampleSelect1" name="Nhomvatlieuidnvl">
+                                    <select asp-for="Idnvl" class="form-control" id="exampleSelect1" >
                                         <option>-- Chọn nhóm vật liệu --</option>
                                         @foreach (var item in nhomvatlieu)
                                         {
@@ -233,7 +234,7 @@
 
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4 col-sm-12">
+                                @*<div class="form-group col-md-4 col-sm-12">
 
                                     <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
                                     <select class="form-control" id="exampleSelect1" name="Nhacungcapidncc">
@@ -243,35 +244,35 @@
                                             <option value="@item.Idncc">@item.Tenncc</option>
                                         }
                                     </select>
-                                </div>
+                                </div>*@
                                 <div class="form-group col-md-3 col-sm-12">
 
                                     <label class="control-label">Mã vật liệu </label>
-                                    <input class="form-control" type="text" placeholder="" name="Mavl">
+                                    <input asp-for="Mavl" class="form-control" type="text" placeholder="" name="Mavl">
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
 
                                     <label class="control-label">Tên vật liệu</label>
-                                    <input class="form-control" type="text" name="Tenvl">
+                                    <input asp-for="Tenvl" class="form-control" type="text" name="Tenvl">
                                 </div>
 
 
                                 <div class="form-group col-md-3 col-sm-12">
 
                                     <label class="control-label">Quy cách</label>
-                                    <input class="form-control" type="text" name="Quycach">
+                                    <input asp-for="Quycach" class="form-control" type="text" name="Quycach">
                                 </div>
-                                <div class="form-group col-md-3 col-sm-12">
+                                @*<div class="form-group col-md-3 col-sm-12">
 
                                     <label class="control-label">Đơn vị tính</label>
                                     <input class="form-control" type="text" name="Donvitinh">
-                                </div>
+                                </div>*@
 
 
                                 <div class="form-group col-md-3 col-sm-12">
 
                                     <label class="control-label">Giá bán</label>
-                                    <input class="form-control" type="text">
+                                    <input asp-for="Giaban" class="form-control" type="text">
                                 </div>
                                
                                 @*<div class="form-group col-md-3 col-sm-12">
@@ -469,10 +470,10 @@
 
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="row">
-                                        <div class="form-group col-md-33 col-sm-12">
+                                        <div class="form-group col-md-3 col-sm-12">
 
                                             <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
-                                            <input class="form-control" type="text" required name="Mnvl">
+                                            <input class="form-control" type="text"  name="Manvl">
                                         </div>
                                         <div class="form-group col-md-5 col-sm-12">
 
@@ -482,7 +483,7 @@
                                         <div class="form-group col-md-4 col-sm-12">
 
                                             <label class="control-label">LOẠI VẬT LIỆU</label>
-                                            <input class="form-control" type="text" required name="Loaivl">
+                                            <input class="form-control" type="text" required name="Loainvl">
                                         </div>
                                     </div>
                                 </div>
@@ -553,7 +554,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-4 col-sm-12">
                                             <label class="control-label">Nhập mã hãng</label>
-                                            <input class="form-control w-100" type="text" required name="Mahsx">
+                                            <input class="form-control w-100" type="text"  name="Mahsx">
                                         </div>
                                         <div class="form-group col-md-8 col-sm-12">
 

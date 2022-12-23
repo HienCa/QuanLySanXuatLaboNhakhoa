@@ -21,7 +21,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Vatlieu
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Vatlieu.Include(v => v.HangsanxuatidhsxNavigation).Include(v => v.NhomvatlieuidnvlNavigation);
+            var productionManagementSoftwareContext = _context.Vatlieu.Include(v => v.IdhsxNavigation).Include(v => v.IdnvlNavigation).Include(v => v.IdnsxNavigation);
             return View(await productionManagementSoftwareContext.Where(vl=>vl.Active==1).ToListAsync());
         }
 
@@ -42,10 +42,9 @@ namespace QuanLySanXuat.Controllers
             }
 
             var vatlieu = await _context.Vatlieu
-                .Include(v => v.HangsanxuatidhsxNavigation)
-                .Include(v => v.NhomvatlieuidnvlNavigation)
-                .Include(v => v.NhacungcapidnccNavigation)
-
+                .Include(v => v.IdhsxNavigation)
+                .Include(v => v.IdnvlNavigation)
+                .Include(v => v.IdnsxNavigation)
                 .FirstOrDefaultAsync(m => m.Idvl == id);
             if (vatlieu == null)
             {
@@ -58,9 +57,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Vatlieu/Create
         public IActionResult Create()
         {
-            ViewData["Hangsanxuatidhsx"] = new SelectList(_context.Hangsanxuat, "Idhsx", "Idhsx");
-            ViewData["Nhomvatlieuidnvl"] = new SelectList(_context.Nhomvatlieu, "Idnvl", "Idnvl");
-            ViewData["Nhacungcapidncc"] = new SelectList(_context.Nhomvatlieu, "Idncc", "Idncc");
+        
 
 
             return View();
@@ -71,20 +68,18 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idvl,Mavl,Tenvl,Donvitinh,Quycach,Giaban,Active,Nhomvatlieuidnvl,Hangsanxuatidhsx,Nhacungcapidncc")] Vatlieu vatlieu)
+        public async Task<IActionResult> Create( Vatlieu vatlieu)
         {
             if (ModelState.IsValid)
             {
+                int i = vatlieu.Idnvl;
                 vatlieu.Active = 1;
-                _context.Add(vatlieu);
+                _context.Vatlieu.Add(vatlieu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Hangsanxuatidhsx"] = new SelectList(_context.Hangsanxuat, "Idhsx", "Idhsx", vatlieu.Hangsanxuatidhsx);
-            ViewData["Nhomvatlieuidnvl"] = new SelectList(_context.Nhomvatlieu, "Idnvl", "Idnvl", vatlieu.Nhomvatlieuidnvl);
-            ViewData["Nhacungcapidncc"] = new SelectList(_context.Nhomvatlieu, "Idncc", "Idncc", vatlieu.Nhacungcapidncc);
-
-            return View(vatlieu);
+         
+            return View("AddInterface", "Vatlieu");
         }
 
         // GET: Vatlieu/Edit/5
@@ -100,9 +95,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-            ViewData["Hangsanxuatidhsx"] = new SelectList(_context.Hangsanxuat, "Idhsx", "Idhsx", vatlieu.Hangsanxuatidhsx);
-            ViewData["Nhomvatlieuidnvl"] = new SelectList(_context.Nhomvatlieu, "Idnvl", "Idnvl", vatlieu.Nhomvatlieuidnvl);
-            ViewData["Nhacungcapidncc"] = new SelectList(_context.Nhomvatlieu, "Idncc", "Idncc", vatlieu.Nhacungcapidncc);
+           
 
             return View(vatlieu);
         }
@@ -112,7 +105,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idvl,Mavl,Tenvl,Donvitinh,Quycach,Giaban,Active,Nhomvatlieuidnvl,Hangsanxuatidhsx,Nhacungcapidncc")] Vatlieu vatlieu)
+        public async Task<IActionResult> Edit(int id, [Bind("Idvl,Mavl,Tenvl,Quycach,Giaban,Active,Idnvl,Idhsx")] Vatlieu vatlieu)
         {
             if (id != vatlieu.Idvl)
             {
@@ -140,10 +133,8 @@ namespace QuanLySanXuat.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Hangsanxuatidhsx"] = new SelectList(_context.Hangsanxuat, "Idhsx", "Idhsx", vatlieu.Hangsanxuatidhsx);
-            ViewData["Nhomvatlieuidnvl"] = new SelectList(_context.Nhomvatlieu, "Idnvl", "Idnvl", vatlieu.Nhomvatlieuidnvl);
-            ViewData["Nhacungcapidncc"] = new SelectList(_context.Nhomvatlieu, "Idncc", "Idncc", vatlieu.Nhacungcapidncc);
-            return View(vatlieu);
+
+            return View("Edit", "Vatlieu");
         }
 
         // GET: Vatlieu/Delete/5
@@ -155,9 +146,9 @@ namespace QuanLySanXuat.Controllers
             }
 
             var vatlieu = await _context.Vatlieu
-                .Include(v => v.HangsanxuatidhsxNavigation)
-                .Include(v => v.NhomvatlieuidnvlNavigation)
-                .Include(v => v.NhacungcapidnccNavigation)
+                .Include(v => v.IdhsxNavigation)
+                .Include(v => v.IdnvlNavigation)
+                .Include(v => v.IdnsxNavigation)
 
                 .FirstOrDefaultAsync(m => m.Idvl == id);
             if (vatlieu == null)

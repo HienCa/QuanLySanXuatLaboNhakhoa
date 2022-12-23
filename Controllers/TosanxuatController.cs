@@ -21,7 +21,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Tosanxuat
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Tosanxuat.Include(t => t.GiaidoansanxuatidgdsxNavigation);
+            var productionManagementSoftwareContext = _context.Tosanxuat.Include(t => t.IdgdsxNavigation);
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             var tosanxuat = await _context.Tosanxuat
-                .Include(t => t.GiaidoansanxuatidgdsxNavigation)
+                .Include(t => t.IdgdsxNavigation)
                 .FirstOrDefaultAsync(m => m.Idtsx == id);
             if (tosanxuat == null)
             {
@@ -47,7 +47,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Tosanxuat/Create
         public IActionResult Create()
         {
-            ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx");
+            ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansx, "Idgdsx", "Idgdsx");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace QuanLySanXuat.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansanxuatidgdsx);
+            //ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansx, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansx);
             return View(tosanxuat);
         }
 
@@ -81,7 +81,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-            ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansanxuatidgdsx);
+            //ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansanxuatidgdsx);
             return View(tosanxuat);
         }
 
@@ -117,7 +117,7 @@ namespace QuanLySanXuat.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansanxuatidgdsx);
+            //ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansanxuatidgdsx);
             return View(tosanxuat);
         }
 
@@ -130,7 +130,7 @@ namespace QuanLySanXuat.Controllers
             }
 
             var tosanxuat = await _context.Tosanxuat
-                .Include(t => t.GiaidoansanxuatidgdsxNavigation)
+                .Include(t => t.IdgdsxNavigation)
                 .FirstOrDefaultAsync(m => m.Idtsx == id);
             if (tosanxuat == null)
             {
