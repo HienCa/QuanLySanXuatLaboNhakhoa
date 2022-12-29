@@ -110,6 +110,7 @@ namespace QuanLySanXuat.Controllers
                 nv.Hinhanh = uniqueFileName;
                 nv.Idnv = nhanvien.Idnv;
                 nv.Manv = nhanvien.Manv;
+                nv.Cccd = nhanvien.Cccd;
                 nv.Tennv = nhanvien.Tennv;
                 nv.Diachi = nhanvien.Diachi;
                 nv.Sdt = nhanvien.Sdt;

@@ -6,33 +6,51 @@
     List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
     List<Hangsx> hangsanxuat = _context.Hangsx.Where(n => n.Active == 1).ToList();
     List<Vatlieu> vatlieu = _context.Vatlieu.Where(n => n.Active == 1).ToList();
+    Nhanvien nv = _context.Nhanvien.Where(n => n.Email.Equals(TempData["OWN"])).FirstOrDefault();
 
 }
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Thêm sản phẩm | Quản trị Admin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
-    <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
-    <!-- Font-icon css-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <!-- or -->
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-    <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
-    
+
+    <title>Quản lý sản xuất HienCa | </title>
+
+    <!-- Bootstrap -->
+    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="~/Fonts/fontawesome-free-6.2.1-web/css/all.min.css" rel="stylesheet" />
+    @*<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">*@
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/bootstrap-5.2.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/build/css/custom.css" rel="stylesheet" />
+
+    <!--selectSearch -->
+    <link rel="stylesheet" href="~/multiSelectDropdown/virtual-select.min.css">
 </head>
 
+<<<<<<< Updated upstream
 <body class="app sidebar-mini rtl">
     <style>
         .Choicefile {
@@ -200,38 +218,37 @@
                 </div>
             </div>
             <div id="clock"></div>
+=======
+<body class="nav-md" style="background-color: #F7F7F7;">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="#" class="site_title text-center">@*<i class="fa fa-paw"></i>*@ <span>Sản Xuất HienCa</span></a>
+                    </div>
+>>>>>>> Stashed changes
 
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <h3 class="tile-title">Tạo mới sản phẩm</h3>
-                    <div class="tile-body">
+                    <div class="clearfix"></div>
 
-                        <form asp-action="Create" asp-controller="Vatlieu" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="form-group col-md-4 col-sm-12">
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            @if (nv != null)
+                            {
+                                <img src="~/Images/@nv.Hinhanh" alt="No Image" class="img-circle profile_img" style="height:70px">
 
-                                    <label for="exampleSelect1" class="control-label">Hãng sản xuất</label>
-                                    <select asp-for="Idhsx" class="form-control" id="exampleSelect1">
-                                        <option>-- Chọn hãng sản xuất --</option>
-                                        @foreach (var item in hangsanxuat)
-                                        {
-                                            <option value="@item.Idhsx">@item.Tenhsx</option>
-                                        }
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-12">
+                            }
+                            else
+                            {
+                                <img src="~/Images/hienca.jpg" alt="No Image" class="img-circle profile_img" style="height:70px">
 
-                                    <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
-                                    <select asp-for="Idnvl" class="form-control" id="exampleSelect1" >
-                                        <option>-- Chọn nhóm vật liệu --</option>
-                                        @foreach (var item in nhomvatlieu)
-                                        {
-                                            <option value="@item.Idnvl">@item.Tennvl</option>
-                                        }
+                            }
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
 
-
+<<<<<<< Updated upstream
                                     </select>
                                 </div>
                                 @*<div class="form-group col-md-4 col-sm-12">
@@ -246,115 +263,245 @@
                                     </select>
                                 </div>*@
                                 <div class="form-group col-md-3 col-sm-12">
+=======
+                            @if (nv != null)
+                            {
+                                <h2>@nv.Tennv</h2>
+                            }
+                            else
+                            {
+                                <h2>ADMIN</h2>
+                            }
+>>>>>>> Stashed changes
 
-                                    <label class="control-label">Mã vật liệu </label>
-                                    <input asp-for="Mavl" class="form-control" type="text" placeholder="" name="Mavl">
-                                </div>
-                                <div class="form-group col-md-3 col-sm-12">
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
 
-                                    <label class="control-label">Tên vật liệu</label>
-                                    <input asp-for="Tenvl" class="form-control" type="text" name="Tenvl">
-                                </div>
+                    <br />
 
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
 
-                                <div class="form-group col-md-3 col-sm-12">
-
-                                    <label class="control-label">Quy cách</label>
-                                    <input asp-for="Quycach" class="form-control" type="text" name="Quycach">
-                                </div>
-                                @*<div class="form-group col-md-3 col-sm-12">
-
-                                    <label class="control-label">Đơn vị tính</label>
-                                    <input class="form-control" type="text" name="Donvitinh">
-                                </div>*@
-
-
-                                <div class="form-group col-md-3 col-sm-12">
-
-                                    <label class="control-label">Giá bán</label>
-                                    <input asp-for="Giaban" class="form-control" type="text">
-                                </div>
-                               
-                                @*<div class="form-group col-md-3 col-sm-12">
-
-                                    <label class="control-label">Ảnh sản phẩm</label>
-                                    <div id="myfileupload">
-                                        <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
-                                    </div>
-                                    <div id="thumbbox">
-                                        <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
-                                        <a class="removeimg" href="javascript:"></a>
-                                    </div>
-                                    <div id="boxchoice">
-                                        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                                        <p style="clear:both"></p>
-                                    </div>
-
-                                </div>*@
-                            </div>
-                            @*<div class="form-group col-md-12">
-            <label class="control-label">Mô tả sản phẩm</label>
-            <textarea class="form-control" name="mota" id="mota"></textarea>
-            <script>CKEDITOR.replace('mota');</script>
-        </div>*@
-
-                            @*<button class="btn bg-white text-success" style="border: 1px solid green" type="submit">
-            Lưu
-            nháp
-        </button>*@
-                            <button class="btn btn-save w-100" style="float:right" type="submit">Xác nhận nhập</button>
-                            <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                <h3 class="control-label text-center mt-2 mb-2">Danh sách vật liệu</h3>
-                                <ul style="padding-left: 20px;">
-
-                                    @foreach (var item in vatlieu)
-                                    {
+                                <li>
+                                    <a href="/Home/Index"><i class="fa fa-home d-inline-block"></i>Trang Chủ</a>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-table"></i> Quản Lý<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
                                         <li>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    @item.Mavl - @item.Tenvl
+                                            <a> Quản Lý Kho<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
 
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <a asp-action="Edit" class="btn btn-warning" asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-edit"></i></a>
-                                                    <a asp-action="Details" class="btn btn-info " asp-controller="Vatlieu" asp-route-id="@item.Idvl"> <i class="fas fa-info-circle"></i></a>
+                                                <li>
+                                                    <a>Nhập Kho<span class="fa fa-chevron-down"></span></a>
+                                                    <ul class="nav child_menu">
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink(" Ngân Hàng NCC", "Index", "Nganhang", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink("Trả Nợ Nhà Cung Cấp", "Index", "Phieutranoncc", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#level1_2">Xuất Kho<span class="fa fa-chevron-down"></span></a>
+                                                    <ul class="nav child_menu">
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink(" Ngân Hàng KH", "Index", "Nganhang", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                        <li class="sub_menu">
+                                                            @Html.ActionLink(" Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a> Quản Lý Nhân Viên <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                                </li>
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Tiến Độ Sản Xuất <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink("Đơn Hàng Đang Sản Xuất", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                                </li>
 
-                                                    <a asp-action="Delete" class="btn btn-danger " asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt"></i></a>
-                                                </div>
-                                            </div>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a> Quản Lý Khách Hàng <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
+                                                </li>
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink("Thu Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> Báo Cáo <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Báo Cáo A", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Báo Cáo B", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Báo Cáo C", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Hệ Thống <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Setting A", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Setting B", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Setting C", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
                                         </li>
 
 
-
-                                    }
-
-
-                                </ul>
-                            </div>
-                        </form>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
 
                     </div>
-               
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="#">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+
+                    </div>
+                    <!-- /menu footer buttons -->
                 </div>
             </div>
-        </div>
 
-    </main>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
+                                   data-toggle="dropdown" aria-expanded="false">
+                                    @if (nv != null)
+                                    {
+                                        <img src="~/Images/@nv.Hinhanh" alt="No Image">
+
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/hienca.jpg" alt="No Image">
+
+                                    }
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                                    <a class="dropdown-item" href="javascript:;">
+
+                                        <span>Settings</span>
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:;">Help</a>
+                                    <a class="dropdown-item" href="/Home/DangNhap"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                </div>
+                            </li>
 
 
-    <!--
-      MODAL Nhà cung cấp
-    -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
-            <div class="modal-content " style="width:100%">
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
 
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
 
+                    <div class="col-md-12 col-sm-12 ">
+
+                        <div class="row title-title align-items-md-center ">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class=" pl-3 pr-2">
+
+                                        <h3 class="tile-title">Thêm mới vật liệu</h3>
+                                        <div class="tile-body">
+
+
+                                            <form asp-action="Create"  asp-controller="Vatlieu">
+                                                <div class="row ">
+                                                    <div class="form-group mb-3  col-md-4 col-sm-12">
+
+                                                        <select  id="multipleSelect"  name="Idhsx" placeholder="Chọn hãng sản xuất " data-search="true"
+                                                                data-silent-initial-value-set="true">
+                                                            @foreach (var item in hangsanxuat)
+                                                            {
+                                                                <option value="@item.Idhsx">@item.Tenhsx</option>
+                                                            }
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group mb-3  col-md-4 col-sm-12">
+
+<<<<<<< Updated upstream
                  
                             <div class="row">
                                 <div class="col-4"></div>
@@ -404,10 +551,28 @@
                                         </div>
                                     </div>
                                 </div>
+=======
 
-                                <BR>
-                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+                                                        <select   id="multipleSelect"  name="Idnsx" placeholder="Chọn nước sản xuất" data-search="true"
+                                                                data-silent-initial-value-set="true">
+                                                            @foreach (var item in nuocsx)
+                                                            {
+                                                                <option value="@item.Idnsx">@item.Tennsx</option>
+                                                            }
 
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group mb-3  col-md-4 col-sm-12">
+>>>>>>> Stashed changes
+
+                                                        <select   id="multipleSelect"  name="Idnvl" placeholder="Chọn nhóm vật liệu" data-search="true"
+                                                                data-silent-initial-value-set="true">
+                                                            @foreach (var item in nhomvatlieu)
+                                                            {
+                                                                <option value="@item.Idnvl">@item.Tennvl</option>
+                                                            }
+
+<<<<<<< Updated upstream
                                 <BR>
                                 <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
                                     <h3 class="control-label text-center mt-2 mb-2">Danh sách nhà cung cấp hiện hợp tác</h3>
@@ -426,217 +591,338 @@
                                                         <a asp-action="Details" class="btn btn-info " asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"> <i class="fas fa-info-circle"></i></a>
 
                                                         <a asp-action="Delete" class="btn btn-danger " asp-controller="Nhacungcaps" asp-route-id="@item.Idncc"><i class="fas fa-trash-alt"></i></a>
+=======
+
+                                                        </select>
+
                                                     </div>
+                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                        <label class="control-label">Mã vật liệu </label>
+                                                        <input asp-for="Mavl" class="form-control" type="text" placeholder="" name="Mavl">
+>>>>>>> Stashed changes
+                                                    </div>
+                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                        <label class="control-label">Tên vật liệu</label>
+                                                        <input asp-for="Tenvl" class="form-control" type="text" name="Tenvl">
+                                                    </div>
+
+
+                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                        <label class="control-label">Quy cách</label>
+                                                        <input asp-for="Quycach" class="form-control" type="text" name="Quycach">
+                                                    </div>
+
+
+
+                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                        <label class="control-label">Giá bán</label>
+                                                        <input asp-for="Giaban" class="form-control" type="number">
+                                                    </div>
+
+
                                                 </div>
 
-                                            </li>
+                                                <button class="btn btn-success mt-3 w-25"  type="submit">Thêm mới</button>
 
+                                            </form>
 
+                                        </div>
 
-                                        }
+                                    </div>
 
-
-                                    </ul>
                                 </div>
-                            }
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
-            <div class="modal-content " style="width:100%">
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group  col-md-12">
-                            <div class="row">
-                                <div class="col-4"></div>
-                                <h3 class="thong-tin-thanh-toan text-center col-4">Thêm nhóm vật liệu mới</h3>
-                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
                             </div>
 
-                            @using (Html.BeginForm("Create", "Nhomvatlieu"))
-                            {
-                                <div class="">
 
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="row">
-                                        <div class="form-group col-md-3 col-sm-12">
-
-                                            <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
-                                            <input class="form-control" type="text"  name="Manvl">
-                                        </div>
-                                        <div class="form-group col-md-5 col-sm-12">
-
-                                            <label class="control-label">TÊN NHÓM VẬT LIỆU</label>
-                                            <input class="form-control" type="text" required name="Tennvl">
-                                        </div>
-                                        <div class="form-group col-md-4 col-sm-12">
-
-                                            <label class="control-label">LOẠI VẬT LIỆU</label>
-                                            <input class="form-control" type="text" required name="Loainvl">
-                                        </div>
-                                    </div>
-                                </div>
-                                <BR>
-                                <button class="btn btn-save w-100 " style="float:right" type="submit">Lưu lại</button>
-
-                                <BR>
-                                <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nhóm sản phẩm hiện dùng</h3>
-                                    <ul style="padding-left: 20px;">
-
-                                        @foreach (var item in nhomvatlieu)
-                                        {
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        @item.Manvl - @item.Tennvl
-
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-edit"></i></a>
-                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"> <i class="fas fa-info-circle"></i></a>
-
-                                                        <a asp-action="Delete" class="btn btn-danger" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        }
-
-
-                                    </ul>
-                                </div>
-                            }
                         </div>
 
+                        <div class="clearfix"></div>
                     </div>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                         data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
+                            <div class="modal-content " style="width:100%">
 
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--
-    MODAL
-    -->
-    <!--
-      MODAL HÃNG
-    -->
-    <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
-            <div class="modal-content " style="width:100%">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
 
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
 
-                            <div class="row">
-                                <div class="col-4"></div>
-                                <h3 class="thong-tin-thanh-toan text-center col-4">Thêm hãng mới</h3>
-                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                                            <div class="row">
+                                                <div class="col-2"></div>
+                                                <h3 class="thong-tin-thanh-toan text-center col-6">Thêm mới nước sản xuất</h3>
+                                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                                            </div>
+                                            @using (Html.BeginForm("Create", "Nuocsx"))
+                                            {
+                                                <div class="">
+                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                    <div class="row">
+
+                                                        <div class="form-group col-md-4 col-sm-12">
+                                                            <label class="control-label">Mã nước sản xuất</label>
+                                                            <input class="form-control" type="text" required name="Mansx">
+                                                        </div>
+                                                        <div class="form-group col-md-8 col-sm-12">
+
+                                                            <label class="control-label">Tên nước sản xuất</label>
+                                                            <input class="form-control" type="text" required name="Tennsx">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <BR>
+                                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+
+                                                <BR>
+                                                <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
+                                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nước sản xuất</h3>
+                                                    <ul style="padding-left: 20px;">
+
+                                                        @foreach (var item in nuocsx)
+                                                        {
+                                                            <li>
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        @item.Mansx - @item.Tennsx
+
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nuocsx" asp-route-id="@item.Idnsx"><i class="fas fa-edit"></i></a>
+                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Nuocsx" asp-route-id="@item.Idnsx"> <i class="fas fa-info-circle"></i></a>
+
+                                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Nuocsx" asp-route-id="@item.Idnsx"><i class="fas fa-trash-alt"></i></a>
+                                                                    </div>
+                                                                </div>
+
+                                                            </li>
+
+
+
+                                                        }
+
+
+                                                    </ul>
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
-                            @using (Html.BeginForm("Create", "Hangsanxuat"))
-                            {
-                                <div class="">
+                        </div>
+                    </div>
 
+
+                    <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                         data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
+                            <div class="modal-content " style="width:100%">
+
+                                <div class="modal-body">
                                     <div class="row">
-                                        <div class="form-group col-md-4 col-sm-12">
-                                            <label class="control-label">Nhập mã hãng</label>
-                                            <input class="form-control w-100" type="text"  name="Mahsx">
-                                        </div>
-                                        <div class="form-group col-md-8 col-sm-12">
+                                        <div class="form-group  col-md-12">
+                                            <div class="row">
+                                                <div class="col-2"></div>
+                                                <h3 class="thong-tin-thanh-toan text-center col-6">Thêm nhóm vật liệu mới</h3>
+                                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                                            </div>
 
-                                            <label class="control-label">Nhập tên hãng</label>
-                                            <input class="form-control" type="text" required name="Tenhsx">
-                                        </div>
-                                    </div>
-                                </div>
-                                <BR>
-                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+                                            @using (Html.BeginForm("Create", "Nhomvatlieu"))
+                                            {
+                                                <div class="">
 
-                                <BR>
-                                <div class="form-group  col-md-12" style="height:30vh; overflow-y:scroll">
-                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
-                                    <ul style="padding-left: 20px;">
+                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-3 col-sm-12">
 
-                                        @foreach (var item in hangsanxuat)
-                                        {
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        @item.Mahsx - @item.Tenhsx
+                                                            <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
+                                                            <input class="form-control" type="text" name="Manvl">
+                                                        </div>
+                                                        <div class="form-group col-md-5 col-sm-12">
 
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-edit"></i></a>
-                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"> <i class="fas fa-info-circle"></i></a>
+                                                            <label class="control-label">TÊN NHÓM VẬT LIỆU</label>
+                                                            <input class="form-control" type="text" required name="Tennvl">
+                                                        </div>
+                                                        <div class="form-group col-md-4 col-sm-12">
 
-                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-trash-alt"></i></a>
+                                                            <label class="control-label">LOẠI VẬT LIỆU</label>
+                                                            <input class="form-control" type="text" required name="Loainvl">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </li>
+                                                <BR>
+                                                <button class="btn btn-save w-100 " style="float:right" type="submit">Lưu lại</button>
 
-                                        }
+                                                <BR>
+                                                <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
+                                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nhóm sản phẩm hiện dùng</h3>
+                                                    <ul style="padding-left: 20px;">
+
+                                                        @foreach (var item in nhomvatlieu)
+                                                        {
+                                                            <li>
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        @item.Manvl - @item.Tennvl
+
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-edit"></i></a>
+                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"> <i class="fas fa-info-circle"></i></a>
+
+                                                                        <a asp-action="Delete" class="btn btn-danger" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-trash-alt"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        }
 
 
-                                    </ul>
+                                                    </ul>
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                            }
+                                <div class="modal-footer">
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <!--
+                    MODAL
+                    -->
+                    <!--
+                      MODAL HÃNG
+                    -->
+                    <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                         data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
+                            <div class="modal-content " style="width:100%">
 
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
+
+                                            <div class="row">
+                                                <div class="col-2"></div>
+                                                <h3 class="thong-tin-thanh-toan text-center col-6">Thêm hãng mới</h3>
+                                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
+                                            </div>
+                                            @using (Html.BeginForm("Create", "Hangsanxuat"))
+                                            {
+                                                <div class="">
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4 col-sm-12">
+                                                            <label class="control-label">Nhập mã hãng</label>
+                                                            <input class="form-control w-100" type="text" name="Mahsx">
+                                                        </div>
+                                                        <div class="form-group col-md-8 col-sm-12">
+
+                                                            <label class="control-label">Nhập tên hãng</label>
+                                                            <input class="form-control" type="text" required name="Tenhsx">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <BR>
+                                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+
+                                                <BR>
+                                                <div class="form-group  col-md-12" style="height:30vh; overflow-y:scroll">
+                                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
+                                                    <ul style="padding-left: 20px;">
+
+                                                        @foreach (var item in hangsanxuat)
+                                                        {
+                                                            <li>
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        @item.Mahsx - @item.Tenhsx
+
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-edit"></i></a>
+                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"> <i class="fas fa-info-circle"></i></a>
+
+                                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-trash-alt"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+
+                                                        }
+
+
+                                                    </ul>
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
+        <!-- /page content -->
+
+
     </div>
 
-    <!--
-    MODAL
-    -->
 
 
+    <!-- jQuery -->
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <!--Select search-->
 
-    <script src="~/Javascript/plugins/pace.min.js"></script>
-    <script src="~/Javascript/jquery-3.2.1.min.js"></script>
-    <script src="~/Javascript/popper.min.js"></script>
-    <script src="~/Javascript/bootstrap.min.js"></script>
-    <script src="~/Javascript/main.js"></script>
-
-    <script>
-        const inpFile = document.getElementById("inpFile");
-        const loadFile = document.getElementById("loadFile");
-        const previewContainer = document.getElementById("imagePreview");
-        const previewContainer = document.getElementById("imagePreview");
-        const previewImage = previewContainer.querySelector(".image-preview__image");
-        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-        inpFile.addEventListener("change", function () {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                previewDefaultText.style.display = "none";
-                previewImage.style.display = "block";
-                reader.addEventListener("load", function () {
-                    previewImage.setAttribute("src", this.result);
-                });
-                reader.readAsDataURL(file);
-            }
+    <script type="text/javascript" src="~/multiSelectDropdown/virtual-select.min.js"></script>
+    <script type="text/javascript">
+        VirtualSelect.init({
+            ele: 'select'
         });
-
     </script>
 </body>
 
 </html>
+
+

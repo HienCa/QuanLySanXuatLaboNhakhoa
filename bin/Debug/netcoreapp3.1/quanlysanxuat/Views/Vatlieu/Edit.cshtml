@@ -4,6 +4,8 @@
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
     List<Nhomvl> nhomvatlieu = _context.Nhomvl.Where(n => n.Active == 1).ToList();
     List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
+    List<Nuocsx> nuocsx = _context.Nuocsx.Where(n => n.Active == 1).ToList();
+
     List<Hangsx> hangsanxuat = _context.Hangsx.Where(n => n.Active == 1).ToList();
     List<Vatlieu> vatlieu = _context.Vatlieu.Where(n => n.Active == 1).ToList();
 
@@ -94,34 +96,33 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Idvl" />
                             <div class="row">
-                                <div class="form-group col-md-3 col-sm-12">
+                                <div class="form-group mb-3  col-md-4 col-sm-12">
 
-                                    <label for="exampleSelect1" class="control-label">Hãng sản xuất</label>
-                                    <select asp-for="Idhsx" class="form-control" id="exampleSelect1" name="Idhsx">
-                                        <option>-- Chọn hãng sản xuất --</option>
+                                    <select id="multipleSelect" name="Idhsx" placeholder="Chọn hãng sản xuất " data-search="true"
+                                            data-silent-initial-value-set="true">
                                         @foreach (var item in hangsanxuat)
                                         {
                                             <option value="@item.Idhsx">@item.Tenhsx</option>
                                         }
+
                                     </select>
                                 </div>
+                                <div class="form-group mb-3  col-md-4 col-sm-12">
 
-                                @*<div class="form-group col-md-3 col-sm-12">
 
-                                    <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
-                                    <select asp-for="Nhacungcapidncc" class="form-control" id="exampleSelect1" name="Nhacungcapidncc">
-                                        <option>-- Chọn nhà cung cấp --</option>
-                                        @foreach (var item in nhacungcap)
+                                    <select id="multipleSelect" name="Idnsx" placeholder="Chọn nước sản xuất" data-search="true"
+                                            data-silent-initial-value-set="true">
+                                        @foreach (var item in nuocsx)
                                         {
-                                            <option value="@item.Idncc">@item.Tenncc</option>
+                                            <option value="@item.Idnsx">@item.Tennsx</option>
                                         }
-                                    </select>
-                                </div>*@
-                                <div class="form-group col-md-3 col-sm-12">
 
-                                    <label for="exampleSelect1" class="control-label">Nhóm vật liệu</label>
-                                    <select asp-for="Idnvl" class="form-control" id="exampleSelect1" name="Idnvl">
-                                        <option>-- Chọn nhóm vật liệu --</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3  col-md-4 col-sm-12">
+
+                                    <select id="multipleSelect" name="Idnvl" placeholder="Chọn nhóm vật liệu" data-search="true"
+                                            data-silent-initial-value-set="true">
                                         @foreach (var item in nhomvatlieu)
                                         {
                                             <option value="@item.Idnvl">@item.Tennvl</option>
@@ -129,6 +130,7 @@
 
 
                                     </select>
+
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
 
@@ -150,7 +152,7 @@
                                     <input asp-for="Quycach" class="form-control" />
                                     <span asp-validation-for="Quycach" class="text-danger"></span>
                                 </div>
-                                
+
 
 
                                 <div class="form-group col-md-3 col-sm-12">
@@ -159,7 +161,7 @@
                                     <input asp-for="Giaban" type="number" class="form-control" />
                                     <span asp-validation-for="Giaban" class="text-danger"></span>
                                 </div>
-                                
+
                                 @*<div class="form-group col-md-3 col-sm-12">
 
             <label class="control-label">Ảnh sản phẩm</label>

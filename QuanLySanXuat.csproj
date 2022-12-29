@@ -143,4 +143,8 @@
     <PackageReference Include="Uno.UI" Version="4.6.19" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\multiSelectDropdown\" />
+  </ItemGroup>
+
 </Project>
