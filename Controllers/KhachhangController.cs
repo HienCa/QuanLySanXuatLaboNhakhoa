@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,6 +16,7 @@ using QuanLySanXuat.Service;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class KhachhangController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -93,11 +95,14 @@ namespace QuanLySanXuat.Controllers
                 kh.Makh = khachhang.Makh;
                 kh.Tenkh = khachhang.Tenkh;
                 kh.Diachi = khachhang.Diachi;
+                kh.Cccd = khachhang.Cccd;
                 kh.Sdt = khachhang.Sdt;
                 kh.Email = khachhang.Email;
                 kh.Gioitinh = khachhang.Gioitinh;
                 kh.Masothue = khachhang.Masothue;
                 kh.Ghichu = khachhang.Ghichu;
+                kh.Facebook = khachhang.Facebook;
+                kh.Zalo = khachhang.Zalo;
                 //kh.Accountidaccount = khachhang.Accountidaccount;
                 kh.Ngaysinh = khachhang.Ngaysinh;
 
@@ -178,7 +183,7 @@ namespace QuanLySanXuat.Controllers
             //HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value;
 
             var newPassword = "KH12345";
-            string email = account.Tk;
+            string email = account.Email;
             string errorMessage = "Email không chính xác. Vui lòng kiểm tra lại email!";
             try
             {
@@ -263,13 +268,21 @@ namespace QuanLySanXuat.Controllers
             kh.Tenkh = khachhang.Tenkh;
             kh.Diachi = khachhang.Diachi;
             kh.Sdt = khachhang.Sdt;
+            kh.Cccd = khachhang.Cccd;
+            kh.Email = khachhang.Email;
+            kh.Ngaysinh = khachhang.Ngaysinh;
+
             kh.Gioitinh = khachhang.Gioitinh;
             kh.Masothue = khachhang.Masothue;
             kh.Ghichu = khachhang.Ghichu;
             kh.Nvidsale = khachhang.Nvidsale;
+            kh.Facebook = khachhang.Facebook;
+            kh.Zalo = khachhang.Zalo;
+            kh.ExistingImage = khachhang.Hinhanh;
+
             //kh.Accountidaccount = khachhang.Accountidaccount;
             //kh.NgaySinh = khachhang.NgaySinh;
-            kh.Active = khachhang.Active;
+            kh.Active = 1;
             if (khachhang == null)
             {
                 return NotFound();
@@ -302,11 +315,13 @@ namespace QuanLySanXuat.Controllers
                     kh.Tenkh = khachhang.Tenkh;
                     kh.Diachi = khachhang.Diachi;
                     kh.Sdt = khachhang.Sdt;
+
                     kh.Email = khachhang.Email;
                     kh.Gioitinh = khachhang.Gioitinh;
                     kh.Masothue = khachhang.Masothue;
                     kh.Ghichu = khachhang.Ghichu;
-                
+                    kh.Facebook = khachhang.Facebook;
+                    kh.Zalo = khachhang.Zalo;
                     //kh.Accountidaccount = khachhang.Accountidaccount;
                     kh.Ngaysinh = khachhang.Ngaysinh;
 

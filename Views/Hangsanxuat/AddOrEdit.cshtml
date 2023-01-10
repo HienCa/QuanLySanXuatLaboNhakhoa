@@ -1,0 +1,58 @@
+﻿@model QuanLySanXuat.Entities.Hangsx
+@{ 
+    Layout = null;
+}
+<div class="col-md-12 col-sm-12 ">
+
+    <div class="row title-title align-items-md-center ">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="tile pl-3 pr-2">
+
+                 
+                    <div class="tile-body">
+
+                        @*<form asp-action="AddOrEdit" asp-route-id="@Model.Idhsx" onsubmit="return JQueryAjaxPost(this)" enctype="multipart/form-data">*@
+                        <form asp-action="AddOrEdit" asp-route-id="@Model.Idhsx"  enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Idhsx" />
+                            <div class="row">
+
+                                <div class="form-group col-md-4 col-sm-12">
+
+                                    <label asp-for="Mahsx" class="control-label">Mã hãng sản xuất</label>
+                                    <input asp-for="Mahsx" class="form-control" />
+                                    <span asp-validation-for="Mahsx" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8 col-sm-12">
+
+                                    <label asp-for="Tenhsx" class="control-label">Tên hãng sản xuất</label>
+                                    <input asp-for="Tenhsx" class="form-control" />
+                                    <span asp-validation-for="Tenhsx" class="text-danger"></span>
+                                </div>
+
+
+
+                            </div>
+                            <div class="text-center mt-3 col-12">
+                                @Html.ActionLink("Quay lại", "Index", "Hangsanxuat", null, new { @class = "btn btn-cancel mt-3 w-25" })
+
+                                <button class="btn btn-success w-50 mt-3" type="submit">Lưu</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+  
+</div>

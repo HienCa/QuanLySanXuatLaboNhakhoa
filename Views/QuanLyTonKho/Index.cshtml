@@ -150,7 +150,7 @@
                             <table class="table table-hover table-bordered" id="sampleTable">
                                 <thead>
                                     <tr>
-                                        <th width="10"><input type="checkbox" id="all"></th>
+                                       
                                         <th>Số phiếu</th>
                                         <th>Nhân viên nhập</th>
                                         <th>Ngày lập phiếu</th>
@@ -164,7 +164,7 @@
                                     @foreach (var item in TempData["phieunhapkho"] as List<Phieunhapkho>)
                                     {
                                         <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                            
                                             <td>#@item.Sophieu</td>
                                             <td>@item.IdnvNavigation.Tennv</td>
                                             <td>@item.Ngaylap</td>

@@ -1,0 +1,47 @@
+﻿@model QuanLySanXuat.Entities.Nuocsx
+
+@{
+    Layout = null;
+
+}
+
+
+
+
+
+
+
+
+@*<form asp-action="Create" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxPost(this)" autocomplete="off">*@
+<form asp-action="CreateOfVL" enctype="multipart/form-data" method="post" >
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+        <div class="form-group mb-3  form-group-lg  col-md-12">
+
+            <label asp-for="Mansx" class="control-label">Mã nước sản xuất</label>
+            <input asp-for="Mansx" class="form-control form-control-lg" />
+            <span asp-validation-for="Mansx" class="text-danger"></span>
+        </div>
+        <div class="form-group  form-group-lg  col-md-12">
+
+            <label asp-for="Tennsx" class="control-label">Tên nước sản xuất</label>
+            <input asp-for="Tennsx" class="form-control form-control-lg" />
+            <span asp-validation-for="Tennsx" class="text-danger"></span>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="text-center mt-3 col-12">
+
+
+        <button class="btn btn-success w-100 mt-3" type="submit">Lưu</button>
+
+    </div>
+
+</form>
+
+

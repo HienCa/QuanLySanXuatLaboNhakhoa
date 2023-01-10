@@ -1,60 +1,91 @@
-﻿@model QuanLySanXuat.Entities.Tosanxuat
+﻿@using QuanLySanXuat.Entities;
+@model QuanLySanXuat.Entities.Tosanxuat
+
 
 @{
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+    List<Giaidoansx> giaidoansx = _context.Giaidoansx.Where(n => n.Active == 1).ToList();
     Layout = null;
+
 }
 
-<!DOCTYPE html>
 
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Quản lý sản xuất HienCa | </title>
+
+
+    <link rel="stylesheet" href="~/multiSelectDropdown/virtual-select.min.css">
+
 </head>
 <body>
+    <form asp-action="Edit" asp-route-id="@Model.Idtsx" asp-controller="Tosanxuat" method="post">
+        <div class="row ">
+            <div class="form-group mb-3  col-md-12 col-sm-12">
+                <label class="control-label">Chọn giai đoạn sản xuất</label>
+                <select id="multipleSelect" asp-for="Idgdsx" placeholder="Chọn giai đoạn sản xuất " data-search="true"
+                        data-silent-initial-value-set="true">
+                    @foreach (var item in giaidoansx)
+                    {
+                        <option value="@item.Idgdsx">@item.Tengdsx</option>
+                    }
 
-<h4>Tosanxuat</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idtsx" />
-            <div class="form-group">
-                <label asp-for="Matsx" class="control-label"></label>
-                <input asp-for="Matsx" class="form-control" />
+                </select>
+            </div>
+
+            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                <label class="control-label">Mã tổ sản xuất </label>
+                <input asp-for="Matsx" class="form-control" type="text" placeholder="">
                 <span asp-validation-for="Matsx" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tentsx" class="control-label"></label>
-                <input asp-for="Tentsx" class="form-control" />
-                <span asp-validation-for="Tentsx" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ghichu" class="control-label"></label>
-                <input asp-for="Ghichu" class="form-control" />
-                <span asp-validation-for="Ghichu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Active" class="control-label"></label>
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Idgdsx" class="control-label"></label>
-                <select asp-for="Idgdsx" class="form-control" asp-items="ViewBag.Idgdsx"></select>
-                <span asp-validation-for="Idgdsx" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+            </div>
+            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                <label class="control-label">Tên tổ sản xuất</label>
+                <input asp-for="Tentsx" class="form-control" type="text">
+                <span asp-validation-for="Tentsx" class="text-danger"></span>
+
+            </div>
+
+
+            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                <label class="control-label">Ghi chú</label>
+                <textarea asp-for="Ghichu" class="form-control" type="text"></textarea>
+                <span asp-validation-for="Ghichu" class="text-danger"></span>
+
+            </div>
+
+
+
+
+        </div>
+        <div class="text-center mt-3 align-items-md-center">
+
+            <button class="btn btn-success w-100" type="submit">Lưu</button>
+        </div>
+
+    </form>
+
+    <script src="~/build/js/custom.min.js"></script>
+    <script type="text/javascript" src="~/multiSelectDropdown/virtual-select.min.js"></script>
+    <script type="text/javascript">
+        VirtualSelect.init({
+            ele: 'select'
+        });
+    </script>
+
 
 </body>
+
 </html>

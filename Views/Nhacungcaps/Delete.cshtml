@@ -118,6 +118,9 @@
 
                         <form asp-action="Delete">
                             <input type="hidden" asp-for="Idncc" />
+
+                            @Html.ActionLink("Hủy bỏ", "Index", "Nhacungcaps", null, new { @class = "btn btn-cancel mt-3 w-25" })
+
                             <input type="submit" value="Delete" class="btn btn-danger" />
                         </form>
 

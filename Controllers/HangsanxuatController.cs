@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class HangsanxuatController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -43,6 +45,68 @@ namespace QuanLySanXuat.Controllers
             return View(hangsanxuat);
         }
 
+        public async Task<IActionResult> AddOrEdit(int id=0)
+        {
+            if (id==0)
+            {
+                return View(new Hangsx());
+
+
+            }
+            else
+            {
+                var hangsanxuat = await _context.Hangsx.FindAsync(id);
+                if (hangsanxuat == null)
+                {
+                    return NotFound();
+                }
+                return View(hangsanxuat);
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrEdit(int id,[Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsx hangsanxuat)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id == 0)
+                {
+                    hangsanxuat.Active = 1;
+                    _context.Add(hangsanxuat);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+
+
+                }
+                else
+                {
+                    try
+                    {
+                        _context.Update(hangsanxuat);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!HangsanxuatExists(hangsanxuat.Idhsx))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    //return Json(new { isValid = true, html = "" });
+                    //return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "AddOrEdit",hangsanxuat) });
+                    return RedirectToAction("Index");
+                }
+            }
+           
+            return View(hangsanxuat);
+
+        }
         // GET: Hangsanxuat/Create
         public IActionResult Create()
         {
@@ -61,10 +125,31 @@ namespace QuanLySanXuat.Controllers
                 hangsanxuat.Active = 1;
                 _context.Add(hangsanxuat);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("AddInterface","Vatlieu");
+                return RedirectToAction("Index");
+
 
             }
             return View(hangsanxuat);
+        }
+        public IActionResult CreateOfVL()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOfVL([Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsx hangsanxuat)
+        {
+            if (ModelState.IsValid)
+            {
+                hangsanxuat.Active = 1;
+                _context.Add(hangsanxuat);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Create", "Vatlieu");
+
+
+            }
+            return RedirectToAction("Create", "Vatlieu");
+
         }
 
         // GET: Hangsanxuat/Edit/5
@@ -147,7 +232,8 @@ namespace QuanLySanXuat.Controllers
             hangsanxuat.Active = 0;
             _context.Hangsx.Update(hangsanxuat);
             await _context.SaveChangesAsync();
-            return RedirectToAction("AddInterface", "Vatlieu");
+            return RedirectToAction("Index");
+
 
         }
 

@@ -13,9 +13,6 @@
     <None Include="Views\Home\thongtintrongrangimplant.cshtml" />
     <None Include="Views\Home\tientrinhhanghoasanxuat.cshtml" />
     <None Include="wwwroot\CSS\index.css" />
-    <None Include="wwwroot\CSS\main.css" />
-    <None Include="wwwroot\CSS\style.css" />
-    <None Include="wwwroot\CSS\util.css" />
     <None Include="wwwroot\Fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <None Include="wwwroot\Fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <None Include="wwwroot\Fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
@@ -76,48 +73,6 @@
     <None Include="wwwroot\Images\team.jpg" />
     <None Include="wwwroot\Images\tooth.jpg" />
     <None Include="wwwroot\Images\uunhuocimplant.png" />
-    <None Include="wwwroot\Javascript\footable.js" />
-    <None Include="wwwroot\Javascript\main.js" />
-    <None Include="wwwroot\Javascript\plugins\bootstrap-datepicker.min.js" />
-    <None Include="wwwroot\Javascript\plugins\bootstrap-notify.min.js" />
-    <None Include="wwwroot\Javascript\plugins\chart.js" />
-    <None Include="wwwroot\Javascript\plugins\dataTables.bootstrap.min.js" />
-    <None Include="wwwroot\Javascript\plugins\fullcalendar.min.js" />
-    <None Include="wwwroot\Javascript\plugins\jquery-ui.custom.min.js" />
-    <None Include="wwwroot\Javascript\plugins\jquery.dataTables.min.js" />
-    <None Include="wwwroot\Javascript\plugins\jquery.vmap.min.js" />
-    <None Include="wwwroot\Javascript\plugins\jquery.vmap.sampledata.js" />
-    <None Include="wwwroot\Javascript\plugins\jquery.vmap.world.js" />
-    <None Include="wwwroot\Javascript\plugins\moment.min.js" />
-    <None Include="wwwroot\Javascript\plugins\pace.min.js" />
-    <None Include="wwwroot\Javascript\plugins\select2.min.js" />
-    <None Include="wwwroot\Javascript\plugins\sweetalert.min.js" />
-    <None Include="wwwroot\Javascript\script.js" />
-    <None Include="wwwroot\vendor\animate\animate.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css.map" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css.map" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css.map" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css.map" />
-    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.js" />
-    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.min.js" />
-    <None Include="wwwroot\vendor\bootstrap\js\popper.js" />
-    <None Include="wwwroot\vendor\bootstrap\js\popper.min.js" />
-    <None Include="wwwroot\vendor\bootstrap\js\tooltip.js" />
-    <None Include="wwwroot\vendor\css-hamburgers\hamburgers.css" />
-    <None Include="wwwroot\vendor\css-hamburgers\hamburgers.min.css" />
-    <None Include="wwwroot\vendor\jquery\jquery-3.2.1.min.js" />
-    <None Include="wwwroot\vendor\select2\select2.css" />
-    <None Include="wwwroot\vendor\select2\select2.js" />
-    <None Include="wwwroot\vendor\select2\select2.min.css" />
-    <None Include="wwwroot\vendor\select2\select2.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -141,10 +96,6 @@
     <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="Uno.UI" Version="4.6.19" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\multiSelectDropdown\" />
   </ItemGroup>
 
 </Project>

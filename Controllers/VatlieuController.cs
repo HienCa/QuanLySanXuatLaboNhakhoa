@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class VatlieuController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -22,7 +24,7 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> Index()
         {
             var productionManagementSoftwareContext = _context.Vatlieu.Include(v => v.IdhsxNavigation).Include(v => v.IdnvlNavigation).Include(v => v.IdnsxNavigation);
-            return View(await productionManagementSoftwareContext.Where(vl=>vl.Active==1).ToListAsync());
+            return View(await productionManagementSoftwareContext.Where(vl => vl.Active == 1).ToListAsync());
         }
 
         public IActionResult AddInterface()
@@ -51,13 +53,13 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            return View(vatlieu);
+            return PartialView("Details",vatlieu);
         }
 
         // GET: Vatlieu/Create
         public IActionResult Create()
         {
-        
+
 
 
             return View();
@@ -68,37 +70,23 @@ namespace QuanLySanXuat.Controllers
         //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Vatlieu vatlieu)
+        public async Task<IActionResult> Create(Vatlieu vatlieu)
         {
             if (ModelState.IsValid)
             {
-                if(vatlieu.Tenvl != null || vatlieu.Quycach != null || vatlieu.Giaban <= 0 || vatlieu.Idhsx <= 0 || vatlieu.Idnsx <= 0 || vatlieu.Idnvl <= 0)
+                if (vatlieu.Tenvl != null || vatlieu.Quycach != null || vatlieu.Giaban <= 0 || vatlieu.Idhsx <= 0 || vatlieu.Idnsx <= 0 || vatlieu.Idnvl <= 0)
                 {
                     _context.Vatlieu.Add(vatlieu);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                
+
             }
 
             return View("AddInterface", "Vatlieu");
         }
 
-        //public async Task<IActionResult> Createe(int nhomvl, int nuosx, int hangsx, Vatlieu vatlieu)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        vatlieu.Idnvl = nhomvl;
-        //        vatlieu.Idhsx = hangsx;
-        //        vatlieu.Idnsx = nuosx;
-        //        vatlieu.Active = 1;
-        //        _context.Vatlieu.Add(vatlieu);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
 
-        //    return View("AddInterface", "Vatlieu");
-        //}
 
         // GET: Vatlieu/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -113,7 +101,7 @@ namespace QuanLySanXuat.Controllers
             {
                 return NotFound();
             }
-           
+
 
             return View(vatlieu);
         }
@@ -123,7 +111,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idvl,Mavl,Tenvl,Quycach,Giaban,Active,Idnvl,Idhsx")] Vatlieu vatlieu)
+        public async Task<IActionResult> Edit(int id, Vatlieu vatlieu)
         {
             if (id != vatlieu.Idvl)
             {
@@ -154,7 +142,7 @@ namespace QuanLySanXuat.Controllers
 
             return View("Edit", "Vatlieu");
         }
-
+        
         // GET: Vatlieu/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -169,6 +157,7 @@ namespace QuanLySanXuat.Controllers
                 .Include(v => v.IdnsxNavigation)
 
                 .FirstOrDefaultAsync(m => m.Idvl == id);
+
             if (vatlieu == null)
             {
                 return NotFound();

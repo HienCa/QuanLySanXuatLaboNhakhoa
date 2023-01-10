@@ -1,0 +1,46 @@
+﻿
+
+@model QuanLySanXuat.Entities.Nuocsx
+
+@{
+    Layout = null;
+
+}
+
+
+
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="Idnsx" />
+<div class="row">
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Mã nước sản xuất</label>
+        <div>
+            @Model.Mansx
+        </div>
+    </div>
+
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Tên nước sản xuất</label>
+        <div>
+            @Model.Tennsx
+        </div>
+    </div>
+
+
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Idnsx" />
+    <div class="d-flex">
+
+
+        <input type="submit" value="Xác nhận" class="btn btn-danger w-100" />
+    </div>
+
+</form>
+
+
+

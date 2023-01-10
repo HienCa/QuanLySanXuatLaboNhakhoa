@@ -1295,6 +1295,7 @@
     margin-bottom: 10px;
     width: 100%;
     position: relative;
+    display:flex;
 }
 
 .info-number .badge {
@@ -3671,12 +3672,12 @@ a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
 }
 
 .btn-success {
-    background: #26B99A;
-    border: 1px solid #169F85;
+    background: #28a745;
+    border: 1px solid #28a745;
 }
 
     .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
-        background: #169F85;
+        background: #28a745;
     }
 
 .btn-dark {

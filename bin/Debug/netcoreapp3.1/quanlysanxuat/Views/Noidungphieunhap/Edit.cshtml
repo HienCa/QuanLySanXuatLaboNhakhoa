@@ -1,47 +1,69 @@
-﻿@model QuanLySanXuat.Entities.Noidungpnk
+﻿@model QuanLySanXuat.Entities.Noidungpnk;
+@using QuanLySanXuat.Entities;
 
 @{
-    Layout = null;
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+
+    List<Vatlieu> vatlieu = _context.Vatlieu.Where(active => active.Active == 1).ToList();
+
+
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
 
-<h4>Noidungphieunhap</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idpnk" />
-            <div class="form-group">
-                <label asp-for="Soluong" class="control-label"></label>
-                <input asp-for="Soluong" class="form-control" />
-                <span asp-validation-for="Soluong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dongia" class="control-label"></label>
-                <input asp-for="Dongia" class="form-control" />
-                <span asp-validation-for="Dongia" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Idvl" />
-            <input type="hidden" asp-for="Idpnk" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<h3>Cập Nhật Nội Dung Phiếu Nhập</h3>
+<form asp-action="Edit" asp-controller="Noidungphieunhap">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden"  asp-for="Idpnk" />
+    <input type="hidden"  asp-for="Idndpnk" />
+
+
+    <div class="row">
+
+        <div class="form-group col-md-10 col-sm-12">
+            <label class="control-label">Chọn vật liệu muốn nhập kho</label>
+
+            <select id="multipleSelect" asp-for="Idvl" placeholder="Chọn vật liệu muốn nhập kho" data-search="true"
+                    data-silent-initial-value-set="true">
+                @foreach (var item in vatlieu)
+                {
+                    <option value="@item.Idvl">@item.Tenvl</option>
+                }
+
+            </select>
+        </div>
+        <div class="form-group col-md-2 col-sm-12">
+            <label asp-for="Solo" class="control-label">Số lô</label>
+            <input asp-for="Solo" type="text" class="form-control" />
+            <span asp-validation-for="Solo" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2 col-sm-12">
+            <label class="control-label">Số lượng</label>
+            <input asp-for="Soluong" type="number" class="form-control" />
+            <span asp-validation-for="Soluong" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+            <label class="control-label">Đơn giá nhập</label>
+            <input asp-for="Dongia" type="number" class="form-control" />
+            <span asp-validation-for="Dongia" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3 col-sm-12">
+            <label asp-for="Ngaysx" class="control-label">Ngày sản xuất</label>
+            <input asp-for="Ngaysx" type="datetime-local" class="form-control" />
+            <span asp-validation-for="Ngaysx" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3 col-sm-12">
+            <label asp-for="Hansd" class="control-label">Hạn sử dụng</label>
+            <input asp-for="Hansd" type="datetime-local" class="form-control" />
+            <span asp-validation-for="Hansd" class="text-danger"></span>
+        </div>
+
+
+        <div class="text-center mt-3">
+            <input class="btn btn-sm btn-success w-25" type="submit" value="Lưu" />
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</form>
 
-</body>
-</html>

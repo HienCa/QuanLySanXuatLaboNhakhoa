@@ -36,8 +36,9 @@ namespace QuanLySanXuat
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Home/DangNhap";
-                    options.Cookie.Name = "HienCaCookie";
+                    options.LoginPath = "/Access/Login";
+                    //options.Cookie.Name = "HienCaCookie";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 });
             services.AddMvc();
             services.AddControllersWithViews();
@@ -59,6 +60,7 @@ namespace QuanLySanXuat
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -70,12 +72,9 @@ namespace QuanLySanXuat
                 endpoints.MapControllerRoute(
                     name: "default",
                 //pattern: "{controller=PersonalInformationManament}/{action=PersonalBankManament}/{id?}");
-<<<<<<< Updated upstream
-=======
-                pattern: "{controller=Vatlieu}/{action=AddInterface}/{id?}");
->>>>>>> Stashed changes
+                //pattern: "{controller=Nuocsx}/{action=Index}/{id?}");
                 //pattern: "{controller=Home}/{action=Index}/{id?}");
-                pattern: "{controller=Home}/{action=DangNhap}/{id?}");
+                pattern: "{controller=Access}/{action=Login}/{id?}");
 
                 //pattern: "{controller=Admin}/{action=Index}/{id?}");
                 //pattern: "{controller=QuanLyTonKho}/{action=QuanLyNhapKho}/{id?}");

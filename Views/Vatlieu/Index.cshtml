@@ -1,528 +1,117 @@
 ﻿@model IEnumerable<QuanLySanXuat.Entities.Vatlieu>
-
+@using QuanLySanXuat.Entities;
 @{
-    Layout = null;
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+    Nhanvien nv = _context.Nhanvien.Where(n => n.Email.Equals(TempData["OWN"])).FirstOrDefault();
+
 }
+<div class="d-flex">
+    <h2>Quản Lý Vật Liệu </h2>
+    <div class="col-md-3 col-sm-12">
+        @*<a href="/Vatlieu/AddInterface" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
+            <i class="fas fa-plus"></i>Thêm mới
+        </a>*@
+        <a href="/Vatlieu/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
+            <i class="fas fa-plus"></i>Thêm mới
+        </a>
+        @*<a onclick="showInPopup('@Url.Action("Create", "Vatlieu", null, Context.Request.Scheme)', 'Thêm Vật Liệu')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Thêm mới</a>*@
+
+        <a href="/Vatlieu/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+            <i class="fas fa-file-excel"></i>
+        </a>
+        <a href="/Vatlieu/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+            <i class="fas fa-file-pdf"></i>
+        </a>
+        <a href="/Vatlieu/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+            <i class="fas fa-file-csv"></i>
+        </a>
+    </div>
 
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Danh sách sản phẩm | Quản trị Admin</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="~/CSS/main.css">
-    <link rel="stylesheet" type="text/css" href="~/CSS/mainsub.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <!-- or -->
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
-    <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-
-</head>
-
-<body onload="time()" class="app sidebar-mini rtl">
-    <!-- Navbar-->
-    <header class="app-header">
-        <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                        aria-label="Hide Sidebar"></a>
-        <!-- Navbar Right Menu-->
-        <ul class="app-nav">
-
-
-            <!-- User Menu-->
-            <li>
-                @Html.ActionLink("Đăng Xuất", "DangXuat", "Home", null, new { @class = "app-nav__item " })
-
-
-            </li>
-        </ul>
-    </header>
-    <!-- Sidebar menu-->
-    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <aside class="app-sidebar">
-        <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="~/Images/hien.jpg" style="width: 50px"
-                 alt="User Image">
-            <div class="text-white">
-                <p class="app-sidebar__user-name"><b>Văn Hiền</b></p>
-                <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+    <div class="col-md-3 col-sm-12">
+        <form asp-action="Import" asp-controller="Vatlieu" method="post" enctype="multipart/form-data">
+            <div class=" d-flex">
+                @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
+                <input id="fileExcel" class="" required type="file" name="file" />
+                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
             </div>
-        </div>
-        <hr>
-        <ul class="app-menu">
-            <li>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="x_content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
 
 
-                @Html.ActionLink("Đơn Hàng", "DonHang", "Admin", null, new { @class = "app-menu__item haha app-menu__label text-center" })
-            </li>
-            <li>
+                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
+                       cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Mã vl</th>
+                            <th>Tên vl</th>
+                            <th>Quy cách</th>
+                            <th>Giá bán</th>
+                            <th>Nhóm</th>
+                            <th>Hãng</th>
+                            <th>Nước</th>
 
-                @Html.ActionLink("Bảng Điều Khiển", "Index", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="d-none">
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
 
-                @Html.ActionLink("Quản Lý Nhân Viên", "Index", "Nhanvien", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Mavl</td>
+                                <td>@item.Tenvl</td>
+                                <td>@item.Quycach</td>
+                                <td>@item.Giaban</td>
+                                <td>@item.IdnvlNavigation.Tennvl</td>
+                                <td>@item.IdhsxNavigation.Tenhsx</td>
+                                <td>@item.IdnsxNavigation.Tennsx</td>
 
-                @Html.ActionLink("Quản Lý Khách Hàng", "Index", "Khachhang", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Vật Liệu", "QuanLySanPham", "Admin", null, new { @class = "app-menu__item app-menu__label text-center active" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Kho", "Index", "QuanLyTonKho", null, new { @class = "app-menu__item app-menu__label text-center " })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Đơn Hàng", "QuanLyDonHang", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-            <li>
-
-                @Html.ActionLink("Quản Lý Đội Nhóm", "QuanLyDoiNhom", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-
-            <li>
-
-                @Html.ActionLink("Báo Cáo Thống Kê", "BaoCaoDanhThu", "Admin", null, new { @class = "app-menu__item app-menu__label text-center" })
-            </li>
-        </ul>
-    </aside>
-    <main class="app-content">
-        <div class="app-title">
-            <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>
-            </ul>
-
-            
-            <div id="clock"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-                        <div class="row element-button">
-                            <div class="col-sm-2">
-
-
-                                @Html.ActionLink("Thêm mới sản phẩm", "AddInterface", "VatLieu", null, new { @class = "btn btn-add btn-sm" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Tải từ file", "ImportSanPham", "Admin", null, new { @class = "btn btn-delete btn-sm nhap-tu-file" })
-
-                            </div>
-
-                            <div class="col-sm-2">
-                                @*<a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()">
-                                        <i class="fas fa-print"></i> In dữ liệu
-                                    </a>*@
-                                @Html.ActionLink("In dữ liệu", "ThemSanPham", "Admin", null, new { @class = "btn btn-delete btn-sm print-file" })
-
-                            </div>
-
-                            <div class="col-sm-2">
-                                @Html.ActionLink("Xuất Excel", "ExportToExcelSanPham", "Admin", null, new { @class = "btn btn-excel btn-sm fas fa-file-excel p-2" })
-
-<<<<<<< Updated upstream
-=======
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                    <nav class="nav navbar-nav">
-                        <ul class=" navbar-right">
-                            <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                                   data-toggle="dropdown" aria-expanded="false">
-                                    @if (nv != null)
-                                    {
-                                        <img src="~/Images/@nv.Hinhanh" alt="No Image">
-
-                                    }
-                                    else
-                                    {
-                                        <img src="~/Images/hienca.jpg" alt="No Image">
-
-                                    }
-                                </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        @*<span class="badge bg-red pull-right">50%</span>*@
-                                        <span>Settings</span>
+                                <td >
+                                    @*<button type="button" data-toggle="ajax-modal" data-target="#CTVatlieu"
+                                            data-url="@Url.Action($"Details/{item.Idvl}")" class="btn btn-sm btn-info">
+                                        <i class="fas fa-info text-white"></i>
+                                    </button>*@
+                                    @*<a asp-action="Details" class="btn btn-sm btn-info" asp-route-id="@item.Idvl"><i class="fas fa-info text-white"></i></a>*@
+                                    @*<a asp-action="Edit" class="btn  btn-sm  btn-warning " asp-route-id="@item.Idvl"><i class="fas fa-edit text-white"></i></a>
+        <a asp-action="Delete" class="btn  btn-sm  btn-danger " asp-route-id="@item.Idvl"><i class="fas fa-trash-alt text-white"></i></a>*@
+                                    <a onclick="showInPopup('@Url.Action("Details", "Vatlieu" , new { id = item.Idvl }, Context.Request.Scheme)','Thông Tin Chi Tiết')" class="btn btn-sm  btn-info ">
+                                        <i class="fas fa-info text-white"></i>
                                     </a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
-                                    <a class="dropdown-item" href="/Home/DangNhap"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </div>
-                            </li>
-
-                            @*<li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="text-center">
-                                            <a class="dropdown-item">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>*@
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- /top navigation -->
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div class="">
+                                    <a onclick="showInPopup('@Url.Action("Edit", "Vatlieu" , new { id = item.Idvl }, Context.Request.Scheme)','Cập Nhật Thông Tin')" class="btn btn-sm  btn-warning ">
+                                        <i class="fas fa-edit text-white"></i>
+                                    </a>
+                                    <a onclick="showInPopup('@Url.Action("Delete", "Vatlieu" , new { id = item.Idvl }, Context.Request.Scheme)','Bạn Chắc Chắn Muốn Xóa?')" class="btn btn-sm  btn-danger ">
+                                        <i class="fas fa-trash-alt text-white"></i>
+                                    </a>
 
 
-                    <div class="col-md-12 col-sm-12 ">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <div class="row title-title align-items-md-center ">
-                                    <div class="col-md-11 col-sm-6">
-                                        <h2>Quản Lý Vật Liệu </h2>
-                                        <div class="col-md-3 col-sm-12">
-                                            <a href="/Vatlieu/AddInterface" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-                                                <i class="fas fa-plus"></i>Thêm mới
-                                            </a>
-                                            <a href="/Vatlieu/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-                                                <i class="fas fa-file-excel"></i>
-                                            </a>
-                                            <a href="/Vatlieu/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-                                                <i class="fas fa-file-pdf"></i>
-                                            </a>
-                                            <a href="/Vatlieu/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-                                                <i class="fas fa-file-csv"></i>
-                                            </a>
-                                        </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
 
 
-                                        <div class="col-md-3 col-sm-12">
-                                            <form asp-action="Import" asp-controller="Vatlieu" method="post" enctype="multipart/form-data">
-                                                <div class=" d-flex">
-                                                    @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
-                                                    <input id="fileExcel" class="" required type="file" name="file" />
-                                                    <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
-                                                </div>
-
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-6">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li>
-                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                            </li>
-
-
-                                        </ul>
-                                    </div>
-
-
-                                </div>
-
-                                <div class="clearfix"></div>
->>>>>>> Stashed changes
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất PDF", "ExportToPDFSanPham", "Admin", null, new { @class = "btn btn-delete btn-sm pdf-file" })
-
-                            </div>
-                            <div class="col-sm-2">
-
-                                @Html.ActionLink("Xuất CSV", "ExportToCSVSanPham", "Admin", null, new { @class = "btn btn-delete btn-sm pdf-file" })
-
-                            </div>
-                        </div>
-
-                        <table class="table table-hover table-bordered" id="sampleTable">
-                            <thead>
-                                <tr>
-                                    <th width="10"><input type="checkbox" id="all"></th>
-                                    <th>Mã sản phẩm</th>
-                                    <th>Tên sản phẩm</th>
-                                    @*<th>Ảnh</th>*@
-                               
-                                    <th>Quy cách</th>
-                                    <th>Giá bán</th>
-                                    <th>Chức năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>@item.Mavl</td>
-                                        <td>@item.Tenvl</td>
-                                        @*<td><img src="/img-sanpham/reno.jpg" alt="" style="width: 100px"></td>*@
-                                      
-                                        @*<td><span class="badge bg-success">Còn hàng</span></td>*@
-                                        <td>@item.Quycach</td>
-                                        <td>@item.Giaban</td>
-                                        <td>
-                                            @*<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                        onclick="myFunction(this)">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                                        data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>*@
-
-
-
-
-                                            <a asp-action="Details" class="btn btn-info" asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-info text-white"></i></a>
-                                            <a asp-action="Edit" class="btn btn-warning " asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-edit text-white"></i></a>
-                                            <a asp-action="Delete" class="btn btn-danger " asp-controller="Vatlieu" asp-route-id="@item.Idvl"><i class="fas fa-trash-alt text-white"></i></a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!--
-      MODAL
-    -->
-    <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-         data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group  col-md-12">
-
-                            <h5 class="thong-tin-thanh-toan">Chỉnh sửa thông tin sản phẩm cơ bản</h5>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Mã sản phẩm </label>
-                            <input class="form-control" type="number" value="71309005">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Tên sản phẩm</label>
-                            <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                        </div>
-                        <div class="form-group  col-md-6">
-                            <label class="control-label">Số lượng</label>
-                            <input class="form-control" type="number" required value="20">
-                        </div>
-                        <div class="form-group col-md-6 ">
-                            <label for="exampleSelect1" class="control-label">Tình trạng sản phẩm</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>Còn hàng</option>
-                                <option>Hết hàng</option>
-                                <option>Đang nhập hàng</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Giá bán</label>
-                            <input class="form-control" type="text" value="5.600.000">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleSelect1" class="control-label">Danh mục</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>Bàn ăn</option>
-                                <option>Bàn thông minh</option>
-                                <option>Tủ</option>
-                                <option>Ghế gỗ</option>
-                                <option>Ghế sắt</option>
-                                <option>Giường người lớn</option>
-                                <option>Giường trẻ em</option>
-                                <option>Bàn trang điểm</option>
-                                <option>Giá đỡ</option>
-                            </select>
-                        </div>
-                    </div>
-                    <BR>
-                    <a href="#" style="    float: right;
-    font-weight: 600;
-                                color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
-                    <BR>
-                    <BR>
-                    <button class="btn btn-save" type="button">Lưu lại</button>
-                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                    <BR>
-                </div>
-                <div class="modal-footer">
-                </div>
             </div>
         </div>
     </div>
-    <!--
-    MODAL
-    -->
-    <!-- Essential javascripts for application to work-->
-    <script src="~/Javascript/plugins/pace.min.js"></script>
-    <script src="~/Javascript/jquery-3.2.1.min.js"></script>
-    <script src="~/Javascript/popper.min.js"></script>
-    <script src="~/Javascript/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="src/jquery.table2excel.js"></script>
-    <script src="~/Javascript/main.js"></script>
-
-    <script src="src/jquery.table2excel.js"></script>
-    <script src="~/Javascript/main.js"></script>
-    <!-- Data table plugin-->
-    <script type="text/javascript" src="~/Javascript/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/Javascript/plugins/dataTables.bootstrap.min.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
-    <script type="text/javascript">
-        $('#sampleTable').DataTable();
-        //Thời Gian
-        function time() {
-            var today = new Date();
-            var weekday = new Array(7);
-            weekday[0] = "Chủ Nhật";
-            weekday[1] = "Thứ Hai";
-            weekday[2] = "Thứ Ba";
-            weekday[3] = "Thứ Tư";
-            weekday[4] = "Thứ Năm";
-            weekday[5] = "Thứ Sáu";
-            weekday[6] = "Thứ Bảy";
-            var day = weekday[today.getDay()];
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1;
-            var yyyy = today.getFullYear();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            nowTime = h + " giờ " + m + " phút " + s + " giây";
-            if (dd < 10) {
-                dd = '0' + dd
-            }
-            if (mm < 10) {
-                mm = '0' + mm
-            }
-            today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-            tmp = '<span class="date"> ' + today + ' - ' + nowTime +
-                '</span>';
-            document.getElementById("clock").innerHTML = tmp;
-            clocktime = setTimeout("time()", "1000", "Javascript");
-
-            function checkTime(i) {
-                if (i < 10) {
-                    i = "0" + i;
-                }
-                return i;
-            }
-        }
-    </script>
-    <script>
-        function deleteRow(r) {
-            var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("myTable").deleteRow(i);
-        }
-        jQuery(function () {
-            jQuery(".trash").click(function () {
-                swal({
-                    title: "Cảnh báo",
-                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                    buttons: ["Hủy bỏ", "Đồng ý"],
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Đã xóa thành công.!", {
-
-                            });
-                        }
-                    });
-            });
-        });
-        oTable = $('#sampleTable').dataTable();
-        $('#all').click(function (e) {
-            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-            e.stopImmediatePropagation();
-        });
-    </script>
-</body>
-
-</html>
+</div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class TosanxuatController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -47,7 +49,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Tosanxuat/Create
         public IActionResult Create()
         {
-            ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansx, "Idgdsx", "Idgdsx");
+
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idtsx,Matsx,Tentsx,Ghichu,Active,Giaidoansanxuatidgdsx")] Tosanxuat tosanxuat)
+        public async Task<IActionResult> Create(Tosanxuat tosanxuat)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +92,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idtsx,Matsx,Tentsx,Ghichu,Active,Giaidoansanxuatidgdsx")] Tosanxuat tosanxuat)
+        public async Task<IActionResult> Edit(int id,  Tosanxuat tosanxuat)
         {
             if (id != tosanxuat.Idtsx)
             {
@@ -117,7 +119,7 @@ namespace QuanLySanXuat.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["Giaidoansanxuatidgdsx"] = new SelectList(_context.Giaidoansanxuat, "Idgdsx", "Idgdsx", tosanxuat.Giaidoansanxuatidgdsx);
+ 
             return View(tosanxuat);
         }
 
@@ -146,7 +148,8 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var tosanxuat = await _context.Tosanxuat.FindAsync(id);
-            _context.Tosanxuat.Remove(tosanxuat);
+            tosanxuat.Active = 0;
+            _context.Tosanxuat.Update(tosanxuat);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

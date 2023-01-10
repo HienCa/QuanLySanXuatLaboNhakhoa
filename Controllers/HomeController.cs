@@ -8,12 +8,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using QuanLySanXuat.Entities;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 namespace QuanLySanXuat.Controllers
 {
+ 
     public class HomeController : Controller
     {
         ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
@@ -61,61 +63,9 @@ namespace QuanLySanXuat.Controllers
 
             return View();
         }
-        //public IActionResult DangNhap()
-        //{
-        //    return View();
-        //}
-        public IActionResult DangNhap(string TK, string MK)
-        {
 
 
-
-            Khachhang khachhang = context.Khachhang.Where(n => n.Email.Equals(TK)).FirstOrDefault();
-            Nhanvien nhanvien = context.Nhanvien.Where(n => n.Email.Equals(TK)).FirstOrDefault();
-
-            if (khachhang != null)
-            {
-
-
-                //var claims = new List<Claim> { new Claim(ClaimTypes.Name, a.Tk) };
-                //var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                //var principal = new ClaimsPrincipal(identity);
-                //var props = new AuthenticationProperties();
-                //HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
-                //if (nhanvien.Email != null || khachhang.Email !=null)
-                //{
-
-
-                Response.Cookies.Append("HienCaCookie", khachhang.Email);
-                return RedirectToAction("Index", "PersonalInformationManament");
-
-
-            }
-            if (nhanvien != null)
-            {
-
-                Response.Cookies.Append("HienCaCookie", nhanvien.Email);
-                return RedirectToAction("Index", "VatLieu");
-
-            }
-
-
-            return View();
-
-        }
-
-
-        public IActionResult DangXuat()
-        {
-            Response.Cookies.Delete("HienCaCookie");
-            return RedirectToAction("DangNhap");
-        }
-
-
-        public IActionResult QuenMatKhau()
-        {
-            return View();
-        }
+       
 
         public IActionResult Privacy()
         {

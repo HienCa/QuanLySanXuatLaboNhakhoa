@@ -1,6 +1,9 @@
 ﻿@using QuanLySanXuat.Entities;
 @model QuanLySanXuat.Entities.Vatlieu
+
+
 @{
+    Layout = null;
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
     List<Nhomvl> nhomvatlieu = _context.Nhomvl.Where(n => n.Active == 1).ToList();
     List<Nuocsx> nuocsx = _context.Nuocsx.Where(n => n.Active == 1).ToList();
@@ -23,13 +26,9 @@
 
     <title>Quản lý sản xuất HienCa | </title>
 
-    <!-- Bootstrap -->
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Font Awesome -->
     <link href="~/Fonts/fontawesome-free-6.2.1-web/css/all.min.css" rel="stylesheet" />
-    @*<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">*@
+
     <!-- NProgress -->
     <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
@@ -48,6 +47,50 @@
 
     <!--selectSearch -->
     <link rel="stylesheet" href="~/multiSelectDropdown/virtual-select.min.css">
+
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            -webkit-animation: fadeEffect 1s;
+            animation: fadeEffect 1s;
+        }
+    </style>
 </head>
 
 <body class="nav-md" style="background-color: #F7F7F7;">
@@ -102,71 +145,59 @@
                                     <a href="/Home/Index"><i class="fa fa-home d-inline-block"></i>Trang Chủ</a>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-table"></i> Quản Lý<span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-table"></i>Danh Mục<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li>
+
+                                            @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+
+                                        </li>
+
+                                        <li>
+
+                                            @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
+                                        </li>
+                                    </ul>
+
+                                </li>
+
+                                <li>
+                                    <a> <i class="fa fa-table"></i>Quản Lý<span class="fa fa-chevron-down"></span></a>
+
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a> Quản Lý Kho<span class="fa fa-chevron-down"></span></a>
+                                            <a>  Tồn Kho<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
 
+
                                                 <li>
-                                                    <a>Nhập Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng NCC", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink("Trả Nợ Nhà Cung Cấp", "Index", "Phieutranoncc", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
+
+                                                    @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
+
                                                 </li>
                                                 <li>
-                                                    <a href="#level1_2">Xuất Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng KH", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
+                                                    @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
                                                 </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a> Quản Lý Nhân Viên <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                                <li>
+                                                    @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
+
                                                 </li>
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a>Tiến Độ Sản Xuất <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
                                                 <li class="sub_menu">
                                                     @Html.ActionLink("Đơn Hàng Đang Sản Xuất", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
                                                 </li>
@@ -174,14 +205,16 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a> Quản Lý Khách Hàng <span class="fa fa-chevron-down"></span></a>
+                                            <a>Nợ<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
-                                                </li>
+
                                                 <li class="sub_menu">
                                                     @Html.ActionLink("Thu Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
                                                 </li>
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink("Trả Nợ NCC", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
+                                                </li>
+
                                             </ul>
                                         </li>
                                     </ul>
@@ -276,7 +309,71 @@
                                 </div>
                             </li>
 
-
+                            @*<li role="presentation" class="nav-item dropdown open">
+                                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="fa fa-envelope-o"></i>
+                                        <span class="badge bg-green">6</span>
+                                    </a>
+                                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item">
+                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                                <span>
+                                                    <span>John Smith</span>
+                                                    <span class="time">3 mins ago</span>
+                                                </span>
+                                                <span class="message">
+                                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="text-center">
+                                                <a class="dropdown-item">
+                                                    <strong>See All Alerts</strong>
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>*@
                         </ul>
                     </nav>
                 </div>
@@ -294,324 +391,229 @@
                                 <div class="col-md-12">
 
                                     <div class=" pl-3 pr-2">
-
-                                        <h3 class="tile-title">Thêm mới vật liệu</h3>
-                                        <div class="tile-body">
-
-
-                                            <form asp-action="Create"  asp-controller="Vatlieu">
-                                                <div class="row ">
-                                                    <div class="form-group mb-3  col-md-4 col-sm-12">
-
-                                                        <select  id="multipleSelect"  name="Idhsx" placeholder="Chọn hãng sản xuất " data-search="true"
-                                                                data-silent-initial-value-set="true">
-                                                            @foreach (var item in hangsanxuat)
-                                                            {
-                                                                <option value="@item.Idhsx">@item.Tenhsx</option>
-                                                            }
-
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group mb-3  col-md-4 col-sm-12">
-
-
-                                                        <select   id="multipleSelect"  name="Idnsx" placeholder="Chọn nước sản xuất" data-search="true"
-                                                                data-silent-initial-value-set="true">
-                                                            @foreach (var item in nuocsx)
-                                                            {
-                                                                <option value="@item.Idnsx">@item.Tennsx</option>
-                                                            }
-
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group mb-3  col-md-4 col-sm-12">
-
-                                                        <select   id="multipleSelect"  name="Idnvl" placeholder="Chọn nhóm vật liệu" data-search="true"
-                                                                data-silent-initial-value-set="true">
-                                                            @foreach (var item in nhomvatlieu)
-                                                            {
-                                                                <option value="@item.Idnvl">@item.Tennvl</option>
-                                                            }
-
-
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
-
-                                                        <label class="control-label">Mã vật liệu </label>
-                                                        <input asp-for="Mavl" class="form-control" type="text" placeholder="" name="Mavl">
-                                                    </div>
-                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
-
-                                                        <label class="control-label">Tên vật liệu</label>
-                                                        <input asp-for="Tenvl" class="form-control" type="text" name="Tenvl">
-                                                    </div>
-
-
-                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
-
-                                                        <label class="control-label">Quy cách</label>
-                                                        <input asp-for="Quycach" class="form-control" type="text" name="Quycach">
-                                                    </div>
-
-
-
-                                                    <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
-
-                                                        <label class="control-label">Giá bán</label>
-                                                        <input asp-for="Giaban" class="form-control" type="number">
-                                                    </div>
-
-
-                                                </div>
-
-                                                <button class="btn btn-success mt-3 w-25"  type="submit">Thêm mới</button>
-
-                                            </form>
+                                        <div class="">
+                                            @*<button class="tablinks btn text-dark bg-white" onclick="openCity(event, 'NSX')">Thêm nước sản xuất</button>
+                                                <button class="tablinks btn text-dark bg-white" onclick="openCity(event, 'HSX')">Thêm hãng sản xuất</button>
+                                                <button class="tablinks btn text-dark bg-white" onclick="openCity(event, 'NVL')">Thêm nhóm vật liệu</button>*@
+                                            <a onclick="showInPopup('@Url.Action("CreateOfVL", "Hangsanxuat", null, Context.Request.Scheme)', 'Hãng Sản Xuất')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Hãng sản xuất</a>
+                                            <a onclick="showInPopup('@Url.Action("CreateOfVL", "Nhomvatlieu", null, Context.Request.Scheme)', 'Nhóm Vật Liệu')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Nhóm vật liệu</a>
+                                            <a onclick="showInPopup('@Url.Action("CreateOfVL", "Nuocsx", null, Context.Request.Scheme)', 'Nước Sản Xuất')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Nước sản xuất</a>
 
                                         </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                         data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
-                            <div class="modal-content " style="width:100%">
-
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
+                                        <div class="row">
+                                            <div class="col-md-12 change">
+                                                <h3 class="tile-title">Thêm mới vật liệu</h3>
+                                                <div class="tile-body">
 
 
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <h3 class="thong-tin-thanh-toan text-center col-6">Thêm mới nước sản xuất</h3>
-                                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
-                                            </div>
-                                            @using (Html.BeginForm("Create", "Nuocsx"))
-                                            {
-                                                <div class="">
-                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                    <div class="row">
+                                                    <form asp-action="Create" asp-controller="Vatlieu">
+                                                        <div class="row ">
+                                                            <div class="form-group mb-3  col-md-4 col-sm-12">
+                                                                <label class="control-label">Hãng sản xuất</label>
+                                                                <select id="multipleSelect" name="Idhsx" placeholder="Chọn hãng sản xuất " data-search="true"
+                                                                        data-silent-initial-value-set="true">
+                                                                    @foreach (var item in hangsanxuat)
+                                                                    {
+                                                                        <option value="@item.Idhsx">@item.Tenhsx</option>
+                                                                    }
 
-                                                        <div class="form-group col-md-4 col-sm-12">
-                                                            <label class="control-label">Mã nước sản xuất</label>
-                                                            <input class="form-control" type="text" required name="Mansx">
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group mb-3  col-md-4 col-sm-12">
+
+                                                                <label class="control-label">Nước sản xuất</label>
+                                                                <select id="multipleSelect" name="Idnsx" placeholder="Chọn nước sản xuất" data-search="true"
+                                                                        data-silent-initial-value-set="true">
+                                                                    @foreach (var item in nuocsx)
+                                                                    {
+                                                                        <option value="@item.Idnsx">@item.Tennsx</option>
+                                                                    }
+
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group mb-3  col-md-4 col-sm-12">
+                                                                <label class="control-label">Nhóm vật liệu</label>
+                                                                <select id="multipleSelect" name="Idnvl" placeholder="Chọn nhóm vật liệu" data-search="true"
+                                                                        data-silent-initial-value-set="true">
+                                                                    @foreach (var item in nhomvatlieu)
+                                                                    {
+                                                                        <option value="@item.Idnvl">@item.Tennvl</option>
+                                                                    }
+
+
+                                                                </select>
+
+                                                            </div>
+                                                            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                                <label class="control-label">Mã vật liệu </label>
+                                                                <input asp-for="Mavl" class="form-control" type="text" placeholder="" name="Mavl">
+                                                                <span asp-validation-for="Mavl" class="text-danger"></span>
+
+                                                            </div>
+                                                            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                                <label class="control-label">Tên vật liệu</label>
+                                                                <input asp-for="Tenvl" class="form-control" type="text" name="Tenvl">
+                                                                <span asp-validation-for="Tenvl" class="text-danger"></span>
+
+                                                            </div>
+
+
+                                                            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                                <label class="control-label">Quy cách</label>
+                                                                <input asp-for="Quycach" class="form-control" type="text" name="Quycach">
+                                                                <span asp-validation-for="Quycach" class="text-danger"></span>
+
+                                                            </div>
+
+
+
+                                                            <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
+
+                                                                <label class="control-label">Giá bán</label>
+                                                                <input asp-for="Giaban" class="form-control" type="number">
+                                                                <span asp-validation-for="Giaban" class="text-danger"></span>
+
+                                                            </div>
+
+
                                                         </div>
-                                                        <div class="form-group col-md-8 col-sm-12">
-
-                                                            <label class="control-label">Tên nước sản xuất</label>
-                                                            <input class="form-control" type="text" required name="Tennsx">
+                                                        <div class="text-center mt-3 align-items-md-center">
+                                                            @Html.ActionLink("Quay lại", "Index", "Vatlieu", null, new { @class = "btn btn-cancel mt-3 w-25" })
+                                                            <button class="btn btn-success w-25" type="submit">Thêm</button>
                                                         </div>
 
-                                                    </div>
+                                                    </form>
+
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="NSX" class="tabcontent">
+                                                    <h3 class="tile-title ">Thêm mới nước sản xuất</h3>
+                                                    <div class="tile-body  mb-5">
 
-                                                <BR>
-                                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
 
-                                                <BR>
-                                                <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nước sản xuất</h3>
-                                                    <ul style="padding-left: 20px;">
+                                                        <form asp-action="Create" asp-controller="Nuocsx" enctype="multipart/form-data" method="post">
+                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                                        @foreach (var item in nuocsx)
-                                                        {
-                                                            <li>
-                                                                <div class="row">
-                                                                    <div class="col-md-8">
-                                                                        @item.Mansx - @item.Tennsx
+                                                            <div class="row">
+                                                                <div class="form-group mb-3 col-md-12">
 
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nuocsx" asp-route-id="@item.Idnsx"><i class="fas fa-edit"></i></a>
-                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Nuocsx" asp-route-id="@item.Idnsx"> <i class="fas fa-info-circle"></i></a>
+                                                                    <label class="control-label">Mã nước sản xuất</label>
+                                                                    <input name="Manvl" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
+                                                                </div>
+                                                                <div class="form-group col-md-12">
 
-                                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Nuocsx" asp-route-id="@item.Idnsx"><i class="fas fa-trash-alt"></i></a>
-                                                                    </div>
+                                                                    <label class="control-label">Tên nước sản xuất</label>
+                                                                    <input name="Tennvl" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
                                                                 </div>
 
-                                                            </li>
 
 
 
-                                                        }
+                                                            </div>
 
+                                                            <div class="text-center mt-3">
+                                                                <button class="btn btn-success w-25" type="submit">Thêm</button>
 
-                                                    </ul>
-                                                </div>
-                                            }
-                                        </div>
+                                                            </div>
 
-                                    </div>
+                                                        </form>
 
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                         data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
-                            <div class="modal-content " style="width:100%">
-
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group  col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <h3 class="thong-tin-thanh-toan text-center col-6">Thêm nhóm vật liệu mới</h3>
-                                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
-                                            </div>
-
-                                            @using (Html.BeginForm("Create", "Nhomvatlieu"))
-                                            {
-                                                <div class="">
-
-                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-3 col-sm-12">
-
-                                                            <label class="control-label">MÃ NHÓM VẬT LIỆU</label>
-                                                            <input class="form-control" type="text" name="Manvl">
-                                                        </div>
-                                                        <div class="form-group col-md-5 col-sm-12">
-
-                                                            <label class="control-label">TÊN NHÓM VẬT LIỆU</label>
-                                                            <input class="form-control" type="text" required name="Tennvl">
-                                                        </div>
-                                                        <div class="form-group col-md-4 col-sm-12">
-
-                                                            <label class="control-label">LOẠI VẬT LIỆU</label>
-                                                            <input class="form-control" type="text" required name="Loainvl">
-                                                        </div>
                                                     </div>
                                                 </div>
-                                                <BR>
-                                                <button class="btn btn-save w-100 " style="float:right" type="submit">Lưu lại</button>
 
-                                                <BR>
-                                                <div class="form-group  col-md-12" style="height:20vh; overflow-y:scroll">
-                                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách nhóm sản phẩm hiện dùng</h3>
-                                                    <ul style="padding-left: 20px;">
+                                                <div id="HSX" class="tabcontent">
+                                                    <h3 class="tile-title">Thêm mới hãng sản xuất</h3>
+                                                    <div class="tile-body  mb-5">
 
-                                                        @foreach (var item in nhomvatlieu)
-                                                        {
-                                                            <li>
-                                                                <div class="row">
-                                                                    <div class="col-md-8">
-                                                                        @item.Manvl - @item.Tennvl
 
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <a asp-action="Edit" class="btn btn-warning" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-edit"></i></a>
-                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"> <i class="fas fa-info-circle"></i></a>
+                                                        <form asp-action="Create" asp-controller="Nhomvatlieu" enctype="multipart/form-data" method="post">
+                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                                                        <a asp-action="Delete" class="btn btn-danger" asp-controller="Nhomvatlieu" asp-route-id="@item.Idnvl"><i class="fas fa-trash-alt"></i></a>
-                                                                    </div>
+                                                            <div class="row">
+                                                                <div class="form-group  mb-3 col-md-12">
+
+                                                                    <label class="control-label">Mã hãng sản xuất</label>
+                                                                    <input name="Mahsx" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
                                                                 </div>
-                                                            </li>
-                                                        }
+                                                                <div class="form-group col-md-12">
+
+                                                                    <label class="control-label">Tên hãng sản xuất</label>
+                                                                    <input name="Tenhsx" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
+                                                                </div>
 
 
-                                                    </ul>
-                                                </div>
-                                            }
-                                        </div>
+                                                            </div>
 
-                                    </div>
+                                                            <div class="text-center mt-3">
+                                                                <button class="btn btn-success w-25" type="submit">Thêm</button>
 
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                    MODAL
-                    -->
-                    <!--
-                      MODAL HÃNG
-                    -->
-                    <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                         data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:700px">
-                            <div class="modal-content " style="width:100%">
+                                                            </div>
 
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group  col-md-12" style="height:60vh; overflow-y:scroll">
+                                                        </form>
 
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <h3 class="thong-tin-thanh-toan text-center col-6">Thêm hãng mới</h3>
-                                                <span class="col-4" data-dismiss="modal" href="#"><i style="float:right;cursor:pointer" class="fas fa-times"></i></span>
-                                            </div>
-                                            @using (Html.BeginForm("Create", "Hangsanxuat"))
-                                            {
-                                                <div class="">
-
-                                                    <div class="row">
-                                                        <div class="form-group col-md-4 col-sm-12">
-                                                            <label class="control-label">Nhập mã hãng</label>
-                                                            <input class="form-control w-100" type="text" name="Mahsx">
-                                                        </div>
-                                                        <div class="form-group col-md-8 col-sm-12">
-
-                                                            <label class="control-label">Nhập tên hãng</label>
-                                                            <input class="form-control" type="text" required name="Tenhsx">
-                                                        </div>
                                                     </div>
                                                 </div>
-                                                <BR>
-                                                <button class="btn btn-save w-100" style="float:right" type="submit">Lưu lại</button>
+                                                <div id="NVL" class="tabcontent">
+                                                    <h3 class="tile-title">Thêm mới nhóm vật liệu</h3>
+                                                    <div class="tile-body  mb-5">
 
-                                                <BR>
-                                                <div class="form-group  col-md-12" style="height:30vh; overflow-y:scroll">
-                                                    <h3 class="control-label text-center mt-2 mb-2">Danh sách hãng sản xuất hiện dùng</h3>
-                                                    <ul style="padding-left: 20px;">
 
-                                                        @foreach (var item in hangsanxuat)
-                                                        {
-                                                            <li>
-                                                                <div class="row">
-                                                                    <div class="col-md-8">
-                                                                        @item.Mahsx - @item.Tenhsx
+                                                        <form asp-action="Create" asp-controller="" enctype="multipart/form-data" method="post">
+                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <a asp-action="Edit" class="btn btn-warning " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-edit"></i></a>
-                                                                        <a asp-action="Details" class="btn btn-info " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"> <i class="fas fa-info-circle"></i></a>
+                                                            <div class="row">
+                                                                <div class="form-group mb-3 col-md-12">
 
-                                                                        <a asp-action="Delete" class="btn btn-danger " asp-controller="Hangsanxuat" asp-route-id="@item.Idhsx"><i class="fas fa-trash-alt"></i></a>
-                                                                    </div>
+                                                                    <label class="control-label">Mã nhóm vật liệu</label>
+                                                                    <input name="Manvl" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
                                                                 </div>
-                                                            </li>
+                                                                <div class="form-group mb-3 col-md-12">
 
-                                                        }
+                                                                    <label class="control-label">Tên nhóm vật liệu</label>
+                                                                    <input name="Tennvl" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+
+                                                                    <label class="control-label">Loại nhóm vật liệu</label>
+                                                                    <input name="Loainvl" class="form-control form-control-lg" />
+                                                                    <span class="text-danger"></span>
+                                                                </div>
 
 
-                                                    </ul>
+
+                                                            </div>
+
+                                                            <div class="text-center mt-3">
+                                                                <button class="btn btn-success w-25" type="submit">Thêm</button>
+
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
                                                 </div>
-                                            }
+                                            </div>
                                         </div>
 
                                     </div>
                                 </div>
 
+
                             </div>
+
+                            <div class="clearfix"></div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -621,7 +623,20 @@
 
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" id="close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery -->
     <!-- jQuery -->
@@ -661,6 +676,28 @@
             ele: 'select'
         });
     </script>
+    <script>
+
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            document.querySelector(".tablinks").classList.add("text-primary");
+            document.querySelector(".change").classList.remove("col-md-12");
+            document.querySelector(".change").classList.add("col-md-6");
+
+            evt.currentTarget.className += " active";
+
+        }
+    </script>
+    <script src="~/popUp/popUp.js"></script>
 </body>
 
 </html>

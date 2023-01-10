@@ -95,71 +95,59 @@
                                     <a href="/Home/Index"><i class="fa fa-home d-inline-block"></i>Trang Chủ</a>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-table"></i> Quản Lý<span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-table"></i>Danh Mục<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li>
+
+                                            @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+
+                                        </li>
+
+                                        <li>
+
+                                            @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
+                                        </li>
+                                    </ul>
+
+                                </li>
+
+                                <li>
+                                    <a> <i class="fa fa-table"></i>Quản Lý<span class="fa fa-chevron-down"></span></a>
+
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a> Quản Lý Kho<span class="fa fa-chevron-down"></span></a>
+                                            <a>  Tồn Kho<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
 
+
                                                 <li>
-                                                    <a>Nhập Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng NCC", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink("Trả Nợ Nhà Cung Cấp", "Index", "Phieutranoncc", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
+
+                                                    @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
+
                                                 </li>
                                                 <li>
-                                                    <a href="#level1_2">Xuất Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng KH", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
+                                                    @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
                                                 </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a> Quản Lý Nhân Viên <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                                <li>
+                                                    @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
+
                                                 </li>
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a>Tiến Độ Sản Xuất <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
                                                 <li class="sub_menu">
                                                     @Html.ActionLink("Đơn Hàng Đang Sản Xuất", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
                                                 </li>
@@ -167,14 +155,16 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a> Quản Lý Khách Hàng <span class="fa fa-chevron-down"></span></a>
+                                            <a>Nợ<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
-                                                </li>
+
                                                 <li class="sub_menu">
                                                     @Html.ActionLink("Thu Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
                                                 </li>
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink("Trả Nợ NCC", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
+                                                </li>
+
                                             </ul>
                                         </li>
                                     </ul>

@@ -1,0 +1,45 @@
+﻿@model QuanLySanXuat.Entities.Nuocsx
+
+
+@{
+    Layout = null;
+
+}
+
+
+
+@*<form asp-action="Edit" asp-route-id="@Model.Idnsx" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxPost(this)">*@
+<form asp-action="Edit" asp-route-id="@Model.Idnsx" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Idnsx" />
+    <div class="row">
+
+        <div class="form-group  form-group-lg  col-md-12 mb-3 col-sm-12">
+
+            <label asp-for="Mansx" class="control-label">Mã nước sản xuất</label>
+            <input asp-for="Mansx" class="form-control" />
+            <span asp-validation-for="Mansx" class="text-danger"></span>
+        </div>
+        <div class="form-group  form-group-lg  col-md-12 col-sm-12">
+
+            <label asp-for="Tennsx" class="control-label">Tên nước sản xuất</label>
+            <input asp-for="Tennsx" class="form-control" />
+            <span asp-validation-for="Tennsx" class="text-danger"></span>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="text-center mt-3 col-12">
+
+
+        <button class="btn btn-success w-100 mt-3" type="submit">Lưu</button>
+
+    </div>
+
+</form>
+
+
+

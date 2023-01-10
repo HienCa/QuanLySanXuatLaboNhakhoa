@@ -1,519 +1,129 @@
 ﻿@model QuanLySanXuat.Entities.NhanvienViewModel
-@using QuanLySanXuat.Entities;
+
 @{
-    Layout = null;
-    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    Nhanvien nv = _context.Nhanvien.Where(n => n.Email.Equals(TempData["OWN"])).FirstOrDefault();
+    Layout = "_Layout";
 
 }
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="row">
+    <div class="col-md-12">
 
-    <title>Quản lý sản xuất HienCa | </title>
+        <div class="tile pl-3 pr-2">
 
-    <!-- Bootstrap -->
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+            <h3 class="tile-title">Thêm mới nhân viên</h3>
+            <div class="tile-body">
 
-    <!-- Font Awesome -->
-    <link href="~/Fonts/fontawesome-free-6.2.1-web/css/all.min.css" rel="stylesheet" />
-    @*<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">*@
-    <!-- NProgress -->
-    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="~/bootstrap-5.2.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <link href="~/build/css/custom.css" rel="stylesheet" />
+                    <div class="row">
+                        <div class="form-group col-md-6">
 
-</head>
-
-<body class="nav-md" style="background-color: #F7F7F7;">
-    <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="#" class="site_title text-center">@*<i class="fa fa-paw"></i>*@ <span>Sản Xuất HienCa</span></a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <!-- menu profile quick info -->
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                            @if (nv != null)
-                            {
-                                <img src="~/Images/@nv.Hinhanh" alt="No Image" class="img-circle profile_img" style="height:70px">
-
-                            }
-                            else
-                            {
-                                <img src="~/Images/hienca.jpg" alt="No Image" class="img-circle profile_img" style="height:70px">
-
-                            }
+                            <label asp-for="Manv" class="control-label">Mã nhân viên</label>
+                            <input asp-for="Manv" class="form-control form-control-lg" />
+                            <span asp-validation-for="Manv" class="text-danger"></span>
                         </div>
-                        <div class="profile_info">
-                            <span>Welcome,</span>
+                        <div class="form-group col-md-6">
 
-                            @if (nv != null)
-                            {
-                                <h2>@nv.Tennv</h2>
-                            }
-                            else
-                            {
-                                <h2>ADMIN</h2>
-                            }
-
+                            <label asp-for="Tennv" class="control-label">Họ và tên</label>
+                            <input asp-for="Tennv" class="form-control form-control-lg" />
+                            <span asp-validation-for="Tennv" class="text-danger"></span>
                         </div>
-                    </div>
-                    <!-- /menu profile quick info -->
+                        <div class="form-group col-md-6">
 
-                    <br />
+                            <label asp-for="Cccd" class="control-label">CCCD</label>
+                            <input asp-for="Cccd" class="form-control form-control-lg" />
+                            <span asp-validation-for="Cccd" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
 
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control form-control-lg" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
 
-                                <li>
-                                    <a href="/Home/Index"><i class="fa fa-home d-inline-block"></i>Trang Chủ</a>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-table"></i> Quản Lý<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a> Quản Lý Kho<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
+                            <label asp-for="Diachi" class="control-label">Địa chỉ</label>
+                            <input asp-for="Diachi" class="form-control form-control-lg" />
+                            <span asp-validation-for="Diachi" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
 
-                                                <li>
-                                                    <a>Nhập Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng NCC", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink("Trả Nợ Nhà Cung Cấp", "Index", "Phieutranoncc", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="#level1_2">Xuất Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng KH", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a> Quản Lý Nhân Viên <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                                </li>
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a>Tiến Độ Sản Xuất <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink("Đơn Hàng Đang Sản Xuất", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                                </li>
-
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a> Quản Lý Khách Hàng <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
-                                                </li>
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink("Thu Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-
-                                </li>
-
-                                <li>
-                                    <a><i class="fa fa-desktop"></i> Báo Cáo <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li class="sub_menu">
-                                            @Html.ActionLink("Báo Cáo A", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                        </li>
-                                        <li class="sub_menu">
-                                            @Html.ActionLink("Báo Cáo B", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                        </li>
-                                        <li class="sub_menu">
-                                            @Html.ActionLink("Báo Cáo C", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-edit"></i> Hệ Thống <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li class="sub_menu">
-                                            @Html.ActionLink("Setting A", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                        </li>
-                                        <li class="sub_menu">
-                                            @Html.ActionLink("Setting B", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                        </li>
-                                        <li class="sub_menu">
-                                            @Html.ActionLink("Setting C", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
-                                        </li>
-
-
-                                    </ul>
-                                </li>
-                            </ul>
+                            <label asp-for="Sdt" class="control-label">Số điện thoại</label>
+                            <input asp-for="Sdt" class="form-control form-control-lg" />
+                            <span asp-validation-for="Sdt" class="text-danger"></span>
                         </div>
 
-                    </div>
-                    <!-- /sidebar menu -->
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="#">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
 
-                    </div>
-                    <!-- /menu footer buttons -->
-                </div>
-            </div>
+                        <div class="form-group col-md-6">
 
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                    <nav class="nav navbar-nav">
-                        <ul class=" navbar-right">
-                            <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                                   data-toggle="dropdown" aria-expanded="false">
-                                    @if (nv != null)
-                                    {
-                                        <img src="~/Images/@nv.Hinhanh" alt="No Image">
+                            <label asp-for="Masothue" class="control-label">Mã số thuế</label>
+                            <input asp-for="Masothue" class="form-control form-control-lg" />
+                            <span asp-validation-for="Masothue" class="text-danger"></span>
+                        </div>
 
-                                    }
-                                    else
-                                    {
-                                        <img src="~/Images/hienca.jpg" alt="No Image">
+                        <div class="form-group col-md-3">
+                            <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
+                            <input asp-for="Ngaysinh" type="date" class="form-control form-control-lg" />
+                            <span asp-validation-for="Ngaysinh" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
 
-                                    }
-                                </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        
-                                        <span>Settings</span>
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
-                                    <a class="dropdown-item" href="/Home/DangNhap"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </div>
-                            </li>
-
-                            @*<li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="text-center">
-                                            <a class="dropdown-item">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>*@
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- /top navigation -->
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div class="">
-
-
-                    <div class="col-md-12 col-sm-12 ">
-
-                        <div class="row title-title align-items-md-center ">
-                            <div class="row">
-                                <div class="col-md-12">
-
-                                    <div class="tile pl-3 pr-2">
-
-                                        <h3 class="tile-title">Thêm mới nhân viên</h3>
-                                        <div class="tile-body">
-
-
-                                            <form asp-action="Create" enctype="multipart/form-data" method="post">
-                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Manv" class="control-label">Mã nhân viên</label>
-                                                        <input asp-for="Manv" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Manv" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Tennv" class="control-label">Họ và tên</label>
-                                                        <input asp-for="Tennv" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Tennv" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Cccd" class="control-label">CCCD</label>
-                                                        <input asp-for="Cccd" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Cccd" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Email" class="control-label">Email</label>
-                                                        <input asp-for="Email" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Email" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Diachi" class="control-label">Địa chỉ</label>
-                                                        <input asp-for="Diachi" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Diachi" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Sdt" class="control-label">Số điện thoại</label>
-                                                        <input asp-for="Sdt" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Sdt" class="text-danger"></span>
-                                                    </div>
-
-
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Masothue" class="control-label">Mã số thuế</label>
-                                                        <input asp-for="Masothue" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Masothue" class="text-danger"></span>
-                                                    </div>
-
-                                                    <div class="form-group col-md-3">
-                                                        <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
-                                                        <input asp-for="Ngaysinh" type="date" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Ngaysinh" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-
-                                                        <label class="control-label">Giới tính</label>
-                                                        <select asp-for="Gioitinh" class="form-control form-control-lg" id="exampleSelect2">
-                                                            <option>-- Chọn giới tính --</option>
-                                                            <option>Nam</option>
-                                                            <option>Nữ</option>
-                                                            <option>Khác</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Facebook" class="control-label">Facebook</label>
-                                                        <input asp-for="Facebook" type="text" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Facebook" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Zalo" class="control-label">Zalo</label>
-                                                        <input asp-for="Zalo" type="text" class="form-control form-control-lg"/>
-                                                        <span asp-validation-for="Zalo" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Ghichu" class="control-label">Ghi chú</label>
-                                                        <textarea asp-for="Ghichu" type="text" class="form-control form-control-lg"></textarea>
-                                                        <span asp-validation-for="Ghichu" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Hinhanh" class="control-label"></label>
-                                                        <div class="custom-file">
-                                                            <input asp-for="Hinhanh" class="custom-file-input " id="customFile">
-                                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                                        </div>
-                                                        <span asp-validation-for="Hinhanh" class="text-danger"></span>
-
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <input asp-for="Hinhanh" class="form-control" type="hidden" />
-                                                    </div>
-
-
-                                                </div>
-
-                                                <div class="text-center mt-3">
-                                                    <button class="btn btn-success w-25" type="submit">Thêm</button>
-
-                                                </div>
-
-                                            </form>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                            <label class="control-label">Giới tính</label>
+                            <select asp-for="Gioitinh" class="form-control form-control-lg" id="exampleSelect2">
+                                <option>-- Chọn giới tính --</option>
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                                <option>Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Facebook" class="control-label">Facebook</label>
+                            <input asp-for="Facebook" type="text" class="form-control form-control-lg" />
+                            <span asp-validation-for="Facebook" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Zalo" class="control-label">Zalo</label>
+                            <input asp-for="Zalo" type="text" class="form-control form-control-lg" />
+                            <span asp-validation-for="Zalo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+                            <textarea asp-for="Ghichu" type="text" class="form-control form-control-lg"></textarea>
+                            <span asp-validation-for="Ghichu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Hinhanh" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="Hinhanh" class="custom-file-input " id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
-
+                            <span asp-validation-for="Hinhanh" class="text-danger"></span>
 
                         </div>
 
-                        <div class="clearfix"></div>
+                        <div class="form-group col-md-4">
+                            <input asp-for="Hinhanh" class="form-control" type="hidden" />
+                        </div>
+
+
                     </div>
 
-                </div>
-            </div>
-        </div>
-        <!-- /page content -->
+                    <div class="text-center mt-3 col-12">
+                        @Html.ActionLink("Quay lại", "Index", "Nhanvien", null, new { @class = "btn btn-cancel mt-3 w-25" })
 
+                        <button class="btn btn-success w-50 mt-3" type="submit">Them</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
 
     </div>
-
-
-
-    <!-- jQuery -->
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-</body>
-
-</html>
+</div>
 
 

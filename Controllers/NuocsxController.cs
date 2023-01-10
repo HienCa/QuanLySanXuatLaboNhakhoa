@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class NuocsxController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -32,14 +34,14 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var nhomvatlieu = await _context.Nuocsx
+            var nsx = await _context.Nuocsx
                 .FirstOrDefaultAsync(m => m.Idnsx == id);
-            if (nhomvatlieu == null)
+            if (nsx == null)
             {
                 return NotFound();
             }
 
-            return View(nhomvatlieu);
+            return View(nsx);
         }
 
         // GET: Nhomvatlieu/Create
@@ -60,9 +62,30 @@ namespace QuanLySanXuat.Controllers
                 nuocsx.Active = 1;
                 _context.Add(nuocsx);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("AddInterface", "Vatlieu");
+                return RedirectToAction("Index");
+
             }
             return View(nuocsx);
+        }
+        public IActionResult CreateOfVL()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOfVL([Bind("Idnsx,Mansx,Tennsx,Active")] Nuocsx nuocsx)
+        {
+            if (ModelState.IsValid)
+            {
+                nuocsx.Active = 1;
+                _context.Add(nuocsx);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Create", "Vatlieu");
+
+
+            }
+            return RedirectToAction("Create", "Vatlieu");
+
         }
 
         // GET: Nhomvatlieu/Edit/5
@@ -145,7 +168,8 @@ namespace QuanLySanXuat.Controllers
             nuocsx.Active = 0;
             _context.Nuocsx.Update(nuocsx);
             await _context.SaveChangesAsync();
-            return RedirectToAction("AddInterface", "Vatlieu");
+            return RedirectToAction("Index");
+
 
         }
 

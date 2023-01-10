@@ -1,0 +1,38 @@
+﻿@model QuanLySanXuat.Entities.Hangsx
+@using QuanLySanXuat.Entities;
+
+@{
+    Layout = null;
+
+
+}
+
+
+<form asp-action="CreateOfVL" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+
+            <label asp-for="Mahsx" class="control-label">Mã hãng sản xuất</label>
+            <input asp-for="Mahsx" class="form-control form-control-lg" />
+            <span asp-validation-for="Mahsx" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+
+            <label asp-for="Tenhsx" class="control-label">Tên hãng sản xuất</label>
+            <input asp-for="Tenhsx"  class="form-control form-control-lg" />
+            <span asp-validation-for="Tenhsx" class="text-danger"></span>
+        </div>
+
+
+
+    </div>
+
+    <div class="text-center mt-3">
+        <button class="btn btn-success w-100" type="submit">Thêm</button>
+
+    </div>
+
+</form>
+

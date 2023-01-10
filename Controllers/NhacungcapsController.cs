@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class NhacungcapsController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -61,7 +63,7 @@ namespace QuanLySanXuat.Controllers
                 _context.Add(nhacungcap);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                return RedirectToAction("QuanLyNhapKho", "QuanLyTonKho");
+                return RedirectToAction("Index");
 
             }
             return View(nhacungcap);
@@ -115,7 +117,8 @@ namespace QuanLySanXuat.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("AddInterface", "VatLieu");
+                return RedirectToAction("Index");
+
             }
             return View(nhacungcap);
         }
@@ -147,7 +150,8 @@ namespace QuanLySanXuat.Controllers
             nhacungcap.Active = 0;
             _context.Nhacungcapvl.Update(nhacungcap);
             await _context.SaveChangesAsync();
-            return RedirectToAction("AddInterface","Vatlieu");
+            return RedirectToAction("Index");
+
         }
 
         private bool NhacungcapExists(int id)

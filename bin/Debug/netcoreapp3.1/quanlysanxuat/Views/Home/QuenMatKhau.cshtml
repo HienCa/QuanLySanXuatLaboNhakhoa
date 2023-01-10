@@ -1,4 +1,4 @@
-﻿@model QuanLySanXuat.Entities.Account;
+﻿
 
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
                     <div class="wrap-input100 validate-input"
                          data-validate="Bạn cần nhập đúng thông tin như: ex@abc.xyz">
                         <label>Tài khoản muốn khôi phục (Email)</label>
-                        <input asp-for="Tk" class="form-control col-md-12" />
+                        <input name="TK" class="form-control col-md-12" />
                       
                         <span class="text-danger">@TempData["Message"]</span>
 

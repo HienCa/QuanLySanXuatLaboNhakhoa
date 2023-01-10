@@ -1,0 +1,46 @@
+﻿@model QuanLySanXuat.Entities.Account;
+@{
+    Layout = "_LayoutIdentity";
+
+}
+
+
+<form asp-action="Login" asp-controller="Access">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <label asp-for="Email" class="control-label">Email</label>
+    <div class="form-group mb-3">
+        <input type="text" class="form-control" placeholder="Email" asp-for="Email">
+
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="PassWord" class="control-label">Mật khẩu</label>
+        <input type="password" class="form-control " placeholder="Mật khẩu" asp-for="PassWord">
+        <span asp-validation-for="PassWord" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <input type="checkbox" class="form-check-input" asp-for="KeepLoggedIn">
+        <label asp-for="KeepLoggedIn" class="control-label">Duy trì đăng nhập</label>
+
+    </div>
+
+    <div class="text-center mb-3">
+        <input type="submit" value="Đăng nhập" class="btn btn-success w-100" />
+    </div>
+    @if (ViewData["ValidateMessage"] != null)
+    {
+
+        <br />
+        <label class="text-danger">@ViewData["ValidateMessage"]</label>
+    }
+
+    <div class="text-right ">
+
+
+        @*@Html.ActionLink("Bạn chưa có tài khoản?", "CreateCustomerAccount", "Khachhang", null, new { @class = "mr-3" })*@
+        @Html.ActionLink("Trang chủ", "Index", "Home", null, new { @class = "mr-3 text-center" })
+        @Html.ActionLink("Quên mật khẩu?", "ForgotPassword", "Access", null, new { @class = "" })
+
+    </div>
+</form>
+

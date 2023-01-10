@@ -20,17 +20,40 @@ namespace QuanLySanXuat.Entities
         }
 
         public int Idkh { get; set; }
+
         public string Makh { get; set; }
+        [Required]
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Tenkh { get; set; }
+        [Required]
+        [StringLength(12, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Cccd { get; set; }
+        [Required]
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Diachi { get; set; }
+        [Required]
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Sdt { get; set; }
+        [Required]
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Email { get; set; }
+        [Required]
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Matkhau { get; set; }
+    
+
         public string Gioitinh { get; set; }
+
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Masothue { get; set; }
+      
+        [StringLength(4000, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Ghichu { get; set; }
+    
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Facebook { get; set; }
+  
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Zalo { get; set; }
         public int? Nvidsale { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]

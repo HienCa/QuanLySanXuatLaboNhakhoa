@@ -1,63 +1,90 @@
 ﻿@model QuanLySanXuat.Entities.Phieunhapkho
 
+
+
+@using QuanLySanXuat.Entities;
+
 @{
-    Layout = null;
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+   
+    List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
+
+
 }
 
-<!DOCTYPE html>
+<div class="col-md-12 col-sm-12 ">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
+    <div class="row title-title align-items-md-center ">
+        <div class="row">
+            <div class="col-md-12">
 
-<h4>Phieunhapkho</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Sophieu" class="control-label"></label>
-                <input asp-for="Sophieu" class="form-control" />
-                <span asp-validation-for="Sophieu" class="text-danger"></span>
+                <div class="tile pl-3 pr-2">
+
+                    <h3 class="tile-title">Tạo phiếu nhập kho</h3>
+                    <div class="tile-body">
+
+
+
+                        <form class="row" asp-action="Create" asp-controller="Phieunhapkho" enctype="multipart/form-data">
+                            <div class="form-group col-md-12 col-sm-12">
+
+                                <label asp-for="Idncc" for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+
+                                <select asp-for="Idncc" id="multipleSelect" placeholder="Chọn hãng sản xuất " data-search="true"
+                                        data-silent-initial-value-set="true">
+                                    @foreach (var item in nhacungcap)
+                                    {
+                                        <option value="@item.Idncc">@item.Tenncc</option>
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+
+                                <label asp-for="Sophieu" class="control-label">Số phiếu </label>
+                                <input asp-for="Sophieu" class="form-control" type="text" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+
+                                <label asp-for="Ngaylap" class="control-label">Ngày nhập</label>
+                                <input asp-for="Ngaylap" class="form-control" type="date">
+                            </div>
+
+
+                            <div class="form-group col-md-6 col-sm-12">
+
+                                <label asp-for="Sohd" class="control-label">Số hóa đơn</label>
+                                <input asp-for="Sohd" class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+
+                                <label asp-for="Ngayhd" class="control-label">Ngày hóa đơn</label>
+                                <input asp-for="Ngayhd" class="form-control" type="date" name="Ngayhd">
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12">
+
+                                <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+                                <textarea asp-for="Ghichu" class="form-control" type="text" name="Ghichu"></textarea>
+                            </div>
+
+
+                            
+                            <div class="text-center mt-3 col-12">
+                                @Html.ActionLink("Quay lại", "Index", "Phieunhapkho", null, new { @class = "btn btn-cancel mt-3 w-25" })
+
+                                <button class="btn btn-success w-50 mt-3" type="submit">Lưu</button>
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Ngaylap" class="control-label"></label>
-                <input asp-for="Ngaylap" class="form-control" />
-                <span asp-validation-for="Ngaylap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sohd" class="control-label"></label>
-                <input asp-for="Sohd" class="form-control" />
-                <span asp-validation-for="Sohd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ngayhd" class="control-label"></label>
-                <input asp-for="Ngayhd" class="form-control" />
-                <span asp-validation-for="Ngayhd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ghichu" class="control-label"></label>
-                <input asp-for="Ghichu" class="form-control" />
-                <span asp-validation-for="Ghichu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Idnv" class="control-label"></label>
-                <select asp-for="Idnv" class ="form-control" asp-items="ViewBag.Idnv"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-</body>
-</html>

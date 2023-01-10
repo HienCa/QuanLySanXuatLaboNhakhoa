@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class NoidungphieunhapController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -59,30 +61,20 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int Idpnk, int Idvl,  Noidungpnk noidungphieunhap, Phieunhapkho phieunhapkho)
+        public async Task<IActionResult> Create(Noidungpnk noidungphieunhap)
         {
             if (ModelState.IsValid)
             {
                 string employeeEmail = Request.Cookies["HienCaCookie"];
                 Nhanvien nhanvien = _context.Nhanvien.Where(email => email.Email.Equals(employeeEmail)).FirstOrDefault();
-                phieunhapkho.Active = 1;
-                _context.Phieunhapkho.Update(phieunhapkho);
-
-                noidungphieunhap.Idvl = Idvl;
-                //Phieunhapkho pnk = _context.Phieunhapkho.Where(pn => pn.Idpnk == Idpnk).FirstOrDefault();
-                //pnk.Sohd = phieunhapkho.Sohd;
-                //pnk.Ghichu = phieunhapkho.Ghichu;
-                //pnk.Ngayhd = phieunhapkho.Ngayhd;
-                noidungphieunhap.Idpnk = phieunhapkho.Idpnk;
-                
-                
+           
+ 
                 _context.Add(noidungphieunhap);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("EditPN",phieunhapkho.Idpnk);
+                return RedirectToAction("Details","Phieunhapkho", new { @id = noidungphieunhap.Idpnk });
             }
-            ViewData["Phieunhapkhoidpnk"] = new SelectList(_context.Phieunhapkho, "Idpnk", "Idpnk", noidungphieunhap.Idpnk);
-            ViewData["Vatlieuidvl"] = new SelectList(_context.Vatlieu, "Idvl", "Idvl", noidungphieunhap.Idvl);
-            return View(noidungphieunhap);
+
+            return RedirectToAction("Details", "Phieunhapkho", new { @id = noidungphieunhap.Idpnk });
         }
 
         // GET: Noidungphieunhap/Edit/5
@@ -93,13 +85,16 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            var noidungphieunhap = await _context.Noidungpnk.FindAsync(id);
+            
+            var noidungphieunhap = await _context.Noidungpnk
+                .FirstOrDefaultAsync(m => m.Idndpnk == id);
+
+
             if (noidungphieunhap == null)
             {
                 return NotFound();
             }
-            ViewData["Phieunhapkhoidpnk"] = new SelectList(_context.Phieunhapkho, "Idpnk", "Idpnk", noidungphieunhap.Idpnk);
-            ViewData["Vatlieuidvl"] = new SelectList(_context.Vatlieu, "Idvl", "Idvl", noidungphieunhap.Idvl);
+           
             return View(noidungphieunhap);
         }
 
@@ -110,7 +105,7 @@ namespace QuanLySanXuat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,  Noidungpnk noidungphieunhap)
         {
-            if (id != noidungphieunhap.Idpnk)
+            if (id != noidungphieunhap.Idndpnk)
             {
                 return NotFound();
             }
@@ -124,7 +119,7 @@ namespace QuanLySanXuat.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NoidungphieunhapExists(noidungphieunhap.Idpnk))
+                    if (!NoidungphieunhapExists(noidungphieunhap.Idndpnk))
                     {
                         return NotFound();
                     }
@@ -133,11 +128,12 @@ namespace QuanLySanXuat.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Phieunhapkho", new { @id = noidungphieunhap.Idpnk });
+
             }
-            ViewData["Phieunhapkhoidpnk"] = new SelectList(_context.Phieunhapkho, "Idpnk", "Idpnk", noidungphieunhap.Idpnk);
-            ViewData["Vatlieuidvl"] = new SelectList(_context.Vatlieu, "Idvl", "Idvl", noidungphieunhap.Idvl);
-            return View(noidungphieunhap);
+
+            return RedirectToAction("Details", "Phieunhapkho", new { @id = noidungphieunhap.Idpnk });
+
         }
 
         // GET: Noidungphieunhap/Delete/5
@@ -151,7 +147,7 @@ namespace QuanLySanXuat.Controllers
             var noidungphieunhap = await _context.Noidungpnk
                 .Include(n => n.IdpnkNavigation)
                 .Include(n => n.IdvlNavigation)
-                .FirstOrDefaultAsync(m => m.Idpnk == id);
+                .FirstOrDefaultAsync(m => m.Idndpnk == id);
             if (noidungphieunhap == null)
             {
                 return NotFound();
@@ -168,12 +164,14 @@ namespace QuanLySanXuat.Controllers
             var noidungphieunhap = await _context.Noidungpnk.FindAsync(id);
             _context.Noidungpnk.Remove(noidungphieunhap);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Phieunhapkho", new { @id = noidungphieunhap.Idpnk });
+
         }
 
         private bool NoidungphieunhapExists(int id)
         {
-            return _context.Noidungpnk.Any(e => e.Idpnk == id);
+            return _context.Noidungpnk.Any(e => e.Idndpnk == id);
         }
     }
 }

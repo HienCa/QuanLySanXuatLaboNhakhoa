@@ -95,71 +95,59 @@
                                     <a href="/Home/Index"><i class="fa fa-home d-inline-block"></i>Trang Chủ</a>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-table"></i> Quản Lý<span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-table"></i>Danh Mục<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li>
+
+                                            @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+
+                                        </li>
+
+                                        <li>
+
+                                            @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
+                                        </li>
+                                    </ul>
+
+                                </li>
+
+                                <li>
+                                    <a> <i class="fa fa-table"></i>Quản Lý<span class="fa fa-chevron-down"></span></a>
+
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a> Quản Lý Kho<span class="fa fa-chevron-down"></span></a>
+                                            <a>  Tồn Kho<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
 
+
                                                 <li>
-                                                    <a>Nhập Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nước Sản Xuất", "Index", "Nuocsx", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Hãng Sản Xuất", "Index", "Hangsanxuat", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng NCC", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink("Trả Nợ Nhà Cung Cấp", "Index", "Phieutranoncc", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
+
+                                                    @Html.ActionLink(" Phiếu Nhập Kho", "QuanLyNhapKho", "QuanLyTonKho", null, new { @class = " app-menu__label" })
+
                                                 </li>
                                                 <li>
-                                                    <a href="#level1_2">Xuất Kho<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li>
-                                                            @Html.ActionLink(" Ngân Hàng KH", "Index", "Nganhang", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                        <li class="sub_menu">
-                                                            @Html.ActionLink(" Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
-                                                        </li>
-                                                    </ul>
+                                                    @Html.ActionLink(" Phiếu Bán Hàng", "Index", "Phieubanhang", null, new { @class = " app-menu__label" })
                                                 </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a> Quản Lý Nhân Viên <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Nhân Viên", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                                <li>
+                                                    @Html.ActionLink("Đơn Đặt Hàng Sản Xuất", "Index", "Dondathang", null, new { @class = " app-menu__label" })
+
                                                 </li>
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a>Tiến Độ Sản Xuất <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
                                                 <li class="sub_menu">
                                                     @Html.ActionLink("Đơn Hàng Đang Sản Xuất", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
                                                 </li>
@@ -167,14 +155,16 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a> Quản Lý Khách Hàng <span class="fa fa-chevron-down"></span></a>
+                                            <a>Nợ<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
-                                                </li>
+
                                                 <li class="sub_menu">
                                                     @Html.ActionLink("Thu Nợ Khách Hàng", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
                                                 </li>
+                                                <li class="sub_menu">
+                                                    @Html.ActionLink("Trả Nợ NCC", "Index", "Phieuthunokh", null, new { @class = " app-menu__label" })
+                                                </li>
+
                                             </ul>
                                         </li>
                                     </ul>
@@ -360,58 +350,60 @@
                                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                                 <div class="row">
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-3 col-sm-12">
 
-                                                        <label asp-for="Mancc" class="control-label">Mã nhân viên</label>
-                                                        <input asp-for="Mancc" class="form-control form-control-lg" />
+                                                        <label asp-for="Mancc" class="control-label">Mã nhà cung cấp</label>
+                                                        <input asp-for="Mancc" class="form-control" />
                                                         <span asp-validation-for="Mancc" class="text-danger"></span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-9 col-sm-12">
 
-                                                        <label asp-for="Tenncc" class="control-label">Họ và tên</label>
-                                                        <input asp-for="Tenncc" class="form-control form-control-lg" />
+                                                        <label asp-for="Tenncc" class="control-label">Tên nhà cung cấp</label>
+                                                        <input asp-for="Tenncc" class="form-control" />
                                                         <span asp-validation-for="Tenncc" class="text-danger"></span>
                                                     </div>
 
-                                                    <div class="form-group col-md-6">
-
-                                                        <label asp-for="Diachi" class="control-label">Địa chỉ</label>
-                                                        <input asp-for="Diachi" class="form-control form-control-lg" />
-                                                        <span asp-validation-for="Diachi" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-3 col-sm-12">
 
                                                         <label asp-for="Sdt" class="control-label">Số điện thoại</label>
-                                                        <input asp-for="Sdt" class="form-control form-control-lg" />
+                                                        <input asp-for="Sdt" type="text" class="form-control" />
                                                         <span asp-validation-for="Sdt" class="text-danger"></span>
                                                     </div>
+                                                    <div class="form-group col-md-9 col-sm-12">
 
-
-                                                    <div class="form-group col-md-6">
+                                                        <label asp-for="Diachi" class="control-label">Địa chỉ</label>
+                                                        <input asp-for="Diachi" class="form-control" />
+                                                        <span asp-validation-for="Diachi" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-12">
 
                                                         <label asp-for="Masothue" class="control-label">Mã số thuế</label>
-                                                        <input asp-for="Masothue" class="form-control form-control-lg" />
+                                                        <input asp-for="Masothue" type="text" class="form-control" />
                                                         <span asp-validation-for="Masothue" class="text-danger"></span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-9 col-sm-12">
 
                                                         <label asp-for="Email" class="control-label">Email</label>
-                                                        <input asp-for="Email" class="form-control form-control-lg" />
+                                                        <input asp-for="Email" class="form-control" />
                                                         <span asp-validation-for="Email" class="text-danger"></span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Facebook" class="control-label">Ngày sinh</label>
-                                                        <textarea asp-for="Facebook" type="text" class="form-control form-control-lg"></textarea>
+                                                    <div class="form-group col-md-12 col-sm-12">
+
+                                                        <label asp-for="Facebook" class="control-label">Facebook</label>
+                                                        <input asp-for="Facebook" class="form-control" />
                                                         <span asp-validation-for="Facebook" class="text-danger"></span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Zalo" class="control-label">Ngày sinh</label>
-                                                        <textarea asp-for="Zalo" type="text" class="form-control form-control-lg"></textarea>
+                                                    <div class="form-group col-md-12 col-sm-12">
+
+                                                        <label asp-for="Zalo" class="control-label">Zalo</label>
+                                                        <input asp-for="Zalo" class="form-control" />
                                                         <span asp-validation-for="Zalo" class="text-danger"></span>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label asp-for="Ghichu" class="control-label">Ngày sinh</label>
-                                                        <textarea asp-for="Ghichu" type="text" class="form-control form-control-lg"></textarea>
+
+                                                    <div class="form-group col-md-12 col-sm-12">
+
+                                                        <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+                                                        <textarea asp-for="Ghichu" type="number" class="form-control"></textarea>
                                                         <span asp-validation-for="Ghichu" class="text-danger"></span>
                                                     </div>
 

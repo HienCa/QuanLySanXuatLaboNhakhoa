@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuanLySanXuat.Entities;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class NhomvatlieuController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -60,9 +62,30 @@ namespace QuanLySanXuat.Controllers
                 nhomvatlieu.Active = 1;
                 _context.Add(nhomvatlieu);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("AddInterface", "Vatlieu");
+                return RedirectToAction("Index");
+
             }
             return View(nhomvatlieu);
+        }
+        public IActionResult CreateOfVL()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOfVL([Bind("Idnvl,Manvl,Tennvl,Loainvl,Active")] Nhomvl nhomvatlieu)
+        {
+            if (ModelState.IsValid)
+            {
+                nhomvatlieu.Active = 1;
+                _context.Add(nhomvatlieu);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Create", "Vatlieu");
+
+
+            }
+            return RedirectToAction("Create", "Vatlieu");
+
         }
 
         // GET: Nhomvatlieu/Edit/5
@@ -145,7 +168,8 @@ namespace QuanLySanXuat.Controllers
             nhomvatlieu.Active = 0;
             _context.Nhomvl.Update(nhomvatlieu);
             await _context.SaveChangesAsync();
-            return RedirectToAction("AddInterface", "Vatlieu");
+            return RedirectToAction("Index");
+
 
         }
 

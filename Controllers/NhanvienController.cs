@@ -24,6 +24,7 @@ using QuanLySanXuat.Service;
 
 namespace QuanLySanXuat.Controllers
 {
+    [Authorize]
     public class NhanvienController : Controller
     {
         private readonly ProductionManagementSoftwareContext _context;
@@ -38,6 +39,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Nhanvien
         public async Task<IActionResult> Index()
         {
+            TempData["OWN"] = Request.Cookies["HienCaCookie"];
             var productionManagementSoftwareContext = _context.Nhanvien.Where(nv => nv.Active == 1);
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
@@ -96,12 +98,12 @@ namespace QuanLySanXuat.Controllers
             if (ModelState.IsValid)
             {
 
-                Account accountEmployee = new Account();
-                accountEmployee.Tk = nhanvien.Email;
-                accountEmployee.Mk = "NV12345";
-                accountEmployee.Vaitroidvt = 5;//nhân viên thường
-                _context.Add(accountEmployee);
-                await _context.SaveChangesAsync();
+                //Account accountEmployee = new Account();
+                //accountEmployee.Tk = nhanvien.Email;
+                //accountEmployee.Mk = "NV12345";
+                //accountEmployee.Vaitroidvt = 5;//nhân viên thường
+                //_context.Add(accountEmployee);
+                //await _context.SaveChangesAsync();
                 //Account a = _context.Account.Where(n => n.Tk.Equals(accountEmployee.Tk)).FirstOrDefault();
 
                 //copy lại nhanvien vì NhanvienViewModel không được gán bằng Nhanvien
@@ -118,6 +120,7 @@ namespace QuanLySanXuat.Controllers
                 nv.Gioitinh = nhanvien.Gioitinh;
                 nv.Masothue = nhanvien.Masothue;
                 nv.Ghichu = nhanvien.Ghichu;
+                nv.Matkhau = "NV12345";
                 //nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
                 //nv.Accountidaccount = nhanvien.Accountidaccount;
                 nv.Ngaysinh = nhanvien.Ngaysinh;
@@ -132,21 +135,21 @@ namespace QuanLySanXuat.Controllers
         }
 
 
-        public IActionResult ForgotPassword([Bind("Idaccount,Tk,Mk,Active,Vaitroidvt")] Account account)
+        public IActionResult ForgotPassword(string TK)
         {
             ProductionManagementSoftwareContext context = new ProductionManagementSoftwareContext();
             //HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value;
 
             var newPassword = "KH12345";
-            string email = account.Tk;
+            
             string errorMessage = "Email không chính xác. Vui lòng kiểm tra lại email!";
             try
             {
 
-                Khachhang kh = context.Khachhang.Where(tk => tk.Email.Equals(email)).FirstOrDefault();
+                Khachhang kh = context.Khachhang.Where(tk => tk.Email.Equals(TK)).FirstOrDefault();
                 if (kh != null)
                 {
-                    var address = email;
+                    var address = TK;
 
                     var subject = "Reset your password";
                     var message = "Xin Chào " + kh.Tenkh + "\n Mật khẩu mới của bạn là " + newPassword;
@@ -216,6 +219,7 @@ namespace QuanLySanXuat.Controllers
             nv.Manv = nhanvien.Manv;
             nv.Tennv = nhanvien.Tennv;
             nv.Cccd = nhanvien.Cccd;
+            nv.Email = nhanvien.Email;
             nv.Diachi = nhanvien.Diachi;
             nv.Sdt = nhanvien.Sdt;
             nv.Gioitinh = nhanvien.Gioitinh;
@@ -267,6 +271,7 @@ namespace QuanLySanXuat.Controllers
                     nv.Masothue = nhanvien.Masothue;
                     nv.Ghichu = nhanvien.Ghichu;
                     nv.Cccd = nhanvien.Cccd;
+                    nv.Email = nhanvien.Email;
                     //nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
                     //nv.Accountidaccount = nhanvien.Accountidaccount;
                     nv.Ngaysinh = nhanvien.Ngaysinh;
