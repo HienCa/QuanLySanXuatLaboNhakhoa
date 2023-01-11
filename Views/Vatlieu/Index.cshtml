@@ -10,8 +10,8 @@
     <h2>Quản Lý Vật Liệu </h2>
     <div class="col-md-3 col-sm-12">
         @*<a href="/Vatlieu/AddInterface" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-            <i class="fas fa-plus"></i>Thêm mới
-        </a>*@
+                <i class="fas fa-plus"></i>Thêm mới
+            </a>*@
         <a href="/Vatlieu/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
             <i class="fas fa-plus"></i>Thêm mới
         </a>
@@ -55,7 +55,7 @@
                             <th>Mã vl</th>
                             <th>Tên vl</th>
                             <th>Quy cách</th>
-                            <th>Giá bán</th>
+                            <th>Giá bán(đ)</th>
                             <th>Nhóm</th>
                             <th>Hãng</th>
                             <th>Nước</th>
@@ -73,25 +73,29 @@
                             <td>.</td>
 
                         </tr>
+
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>@item.Mavl</td>
                                 <td>@item.Tenvl</td>
                                 <td>@item.Quycach</td>
-                                <td>@item.Giaban</td>
+                                @{
+                                    var Giaban = String.Format("{0:0,0}", @item.Giaban);
+                                }
+                                <td>@Giaban</td>
                                 <td>@item.IdnvlNavigation.Tennvl</td>
                                 <td>@item.IdhsxNavigation.Tenhsx</td>
                                 <td>@item.IdnsxNavigation.Tennsx</td>
 
-                                <td >
+                                <td>
                                     @*<button type="button" data-toggle="ajax-modal" data-target="#CTVatlieu"
-                                            data-url="@Url.Action($"Details/{item.Idvl}")" class="btn btn-sm btn-info">
-                                        <i class="fas fa-info text-white"></i>
-                                    </button>*@
+                                                data-url="@Url.Action($"Details/{item.Idvl}")" class="btn btn-sm btn-info">
+                                            <i class="fas fa-info text-white"></i>
+                                        </button>*@
                                     @*<a asp-action="Details" class="btn btn-sm btn-info" asp-route-id="@item.Idvl"><i class="fas fa-info text-white"></i></a>*@
                                     @*<a asp-action="Edit" class="btn  btn-sm  btn-warning " asp-route-id="@item.Idvl"><i class="fas fa-edit text-white"></i></a>
-        <a asp-action="Delete" class="btn  btn-sm  btn-danger " asp-route-id="@item.Idvl"><i class="fas fa-trash-alt text-white"></i></a>*@
+                                        <a asp-action="Delete" class="btn  btn-sm  btn-danger " asp-route-id="@item.Idvl"><i class="fas fa-trash-alt text-white"></i></a>*@
                                     <a onclick="showInPopup('@Url.Action("Details", "Vatlieu" , new { id = item.Idvl }, Context.Request.Scheme)','Thông Tin Chi Tiết')" class="btn btn-sm  btn-info ">
                                         <i class="fas fa-info text-white"></i>
                                     </a>

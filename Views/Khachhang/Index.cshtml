@@ -428,7 +428,11 @@
                                                 <td>@item.Sdt</td>
                                                 <td>@item.Masothue</td>
                                                 <td>@item.Gioitinh</td>
-                                                <td>@item.Ngaysinh</td>
+                                                @{
+                                                    DateTime Ngaysinh = (DateTime)item.Ngaysinh;
+                                                }
+                                                <td>@Ngaysinh.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+
                                                 @*<td>
             <a href="@item.Facebook" class="text-info">@item.Facebook</a>
         </td>

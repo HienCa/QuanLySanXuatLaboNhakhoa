@@ -78,30 +78,34 @@
                         </tr>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@item.Manv</td>
-                                <td>@item.Tennv</td>
-                                <td>@item.Cccd</td>
-                                <td>@item.Email</td>
-                                <td>@item.Diachi</td>
-                                <td>@item.Sdt</td>
-                                <td>@item.Masothue</td>
-                                <td>@item.Gioitinh</td>
-                                <td>@item.Ngaysinh</td>
-                                @*<td>
-                                        <a href="@item.Facebook" class="text-info">@item.Facebook</a>
-                                    </td>
-                                    <td>
-                                        <a href="@item.Zalo" class="text-info">@item.Zalo</a>
-                                    </td>*@
+                    <tr>
+                        <td>@item.Manv</td>
+                        <td>@item.Tennv</td>
+                        <td>@item.Cccd</td>
+                        <td>@item.Email</td>
+                        <td>@item.Diachi</td>
+                        <td>@item.Sdt</td>
+                        <td>@item.Masothue</td>
+                        <td>@item.Gioitinh</td>
+                        @{
+                            DateTime Ngaysinh = item.Ngaysinh;
+                        }
+                        <td>@Ngaysinh.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
 
-                                <td class="table-td-center">
-                                    <a asp-action="Details" class="btn btn-sm  btn-info" asp-route-id="@item.Idnv"><i class="fas fa-info text-white"></i></a>
-                                    <a asp-action="Edit" class="btn btn-sm  btn-warning " asp-route-id="@item.Idnv"><i class="fas fa-edit text-white"></i></a>
-                                    <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idnv"><i class="fas fa-trash-alt text-white"></i></a>
+                        @*<td>
+            <a href="@item.Facebook" class="text-info">@item.Facebook</a>
+        </td>
+        <td>
+            <a href="@item.Zalo" class="text-info">@item.Zalo</a>
+        </td>*@
 
-                                </td>
-                            </tr>
+                        <td class="table-td-center">
+                            <a asp-action="Details" class="btn btn-sm  btn-info" asp-route-id="@item.Idnv"><i class="fas fa-info text-white"></i></a>
+                            <a asp-action="Edit" class="btn btn-sm  btn-warning " asp-route-id="@item.Idnv"><i class="fas fa-edit text-white"></i></a>
+                            <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idnv"><i class="fas fa-trash-alt text-white"></i></a>
+
+                        </td>
+                    </tr>
                         }
 
                     </tbody>

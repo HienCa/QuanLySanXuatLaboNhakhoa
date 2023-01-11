@@ -9,7 +9,7 @@
 <div class="d-flex">
     <h2>Quản Lý Phiếu Nhập Kho</h2>
     <div class="col-md-3 col-sm-12">
-        <a  href="/Phieunhapkho/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
+        <a href="/Phieunhapkho/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
             <i class="fas fa-plus"></i>Thêm mới
         </a>
         <a href="/Phieunhapkho/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
@@ -27,7 +27,7 @@
     <div class="col-md-3 col-sm-12">
         <form asp-action="Import" asp-controller="Phieunhapkho" method="post" enctype="multipart/form-data">
             <div class=" d-flex">
-            
+
                 <input id="fileExcel" class="" required type="file" name="file" />
                 <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
             </div>
@@ -37,14 +37,14 @@
     </div>
 </div>
 @*<div class="col-md-1 col-sm-6">
-    <ul class="nav navbar-right panel_toolbox">
-        <li>
-            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-        </li>
+        <ul class="nav navbar-right panel_toolbox">
+            <li>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
 
 
-    </ul>
-</div>*@
+        </ul>
+    </div>*@
 
 
 
@@ -63,8 +63,8 @@
                             <th>Ngày lập phiếu</th>
                             <th>Nhà cung cấp</th>
                             @*<th>Số hóa đơn</th>
-                            <th>Ngày hóa đơn</th>
-                            <th>Ghi chú</th>*@
+                                <th>Ngày hóa đơn</th>
+                                <th>Ghi chú</th>*@
 
                         </tr>
                     </thead>
@@ -75,31 +75,34 @@
                             <td>.</td>
                             <td>.</td>
                             @*<td>.</td>
-                            <td>.</td>
-                            <td>.</td>*@
+                                <td>.</td>
+                                <td>.</td>*@
                         </tr>
-                       
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.Sophieu</td>
-                                    <td>@item.IdnvNavigation.Tennv</td>
-                                    <td>@item.Ngaylap</td>
-                                    <td>@item.IdnccNavigation.Tenncc</td>
-                                    @*<td>@item.Sohd</td>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Sophieu</td>
+                                <td>@item.IdnvNavigation.Tennv</td>
+                                @{
+                                    DateTime dt = item.Ngaylap;
+                                }
+                                <td>@dt.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                                <td>@item.IdnccNavigation.Tenncc</td>
+                                @*<td>@item.Sohd</td>
                                     <td>@item.Ngayhd</td>
                                     <td>@item.Ghichu</td>*@
 
-                                    <td class="table-td-center">
-                                        @*<a asp-action="EditPN" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpnk">Nhập</a>*@
-                                        <a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpnk"><i class="fas fa-info text-white"></i></a>
-                                        <a asp-action="Edit" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpnk"><i class="fas fa-edit text-white"></i></a>
-                                        <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt text-white"></i></a>
+                                <td class="table-td-center">
+                                    @*<a asp-action="EditPN" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpnk">Nhập</a>*@
+                                    <a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpnk"><i class="fas fa-info text-white"></i></a>
+                                    <a asp-action="Edit" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpnk"><i class="fas fa-edit text-white"></i></a>
+                                    <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idpnk"><i class="fas fa-trash-alt text-white"></i></a>
 
-                                    </td>
-                                </tr>
-                            }
-                       
+                                </td>
+                            </tr>
+                        }
+
 
 
                     </tbody>

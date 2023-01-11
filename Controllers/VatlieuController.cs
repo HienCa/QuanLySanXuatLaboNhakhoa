@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,8 +24,9 @@ namespace QuanLySanXuat.Controllers
         // GET: Vatlieu
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Vatlieu.Include(v => v.IdhsxNavigation).Include(v => v.IdnvlNavigation).Include(v => v.IdnsxNavigation);
-            return View(await productionManagementSoftwareContext.Where(vl => vl.Active == 1).ToListAsync());
+            var Vatlieu = _context.Vatlieu.Include(v => v.IdhsxNavigation).Include(v => v.IdnvlNavigation).Include(v => v.IdnsxNavigation).Where(vl => vl.Active == 1).ToListAsync();
+
+            return View(await Vatlieu);
         }
 
         public IActionResult AddInterface()
@@ -53,7 +55,7 @@ namespace QuanLySanXuat.Controllers
                 return NotFound();
             }
 
-            return PartialView("Details",vatlieu);
+            return PartialView("Details", vatlieu);
         }
 
         // GET: Vatlieu/Create
@@ -74,16 +76,15 @@ namespace QuanLySanXuat.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (vatlieu.Tenvl != null || vatlieu.Quycach != null || vatlieu.Giaban <= 0 || vatlieu.Idhsx <= 0 || vatlieu.Idnsx <= 0 || vatlieu.Idnvl <= 0)
-                {
-                    _context.Vatlieu.Add(vatlieu);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
+                //vatlieu.Giaban = float.Parse(String.Format("{0:0,0 vnđ}", vatlieu.Giaban));
+                _context.Vatlieu.Add(vatlieu);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
 
             }
 
-            return View("AddInterface", "Vatlieu");
+            return View();
         }
 
 
@@ -142,7 +143,7 @@ namespace QuanLySanXuat.Controllers
 
             return View("Edit", "Vatlieu");
         }
-        
+
         // GET: Vatlieu/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

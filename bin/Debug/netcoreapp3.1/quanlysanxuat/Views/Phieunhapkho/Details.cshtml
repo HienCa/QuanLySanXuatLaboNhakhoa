@@ -8,12 +8,12 @@
 
     int id = ViewBag.Idpnk;
     Phieunhapkho phieunhapkho = _context.Phieunhapkho.Where(p => p.Idpnk == id).FirstOrDefault();
-    
+
     //Phieunhapkho phieunhapkho = from pnk in _context.Phieunhapkho
     //                            join nvn in _context.Nhanvien on pnk.Idnv equals nvn.Idnv
     //                            where pnk.Idpnk == id
     //                            select pnjk;
-            List<Vatlieu> vatlieu = _context.Vatlieu.Where(active => active.Active == 1).ToList();
+    List<Vatlieu> vatlieu = _context.Vatlieu.Where(active => active.Active == 1).ToList();
     List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
 
 }
@@ -57,9 +57,17 @@
                 <tr>
                     <td>@item.IdvlNavigation.Tenvl</td>
                     <td>@item.Soluong</td>
-                    <td>@item.Dongia</td>
-                    <td>@item.Ngaysx</td>
-                    <td>@item.Hansd</td>
+                    @{
+                        var Dongia = String.Format("{0:0,0}", @item.Dongia);
+
+                        DateTime Ngaysx = (DateTime)item.Ngaysx;
+                        DateTime Hansd = (DateTime)item.Hansd;
+                    }
+                    <td>@Dongia</td>
+
+                    <td>@Ngaysx.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@Hansd.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+
                     <td>@item.Solo</td>
                     <td>
                         <a asp-action="Edit" class="btn  btn-sm  btn-warning " asp-controller="Noidungphieunhap" asp-route-id="@item.Idndpnk"><i class="fas fa-edit text-white"></i></a>
@@ -74,57 +82,57 @@
     </table>
 </div>
 <div id="tab-2" class="tab-content ">
-    <form asp-action="Create" asp-controller="Noidungphieunhap" >
+    <form asp-action="Create" asp-controller="Noidungphieunhap">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" value="@phieunhapkho.Idpnk" asp-for="Idpnk" />
         @*<input type="hidden" value="@nv.Idnv" name="Idnv" />*@
 
-    <div class="row">
+        <div class="row">
 
-        <div class="form-group col-md-6 col-sm-12">
-            <label class="control-label">Chọn vật liệu muốn nhập kho</label>
-            <br />
-            <select id="multipleSelect" asp-for="Idvl" placeholder="Chọn vật liệu muốn nhập kho" data-search="true"
-                    data-silent-initial-value-set="true">
-                @foreach (var item in vatlieu)
-                {
-                    <option value="@item.Idvl">@item.Tenvl</option>
-                }
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="control-label">Chọn vật liệu muốn nhập kho</label>
+                <br />
+                <select id="multipleSelect" asp-for="Idvl" placeholder="Chọn vật liệu muốn nhập kho" data-search="true"
+                        data-silent-initial-value-set="true">
+                    @foreach (var item in vatlieu)
+                    {
+                        <option value="@item.Idvl">@item.Tenvl</option>
+                    }
 
-            </select>
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-            <label asp-for="Solo" class="control-label">Số lô</label>
-            <input asp-for="Solo" type="text" class="form-control" />
-            <span asp-validation-for="Solo" class="text-danger"></span>
-        </div>
-        
-        <div class="form-group col-md-2 col-sm-12">
-            <label class="control-label">Số lượng</label>
-            <input asp-for="Soluong" type="number" class="form-control" />
-            <span asp-validation-for="Soluong" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-4 col-sm-12">
-            <label class="control-label">Đơn giá nhập</label>
-            <input asp-for="Dongia" type="number" class="form-control" />
-            <span asp-validation-for="Dongia" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-3 col-sm-12">
-            <label asp-for="Ngaysx" class="control-label">Ngày sản xuất</label>
-            <input asp-for="Ngaysx" type="datetime-local" class="form-control" />
-            <span asp-validation-for="Ngaysx" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-3 col-sm-12">
-            <label asp-for="Hansd" class="control-label">Hạn sử dụng</label>
-            <input asp-for="Hansd" type="datetime-local" class="form-control" />
-            <span asp-validation-for="Hansd" class="text-danger"></span>
-        </div>
+                </select>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label asp-for="Solo" class="control-label">Số lô</label>
+                <input asp-for="Solo" type="text" class="form-control" />
+                <span asp-validation-for="Solo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-2 col-sm-12">
+                <label class="control-label">Số lượng</label>
+                <input asp-for="Soluong" type="number" class="form-control" />
+                <span asp-validation-for="Soluong" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <label class="control-label">Đơn giá nhập</label>
+                <input asp-for="Dongia" type="number" class="form-control" />
+                <span asp-validation-for="Dongia" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3 col-sm-12">
+                <label asp-for="Ngaysx" class="control-label">Ngày sản xuất</label>
+                <input asp-for="Ngaysx" type="datetime-local" class="form-control" />
+                <span asp-validation-for="Ngaysx" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3 col-sm-12">
+                <label asp-for="Hansd" class="control-label">Hạn sử dụng</label>
+                <input asp-for="Hansd" type="datetime-local" class="form-control" />
+                <span asp-validation-for="Hansd" class="text-danger"></span>
+            </div>
 
 
-        <div class="text-center mt-3">
-            <input class="btn btn-sm btn-success w-25" type="submit" value="Nhập kho" />
+            <div class="text-center mt-3">
+                <input class="btn btn-sm btn-success w-25" type="submit" value="Nhập kho" />
+            </div>
         </div>
-    </div>
 
 
 

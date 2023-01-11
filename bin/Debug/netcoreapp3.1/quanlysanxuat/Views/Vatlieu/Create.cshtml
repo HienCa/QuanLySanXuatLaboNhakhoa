@@ -1,5 +1,6 @@
-﻿@using QuanLySanXuat.Entities;
-@model QuanLySanXuat.Entities.Vatlieu
+﻿@model QuanLySanXuat.Entities.Vatlieu
+@using QuanLySanXuat.Entities;
+
 
 
 @{
@@ -51,7 +52,9 @@
             <div class="tile-body">
 
 
-                <form asp-action="Create" asp-controller="Vatlieu">
+                <form asp-action="Create" asp-controller="Vatlieu" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                     <div class="row ">
                         <div class="form-group mb-3  col-md-4 col-sm-12">
                             <label class="control-label">Hãng sản xuất</label>
@@ -117,16 +120,17 @@
 
                         <div class="form-group mb-3  form-group-lg col-md-12 col-sm-12">
 
-                            <label class="control-label">Giá bán</label>
-                            <input asp-for="Giaban" class="form-control" type="number">
+                            <label class="control-label mr-2">Giá bán: </label><span id="demo" style="font-size: 20px; color: #0788d7;"></span>
+                            <input type="number" step="any" oninput="myFunction(this.value)" class="form-control">
+                            <input asp-for="Giaban" id="price" type="hidden" class="form-control">
                             <span asp-validation-for="Giaban" class="text-danger"></span>
 
                         </div>
 
 
                     </div>
-                    <div class="text-center mt-3 align-items-md-center">
-                        @Html.ActionLink("Quay lại", "Index", "Vatlieu", null, new { @class = "btn btn-cancel mt-3 w-25" })
+                    <div class="text-center  align-items-md-center">
+                        @Html.ActionLink("Quay lại", "Index", "Vatlieu", null, new { @class = "btn btn-cancel w-25" })
                         <button class="btn btn-success w-25" type="submit">Thêm</button>
                     </div>
 

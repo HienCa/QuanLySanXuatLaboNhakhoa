@@ -7178,3 +7178,4 @@ D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlys
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Access\ForgotPassword.cshtml.g.cs
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Shared\_LayoutIdentity.cshtml
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutIdentity.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\formats\formatNumber.js
