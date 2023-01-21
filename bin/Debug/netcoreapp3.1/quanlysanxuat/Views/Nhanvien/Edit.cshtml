@@ -1,130 +1,282 @@
-﻿
-@model QuanLySanXuat.Entities.NhanvienViewModel
-
+﻿@model QuanLySanXuat.Entities.NhanvienViewModel
+@using QuanLySanXuat.Entities;
 
 @{
     Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
 
+    List<Tosanxuat> tosanxuat = _context.Tosanxuat.Where(n => n.Active == 1).ToList();
 }
-
-
-
-
-
-<form asp-action="Edit" asp-controller="Nhanvien" enctype="multipart/form-data">
+<form asp-action="Edit" asp-controller="Nhanvien" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Idnv" />
+    <div class="bg-light p-1 border border-secondary rounded">
+        <h2>Cập Nhật Thông Tin Khách Hàng</h2>
 
-    <div class="row">
-        <input type="hidden" asp-for="Idnv" />
-        <div class="form-group col-md-6">
-            <label asp-for="Manv" class="control-label">Mã nhân viên</label>
-            <input asp-for="Manv" class="form-control" />
-            <span asp-validation-for="Manv" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-6">
-            <label asp-for="Tennv" class="control-label">Tên nhân viên</label>
-            <input asp-for="Tennv" class="form-control" />
-            <span asp-validation-for="Tennv" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-6">
-            <label asp-for="Diachi" class="control-label">Địa chỉ</label>
-            <input asp-for="Diachi" class="form-control" />
-            <span asp-validation-for="Diachi" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-6">
-            <label asp-for="Sdt" class="control-label">Số điện thoại</label>
-            <input asp-for="Sdt" class="form-control" />
-            <span asp-validation-for="Sdt" class="text-danger"></span>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label class="control-label">Giới tính</label>
-            <select asp-for="Gioitinh" class="form-control" id="exampleSelect2" required>
-                <option>-- Chọn giới tính --</option>
-                <option>Nam</option>
-                <option>Nữ</option>
-                <option>Khác</option>
-            </select>
-        </div>
-        <div class="form-group col-md-6">
-            <label asp-for="Masothue" class="control-label">Mã số thuế</label>
-            <input asp-for="Masothue" class="form-control" />
-            <span asp-validation-for="Masothue" class="text-danger"></span>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
-            <input asp-for="Ngaysinh" type="date" class="form-control" />
-            <span asp-validation-for="Ngaysinh" class="text-danger"></span>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label asp-for="Email" class="control-label">Email</label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-
-        @*<div class="form-group col-md-2">
-                <label asp-for="Loainhanvienidlnv" class="control-label">Loại nhân viên</label>
-                <select asp-for="Loainhanvienidlnv" class="form-control">
-                    @foreach (var item in loainhanvien)
-                    {
-                        <option value="@item.Idlnv">@item.Tenlnv</option>
-                    }
-                </select>
-                <span asp-validation-for="Loainhanvienidlnv" class="text-danger"></span>
-            </div>*@
-        <div class="form-group col-md-6">
-            <label asp-for="Ghichu" class="control-label">Ghi chú</label>
-            <input asp-for="Ghichu" class="form-control"/>
-            <span asp-validation-for="Ghichu" class="text-danger"></span>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label asp-for="Hinhanh" class="control-label"></label>
-            <div class="custom-file">
-                <input asp-for="Hinhanh" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Mã NV
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input asp-for="Manv" id="Manv" maxlength="255" onfocus="this.value=''" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Manv" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <span asp-validation-for="Hinhanh" class="text-danger"></span>
 
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Tên NV
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input asp-for="Tennv" id="Tennv" onfocus="this.value=''" maxlength="255" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Tennv" class="text-danger"></span>
 
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label asp-for="Hinhanh" class="control-label">Ảnh hiện tại</label><br />
-            <img src="~/Images/@Model.ExistingImage" class="" height="200" width="200" style="border-radius:10px" alt="No Image" asp-append-version="true" />
-        </div>
-        <div class="form-group col-md-6 d-none">
-            <label asp-for="ExistingImage" class="control-label"></label>
-            <div class="custom-file">
-                <input asp-for="ExistingImage" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
             </div>
-            <span asp-validation-for="ExistingImage" class="text-danger"></span>
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Email
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input id="Email" asp-for="Email" onfocus="this.value=''" maxlength="255" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
 
+        <div class="row mt-2">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        SĐT
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" asp-for="Sdt" id="Sdt" maxlength="255" onfocus="this.value=''"
+                               class="form-control">
+                        <span asp-validation-for="Sdt" class="text-danger"></span>
 
-        @*<div class="form-group d-none">
-                <label asp-for="Accountidaccount" class="control-label"></label>
-                <input asp-for="Accountidaccount" value="@ViewData["Accountidaccount"]" class="form-control" />
-                <span asp-validation-for="Accountidaccount" class="text-danger"></span>
-            </div>*@
-        <div class="form-group d-none">
-            <label asp-for="Active" class="control-label">Active</label>
-            <input asp-for="Active" class="form-control" />
-            <span asp-validation-for="Active" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Địa Chỉ
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" asp-for="Diachi" onfocus="this.value=''" maxlength="255" id="Diachi"
+                               class="form-control">
+                        <span asp-validation-for="Diachi" class="text-danger"></span>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+
+                    <div class="col-md-2 col-sm-12">
+                        Tổ SX
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <div class="form-group ">
+
+                            <select asp-for="Tosxid" id="multipleSelect" data-search="true"
+                                    data-silent-initial-value-set="true">
+                                @foreach (var item in tosanxuat)
+                                {
+                                    <option value="">Không</option>
+                                    <option value="@item.Idtsx">@item.Tentsx</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Giới tính
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select asp-for="Gioitinh" id="Gioitinh">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        CCCD
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input asp-for="Cccd" id="Cccd" onfocus="this.value=''" maxlength="255" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Cccd" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+
+
+                    <div class="col-md-2 col-sm-12">
+                        Ng.Sinh
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="date" id="Ngaysinh" onfocus="this.value=''" asp-for="Ngaysinh" maxlength="255"
+                               class="form-control">
+                        <span asp-validation-for="Ngaysinh" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        M.Khẩu
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" id="Matkhau" onfocus="this.value=''" asp-for="Matkhau" maxlength="255"
+                               class="form-control">
+                        <span asp-validation-for="Matkhau" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Hình ảnh
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input asp-for="Hinhanh" type='file' onchange="readURL(this); " class="form-control" />
+
+                        <span asp-validation-for="Hinhanh" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Ghi chú
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <textarea asp-for="Ghichu" id="Ghichu" onfocus="this.value=''" row="" maxlength="4000"
+                                  style="height:10px;" class="form-control"></textarea>
+                        <span asp-validation-for="Ghichu" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Số Thuế
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" asp-for="Masothue" onfocus="this.value=''" maxlength="255" id="Masothue"
+                               class="form-control">
+                        <span asp-validation-for="Masothue" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Facebook
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" asp-for="Facebook" onfocus="this.value=''" id="Facebook" maxlength="255"
+                               class="form-control">
+                        <span asp-validation-for="Facebook" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Zalo
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" id="Zalo" onfocus="this.value=''" asp-for="Zalo" maxlength="255"
+                               class="form-control">
+                        <span asp-validation-for="Zalo" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3 col-sm-12 "></div>
+            <div class="col-md-3 col-sm-12 "></div>
+            <div class="col-md-3 col-sm-12 "></div>
+
+            <div class="col-md-3 col-sm-12 ">
+                <div class="d-flex">
+                    <a href="/Nhanvien/Index" class="btn btn-light w-50">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-primary w-50" style="float: right;">
+                        Lưu
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>
+    <div class="d-flex align-items-center justify-content-center mt-2">
 
 
-    <div class="text-center mt-3 col-12">
-        @Html.ActionLink("Quay lại", "Index", "Nhanvien", null, new { @class = "btn btn-cancel w-25" })
-
-        <button class="btn btn-success w-50" type="submit">Lưu</button>
-
+        <div class="d-flex align-items-center justify-content-center mt-3">
+            <label class="control-label mr-3">Ảnh hiện tại</label>
+            <img src="~/Images/@Model.ExistingImage" class=" " height="300" width="300" style="border-radius:10px"
+                 asp-append-version="true" alt="Không có ảnh" />
+        </div>
+        <div class="d-flex align-items-center justify-content-center mt-3">
+            <label class="control-label mr-3">Ảnh vừa tải lên</label>
+            <img id="ShowImage" src="#" class=" " height="300" width="300" style="border-radius:10px"
+                 asp-append-version="true" alt="Không có ảnh" />
+        </div>
     </div>
 
 </form>
@@ -132,9 +284,19 @@
 
 
 
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                $('#ShowImage')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(300);
+            };
 
-
-
-
-
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

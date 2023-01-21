@@ -134,10 +134,8 @@ namespace QuanLySanXuat.Controllers
                 kh.Ngaysinh = khachhang.Ngaysinh;
                 kh.Active = 1;
 
-                if (kh.Matkhau.Equals(""))
-                {
                     kh.Matkhau = "KH12345";
-                }
+                
                 _context.Khachhang.Add(kh);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -362,7 +360,7 @@ namespace QuanLySanXuat.Controllers
 
                     kh.Hinhanh = UploadedFile(khachhang);
                 }
-
+                kh.Active = 1;
                 _context.Khachhang.Update(kh);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

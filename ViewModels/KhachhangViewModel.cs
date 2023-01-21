@@ -25,8 +25,8 @@ namespace QuanLySanXuat.Entities
         [Required]
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Tenkh { get; set; }
-        [Required]
-        [StringLength(12, ErrorMessage = "Thông tin cung cấp quá dài!")]
+     
+        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Cccd { get; set; }
         [Required]
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
@@ -56,7 +56,7 @@ namespace QuanLySanXuat.Entities
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Zalo { get; set; }
         public int? Nvidsale { get; set; }
-        [Required]
+        
         public DateTime? Ngaysinh { get; set; }
         public int Active { get; set; }
 

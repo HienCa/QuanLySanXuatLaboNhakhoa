@@ -98,15 +98,7 @@ namespace QuanLySanXuat.Controllers
             try
             {
 
-                //Account accountEmployee = new Account();
-                //accountEmployee.Tk = nhanvien.Email;
-                //accountEmployee.Mk = "NV12345";
-                //accountEmployee.Vaitroidvt = 5;//nhân viên thường
-                //_context.Add(accountEmployee);
-                //await _context.SaveChangesAsync();
-                //Account a = _context.Account.Where(n => n.Tk.Equals(accountEmployee.Tk)).FirstOrDefault();
-
-                //copy lại nhanvien vì NhanvienViewModel không được gán bằng Nhanvien
+                //copy lại nhanvien vì NhanvienViewModel không được gán bằng Nhanvien nhầm lấy hình ảnh
                 Nhanvien nv = new Nhanvien();
                 //lấy hình ảnh
                 nv.Hinhanh = uniqueFileName;
@@ -121,11 +113,9 @@ namespace QuanLySanXuat.Controllers
                 nv.Masothue = nhanvien.Masothue;
                 nv.Ghichu = nhanvien.Ghichu;
                 nv.Matkhau = "NV";
-                //nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
-                //nv.Accountidaccount = nhanvien.Accountidaccount;
+               
                 nv.Ngaysinh = nhanvien.Ngaysinh;
 
-                //nv.Accountidaccount = a.Idaccount;
                 nv.Active = 1;
                 _context.Nhanvien.Add(nv);
                 await _context.SaveChangesAsync();
@@ -267,7 +257,7 @@ namespace QuanLySanXuat.Controllers
                 nv.Ngaysinh = nhanvien.Ngaysinh;
 
 
-                nv.Active = nhanvien.Active;
+                nv.Active = 1;
 
                 if (nhanvien.Hinhanh != null)
                 {
@@ -297,8 +287,8 @@ namespace QuanLySanXuat.Controllers
             try
             {
                 var nv = _context.Nhanvien.Where(m => m.Idnv == id).FirstOrDefault();
-
-                _context.Nhanvien.Remove(nv);
+                nv.Active = 0;
+                _context.Nhanvien.Update(nv);
                 _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 
@@ -435,24 +425,15 @@ namespace QuanLySanXuat.Controllers
                             nhanvien.Diachi = worksheet.Cells[row, 6].Value.ToString().Trim();
 
 
-                            //DateTime NgaySinh = DateTime.ParseExact(worksheet.Cells[row, 7].Value.ToString().Trim(), "d/M/yyyy", null);
-                            //DateTime NgaySinh = DateTime.FromOADate(Convert.ToDouble((worksheet.Cells[row, 7].Value.ToString().Trim() as Excel.Range).Value2));
-
+                            //DateTime NgaySinh = DateTime.ParseExact(worksheet.Cells[row, 7].Value.ToString().Trim(), "yyyy/MM/dd", null);
+                            //string stringDate = worksheet.Cells[row, 7].Value.ToString().Trim();
+                            //DateTime NgaySinh = DateTime.ParseExact(worksheet.Cells[row, 7].Value.ToString().Trim(), "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                            //DateTime date = NgaySinh;
 
                             //nhanvien.Ngaysinh = NgaySinh;
 
                             nhanvien.Gioitinh = worksheet.Cells[row, 8].Value.ToString().Trim();
                             nhanvien.Masothue = worksheet.Cells[row, 9].Value.ToString().Trim();
-
-                            //nhanvien.Loainhanvienidlnv = 1;
-                            //nhanvien.Accountidaccount = 1;
-
-
-
-
-
-                            //nhanvien.NgaySinh = DateTime.ParseExact(dateString, "dd/MM/yyyy", null);
-
 
                             _context.Nhanvien.Add(nhanvien);
                             await _context.SaveChangesAsync();
@@ -465,8 +446,10 @@ namespace QuanLySanXuat.Controllers
             catch (Exception e)
             {
                 ViewData["errorMessage"] = "File không hợp lệ!";
+
             }
             return RedirectToAction("Index");
+
 
         }
 

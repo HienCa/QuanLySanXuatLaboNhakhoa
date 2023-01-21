@@ -13,6 +13,7 @@ namespace QuanLySanXuat.Entities
 {
     public partial class NhanvienViewModel : EditImageViewModel
     {
+        //mới thêm tổ
         public NhanvienViewModel()
         {
             Phieubanhang = new HashSet<Phieubanhang>();

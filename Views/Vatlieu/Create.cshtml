@@ -9,28 +9,163 @@
     List<Nhomvl> nhomvatlieu = _context.Nhomvl.Where(n => n.Active == 1).ToList();
     List<Nuocsx> nuocsx = _context.Nuocsx.Where(n => n.Active == 1).ToList();
     List<Hangsx> hangsanxuat = _context.Hangsx.Where(n => n.Active == 1).ToList();
-    List<Vatlieu> vatlieu = _context.Vatlieu.Where(n => n.Active == 1).ToList();
+   
 
 
 }
+<form asp-action="Create" asp-controller="Vatlieu" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="bg-light p-1 border border-secondary rounded">
+        <h2>Cập Nhật Thông Tin Vật Liệu</h2>
 
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Mã VL
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input asp-for="Mavl" id="Mavl" maxlength="255" onfocus="this.value=''" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Mavl" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
 
-<!DOCTYPE html>
+            <div class="col-md-4 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Tên VL
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input asp-for="Tenvl" id="Tenvl" onfocus="this.value=''" maxlength="255" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Tenvl" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Nhóm VL
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <select id="multipleSelect" asp-for="Idnvl"  data-search="true"
+                                data-silent-initial-value-set="true">
+                            @foreach (var item in nhomvatlieu)
+                            {
+                                <option value="@item.Idnvl">@item.Tennvl</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Giá Bán
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <input  id="Price" onblur="ChangePriceInput()"  onfocus="this.value=''"  type="text"
+                               class="form-control">
+                        <input id="Giaban" asp-for="Giaban" onfocus="this.value=''"  type="hidden"
+                               class="form-control">
+                        <span asp-validation-for="Giaban" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-2 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Q. Cách
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input  asp-for="Quycach" onfocus="this.value=''" maxlength="255" type="text"
+                               class="form-control">
+                        <span asp-validation-for="Quycach" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Hãng SX
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <select id="multipleSelect" asp-for="Idhsx"  data-search="true"
+                                data-silent-initial-value-set="true">
+                            @foreach (var item in hangsanxuat)
+                            {
+                                <option value="@item.Idhsx">@item.Tenhsx</option>
+                            }
+
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Nước SX
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <select id="multipleSelect" asp-for="Idnsx"  data-search="true"
+                                 data-silent-initial-value-set="true">
+                            @foreach (var item in nuocsx)
+                            {
+                                <option value="@item.Idnsx">@item.Tennsx</option>
+                            }
+
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <div class="d-flex">
+                    <a href="/Vatlieu/Index" class="btn btn-light w-50 mr-2">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-primary w-50">
+                        Lưu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    function ChangePriceInput() {
+        let PriceInput = document.getElementById("Price");
+        Formater = new Intl.NumberFormat('vi-VN');
+        priceFormated = Formater.format(PriceInput.value);
+
+        document.getElementById("Giaban").value = document.getElementById("Price").value;
+        //đổi sau khi gán số không có dấu phẩy
+        document.getElementById("Price").value = priceFormated.replaceAll(".", ",");
+    }
+</script>
+<!--<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
+<!-- Meta, title, CSS, favicons, etc. -->
+<!--<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Quản lý sản xuất HienCa | </title>
-
-
-
-    <!--selectSearch -->
-    <link rel="stylesheet" href="~/multiSelectDropdown/virtual-select.min.css">
+<title>Quản lý sản xuất HienCa | </title>-->
+<!--selectSearch -->
+<!--<link rel="stylesheet" href="~/multiSelectDropdown/virtual-select.min.css">
 
 
 
@@ -145,6 +280,4 @@
 
 </body>
 
-</html>
-
-
+</html>-->

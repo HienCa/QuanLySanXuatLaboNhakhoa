@@ -142,10 +142,10 @@
                 <div class="row d-flex align-items-center">
 
 
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         Ng.Sinh
                     </div>
-                    <div class="col-md-8 col-sm-12">
+                    <div class="col-md-10 col-sm-12">
                         <input type="date" id="Ngaysinh" onfocus="this.value=''" asp-for="Ngaysinh" maxlength="255"
                                class="form-control">
                         <span asp-validation-for="Ngaysinh" class="text-danger"></span>
@@ -157,30 +157,40 @@
         </div>
 
         <div class="row mt-2">
+            @*<div class="col-md-2 col-sm-12">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-4 col-sm-12">
+                    M.Khẩu
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <input type="text" id="Matkhau" onfocus="this.value=''" asp-for="Matkhau" maxlength="255"
+                           class="form-control">
+                    <span asp-validation-for="Matkhau" class="text-danger"></span>
+
+                </div>
+            </div>
+        </div>*@
             <div class="col-md-2 col-sm-12">
                 <div class="row d-flex align-items-center">
                     <div class="col-md-4 col-sm-12">
-                        M.Khẩu
+                        Số Thuế
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input type="text" id="Matkhau" onfocus="this.value=''" asp-for="Matkhau" maxlength="255"
+                        <input type="text" asp-for="Masothue" onfocus="this.value=''" maxlength="255" id="Masothue"
                                class="form-control">
-                        <span asp-validation-for="Matkhau" class="text-danger"></span>
-
+                        <span asp-validation-for="Masothue" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-5 col-sm-12">
                 <div class="row d-flex align-items-center">
                     <div class="col-md-2 col-sm-12">
                         Hình ảnh
                     </div>
                     <div class="col-md-10 col-sm-12">
-                        <div class="custom-file">
-                            <input asp-for="Hinhanh" class="custom-file-input " id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                        </div>
+               
+                        <input asp-for="Hinhanh" type='file' onchange="readURL(this); "class="form-control" />
+
                         <span asp-validation-for="Hinhanh" class="text-danger"></span>
 
                     </div>
@@ -199,6 +209,7 @@
                                     data-silent-initial-value-set="true">
                                 @foreach (var item in nhanvien)
                                 {
+                                    <option value="">Không</option>
                                     <option value="@item.Idnv">@item.Tennv</option>
                                 }
 
@@ -210,16 +221,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-2 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-4 col-sm-12">
-                        Số Thuế
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="text" asp-for="Masothue" onfocus="this.value=''" maxlength="255" id="Masothue"
-                               class="form-control">
-                        <span asp-validation-for="Masothue" class="text-danger"></span>
-                    </div>
-                </div>
+                
             </div>
 
             <div class="col-md-5 col-sm-12">
@@ -251,7 +253,7 @@
 
 
         </div>
-        <div class="row mt-2">
+        <div class="row mt-3">
             <div class="col-md-3 col-sm-12 "></div>
             <div class="col-md-3 col-sm-12 "></div>
             <div class="col-md-3 col-sm-12 "></div>
@@ -266,10 +268,10 @@
             </div>
         </div>
     </div>
-    <div class="d-flex align-items-center justify-content-center mt-5">
-
-        
-
+    <div class="d-flex align-items-center justify-content-center mt-2">
+        <div class="control-label mr-3">Ảnh vừa tải lên</div>
+        <img id="ShowImage" src="#" class=" " height="300" width="300" style="border-radius:10px"
+             asp-append-version="true" alt="Không có ảnh" />
     </div>
 
 </form>
@@ -380,3 +382,19 @@
 
     </form>*@
 
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ShowImage')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(300);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

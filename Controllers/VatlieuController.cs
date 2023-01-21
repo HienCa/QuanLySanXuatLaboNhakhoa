@@ -149,8 +149,8 @@ namespace QuanLySanXuat.Controllers
             try
             {
                 var vl = _context.Vatlieu.Where(m => m.Idvl == id).FirstOrDefault();
-
-                _context.Vatlieu.Remove(vl);
+                vl.Active = 0;
+                _context.Vatlieu.Update(vl);
                 _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 

@@ -46,7 +46,35 @@ namespace QuanLySanXuat.Controllers
             return View(gdsx);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Giaidoansx gd, string action)
+        {
+            try
+            {
+                if (action.Equals("addItem"))
+                {
+                    gd.Idgdsx = 0;
+                    _context.Add(gd);
 
+                }
+                if (action.Equals("editItem"))
+                {
+                    gd.Active = 1;
+                    _context.Update(gd);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
         public IActionResult Create()
         {
 
@@ -128,8 +156,8 @@ namespace QuanLySanXuat.Controllers
             try
             {
                 var gd = _context.Giaidoansx.Where(m => m.Idgdsx == id).FirstOrDefault();
-
-                _context.Giaidoansx.Remove(gd);
+                gd.Active = 0;
+                _context.Giaidoansx.Update(gd);
                 _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 
@@ -166,7 +194,8 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var gdsx = await _context.Giaidoansx.FindAsync(id);
-            _context.Giaidoansx.Remove(gdsx);
+            gdsx.Active = 0;
+            _context.Giaidoansx.Update(gdsx);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

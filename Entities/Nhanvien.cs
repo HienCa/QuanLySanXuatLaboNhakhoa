@@ -15,6 +15,7 @@ namespace QuanLySanXuat.Entities
             Phieunhapkho = new HashSet<Phieunhapkho>();
             Phieuthunokh = new HashSet<Phieuthunokh>();
             Phieutranoncc = new HashSet<Phieutranoncc>();
+
         }
 
         public int Idnv { get; set; }
@@ -39,5 +40,6 @@ namespace QuanLySanXuat.Entities
         public virtual ICollection<Phieunhapkho> Phieunhapkho { get; set; }
         public virtual ICollection<Phieuthunokh> Phieuthunokh { get; set; }
         public virtual ICollection<Phieutranoncc> Phieutranoncc { get; set; }
+
     }
 }

@@ -11,7 +11,7 @@
 }
 
 
-<form asp-action="Create" asp-controller="Khachhang" method="post" enctype="multipart/form-data">
+<form asp-action="Edit" asp-controller="Khachhang" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Idkh" />
     <div class="bg-light p-1 border border-secondary rounded">
@@ -144,10 +144,10 @@
                 <div class="row d-flex align-items-center">
 
 
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         Ng.Sinh
                     </div>
-                    <div class="col-md-8 col-sm-12">
+                    <div class="col-md-10 col-sm-12">
                         <input type="date" id="Ngaysinh" onfocus="this.value=''" asp-for="Ngaysinh" maxlength="255"
                                class="form-control">
                         <span asp-validation-for="Ngaysinh" class="text-danger"></span>
@@ -179,10 +179,8 @@
                         Hình ảnh
                     </div>
                     <div class="col-md-10 col-sm-12">
-                        <div class="custom-file">
-                            <input asp-for="Hinhanh" class="custom-file-input " id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                        </div>
+                        <input asp-for="Hinhanh" type='file' onchange="readURL(this); " class="form-control" />
+
                         <span asp-validation-for="Hinhanh" class="text-danger"></span>
 
                     </div>
@@ -201,6 +199,7 @@
                                     data-silent-initial-value-set="true">
                                 @foreach (var item in nhanvien)
                                 {
+                                    <option value="">Không</option>
                                     <option value="@item.Idnv">@item.Tennv</option>
                                 }
 
@@ -253,7 +252,7 @@
 
 
         </div>
-        <div class="row mt-2">
+        <div class="row mt-3">
             <div class="col-md-3 col-sm-12 "></div>
             <div class="col-md-3 col-sm-12 "></div>
             <div class="col-md-3 col-sm-12 "></div>
@@ -267,26 +266,21 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-md-3 col-sm-12 "></div>
-            <div class="col-md-3 col-sm-12 "></div>
-            <div class="col-md-3 col-sm-12 "></div>
-
-            <div class="col-md-3 col-sm-12 ">
-                <div class="d-flex">
-                    <a href="/Khachhang/Index" class="btn btn-light w-50">Hủy bỏ</a>
-                    <button type="submit" class="btn btn-primary w-50" style="float: right;">
-                        Lưu
-                    </button>
-                </div>
-            </div>
-        </div>
+        
     </div>
-    <div class="d-flex align-items-center justify-content-center mt-5">
+    <div class="d-flex align-items-center justify-content-center mt-2">
 
-        <img src="~/Images/@Model.ExistingImage" class=" " height="300" width="300" style="border-radius:10px"
-             asp-append-version="true" alt="No Image" />
-
+       
+        <div class="d-flex align-items-center justify-content-center mt-3">
+            <label class="control-label mr-3">Ảnh hiện tại</label>
+            <img src="~/Images/@Model.ExistingImage" class=" " height="300" width="300" style="border-radius:10px"
+                 asp-append-version="true" alt="Không có ảnh" />
+        </div>
+        <div class="d-flex align-items-center justify-content-center mt-3">
+            <label class="control-label mr-3">Ảnh vừa tải lên</label>
+            <img id="ShowImage" src="#" class=" " height="300" width="300" style="border-radius:10px"
+                 asp-append-version="true" alt="Không có ảnh" />
+        </div>
     </div>
 
 </form>
@@ -396,5 +390,22 @@
 
 </form>-->
 
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ShowImage')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(300);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 
