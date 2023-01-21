@@ -1,0 +1,76 @@
+﻿@model QuanLySanXuat.Entities.Phieutranoncc
+@using QuanLySanXuat.Entities;
+@{
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+
+    List<Hinhthucthanhtoan> hinhthucthanhtoan = _context.Hinhthucthanhtoan.Where(n => n.Active == 1).ToList();
+
+}
+<form asp-action="Create" asp-controller="Phieutranoncc" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="Idptnncc"/>
+
+    <div class="bg-light p-1 border border-secondary rounded">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Số phiếu
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" id="Sophieu" name="Sophieu" class="form-control">
+                        <span asp-validation-for="Sophieu" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        HTTH
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select id="multipleSelect" name="Idhttt" class="HTTT" data-search="true"
+                                data-silent-initial-value-set="true">
+                            @foreach (var item in hinhthucthanhtoan)
+                            {
+                                <option value="@item.Idhttt">@item.Tenhttt</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Ghi chú
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <textarea name="Ghichu" id="Ghichu" row="" style="height:10px;" class="form-control"></textarea>
+                        <span asp-validation-for="Ghichu" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-9 col-sm-12">
+
+
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <button type="submit" style="float: right;" class="btn btn-primary w-50" id="btnAddPtn">Thêm</button>
+                <div class="d-flex">
+                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelPtn">Hủy</button>
+                    <button type="submit" class="btn btn-primary w-50" id="btnUpdatePtn" style="display:none; float: right;">
+                        Cập
+                        nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

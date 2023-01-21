@@ -92,10 +92,10 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( NhanvienViewModel nhanvien)
+        public async Task<IActionResult> Create(NhanvienViewModel nhanvien)
         {
             string uniqueFileName = UploadedFile(nhanvien);
-            if (ModelState.IsValid)
+            try
             {
 
                 //Account accountEmployee = new Account();
@@ -120,18 +120,22 @@ namespace QuanLySanXuat.Controllers
                 nv.Gioitinh = nhanvien.Gioitinh;
                 nv.Masothue = nhanvien.Masothue;
                 nv.Ghichu = nhanvien.Ghichu;
-                nv.Matkhau = "NV12345";
+                nv.Matkhau = "NV";
                 //nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
                 //nv.Accountidaccount = nhanvien.Accountidaccount;
                 nv.Ngaysinh = nhanvien.Ngaysinh;
 
                 //nv.Accountidaccount = a.Idaccount;
                 nv.Active = 1;
-                _context.Add(nv);
+                _context.Nhanvien.Add(nv);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(nhanvien);
+            catch (Exception e)
+            {
+                return View(nhanvien);
+
+            }
         }
 
 
@@ -141,7 +145,7 @@ namespace QuanLySanXuat.Controllers
             //HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value;
 
             var newPassword = "KH12345";
-            
+
             string errorMessage = "Email không chính xác. Vui lòng kiểm tra lại email!";
             try
             {
@@ -207,10 +211,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Nhanvien/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+           
 
             var nhanvien = await _context.Nhanvien.FindAsync(id);
 
@@ -231,10 +232,7 @@ namespace QuanLySanXuat.Controllers
             nv.Active = nhanvien.Active;
             nv.ExistingImage = nhanvien.Hinhanh;
 
-            if (nhanvien == null)
-            {
-                return NotFound();
-            }
+            
 
             return View(nv);
         }
@@ -247,87 +245,90 @@ namespace QuanLySanXuat.Controllers
         public async Task<IActionResult> Edit(int id, NhanvienViewModel nhanvien)
         {
 
-            if (id != nhanvien.Idnv)
+            try
             {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
+                Nhanvien nv = new Nhanvien();
+
+                //lấy hình ảnh
+                //nv.Hinhanh = uniqueFileName;
+                nv.Idnv = nhanvien.Idnv;
+                nv.Manv = nhanvien.Manv;
+                nv.Tennv = nhanvien.Tennv;
+                nv.Diachi = nhanvien.Diachi;
+                nv.Sdt = nhanvien.Sdt;
+                nv.Gioitinh = nhanvien.Gioitinh;
+                nv.Masothue = nhanvien.Masothue;
+                nv.Ghichu = nhanvien.Ghichu;
+                nv.Cccd = nhanvien.Cccd;
+                nv.Email = nhanvien.Email;
+                //nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
+                //nv.Accountidaccount = nhanvien.Accountidaccount;
+                nv.Ngaysinh = nhanvien.Ngaysinh;
+
+
+                nv.Active = nhanvien.Active;
+
+                if (nhanvien.Hinhanh != null)
                 {
-
-
-                    Nhanvien nv = new Nhanvien();
-
-                    //lấy hình ảnh
-                    //nv.Hinhanh = uniqueFileName;
-                    nv.Idnv = nhanvien.Idnv;
-                    nv.Manv = nhanvien.Manv;
-                    nv.Tennv = nhanvien.Tennv;
-                    nv.Diachi = nhanvien.Diachi;
-                    nv.Sdt = nhanvien.Sdt;
-                    nv.Gioitinh = nhanvien.Gioitinh;
-                    nv.Masothue = nhanvien.Masothue;
-                    nv.Ghichu = nhanvien.Ghichu;
-                    nv.Cccd = nhanvien.Cccd;
-                    nv.Email = nhanvien.Email;
-                    //nv.Loainhanvienidlnv = nhanvien.Loainhanvienidlnv;
-                    //nv.Accountidaccount = nhanvien.Accountidaccount;
-                    nv.Ngaysinh = nhanvien.Ngaysinh;
-
-
-                    nv.Active = nhanvien.Active;
-
-                    if (nhanvien.Hinhanh != null)
+                    if (nhanvien.ExistingImage != null)
                     {
-                        if (nhanvien.ExistingImage != null)
-                        {
-                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images", nhanvien.ExistingImage);
-                            System.IO.File.Delete(filePath);
-                        }
-
-                        nv.Hinhanh = UploadedFile(nhanvien);
+                        string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images", nhanvien.ExistingImage);
+                        System.IO.File.Delete(filePath);
                     }
 
-
-                    _context.Update(nv);
-                    await _context.SaveChangesAsync();
+                    nv.Hinhanh = UploadedFile(nhanvien);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NhanvienExists(nhanvien.Idnv))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+
+                _context.Nhanvien.Update(nv);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(nhanvien);
-        }
+            catch (DbUpdateConcurrencyException)
+            {
+                return View(nhanvien);
+            }
 
-        // GET: Nhanvien/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        }
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var nv = _context.Nhanvien.Where(m => m.Idnv == id).FirstOrDefault();
+
+                _context.Nhanvien.Remove(nv);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var nhanvien = await _context.Nhanvien
-                //.Include(k => k.AccountidaccountNavigation)
-                .FirstOrDefaultAsync(m => m.Idnv == id);
-            if (nhanvien == null)
-            {
-                return NotFound();
-            }
 
-            return View(nhanvien);
+
         }
+        // GET: Nhanvien/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var nhanvien = await _context.Nhanvien
+        //        //.Include(k => k.AccountidaccountNavigation)
+        //        .FirstOrDefaultAsync(m => m.Idnv == id);
+        //    if (nhanvien == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(nhanvien);
+        //}
 
         // POST: Nhanvien/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -363,7 +364,7 @@ namespace QuanLySanXuat.Controllers
 
 
         }
-       
+
         public IActionResult ExportToExcel()
         {
 
@@ -409,52 +410,67 @@ namespace QuanLySanXuat.Controllers
         }
 
         //chưa xử lý được ngày sinh
-        public async Task Import(IFormFile file)
+        public async Task<RedirectToActionResult> Import(IFormFile file)
         {
-           
-            using (var stream = new MemoryStream())
+            try
             {
-                await file.CopyToAsync(stream);
-                using (var pakage = new ExcelPackage(stream))
+                using (var stream = new MemoryStream())
                 {
-                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                    ExcelWorksheet worksheet = pakage.Workbook.Worksheets[0];
-                    var rowcount = worksheet.Dimension.Rows;
-                    for (int row = 2; row <= rowcount; row++)
+                    await file.CopyToAsync(stream);
+                    using (var pakage = new ExcelPackage(stream))
                     {
+                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                        ExcelWorksheet worksheet = pakage.Workbook.Worksheets[0];
+                        var rowcount = worksheet.Dimension.Rows;
+                        for (int row = 2; row <= rowcount; row++)
+                        {
 
-                        Nhanvien nhanvien = new Nhanvien();
+                            Nhanvien nhanvien = new Nhanvien();
 
-                        nhanvien.Manv = worksheet.Cells[row, 1].Value.ToString().Trim();
-                        nhanvien.Tennv = worksheet.Cells[row, 2].Value.ToString().Trim();
-                        nhanvien.Cccd = worksheet.Cells[row, 3].Value.ToString().Trim();
-                        nhanvien.Sdt = worksheet.Cells[row, 4].Value.ToString().Trim();
-                        nhanvien.Email = worksheet.Cells[row, 5].Value.ToString().Trim();
-                        nhanvien.Diachi = worksheet.Cells[row, 6].Value.ToString().Trim();
-                        //string dateString = worksheet.Cells[row, 6].Value.ToString().Trim();
-
-                        nhanvien.Gioitinh = worksheet.Cells[row, 8].Value.ToString().Trim();
-                        nhanvien.Masothue = worksheet.Cells[row, 9].Value.ToString().Trim();
-                        //nhanvien.Loainhanvienidlnv = 1;
-                        //nhanvien.Accountidaccount = 1;
-
+                            nhanvien.Manv = worksheet.Cells[row, 1].Value.ToString().Trim();
+                            nhanvien.Tennv = worksheet.Cells[row, 2].Value.ToString().Trim();
+                            nhanvien.Cccd = worksheet.Cells[row, 3].Value.ToString().Trim();
+                            nhanvien.Sdt = worksheet.Cells[row, 4].Value.ToString().Trim();
+                            nhanvien.Email = worksheet.Cells[row, 5].Value.ToString().Trim();
+                            nhanvien.Diachi = worksheet.Cells[row, 6].Value.ToString().Trim();
 
 
+                            //DateTime NgaySinh = DateTime.ParseExact(worksheet.Cells[row, 7].Value.ToString().Trim(), "d/M/yyyy", null);
+                            //DateTime NgaySinh = DateTime.FromOADate(Convert.ToDouble((worksheet.Cells[row, 7].Value.ToString().Trim() as Excel.Range).Value2));
 
 
-                        //nhanvien.NgaySinh = DateTime.ParseExact(dateString, "dd/MM/yyyy", null);
+                            //nhanvien.Ngaysinh = NgaySinh;
+
+                            nhanvien.Gioitinh = worksheet.Cells[row, 8].Value.ToString().Trim();
+                            nhanvien.Masothue = worksheet.Cells[row, 9].Value.ToString().Trim();
+
+                            //nhanvien.Loainhanvienidlnv = 1;
+                            //nhanvien.Accountidaccount = 1;
 
 
-                        _context.Nhanvien.Add(nhanvien);
-                        await _context.SaveChangesAsync();
 
+
+
+                            //nhanvien.NgaySinh = DateTime.ParseExact(dateString, "dd/MM/yyyy", null);
+
+
+                            _context.Nhanvien.Add(nhanvien);
+                            await _context.SaveChangesAsync();
+
+                        }
                     }
                 }
+
             }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "File không hợp lệ!";
+            }
+            return RedirectToAction("Index");
 
         }
 
-       
+
 
     }
 }

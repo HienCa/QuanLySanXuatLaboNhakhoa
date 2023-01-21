@@ -1,0 +1,227 @@
+﻿@model IEnumerable<QuanLySanXuat.Entities.Phieutranoncc>
+@using QuanLySanXuat.Entities;
+@{
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+    List<Hinhthucthanhtoan> hinhthucthanhtoan = _context.Hinhthucthanhtoan.Where(n => n.Active == 1).ToList();
+
+}
+<form id="formPtn" asp-action="Create" asp-controller="Phieutranoncc" method="post" onsubmit="return checkInputPtn()">
+   <input id="Idptnncc" name="Idptnncc" type="hidden" />
+   <input id="action" name="action" type="hidden"/>
+    <div class="bg-light p-1 border border-secondary rounded">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Số phiếu
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" id="Sophieu" name="Sophieu" class="form-control">
+                        <span id="checkSophieu" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        HTTH
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select id="multipleSelect" name="Idhttt" class="HTTT" data-search="true"
+                                data-silent-initial-value-set="true">
+                            @foreach (var item in hinhthucthanhtoan)
+                            {
+                                <option value="@item.Idhttt">@item.Tenhttt</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Ghi chú
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <textarea name="Ghichu" id="Ghichu" row="" style="height:10px;" class="form-control"></textarea>
+                        <span id="checkGhichu" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-9 col-sm-12">
+
+
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <button type="submit" style="float: right;" class="btn btn-primary w-50" id="btnAddPtn">Thêm</button>
+                <div class="d-flex">
+                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelPtn">Hủy</button>
+                    <button type="submit" class="btn btn-primary w-50" id="btnUpdatePtn"  style="display:none; float: right;">
+                        Cập
+                        nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
+       cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Số phiếu</th>
+            <th>Ngày lập phiếu</th>
+            <th>Hình thức</th>
+            <th>Ghi chú</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="d-none">
+            <td>.</td>
+            <td>.</td>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Sophieu</td>
+                @{
+                    DateTime Ngaylap = item.Ngaylap;
+                }
+                <td>@Ngaylap.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                <td>@item.IdhtttNavigation.Tenhttt</td>
+                <td>@item.Ghichu</td>
+
+                <td class="table-td-center d-flex" style="width:35px">
+
+                    <a class="btn  btn-sm btn-warning " onclick="onEditPtn(this, @item.Idptnncc)"><i class="fas fa-edit text-white"></i></a>
+
+                    <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idptnncc" asp-controller="Phieutranoncc">
+                        <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<script>
+    let deleteBtns = document.querySelectorAll('.formDelete');
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('submit', function (e) {
+
+            var form = this;
+
+            e.preventDefault();
+
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
+
+                icon: 'warning',
+                buttons: ['Hủy bỏ!', 'Xác nhận'],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+
+                    form.submit()
+                    swal({
+                        title: 'Đã xóa!',
+                        icon: 'success',
+                        timer: 1500,
+                        button: false,
+                    });
+
+                } else {
+                    swal({
+                        title: 'Đã hủy!',
+                        button: false,
+                        icon: 'error',
+                        timer: 500,
+                    });
+                }
+            });
+        });
+    })
+</script>
+
+<script>
+    
+    //Phiếu trả nợ nhà cung cấp
+    let btnAddPtn = document.getElementById("btnAddPtn");
+    let btnUpdatePtn = document.getElementById("btnUpdatePtn");
+    let btnCancelPtn = document.getElementById("btnCancelPtn");
+
+    
+
+    btnAddPtn.addEventListener("click", function () {
+        let action = document.getElementById("action");
+        action.value = "addItem";
+    })
+    btnUpdatePtn.addEventListener("click", function () {
+        let action = document.getElementById("action");
+        action.value = "editItem";
+    })
+
+    btnCancelPtn.addEventListener("click", function () {
+        let action = document.getElementById("action");
+        action.value = "addItem";
+        btnUpdatePtn.style.display = "none";
+        btnCancelPtn.style.display = "none";
+        btnAddPtn.style.display = "block";
+    })
+    function onEditPtn(td, id) {
+        let Idptnncc = document.getElementById("Idptnncc");
+        Idptnncc.value = id;
+
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Sophieu").value = selectedRow.cells[0].innerHTML;
+
+        document.getElementById("Ghichu").value = selectedRow.cells[3].innerHTML;
+
+        btnAddPtn.style.display = "none";
+        btnUpdatePtn.style.display = "block";
+        btnCancelPtn.style.display = "block";
+
+    }
+
+
+    //Phiếu trả nợ
+    function checkInputPtn() {
+
+      
+
+        let Sophieu = document.getElementById("Sophieu").value;
+        let Ghichu = document.getElementById("Ghichu").value;
+        let checkSophieu = document.getElementById("checkSophieu");
+        let checkGhichu = document.getElementById("checkGhichu");
+        let errorMessage = "Dữ liệu cung cấp quá dài!";
+
+        if (Sophieu.length > 255 || Ghichu.length > 255) {
+            checkGhichu.innerText = errorMessage;
+            checkSophieu.innerText = errorMessage;
+            return false;
+        }
+        else {
+            return true;
+
+        }
+    }
+
+
+</script>
+
+

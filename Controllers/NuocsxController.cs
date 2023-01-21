@@ -67,6 +67,36 @@ namespace QuanLySanXuat.Controllers
             }
             return View(nuocsx);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit( Nuocsx nuocsx, string action)
+        {
+            try
+            {
+                if (action.Equals("addItem"))
+                {
+                    nuocsx.Idnsx = 0;
+                    _context.Add(nuocsx);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    nuocsx.Active = 1;
+                    _context.Update(nuocsx);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
         public IActionResult CreateOfVL()
         {
             return View();
@@ -127,7 +157,7 @@ namespace QuanLySanXuat.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NhomvatlieuExists(nuocsx.Idnsx))
+                    if (!NuocsxExists(nuocsx.Idnsx))
                     {
                         return NotFound();
                     }
@@ -140,24 +170,43 @@ namespace QuanLySanXuat.Controllers
             }
             return View(nuocsx);
         }
-
-        // GET: Nhomvatlieu/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var nsx = _context.Nuocsx.Where(m => m.Idnsx == id).FirstOrDefault();
+                nsx.Active = 0;
+                _context.Nuocsx.Update(nsx);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var nuocsx = await _context.Nuocsx
-                .FirstOrDefaultAsync(m => m.Idnsx == id);
-            if (nuocsx == null)
-            {
-                return NotFound();
-            }
 
-            return View(nuocsx);
+
         }
+        // GET: Nhomvatlieu/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var nuocsx = await _context.Nuocsx
+        //        .FirstOrDefaultAsync(m => m.Idnsx == id);
+        //    if (nuocsx == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(nuocsx);
+        //}
 
         // POST: Nhomvatlieu/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -173,7 +222,7 @@ namespace QuanLySanXuat.Controllers
 
         }
 
-        private bool NhomvatlieuExists(int id)
+        private bool NuocsxExists(int id)
         {
             return _context.Nuocsx.Any(e => e.Idnsx == id);
         }

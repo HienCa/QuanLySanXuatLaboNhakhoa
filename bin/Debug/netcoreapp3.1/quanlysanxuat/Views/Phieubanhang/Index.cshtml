@@ -1,0 +1,145 @@
+﻿@model IEnumerable<QuanLySanXuat.Entities.Phieubanhang>
+@using QuanLySanXuat.Entities;
+@{
+    Layout = "_Layout";
+}
+
+<div class="d-flex">
+    <h2>Quản Lý Phiếu Xuất Kho</h2>
+    <div class="col-md-3 col-sm-12">
+        <a href="/Phieubanhang/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
+            <i class="fas fa-plus"></i>Thêm mới
+        </a>
+        <a href="/Phieubanhang/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+            <i class="fas fa-file-excel"></i>
+        </a>
+        <a href="/Phieubanhang/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+            <i class="fas fa-file-pdf"></i>
+        </a>
+        <a href="/Phieubanhang/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+            <i class="fas fa-file-csv"></i>
+        </a>
+    </div>
+
+
+    <div class="col-md-3 col-sm-12">
+        <form asp-action="Import" asp-controller="Phieubanhang" method="post" enctype="multipart/form-data">
+            <div class=" d-flex">
+
+                <input id="fileExcel" class="" required type="file" name="file" />
+                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<div class="x_content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+
+
+                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
+                       cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Số phiếu</th>
+                            <th>Nhân viên lập</th>
+                            <th>Ngày lập phiếu</th>
+                            <th>Khách hàng</th>
+                            @*<th>Số hóa đơn</th>
+                                <th>Ngày hóa đơn</th>
+                                <th>Ghi chú</th>*@
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="d-none">
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            @*<td>.</td>
+                                <td>.</td>
+                                <td>.</td>*@
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Sophieu</td>
+                                <td>@item.IdnvNavigation.Tennv</td>
+                                @{
+                                    DateTime dt = item.Ngaylap;
+                                }
+                                <td>@dt.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                                <td>@item.IdkhNavigation.Tenkh</td>
+                                @*<td>@item.Sohd</td>
+                                    <td>@item.Ngayhd</td>
+                                    <td>@item.Ghichu</td>*@
+
+                                <td class="table-td-center d-flex">
+                                    @*<a asp-action="EditPN" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpnk">Nhập</a>*@
+                                    <a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpbh"><i class="fas fa-eye text-white"></i></a>
+                                    <a asp-action="Edit" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpbh"><i class="fas fa-edit text-white"></i></a>
+                                    @*<a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idpbh"><i class="fas fa-trash-alt text-white"></i></a>*@
+                                    <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idpbh" asp-controller="Phieubanhang">
+                                        <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        let deleteBtns = document.querySelectorAll('.formDelete');
+        deleteBtns.forEach(function (deleteBtn) {
+            deleteBtn.addEventListener('submit', function (e) {
+
+                var form = this;
+
+                e.preventDefault();
+
+                swal({
+                    title: 'Bạn có chắc chắn muốn xóa?',
+
+                    icon: 'warning',
+                    buttons: ['Hủy bỏ!', 'Xác nhận'],
+                    dangerMode: true,
+                }).then(function (isConfirm) {
+                    if (isConfirm) {
+
+                        form.submit().then(function () {
+
+                        })
+                        swal({
+                            title: 'Đã xóa!',
+                            icon: 'success',
+                            timer: 1500,
+                            button: false,
+                        });
+
+                    } else {
+                        swal({
+                            title: 'Đã hủy!',
+                            button: false,
+                            icon: 'error',
+                            timer: 500,
+                        });
+                    }
+                });
+            });
+        })
+</script>
+

@@ -27,8 +27,7 @@ namespace QuanLySanXuat.Entities
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         [Required]
         public string Masothue { get; set; }
-        [StringLength(4000, ErrorMessage = "Thông tin cung cấp quá dài!")]
-        [Required]
+      
 
         public string Ghichu { get; set; }
         public int Active { get; set; }

@@ -1,0 +1,82 @@
+﻿@model QuanLySanXuat.Entities.Phieubanhang;
+@using QuanLySanXuat.Entities;
+@{
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+   
+    List<Khachhang> khachhang = _context.Khachhang.Where(n => n.Active == 1).ToList();
+
+
+}
+
+<div class="col-md-12 col-sm-12 ">
+
+    <div class="row title-title align-items-md-center ">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="tile pl-3 pr-2">
+
+                    <h3 class="tile-title">Tạo phiếu bán hàng kho</h3>
+                    <div class="tile-body">
+
+
+
+                        <form class="row" asp-action="Create" asp-controller="Phieubanhang" enctype="multipart/form-data">
+                            <div class="form-group col-md-12 col-sm-12">
+
+                                <label asp-for="IdkhNavigation.Tenkh" for="exampleSelect1" class="control-label">Khách hàng</label>
+
+                                <select asp-for="Idkh" id="multipleSelect" placeholder="Chọn hãng sản xuất " data-search="true"
+                                        data-silent-initial-value-set="true">
+                                    @foreach (var item in khachhang)
+                                    {
+                                        <option value="@item.Idkh">@item.Tenkh</option>
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="form-group mb-3 col-md-6 col-sm-12">
+
+                                <label asp-for="Sophieu" class="control-label">Số phiếu </label>
+                                <input asp-for="Sophieu" class="form-control" type="text" placeholder="">
+                            </div>
+                            
+
+
+                            <div class="form-group mb-3 col-md-6 col-sm-12">
+
+                                <label asp-for="Sohd" class="control-label">Số hóa đơn</label>
+                                <input asp-for="Sohd" class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+
+                                <label asp-for="Ngayhd" class="control-label">Ngày hóa đơn</label>
+                                <input asp-for="Ngayhd" class="form-control" type="date" name="Ngayhd">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+
+                                <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+                                <input asp-for="Ghichu" class="form-control" type="text" name="Ghichu"/>
+                            </div>
+
+
+                            
+                            <div class="text-center mt-3 col-12">
+                                @Html.ActionLink("Quay lại", "Index", "Phieubanhang", null, new { @class = "btn btn-cancel w-25" })
+
+                                <button class="btn btn-success w-50" type="submit">Lưu</button>
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

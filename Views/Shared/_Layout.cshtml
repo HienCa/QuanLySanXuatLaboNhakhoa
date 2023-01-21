@@ -37,15 +37,20 @@
     <link href="~/bootstrap-5.2.3-dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
-    <link rel="stylesheet" href="~/multiSelectDropdown/virtual-select.min.css">
-
+    <link href="~/multiSelectDropdown/virtual-select.css" rel="stylesheet" />
     <link href="~/tab/tab.css" rel="stylesheet" />
     <link href="~/build/css/custom.min.css" rel="stylesheet">
     <link href="~/popUp/popUp.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <style>
+        .swal-button--confirm {
+            background-color: #C82333;
+        }
+    </style>
 </head>
 
-<body class="nav-md" style="background-color: #F7F7F7;">
+<body onload="totalBill()" class="nav-md" style="background-color: #F7F7F7;">
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col menu_fixed">
@@ -110,6 +115,9 @@
                                             @Html.ActionLink(" Nhóm Vật Liệu", "Index", "Nhomvatlieu", null, new { @class = " app-menu__label" })
                                         </li>
                                         <li class="sub_menu">
+                                            @Html.ActionLink("Nhà Cung Cấp", "Index", "Nhacungcaps", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
                                             @Html.ActionLink(" Vật Liệu", "Index", "Vatlieu", null, new { @class = " app-menu__label" })
                                         </li>
                                         <li>
@@ -123,11 +131,17 @@
                                         </li>
                                         <li>
 
-                                            @Html.ActionLink(" Đội Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
+                                            @Html.ActionLink(" Tổ Sản Xuất", "Index", "ToSanXuat", null, new { @class = " app-menu__label" })
                                         </li>
 
                                         <li class="sub_menu">
+                                            @Html.ActionLink("Ngân Hàng", "Index", "Nganhang", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
                                             @Html.ActionLink("Khách Hàng", "Index", "Khachhang", null, new { @class = " app-menu__label" })
+                                        </li>
+                                        <li class="sub_menu">
+                                            @Html.ActionLink("Phiếu trả nợ", "Index", "Phieutranoncc", null, new { @class = " app-menu__label" })
                                         </li>
                                     </ul>
 
@@ -335,7 +349,7 @@
                 </div>
             </div>
             <!-- /top navigation -->
-            <div class="right_col" role="main">
+            <div class="right_col" role="main" style="padding:0">
                 <div class="">
 
 
@@ -358,20 +372,20 @@
         </div>
 
     </div>
-    <div class="modal" tabindex="-1" role="dialog" id="form-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close" id="close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+    @*<div class="modal" tabindex="-1" role="dialog" id="form-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn-close" id="close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
-    </div>
+        </div>*@
 
 
 
@@ -425,7 +439,20 @@
         </script>
     }
     <script src="~/popUp/popUp.js"></script>
-    <script src="~/formats/formatNumber.js"></script>
+
+
+
+    <!-- Number Format -->
+    <script src="~/number/currency.js"></script>
+    <script src="~/number/formatNumber.js"></script>
+    <!-- Date Format -->
+    <script src="~/number/dateFormat.js"></script>
+    <!-- CRUD -->
+    @*<script src="~/crudFE/crud.js"></script>*@
+
+    <!-- Email -->
+<script src="~/crudFE/validateEmail.js"></script>
+
 </body>
 
 </html>

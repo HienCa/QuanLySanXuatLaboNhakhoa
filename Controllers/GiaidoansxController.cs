@@ -122,24 +122,43 @@ namespace QuanLySanXuat.Controllers
 
             return View(gdsx);
         }
-
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var gd = _context.Giaidoansx.Where(m => m.Idgdsx == id).FirstOrDefault();
+
+                _context.Giaidoansx.Remove(gd);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var gdsx = await _context.Giaidoansx
 
-                .FirstOrDefaultAsync(m => m.Idgdsx == id);
-            if (gdsx == null)
-            {
-                return NotFound();
-            }
 
-            return View(gdsx);
         }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var gdsx = await _context.Giaidoansx
+
+        //        .FirstOrDefaultAsync(m => m.Idgdsx == id);
+        //    if (gdsx == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(gdsx);
+        //}
 
 
         [HttpPost, ActionName("Delete")]

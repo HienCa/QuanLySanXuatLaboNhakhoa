@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<QuanLySanXuat.Entities.Noidungpnk>
+@using QuanLySanXuat.Entities;
+
+@{
+    Layout = "_Layout";
+
+}
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdpnkNavigation.IdnvNavigation.Tennv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soluong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dongia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdpnkNavigation.Ngaylap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdvlNavigation.Tenvl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdpnkNavigation.Sohd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdpnkNavigation.Ngayhd)
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdpnkNavigation.IdnvNavigation.Manv) - @Html.DisplayFor(modelItem => item.IdpnkNavigation.IdnvNavigation.Tennv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Soluong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dongia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngaylap)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdvlNavigation.Tenvl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdpnkNavigation.Sohd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdpnkNavigation.Ngayhd)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="@ViewData["idpnk"]" />
+
+    <div>
+        @Html.ActionLink("Hủy bỏ", "Index", "Phieunhapkho", null, new { @class = "btn btn-cancel mt-3 w-25" })
+
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
+    
+</form>

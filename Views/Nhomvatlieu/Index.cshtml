@@ -6,44 +6,75 @@
 
 
 }
-<div class="d-flex">
-    <h2>Quản Lý Nhóm Vật Liệu</h2>
-    <div class="col-md-3 col-sm-12">
-        @*<a href="/Nhomvatlieu/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-                <i class="fas fa-plus"></i>Thêm mới
-            </a>*@
-        <a onclick="showInPopup('@Url.Action("Create", "Nhomvatlieu", null, Context.Request.Scheme)', 'Thêm Nhóm Vật Liệu')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Thêm mới</a>
+<form asp-action="CreateOrEdit" asp-controller="Nhomvatlieu" method="post" onsubmit="return onSubmitFormNVL()">
+    <input id="action" type="hidden" name="action" />
+    <input id="Idnvl" type="hidden" name="Idnvl" />
+    <div class="bg-light p-1 border border-secondary rounded">
+        <h2>Quản Lý Nhóm Vật Liệu</h2>
 
-        <a href="/Nhomvatlieu/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-excel"></i>
-        </a>
-        <a href="/Nhomvatlieu/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-pdf"></i>
-        </a>
-        <a href="/Nhomvatlieu/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-csv"></i>
-        </a>
-    </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Mã NVL
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" name="Manvl" maxlength="255" id="Manvl" onfocus="this.value=''" class="form-control">
 
 
-    <div class="col-md-3 col-sm-12">
-        <form asp-action="Import" asp-controller="Nhomvatlieu" method="post" enctype="multipart/form-data">
-            <div class=" d-flex">
-                @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
-                <input id="fileExcel" class="" required type="file" name="file" />
-                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+                    </div>
+                </div>
             </div>
 
-        </form>
+            <div class="col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Tên NVL
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" name="Tennvl" maxlength="255" id="Tennvl" onfocus="this.value=''" class="form-control">
+                        <span id="checkTennvl" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Loại NVL
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" name="Loainvl" id="Loainvl" onfocus="this.value=''" class="form-control">
+                        <span id="checkLoainvl" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-9 col-sm-12">
+
+
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddNvl">Thêm</button>
+                <div class="d-flex">
+                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNvl">Hủy</button>
+                    <button type="submit" class="btn btn-primary w-50" onclick="onEditNVL()" id="btnUpdateNvl" style="display:none; float: right;">
+                        Cập
+                        nhật
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </div>
-</div>
 
-
+</form>
 
 <div class="x_content">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
             <div class="card-box table-responsive">
 
 
@@ -54,6 +85,7 @@
                             <th>Mã nhóm vật liệu</th>
                             <th>Tên nhóm vật liệu</th>
                             <th>Loại nhóm vật liệu</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +93,7 @@
                             <td>.</td>
                             <td>.</td>
                             <td>.</td>
+
                         </tr>
                         @foreach (var item in Model)
                         {
@@ -68,13 +101,14 @@
                                 <td>@item.Manvl</td>
                                 <td>@item.Tennvl</td>
                                 <td>@item.Loainvl</td>
+                                <td style="display:none">@item.Idnvl</td>
 
-                                <td class="table-td-center">
-                                    @*<a asp-action="Details" class="btn btn-sm  btn-info" asp-route-id="@item.Idnvl"><i class="fas fa-info text-white"></i></a>
-                                        <a asp-action="Edit" class="btn btn-sm  btn-warning " asp-route-id="@item.Idnvl"><i class="fas fa-edit text-white"></i></a>
-                                        <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idnvl"><i class="fas fa-trash-alt text-white"></i></a>*@
-                                    <a onclick="showInPopup('@Url.Action("Edit", "Nhomvatlieu", new {id=item.Idnvl }, Context.Request.Scheme)', 'Cập Nhật Thông Tin')" class="btn btn-warning btn-sm"><i class="fas fa-edit text-white"></i></a>
-                                    <a onclick="showInPopup('@Url.Action("Delete", "Nhomvatlieu",  new {id=item.Idnvl } , Context.Request.Scheme)', 'Bạn Chắc Chắn Muốn Xóa?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt text-white"></i></a>
+
+                                <td class="table-td-center d-flex">
+                                    <a class="btn  btn-sm btn-warning " onclick="onEditNVL(this)"><i class="fas fa-edit text-white"></i></a>
+                                    <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idnvl" asp-controller="Nhomvatlieu">
+                                        <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                                    </form>
 
                                 </td>
                             </tr>
@@ -86,4 +120,118 @@
             </div>
         </div>
     </div>
+
 </div>
+<script>
+    let deleteBtns = document.querySelectorAll('.formDelete');
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('submit', function (e) {
+
+            var form = this;
+
+            e.preventDefault();
+
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
+
+                icon: 'warning',
+                buttons: ['Hủy bỏ!', 'Xác nhận'],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+
+                    form.submit();
+                    swal({
+                        title: 'Đã xóa!',
+                        icon: 'success',
+                        timer: 1500,
+                        button: false,
+                    });
+
+                } else {
+                    swal({
+                        title: 'Đã hủy!',
+                        button: false,
+                        icon: 'error',
+                        timer: 500,
+                    });
+                }
+            });
+        });
+    })
+
+    function onSubmitFormNVL() {
+        let isSubmit = false;
+        let Manvl = document.getElementById("Manvl").value;
+        let Tennvl = document.getElementById("Tennvl").value;
+        let Loainvl = document.getElementById("Loainvl").value;
+        let checkManvl = document.getElementById("checkManvl");
+        let checkTennvl = document.getElementById("checkTennvl");
+        let checkLoainvl = document.getElementById("checkLoainvl");
+        let errorMessage = "Thông tin được cung cấp quá dài!";
+
+        if (Manvl.length > 255 || Tennvl.length > 255 || Loainvl.length > 255) {
+            checkTennvl.innerText = errorMessage;
+            checkManvl.innerText = errorMessage;
+            checkLoainvl.innerText = errorMessage;
+
+
+        }
+        if (Tennvl.length == 0) {
+            checkTennvl.innerText = "Vui lòng nhập thông tin!";
+
+
+        }
+        if (Loainvl.length == 0) {
+            checkLoainvl.innerText = "Vui lòng nhập thông tin!";
+
+
+        }
+        else {
+            isSubmit = true;
+        }
+        return isSubmit;
+    }
+
+
+    let btnAddNvl = document.getElementById("btnAddNvl");
+    let btnUpdateNvl = document.getElementById("btnUpdateNvl");
+    let btnCancelNvl = document.getElementById("btnCancelNvl");
+    let action = document.getElementById("action");
+
+    btnCancelNvl.addEventListener("click", function () {
+        btnUpdateNvl.style.display = "none";
+        btnCancelNvl.style.display = "none";
+        btnAddNvl.style.display = "block";
+    })
+
+
+    btnAddNvl.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdateNvl.addEventListener("click", function () {
+        action.value = "editItem";
+    })
+
+
+    function onEditNVL(td) {
+
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Manvl").value = selectedRow.cells[0].innerHTML;
+        document.getElementById("Tennvl").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("Loainvl").value = selectedRow.cells[2].innerHTML;
+        document.getElementById("Idnvl").value = selectedRow.cells[3].innerHTML;
+
+
+        btnAddNvl.style.display = "none";
+        btnUpdateNvl.style.display = "block";
+        btnCancelNvl.style.display = "block";
+
+    }
+    btnUpdateNvl.addEventListener("click", function () {
+        btnAddNvl.style.display = "block";
+        btnUpdateNvl.style.display = "none";
+        btnCancelNvl.style.display = "none";
+
+    })
+</script>

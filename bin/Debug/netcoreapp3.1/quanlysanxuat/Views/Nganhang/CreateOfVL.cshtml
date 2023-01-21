@@ -1,0 +1,64 @@
+﻿@model QuanLySanXuat.Entities.Nganhang
+
+@{
+    Layout = null;
+
+}
+
+
+
+
+
+
+
+
+@*<form asp-action="Create" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxPost(this)" autocomplete="off">*@
+<form asp-action="CreateOfVL" enctype="multipart/form-data" method="post" >
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+        <div class="form-group mb-3  form-group-lg  col-md-12">
+
+            <label asp-for="Tennh" class="control-label">Tên ngân hàng</label>
+            <input asp-for="Tennh" class="form-control form-control-lg" />
+            <span asp-validation-for="Tennh" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3  form-group-lg  col-md-12">
+
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control form-control-lg" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3  form-group-lg  col-md-12">
+
+            <label asp-for="Diachi" class="control-label">Địa chỉ</label>
+            <input asp-for="Diachi" class="form-control form-control-lg" />
+            <span asp-validation-for="Diachi" class="text-danger"></span>
+        </div>
+
+        <div class="form-group  mb-3 form-group-lg  col-md-12">
+
+            <label asp-for="Masothue" class="control-label">Mã số thuế</label>
+            <input asp-for="Masothue" class="form-control form-control-lg" />
+            <span asp-validation-for="Masothue" class="text-danger"></span>
+        </div>
+        <div class="form-group  form-group-lg  col-md-12">
+
+            <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+            <input asp-for="Ghichu" class="form-control form-control-lg" />
+            <span asp-validation-for="Ghichu" class="text-danger"></span>
+        </div>
+
+
+    </div>
+
+    <div class="text-center mt-3 col-12">
+
+
+        <button class="btn btn-success w-100" type="submit">Lưu</button>
+
+    </div>
+
+</form>
+
+

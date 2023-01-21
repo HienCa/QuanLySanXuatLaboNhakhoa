@@ -40,8 +40,8 @@ namespace QuanLySanXuat.Entities
         [Required]
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Matkhau { get; set; }
-    
 
+        [Required]
         public string Gioitinh { get; set; }
 
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
@@ -56,7 +56,7 @@ namespace QuanLySanXuat.Entities
         [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
         public string Zalo { get; set; }
         public int? Nvidsale { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public DateTime? Ngaysinh { get; set; }
         public int Active { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -15,11 +16,17 @@ namespace QuanLySanXuat.Entities
         }
 
         public int Idptnncc { get; set; }
+
         public string Sophieu { get; set; }
+        [Required]
         public DateTime Ngaylap { get; set; }
         public string Ghichu { get; set; }
         public int Active { get; set; }
+        [Required]
+
         public int Idhttt { get; set; }
+        [Required]
+
         public int Idnv { get; set; }
 
         public virtual Hinhthucthanhtoan IdhtttNavigation { get; set; }

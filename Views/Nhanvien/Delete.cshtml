@@ -1,116 +1,109 @@
 ﻿@model QuanLySanXuat.Entities.Nhanvien
 
 @{
-    Layout = "_Layout";
+    Layout = null;
 
 }
 
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="Idnv" />
 <div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <h3 class="tile-title">Nhân viên #@Model.Manv</h3>
-            <div class="tile-body">
+    <div class="form-group col-md-6 col-sm-12">
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Idnv" />
-                <div class="row">
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label class="control-label">Nhân viên</label>
-                        <div>
-                            @Model.Manv - @Model.Tennv
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label for="exampleSelect1" class="control-label">Địa chỉ</label>
-
-                        <div>
-                            @Model.Cccd
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label for="exampleSelect1" class="control-label">Địa chỉ</label>
-
-                        <div>
-                            @Model.Diachi
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label for="exampleSelect1" class="control-label">Email</label>
-
-                        <div>
-                            @Model.Email
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label for="exampleSelect1" class="control-label">Số điện thoại</label>
-                        <div>
-                            @Model.Sdt
-                        </div>
-
-
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
-                        <div>
-                            @Model.Ngaysinh
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label asp-for="Masothue" class="control-label">Mã số thuế</label>
-                        <div>
-                            @Model.Masothue
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label asp-for="Gioitinh" class="control-label">Giới tính</label>
-                        <div>
-                            @Model.Gioitinh
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12">
-
-                        <label asp-for="Ghichu" class="control-label">Ghi chú</label>
-                        <div>
-                            @Model.Ghichu
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4 col-sm-4">
-                        <label asp-for="Hinhanh" class="control-label">Hình ảnh</label>
-
-                        <img src="~/Images/@Model.Hinhanh"
-                             class=" "
-                             height="200" width="200"
-                             style="border-radius:10px"
-                             asp-append-version="true" alt="No Image" />
-
-                        @*<img src="@FileLocation.RetriveFileFromFolder@Model.Hinhanh" class="img-thumbnail" height="100" width="100" asp-append-version="true" />*@
-                    </div>
-
-
-                </div>
-
-
-                <form asp-action="Delete">
-                    <input type="hidden" asp-for="Idnv" />
-
-                    @Html.ActionLink("Hủy bỏ", "Index", "Nhanvien", null, new { @class = "btn btn-cancel mt-3 w-25" })
-
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </div>
-
+        <label class="control-label">Mã hân viên</label>
+        <div>
+            @Model.Tennv
         </div>
     </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Tên hân viên</label>
+        <div>
+             @Model.Tennv
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label  class="control-label">Địa chỉ</label>
+
+        <div>
+            @Model.Cccd
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label  class="control-label">Địa chỉ</label>
+
+        <div>
+            @Model.Diachi
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label for="exampleSelect1" class="control-label">Email</label>
+
+        <div>
+            @Model.Email
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label for="exampleSelect1" class="control-label">Số điện thoại</label>
+        <div>
+            @Model.Sdt
+        </div>
+
+
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
+        <div>
+            @Model.Ngaysinh
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label asp-for="Masothue" class="control-label">Mã số thuế</label>
+        <div>
+            @Model.Masothue
+        </div>
+    </div>
+
+
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label asp-for="Gioitinh" class="control-label">Giới tính</label>
+        <div>
+            @Model.Gioitinh
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+        <div>
+            @Model.Ghichu
+        </div>
+    </div>
+
+    <div class="form-group col-md-6 col-sm-4">
+        <label asp-for="Hinhanh" class="control-label">Hình ảnh</label>
+
+        <img src="~/Images/@Model.Hinhanh"
+             class=" "
+             height="200" width="200"
+             style="border-radius:10px"
+             asp-append-version="true" alt="No Image" />
+
+        @*<img src="@FileLocation.RetriveFileFromFolder@Model.Hinhanh" class="img-thumbnail" height="100" width="100" asp-append-version="true" />*@
+    </div>
+
+
 </div>
 
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Idnv" />
+    <input type="submit" value="Delete" class="btn btn-danger w-100" />
+</form>

@@ -45,6 +45,35 @@ namespace QuanLySanXuat.Controllers
             return View(hangsanxuat);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Hangsx hangsx, string action)
+        {
+            try
+            {
+                if (action.Equals("addItem"))
+                {
+                    hangsx.Idhsx = 0;
+                    _context.Add(hangsx);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    hangsx.Active = 1;
+                    _context.Update(hangsx);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
         public async Task<IActionResult> AddOrEdit(int id=0)
         {
             if (id==0)
@@ -131,26 +160,7 @@ namespace QuanLySanXuat.Controllers
             }
             return View(hangsanxuat);
         }
-        public IActionResult CreateOfVL()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateOfVL([Bind("Idhsx,Mahsx,Tenhsx,Active")] Hangsx hangsanxuat)
-        {
-            if (ModelState.IsValid)
-            {
-                hangsanxuat.Active = 1;
-                _context.Add(hangsanxuat);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Vatlieu");
-
-
-            }
-            return RedirectToAction("Create", "Vatlieu");
-
-        }
+        
 
         // GET: Hangsanxuat/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -204,24 +214,43 @@ namespace QuanLySanXuat.Controllers
             }
             return View(hangsanxuat);
         }
-
-        // GET: Hangsanxuat/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var h = _context.Hangsx.Where(m => m.Idhsx == id).FirstOrDefault();
+                h.Active = 0;
+                _context.Hangsx.Update(h);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var hangsanxuat = await _context.Hangsx
-                .FirstOrDefaultAsync(m => m.Idhsx == id);
-            if (hangsanxuat == null)
-            {
-                return NotFound();
-            }
 
-            return View(hangsanxuat);
+
         }
+        // GET: Hangsanxuat/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var hangsanxuat = await _context.Hangsx
+        //        .FirstOrDefaultAsync(m => m.Idhsx == id);
+        //    if (hangsanxuat == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(hangsanxuat);
+        //}
 
         // POST: Hangsanxuat/Delete/5
         [HttpPost, ActionName("Delete")]

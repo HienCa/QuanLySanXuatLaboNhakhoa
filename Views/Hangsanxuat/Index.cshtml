@@ -6,41 +6,57 @@
 
 
 }
-<div class="d-flex">
-    <h2>Quản Lý Hãng Sản Xuất</h2>
-    <div class="col-md-3 col-sm-12">
-        @*<a href="/Hangsanxuat/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-                <i class="fas fa-plus"></i>Thêm mới
-            </a>*@
-        <a onclick="showInPopup('@Url.Action("Create", "Hangsanxuat", null, Context.Request.Scheme)', 'Thêm Hãng Sản Xuất')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Thêm mới</a>
-        <a href="/Hangsanxuat/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-excel"></i>
-        </a>
-        <a href="/Hangsanxuat/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-pdf"></i>
-        </a>
-        <a href="/Hangsanxuat/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-csv"></i>
-        </a>
-    </div>
+<form asp-action="CreateOrEdit" asp-controller="Hangsanxuat" method="post" onsubmit="return onSubmitFormHSX()">
+    <input id="action" type="hidden" name="action" />
+    <input id="Idhsx" type="hidden" name="Idhsx" />
+    <div class="bg-light p-1 border border-secondary rounded">
+        <h2>Quản Lý Hãng Sản Xuất</h2>
 
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Mã HSX
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" name="Mahsx" maxlength="255" id="Mahsx" onfocus="this.value=''" class="form-control">
+                        <span id="checkMahsx" class="text-danger"></span>
 
-    <div class="col-md-3 col-sm-12">
-        <form asp-action="Import" asp-controller="Hangsanxuat" method="post" enctype="multipart/form-data">
-            <div class=" d-flex">
-                @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
-                <input id="fileExcel" class="" required type="file" name="file" />
-                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+                    </div>
+                </div>
             </div>
 
-        </form>
+            <div class="col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Tên HSX
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" name="Tenhsx" maxlength="255" id="Tenhsx" onfocus="this.value=''" class="form-control">
+                        <span id="checkTenhsx" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddHsx">Thêm</button>
+                <div class="d-flex">
+                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelHsx">Hủy</button>
+                    <button type="submit" class="btn btn-primary w-50" onclick="onEditHSX()" id="btnUpdateHsx" style="display:none; float: right;">
+                        Cập
+                        nhật
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </div>
-</div>
+
+</form>
 
 <div class="x_content">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
             <div class="card-box table-responsive">
 
 
@@ -61,23 +77,19 @@
                         </tr>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@item.Mahsx</td>
-                                <td>@item.Tenhsx</td>
+                    <tr>
+                        <td>@item.Mahsx</td>
+                        <td>@item.Tenhsx</td>
+                        <td style="display:none">@item.Idhsx</td>
 
-                                <td class="table-td-center">
+                        <td class="table-td-center d-flex">
+                            <a class="btn  btn-sm btn-warning " onclick="onEditHSX(this)"><i class="fas fa-edit text-white"></i></a>
+                            <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idhsx" asp-controller="Hangsanxuat">
+                                <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                            </form>
 
-                                    @*<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Idhsx"><i class="fas fa-info text-white"></i></a>*@
-                                    @*<a onclick="showInPopup('@Url.Action("Details", "Hangsanxuat", new {id=item.Idhsx }, Context.Request.Scheme)', 'Thông tin chi tiết')" class="btn btn-info btn-sm"><i class="fas fa-info text-white"></i></a>*@
-
-                                    <a onclick="showInPopup('@Url.Action("Edit", "Hangsanxuat", new {id=item.Idhsx }, Context.Request.Scheme)', 'Cập Nhật Thông Tin')" class="btn btn-warning btn-sm"><i class="fas fa-edit text-white"></i></a>
-                                    <a onclick="showInPopup('@Url.Action("Delete", "Hangsanxuat",  new {id=item.Idhsx } , Context.Request.Scheme)', 'Bạn Chắc Chắn Muốn Xóa?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt text-white"></i></a>
-
-                                    @*<a asp-action="Edit" class="btn btn-sm  btn-warning " asp-route-id="@item.Idhsx"><i class="fas fa-edit text-white"></i></a>*@
-                                    @* <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idhsx"><i class="fas fa-trash-alt text-white"></i></a>*@
-
-                                </td>
-                            </tr>
+                        </td>
+                    </tr>
                         }
 
                     </tbody>
@@ -86,22 +98,113 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal" tabindex="-1" role="dialog" id="form-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"></h5>
-                <button type="button" class="btn-close" id="close" data-bs-dismiss="modal" aria-label="Close">
-                    
-                </button>
-            </div>
-            <div class="modal-body">
-               
-            </div>
-            
-        </div>
-    </div>
 </div>
+<script>
+    let deleteBtns = document.querySelectorAll('.formDelete');
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('submit', function (e) {
+
+            var form = this;
+
+            e.preventDefault();
+
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
+
+                icon: 'warning',
+                buttons: ['Hủy bỏ!', 'Xác nhận'],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+
+                    form.submit();
+                    swal({
+                        title: 'Đã xóa!',
+                        icon: 'success',
+                        timer: 1500,
+                        button: false,
+                    });
+
+                } else {
+                    swal({
+                        title: 'Đã hủy!',
+                        button: false,
+                        icon: 'error',
+                        timer: 500,
+                    });
+                }
+            });
+        });
+    })
+
+    function onSubmitFormHSX() {
+        let isSubmit = false;
+        let Mahsx = document.getElementById("Mahsx").value;
+        let Tenhsx = document.getElementById("Tenhsx").value;
+        let checkTenhsx = document.getElementById("checkTenhsx");
+        let checkMahsx = document.getElementById("checkMahsx");
+        let errorMessage = "Thông tin được cung cấp quá dài!";
+
+        if (Mahsx.length > 255 || Tenhsx.length > 255) {
+            checkTenhsx.innerText = errorMessage;
+            checkMahsx.innerText = errorMessage;
+           
+        }
+         if (Tenhsx.length == 0) {
+            checkTenhsx.innerText = "Vui lòng nhập thông tin!";
+            return false;
+
+        }
+        else {
+            isSubmit = true;
+        }
+        return isSubmit;
+    }
+
+
+    let btnAddHsx = document.getElementById("btnAddHsx");
+    let btnUpdateHsx = document.getElementById("btnUpdateHsx");
+    let btnCancelHsx = document.getElementById("btnCancelHsx");
+    let action = document.getElementById("action");
+
+    btnCancelHsx.addEventListener("click", function () {
+        btnUpdateHsx.style.display = "none";
+        btnCancelHsx.style.display = "none";
+        btnAddHsx.style.display = "block";
+    })
+
+
+    btnAddHsx.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdateHsx.addEventListener("click", function () {
+        action.value = "editItem";
+    })
+
+
+    function onEditHSX(td) {
+
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Mahsx").value = selectedRow.cells[0].innerHTML;
+        document.getElementById("Tenhsx").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("Idhsx").value = selectedRow.cells[2].innerHTML;
+
+
+        btnAddHsx.style.display = "none";
+        btnUpdateHsx.style.display = "block";
+        btnCancelHsx.style.display = "block";
+
+    }
+    btnUpdateHsx.addEventListener("click", function () {
+        btnAddHsx.style.display = "block";
+        btnUpdateHsx.style.display = "none";
+        btnCancelHsx.style.display = "none";
+
+    })
+</script>
+
+
+
+
 

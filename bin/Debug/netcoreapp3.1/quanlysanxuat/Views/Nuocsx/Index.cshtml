@@ -2,47 +2,61 @@
 @using QuanLySanXuat.Entities;
 @{
     Layout = "_Layout";
-    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    Nhanvien nv = _context.Nhanvien.Where(n => n.Email.Equals(TempData["OWN"])).FirstOrDefault();
+
 
 }
-<div class="d-flex">
-    <h2>Quản Lý Nước Sản Xuất</h2>
-    <div class="col-md-3 col-sm-12">
-        <a onclick="showInPopup('@Url.Action("Create", "Nuocsx" ,null, Context.Request.Scheme)','Thêm Mới Nước Sản Xuất')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-            <i class="fas fa-plus"></i>Thêm mới
-        </a>
-        <a href="/Nuocsx/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-excel"></i>
-        </a>
-        <a href="/Nuocsx/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-pdf"></i>
-        </a>
-        <a href="/Nuocsx/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-csv"></i>
-        </a>
-    </div>
+
+<form asp-action="CreateOrEdit" asp-controller="Nuocsx" method="post" onsubmit="return onSubmitFormNSX()">
+    <input id="action" type="hidden" name="action" />
+    <input id="Idnsx" type="hidden" name="Idnsx" />
+    <div class="bg-light p-1 border border-secondary rounded">
+        <h2>Quản Lý Nước Sản Xuất</h2>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Mã NSX
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" name="Mansx" maxlength="255" id="Mansx" onfocus="this.value=''" class="form-control">
 
 
-    <div class="col-md-3 col-sm-12">
-        <form asp-action="Import" asp-controller="Nuocsx" method="post" enctype="multipart/form-data">
-            <div class=" d-flex">
-                @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
-                <input id="fileExcel" class="" required type="file" name="file" />
-                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+                    </div>
+                </div>
             </div>
 
-        </form>
+            <div class="col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Tên NSX
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" name="Tennsx" maxlength="255" id="Tennsx" onfocus="this.value=''" class="form-control">
+                        <span id="checkTennsx" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddNsx">Thêm</button>
+                <div class="d-flex">
+                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNsx">Hủy</button>
+                    <button type="submit" class="btn btn-primary w-50" onclick="onEditNSX()" id="btnUpdateNsx" style="display:none; float: right;">
+                        Cập
+                        nhật
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </div>
-</div>
 
-
-
+</form>
 
 <div class="x_content">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
             <div class="card-box table-responsive">
 
 
@@ -50,8 +64,8 @@
                        cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Mã hãng sản xuất</th>
-                            <th>Tên hãng sản xuất</th>
+                            <th>Mã nước sản xuất</th>
+                            <th>Tên nước sản xuất</th>
 
                         </tr>
                     </thead>
@@ -66,17 +80,15 @@
                             <tr>
                                 <td>@item.Mansx</td>
                                 <td>@item.Tennsx</td>
+                                <td style="display:none">@item.Idnsx</td>
 
-                                <td class="table-td-center">
-                                    @*<a asp-action="Details" class="btn btn-info" asp-route-id="@item.Idnsx"><i class="fas fa-info text-white"></i></a>*@
-                                    @*<a asp-action="Edit" class="btn btn-sm  btn-warning " asp-route-id="@item.Idnsx"><i class="fas fa-edit text-white"></i></a>
-                                    <a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idnsx"><i class="fas fa-trash-alt text-white"></i></a>*@
-                                    <a onclick="showInPopup('@Url.Action("Edit", "Nuocsx" , new { id = item.Idnsx }, Context.Request.Scheme)','Cập Nhật Thông Tin')"  class="btn btn-sm  btn-warning ">
-                                        <i class="fas fa-edit text-white"></i>
-                                    </a>
-                                    <a onclick="showInPopup('@Url.Action("Delete", "Nuocsx" , new { id = item.Idnsx }, Context.Request.Scheme)','Bạn Chắc Chắn Muốn Xóa?')" class="btn btn-sm  btn-danger ">
-                                        <i class="fas fa-trash-alt text-white"></i>
-                                    </a>
+
+                                <td class="table-td-center d-flex">
+                                    <a class="btn  btn-sm btn-warning " onclick="onEditNSX(this)"><i class="fas fa-edit text-white"></i></a>
+                                    <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idnsx" asp-controller="Nuocsx">
+                                        <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                                    </form>
+
                                 </td>
                             </tr>
                         }
@@ -89,7 +101,110 @@
     </div>
 
 </div>
-                
+<script>
+    let deleteBtns = document.querySelectorAll('.formDelete');
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('submit', function (e) {
+
+            var form = this;
+
+            e.preventDefault();
+
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
+
+                icon: 'warning',
+                buttons: ['Hủy bỏ!', 'Xác nhận'],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+
+                    form.submit();
+                    swal({
+                        title: 'Đã xóa!',
+                        icon: 'success',
+                        timer: 1500,
+                        button: false,
+                    });
+
+                } else {
+                    swal({
+                        title: 'Đã hủy!',
+                        button: false,
+                        icon: 'error',
+                        timer: 500,
+                    });
+                }
+            });
+        });
+    })
+
+    function onSubmitFormNSX() {
+        let isSubmit = false;
+        let Mansx = document.getElementById("Mansx").value;
+        let Tennsx = document.getElementById("Tennsx").value;
+        let checkMansx = document.getElementById("checkMansx");
+        let checkTennsx = document.getElementById("checkTennsx");
+        let errorMessage = "Thông tin được cung cấp quá dài!";
+
+        if (Mansx.length > 255 || Tennsx.length > 255) {
+            checkTennsx.innerText = errorMessage;
+            checkMansx.innerText = errorMessage;
+
+
+        }
+        if (Tennsx.length == 0) {
+            checkTennsx.innerText = "Vui lòng nhập thông tin!";
+
+
+        }
+        else {
+            isSubmit = true;
+        }
+        return isSubmit;
+    }
+
+
+    let btnAddNsx = document.getElementById("btnAddNsx");
+    let btnUpdateNsx = document.getElementById("btnUpdateNsx");
+    let btnCancelNsx = document.getElementById("btnCancelNsx");
+    let action = document.getElementById("action");
+
+    btnCancelNsx.addEventListener("click", function () {
+        btnUpdateNsx.style.display = "none";
+        btnCancelNsx.style.display = "none";
+        btnAddNsx.style.display = "block";
+    })
+
+
+    btnAddNsx.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdateNsx.addEventListener("click", function () {
+        action.value = "editItem";
+    })
+
+
+    function onEditNSX(td) {
+
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Mansx").value = selectedRow.cells[0].innerHTML;
+        document.getElementById("Tennsx").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("Idnsx").value = selectedRow.cells[2].innerHTML;
+
+
+        btnAddNsx.style.display = "none";
+        btnUpdateNsx.style.display = "block";
+        btnCancelNsx.style.display = "block";
+
+    }
+    btnUpdateNsx.addEventListener("click", function () {
+        btnAddNsx.style.display = "block";
+        btnUpdateNsx.style.display = "none";
+        btnCancelNsx.style.display = "none";
+
+    })
+</script>
 
 
 

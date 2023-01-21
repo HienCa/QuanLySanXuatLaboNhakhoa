@@ -29,7 +29,7 @@ namespace QuanLySanXuat.Controllers
             ClaimsPrincipal claimUser = HttpContext.User;
             if (claimUser.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "VatLieu");
+                return RedirectToAction("Index", "PhieuNhapKho");
 
             }
             return View();
@@ -51,8 +51,9 @@ namespace QuanLySanXuat.Controllers
         {
             if (ModelState.IsValid)
             {
-                Nhanvien employee = _context.Nhanvien.Where(nv => nv.Email == account.Email).FirstOrDefault();
-                Khachhang customer = _context.Khachhang.Where(nv => nv.Email == account.Email).FirstOrDefault();
+
+                Nhanvien employee = _context.Nhanvien.Where(tk => tk.Email.Equals(account.Email)).Where(tk => tk.Matkhau.Equals(account.PassWord)).FirstOrDefault();
+                Khachhang customer = _context.Khachhang.Where(tk => tk.Email.Equals(account.Email)).Where(tk => tk.Matkhau.Equals(account.PassWord)).FirstOrDefault();
                 if (employee != null || customer != null)
                 {
                     List<Claim> claims = new List<Claim>()
@@ -71,7 +72,7 @@ namespace QuanLySanXuat.Controllers
                         new ClaimsPrincipal(claimIdentity), properties);
 
 
-                    return RedirectToAction("Index", "Vatlieu");
+                    return RedirectToAction("Index", "PhieuNhapKho");
 
 
                 }
@@ -81,7 +82,7 @@ namespace QuanLySanXuat.Controllers
 
                 }
             }
-            
+
 
             return View();
         }
@@ -101,74 +102,71 @@ namespace QuanLySanXuat.Controllers
         [HttpPost]
         public IActionResult ForgotPassword(Account account)
         {
-            if (ModelState.IsValid)
-            {
-                var newPassword = GenerateToken(12);
+
+            var newPassword = GenerateToken(12);
             string errorMessage = "Email không chính xác. Vui lòng kiểm tra lại email!";
 
 
-                try
+            try
+            {
+                Nhanvien nv = _context.Nhanvien.Where(tk => tk.Email.Equals(account.Email)).FirstOrDefault();
+                Khachhang kh = _context.Khachhang.Where(tk => tk.Email.Equals(account.Email)).FirstOrDefault();
+
+                string message = "";
+                var address = account.Email;
+
+                var subject = "Reset your password";
+
+                var mailContent = new MailContent();
+                mailContent.Subject = subject;
+                if (kh != null)
                 {
-                    Nhanvien nv = _context.Nhanvien.Where(tk => tk.Email.Equals(account.Email)).FirstOrDefault();
-                    Khachhang kh = _context.Khachhang.Where(tk => tk.Email.Equals(account.Email)).FirstOrDefault();
-
-                    string message = "";
-                    var address = account.Email;
-
-                    var subject = "Reset your password";
-
-                    var mailContent = new MailContent();
-                    mailContent.Subject = subject;
-                    if (kh != null)
-                    {
-                        message = "Xin Chào '" + kh.Tenkh + "' Mật khẩu mới của bạn là " + newPassword;
-                        kh.Matkhau = newPassword;
-                        mailContent.To = kh.Email;
-                    }
-                    if (nv != null)
-                    {
-                        message = "Xin Chào '" + nv.Tennv + "' Mật khẩu mới của bạn là " + newPassword;
-                        nv.Matkhau = newPassword;
-                        mailContent.To = nv.Email;
-                    }
-                    else
-                    {
-                        ViewData["errorMessage"] = errorMessage;
-                    }
-                    mailContent.Body = "<h1>From HienCa Production</h1><br/>" + message;
-
-                    //sendmail(từ mail, đến mail, tiêu đề, nội dung, mail gửi, mật khẩu ứng dụng)
-
-
-                    //mailContent.To = "dtny050601@gmail.com";   
-
-
-
-                    //IConfiguration _configuration = null;
-
-                    //_configuration.GetSection("MailSettings");
-
-                    ////khai báo lấy cấu hình trong appsetting.json ra
-                    //IOptions<MailSettings> mailSettings = mailSettings.;
-                    //SendMailService c = new SendMailService(mailSettings);
-                    SendMailService c = new SendMailService();
-                    c.SendMail(mailContent);
-
-                    _context.SaveChanges();
-
-                    TempData["SuccessMessage"] = "Chúng tôi đã gửi mail xác nhận đến cho bạn. Vui lòng kiểm tra mail!";
-
-                    //return RedirectToAction("Login", "Access");
-
-
+                    message = "Xin Chào '" + kh.Tenkh + "' Mật khẩu mới của bạn là " + newPassword;
+                    kh.Matkhau = newPassword;
+                    mailContent.To = kh.Email;
                 }
-                catch (Exception e)
+                if (nv != null)
                 {
-                    ViewData["errorMessage"] = "Email không khả dụng " + e;
+                    message = "Xin Chào '" + nv.Tennv + "' Mật khẩu mới của bạn là " + newPassword;
+                    nv.Matkhau = newPassword;
+                    mailContent.To = nv.Email;
                 }
+                else
+                {
+                    ViewData["errorMessage"] = errorMessage;
+                }
+                mailContent.Body = "<h1>From HienCa Production</h1><br/>" + message;
 
-               
+                //sendmail(từ mail, đến mail, tiêu đề, nội dung, mail gửi, mật khẩu ứng dụng)
+
+
+                //mailContent.To = "dtny050601@gmail.com";   
+
+
+
+                //IConfiguration _configuration = null;
+
+                //_configuration.GetSection("MailSettings");
+
+                ////khai báo lấy cấu hình trong appsetting.json ra
+                //IOptions<MailSettings> mailSettings = mailSettings.;
+                //SendMailService c = new SendMailService(mailSettings);
+                SendMailService c = new SendMailService();
+                c.SendMail(mailContent);
+
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Chúng tôi đã gửi mail xác nhận đến cho bạn. Vui lòng kiểm tra mail!";
+
+                //return RedirectToAction("Login", "Access");
+
+
             }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "Email không khả dụng " + e;
+            }
+
 
 
             return View();

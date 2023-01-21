@@ -12,23 +12,25 @@ namespace QuanLySanXuat.Entities
     {
         public int Idndpnk { get; set; }
         
-        [Range(1, 10000000, ErrorMessage ="Số lượng không hợp lệ")]
+    
         [Required]
 
         public float Soluong { get; set; }
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        //[Range(0,100000000, ErrorMessage = "Vui lòng nhập số tiền hợp lệ")]
+     
+        [Required]
 
-        [DataType(DataType.Currency)]
+        public string Donvitinh { get; set; }
+        [Required]
+
         public float Dongia { get; set; }
         [Required]
-        [StringLength(255, ErrorMessage = "Thông tin cung cấp quá dài!")]
+       
         public string Solo { get; set; }
         [Required]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime? Ngaysx { get; set; }
         [Required]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime? Hansd { get; set; }
         [Required]
 

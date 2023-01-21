@@ -1,0 +1,55 @@
+﻿
+
+@model QuanLySanXuat.Entities.Nganhang
+@{
+    Layout = null;
+
+
+}
+
+
+
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="Idnh" />
+<div class="row">
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Tên ngân hàng</label>
+        <div>
+            @Model.Tennh
+        </div>
+    </div>
+
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Email</label>
+        <div>
+            @Model.Email
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Địa chỉ</label>
+        <div>
+            @Model.Diachi
+        </div>
+    </div>
+
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Mã số thuế</label>
+        <div>
+            @Model.Masothue
+        </div>
+    </div>
+    <div class="form-group col-md-6 col-sm-12">
+
+        <label class="control-label">Ghi chú</label>
+        <div>
+            @Model.Ghichu
+        </div>
+    </div>
+</div>
+
+

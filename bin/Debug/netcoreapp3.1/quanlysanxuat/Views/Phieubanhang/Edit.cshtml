@@ -1,0 +1,75 @@
+﻿@model QuanLySanXuat.Entities.Phieubanhang
+@using QuanLySanXuat.Entities;
+@{
+    Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+   
+    List<Khachhang> khachhang = _context.Khachhang.Where(n => n.Active == 1).ToList();
+}
+
+
+
+<form asp-action="Create" asp-controller="Noidungphieubanhang" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Idpbh" />
+    <div class="form-group mb-3 col-md-12 col-sm-12">
+
+        <label asp-for="IdkhNavigation.Tenkh" for="exampleSelect1" class="control-label">Khách hàng</label>
+
+        <select asp-for="Idkh" id="multipleSelect" placeholder="Chọn khách hàng" data-search="true"
+                data-silent-initial-value-set="true">
+            @foreach (var item in khachhang)
+            {
+                <option value="@item.Idkh">@item.Tenkh</option>
+            }
+
+        </select>
+    </div>
+    <div class="form-group mb-3 col-md-6 col-sm-12">
+
+        <label asp-for="Sophieu" class="control-label">Số phiếu </label>
+        <input asp-for="Sophieu" class="form-control" type="text" placeholder="">
+        <span asp-validation-for="Sophieu" class="text-danger"></span>
+
+    </div>
+    @*<div class="form-group mb-3 col-md-6 col-sm-12">
+
+        <label asp-for="Ngaylap" class="control-label">Ngày nhập</label>
+        <input asp-for="Ngaylap" class="form-control" type="date">
+    </div>*@
+
+
+<div class="form-group mb-3 col-md-6 col-sm-12">
+
+    <label asp-for="Sohd" class="control-label">Số hóa đơn</label>
+    <input asp-for="Sohd" class="form-control" type="text">
+    <span asp-validation-for="Sohd" class="text-danger"></span>
+
+</div>
+    <div class="form-group mb-3 col-md-6 col-sm-12">
+
+        <label asp-for="Ngayhd" class="control-label">Ngày hóa đơn</label>
+        <input asp-for="Ngayhd" class="form-control" type="datetime-local" name="Ngayhd">
+        <span asp-validation-for="Ngayhd" class="text-danger"></span>
+
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+
+        <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+        <textarea asp-for="Ghichu" class="form-control" type="text" name="Ghichu"></textarea>
+        <span asp-validation-for="Ghichu" class="text-danger"></span>
+
+    </div>
+
+
+    <div class="text-center mt-3 align-items-md-center">
+        @Html.ActionLink("Quay lại", "Index", "Phieuxuatkho", null, new { @class = "btn btn-cancel w-25" })
+        <button class="btn btn-success w-25" type="submit">Lưu</button>
+    </div>
+</form>
+
+
+
+
+

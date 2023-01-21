@@ -1,47 +1,93 @@
 ﻿@model IEnumerable<QuanLySanXuat.Entities.Tosanxuat>
 @using QuanLySanXuat.Entities;
 @{
+
     Layout = "_Layout";
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    Nhanvien nv = _context.Nhanvien.Where(n => n.Email.Equals(TempData["OWN"])).FirstOrDefault();
+    List<Giaidoansx> giaidoansx = _context.Giaidoansx.Where(active => active.Active == 1).ToList();
 
 }
-<div class="d-flex">
-    <h2>Quản Lý Tổ Sản Xuất</h2>
-    <div class="col-md-3 col-sm-12">
-        @*<a href="/Tosanxuat/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-            <i class="fas fa-plus"></i>Thêm mới
-        </a>*@
-        <a onclick="showInPopup('@Url.Action("Create", "Tosanxuat", null, Context.Request.Scheme)', 'Thêm Tổ Sản Xuất')" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px "><i class="fas fa-plus"></i>Thêm mới</a>
+<form asp-action="CreateOrEdit" asp-controller="Tosanxuat" method="post" onsubmit="return onSubmitFormTSX()">
+    <input id="action" type="hidden" name="action" />
+    <input id="Idtsx" type="hidden" name="Idtsx" />
+    <div class="bg-light p-1 border border-secondary rounded">
+        <h2>Quản Lý Tổ Sản Xuất</h2>
 
-        <a href="/Tosanxuat/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-excel"></i>
-        </a>
-        <a href="/Tosanxuat/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-pdf"></i>
-        </a>
-        <a href="/Tosanxuat/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-csv"></i>
-        </a>
-    </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Mã TSX
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <input type="text" name="Matsx" maxlength="255" id="Matsx" onfocus="this.value=''" class="form-control">
 
 
-    <div class="col-md-3 col-sm-12">
-        <form asp-action="Import" asp-controller="Tosanxuat" method="post" enctype="multipart/form-data">
-            <div class=" d-flex">
-                @*<label for="fileExcel"  class="btn  ">Chọn file Excel</label>*@
-                <input id="fileExcel" class="" required type="file" name="file" />
-                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+                    </div>
+                </div>
             </div>
 
-        </form>
+            <div class="col-md-4 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Tên TSX
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" name="Tentsx" maxlength="255" id="Tentsx" onfocus="this.value=''" class="form-control">
+                        <span id="checkTentsx" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12 ">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Giai đoạn sản xuất
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <select id="multipleSelect" name="Idgdsx" class="Idgdsx" data-search="true"
+                                data-silent-initial-value-set="true">
+                            @foreach (var item in giaidoansx)
+                            {
+                                <option value="@item.Idgdsx">@item.Tengdsx</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-9 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-1 col-sm-12">
+                        Ghi chú
+                    </div>
+                    <div class="col-md-11 col-sm-12">
+                        <textarea name="Ghichu" id="Ghichu" onfocus="this.value=''" row="" maxlength="4000" style="height:10px;" class="form-control"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                <button type="submit" style="float: right;" class="btn btn-primary w-50" id="btnAddTSX">Thêm</button>
+                <div class="d-flex">
+                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelTSX">Hủy</button>
+                    <button type="submit" class="btn btn-primary w-50" onclick="onEditTSX()" id="btnUpdateTSX" style="display:none; float: right;">
+                        Cập
+                        nhật
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </div>
-</div>
+
+</form>
 
 <div class="x_content">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
             <div class="card-box table-responsive">
 
 
@@ -49,10 +95,11 @@
                        cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Mã tổ </th>
+                            <th>Mã tổ</th>
                             <th>Tên tổ</th>
-                            <th>Giao đoạn đảm nhiệm</th>
+                            <th>Giai đoạn sản xuất</th>
                             <th>Ghi chú</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,22 +107,24 @@
                             <td>.</td>
                             <td>.</td>
                             <td>.</td>
-                            <td>.</td>
+
                         </tr>
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>@item.Matsx</td>
                                 <td>@item.Tentsx</td>
-                                <td>@item.IdgdsxNavigation.Magdsx- @item.IdgdsxNavigation.Tengdsx</td>
+                                <td>@item.IdgdsxNavigation.Tengdsx</td>
                                 <td>@item.Ghichu</td>
+                                <td style="display:none">@item.Idgdsx</td>
+                                <td style="display:none">@item.Idtsx</td>
 
-                                <td class="table-td-center">
-                                    @*<a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idtsx"><i class="fas fa-info text-white"></i></a>*@
-                                    @*<a asp-action="Edit" class="btn btn-sm  btn-warning " asp-route-id="@item.Idtsx"><i class="fas fa-edit text-white"></i></a>
-        <a asp-action="Delete" class="btn  btn-sm btn-danger " asp-route-id="@item.Idtsx"><i class="fas fa-trash-alt text-white"></i></a>*@
-                                    <a onclick="showInPopup('@Url.Action("Edit", "Tosanxuat", new {id=item.Idtsx }, Context.Request.Scheme)', 'Cập Nhật Thông Tin')" class="btn btn-warning btn-sm"><i class="fas fa-edit text-white"></i></a>
-                                    <a onclick="showInPopup('@Url.Action("Delete", "Tosanxuat",  new {id=item.Idtsx } , Context.Request.Scheme)', 'Bạn Chắc Chắn Muốn Xóa?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt text-white"></i></a>
+
+                                <td class="table-td-center d-flex">
+                                    <a class="btn  btn-sm btn-warning " onclick="onEditTSX(this)"><i class="fas fa-edit text-white"></i></a>
+                                    <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idtsx" asp-controller="Tosanxuat">
+                                        <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                                    </form>
 
                                 </td>
                             </tr>
@@ -87,4 +136,107 @@
             </div>
         </div>
     </div>
+
 </div>
+<script>
+    let deleteBtns = document.querySelectorAll('.formDelete');
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('submit', function (e) {
+
+            var form = this;
+
+            e.preventDefault();
+
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
+
+                icon: 'warning',
+                buttons: ['Hủy bỏ!', 'Xác nhận'],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+
+                    form.submit();
+                    swal({
+                        title: 'Đã xóa!',
+                        icon: 'success',
+                        timer: 1500,
+                        button: false,
+                    });
+
+                } else {
+                    swal({
+                        title: 'Đã hủy!',
+                        button: false,
+                        icon: 'error',
+                        timer: 500,
+                    });
+                }
+            });
+        });
+    })
+
+    function onSubmitFormTSX() {
+        let isSubmit = false;
+        let Tentsx = document.getElementById("Tentsx").value;
+        let Idgdsx = document.querySelector(".Idgdsx").value;
+        let checkTentsx = document.getElementById("checkTentsx");
+        let errorMessage = "Thông tin được cung cấp quá dài!";
+
+        if (Tentsx.length > 255) {
+            checkTentsx.innerText = errorMessage;
+
+        }
+        if (Tentsx.length == 0) {
+            checkTentsx.innerText = "Vui lòng nhập thông tin!";
+
+        }
+        else {
+            isSubmit = true;
+        }
+        return isSubmit;
+    }
+
+
+    let btnAddTSX = document.getElementById("btnAddTSX");
+    let btnUpdateTSX = document.getElementById("btnUpdateTSX");
+    let btnCancelTSX = document.getElementById("btnCancelTSX");
+    let action = document.getElementById("action");
+
+    btnCancelTSX.addEventListener("click", function () {
+        btnUpdateTSX.style.display = "none";
+        btnCancelTSX.style.display = "none";
+        btnAddTSX.style.display = "block";
+    })
+
+
+    btnAddTSX.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdateTSX.addEventListener("click", function () {
+        action.value = "editItem";
+    })
+
+
+    function onEditTSX(td) {
+
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Matsx").value = selectedRow.cells[0].innerHTML;
+        document.getElementById("Tentsx").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("Ghichu").value = selectedRow.cells[3].innerHTML;
+        document.querySelector(".Idgdsx").value = selectedRow.cells[4].innerHTML;
+        document.getElementById("Idtsx").value = selectedRow.cells[5].innerHTML;
+
+
+        btnAddTSX.style.display = "none";
+        btnUpdateTSX.style.display = "block";
+        btnCancelTSX.style.display = "block";
+
+    }
+    btnUpdateTSX.addEventListener("click", function () {
+        btnAddTSX.style.display = "block";
+        btnUpdateTSX.style.display = "none";
+        btnCancelTSX.style.display = "none";
+
+    })
+</script>

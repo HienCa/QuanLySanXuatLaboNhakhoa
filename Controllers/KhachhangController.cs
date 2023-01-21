@@ -32,7 +32,7 @@ namespace QuanLySanXuat.Controllers
         // GET: Khachhang
         public async Task<IActionResult> Index()
         {
-            var productionManagementSoftwareContext = _context.Khachhang.Where(kh=>kh.Active==1);
+            var productionManagementSoftwareContext = _context.Khachhang.Where(kh => kh.Active == 1);
             return View(await productionManagementSoftwareContext.ToListAsync());
         }
 
@@ -54,6 +54,34 @@ namespace QuanLySanXuat.Controllers
 
             return View(khachhang);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Khachhang kh, string action)
+        {
+            try
+            {
+                if (action.Equals("addItem"))
+                {
+                    kh.Idkh = 0;
+                    _context.Add(kh);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    kh.Active = 1;
+                    _context.Update(kh);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+        }
+
 
         // GET: Khachhang/Create
         public IActionResult Create()
@@ -81,11 +109,11 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( KhachhangViewModel khachhang)
+        public async Task<IActionResult> Create(KhachhangViewModel khachhang)
         {
             string uniqueFileName = UploadedFile(khachhang);
 
-            if (ModelState.IsValid)
+            try
             {
                 //Chức năng giành cho khách hàng không đăng ký tài khoản
                 Khachhang kh = new Khachhang();
@@ -103,18 +131,22 @@ namespace QuanLySanXuat.Controllers
                 kh.Ghichu = khachhang.Ghichu;
                 kh.Facebook = khachhang.Facebook;
                 kh.Zalo = khachhang.Zalo;
-                //kh.Accountidaccount = khachhang.Accountidaccount;
                 kh.Ngaysinh = khachhang.Ngaysinh;
-
-
-                //Account accountGuest = _context.Account.Where(a => a.Tk.Equals("Guest")).FirstOrDefault();
-                //kh.Accountidaccount = accountGuest.Idaccount;
                 kh.Active = 1;
-                _context.Add(kh);
+
+                if (kh.Matkhau.Equals(""))
+                {
+                    kh.Matkhau = "KH12345";
+                }
+                _context.Khachhang.Add(kh);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(khachhang);
+            catch (Exception e)
+            {
+                return View(khachhang);
+
+            }
         }
 
 
@@ -126,7 +158,7 @@ namespace QuanLySanXuat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCustomerAccount( Khachhang khachhang)
+        public async Task<IActionResult> CreateCustomerAccount(Khachhang khachhang)
         {
             if (ModelState.IsValid)
             {
@@ -189,14 +221,14 @@ namespace QuanLySanXuat.Controllers
             {
 
                 Khachhang kh = context.Khachhang.Where(tk => tk.Email.Equals(email)).FirstOrDefault();
-                if(kh != null)
+                if (kh != null)
                 {
                     var address = email;
 
                     var subject = "Reset your password";
                     var message = "Xin Chào " + kh.Tenkh + "\n Mật khẩu mới của bạn là " + newPassword;
                     //sendmail(từ mail, đến mail, tiêu đề, nội dung, mail gửi, mật khẩu ứng dụng)
-            
+
 
 
 
@@ -243,7 +275,7 @@ namespace QuanLySanXuat.Controllers
             {
                 Console.WriteLine(e.Message);
             }
-            
+
             TempData["Message"] = errorMessage;
 
             return RedirectToAction("QuenMatKhau", "Home");
@@ -295,84 +327,93 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  KhachhangViewModel khachhang)
+        public async Task<IActionResult> Edit(int id, KhachhangViewModel khachhang)
         {
             string uniqueFileName = UploadedFile(khachhang);
-            if (id != khachhang.Idkh)
+
+
+            try
             {
-                return NotFound();
-            }
+                Khachhang kh = new Khachhang();
+                //lấy hình ảnh
+                kh.Hinhanh = uniqueFileName;
+                kh.Idkh = khachhang.Idkh;
+                kh.Makh = khachhang.Makh;
+                kh.Tenkh = khachhang.Tenkh;
+                kh.Diachi = khachhang.Diachi;
+                kh.Sdt = khachhang.Sdt;
 
-            if (ModelState.IsValid)
-            {
-                try
+                kh.Email = khachhang.Email;
+                kh.Gioitinh = khachhang.Gioitinh;
+                kh.Masothue = khachhang.Masothue;
+                kh.Ghichu = khachhang.Ghichu;
+                kh.Facebook = khachhang.Facebook;
+                kh.Zalo = khachhang.Zalo;
+                //kh.Accountidaccount = khachhang.Accountidaccount;
+                kh.Ngaysinh = khachhang.Ngaysinh;
+
+                if (khachhang.Hinhanh != null)
                 {
-                    Khachhang kh = new Khachhang();
-                    //lấy hình ảnh
-                    kh.Hinhanh = uniqueFileName;
-                    kh.Idkh = khachhang.Idkh;
-                    kh.Makh = khachhang.Makh;
-                    kh.Tenkh = khachhang.Tenkh;
-                    kh.Diachi = khachhang.Diachi;
-                    kh.Sdt = khachhang.Sdt;
-
-                    kh.Email = khachhang.Email;
-                    kh.Gioitinh = khachhang.Gioitinh;
-                    kh.Masothue = khachhang.Masothue;
-                    kh.Ghichu = khachhang.Ghichu;
-                    kh.Facebook = khachhang.Facebook;
-                    kh.Zalo = khachhang.Zalo;
-                    //kh.Accountidaccount = khachhang.Accountidaccount;
-                    kh.Ngaysinh = khachhang.Ngaysinh;
-
-                    if (khachhang.Hinhanh != null)
+                    if (khachhang.ExistingImage != null)
                     {
-                        if (khachhang.ExistingImage != null)
-                        {
-                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images", khachhang.ExistingImage);
-                            System.IO.File.Delete(filePath);
-                        }
-
-                        kh.Hinhanh = UploadedFile(khachhang);
+                        string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images", khachhang.ExistingImage);
+                        System.IO.File.Delete(filePath);
                     }
 
-                    _context.Update(kh);
-                    await _context.SaveChangesAsync();
+                    kh.Hinhanh = UploadedFile(khachhang);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KhachhangExists(khachhang.Idkh))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                _context.Khachhang.Update(kh);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(khachhang);
-        }
+            catch (DbUpdateConcurrencyException)
+            {
+                return View(khachhang);
+            }
 
-        // GET: Khachhang/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+
+
+        }
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var kh = _context.Khachhang.Where(m => m.Idkh == id).FirstOrDefault();
+
+                kh.Active = 0;
+                _context.Khachhang.Update(kh);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
             }
-            
-            var khachhang = await _context.Khachhang
-                //.Include(k => k.AccountidaccountNavigation)
-                .FirstOrDefaultAsync(m => m.Idkh == id);
-            if (khachhang == null)
+            catch (Exception e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
-            return View(khachhang);
+
+
         }
+        // GET: Khachhang/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var khachhang = await _context.Khachhang
+
+        //        .FirstOrDefaultAsync(m => m.Idkh == id);
+        //    if (khachhang == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(khachhang);
+        //}
 
         // POST: Khachhang/Delete/5
         [HttpPost, ActionName("Delete")]

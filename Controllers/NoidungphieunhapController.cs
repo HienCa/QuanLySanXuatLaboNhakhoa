@@ -136,24 +136,25 @@ namespace QuanLySanXuat.Controllers
 
         }
 
-        // GET: Noidungphieunhap/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+           
+            try
             {
-                return NotFound();
-            }
+                var noidungphieunhap = _context.Noidungpnk.Where(m => m.Idndpnk == id).FirstOrDefault();
+               
+                _context.Noidungpnk.Remove(noidungphieunhap);
+                 _context.SaveChangesAsync();
+                return new JsonResult(new { code = 200, msg = "Xóa thành công!" });
 
-            var noidungphieunhap = await _context.Noidungpnk
-                .Include(n => n.IdpnkNavigation)
-                .Include(n => n.IdvlNavigation)
-                .FirstOrDefaultAsync(m => m.Idndpnk == id);
-            if (noidungphieunhap == null)
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return new JsonResult(new { code = 500, msg = e });
             }
+            
 
-            return View(noidungphieunhap);
+
         }
 
         // POST: Noidungphieunhap/Delete/5
@@ -161,7 +162,9 @@ namespace QuanLySanXuat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var noidungphieunhap = await _context.Noidungpnk.FindAsync(id);
+            //var noidungphieunhap = await _context.Noidungpnk.FindAsync(id);
+            var noidungphieunhap = await _context.Noidungpnk
+               .FirstOrDefaultAsync(m => m.Idndpnk == id);
             _context.Noidungpnk.Remove(noidungphieunhap);
             await _context.SaveChangesAsync();
             //return RedirectToAction(nameof(Index));

@@ -45,7 +45,37 @@ namespace QuanLySanXuat.Controllers
 
             return View(tosanxuat);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Tosanxuat tsx, string action)
+        {
+            try
+            {
+                
+                if (action.Equals("addItem"))
+                {
 
+                    tsx.Idtsx = 0;
+                    _context.Add(tsx);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    tsx.Active = 1;
+                    _context.Update(tsx);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
         // GET: Tosanxuat/Create
         public IActionResult Create()
         {
@@ -122,25 +152,44 @@ namespace QuanLySanXuat.Controllers
  
             return View(tosanxuat);
         }
-
-        // GET: Tosanxuat/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var tsx = _context.Tosanxuat.Where(m => m.Idtsx == id).FirstOrDefault();
+                tsx.Active = 0;
+                _context.Tosanxuat.Update(tsx);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var tosanxuat = await _context.Tosanxuat
-                .Include(t => t.IdgdsxNavigation)
-                .FirstOrDefaultAsync(m => m.Idtsx == id);
-            if (tosanxuat == null)
-            {
-                return NotFound();
-            }
 
-            return View(tosanxuat);
+
         }
+        // GET: Tosanxuat/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var tosanxuat = await _context.Tosanxuat
+        //        .Include(t => t.IdgdsxNavigation)
+        //        .FirstOrDefaultAsync(m => m.Idtsx == id);
+        //    if (tosanxuat == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(tosanxuat);
+        //}
 
         // POST: Tosanxuat/Delete/5
         [HttpPost, ActionName("Delete")]

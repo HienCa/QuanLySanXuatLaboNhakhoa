@@ -143,29 +143,48 @@ namespace QuanLySanXuat.Controllers
 
             return View("Edit", "Vatlieu");
         }
-
-        // GET: Vatlieu/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var vl = _context.Vatlieu.Where(m => m.Idvl == id).FirstOrDefault();
+
+                _context.Vatlieu.Remove(vl);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var vatlieu = await _context.Vatlieu
-                .Include(v => v.IdhsxNavigation)
-                .Include(v => v.IdnvlNavigation)
-                .Include(v => v.IdnsxNavigation)
 
-                .FirstOrDefaultAsync(m => m.Idvl == id);
 
-            if (vatlieu == null)
-            {
-                return NotFound();
-            }
-
-            return View(vatlieu);
         }
+        // GET: Vatlieu/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var vatlieu = await _context.Vatlieu
+        //        .Include(v => v.IdhsxNavigation)
+        //        .Include(v => v.IdnvlNavigation)
+        //        .Include(v => v.IdnsxNavigation)
+
+        //        .FirstOrDefaultAsync(m => m.Idvl == id);
+
+        //    if (vatlieu == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(vatlieu);
+        //}
 
         // POST: Vatlieu/Delete/5
         [HttpPost, ActionName("Delete")]

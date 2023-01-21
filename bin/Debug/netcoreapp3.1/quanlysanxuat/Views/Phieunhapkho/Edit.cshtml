@@ -1,69 +1,120 @@
 ﻿@model QuanLySanXuat.Entities.Phieunhapkho
 
+
+
 @using QuanLySanXuat.Entities;
+
 @{
     Layout = "_Layout";
-
     ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
-    Nhanvien nv = _context.Nhanvien.Where(n => n.Email.Equals(TempData["OWN"])).FirstOrDefault();
+
     List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
 
 
 }
 
 
-<form class="row" asp-action="Edit" asp-controller="Phieunhapkho">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Idpnk" />
-    <div class="form-group col-md-12 col-sm-12">
+<h3 class="tile-title">Tạo phiếu nhập kho</h3>
+<form asp-action="Create" asp-controller="Phieunhapkho" enctype="multipart/form-data">
 
-        <label asp-for="Idncc" for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+    <div class="bg-light p-1 border border-secondary rounded ">
+        <div class="row">
+            <div class="form-group col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Nhà Cung Cấp
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <select asp-for="Idncc" id="multipleSelect" placeholder="Chọn hãng sản xuất " data-search="true"
+                                data-silent-initial-value-set="true">
+                            @foreach (var item in nhacungcap)
+                            {
+                                <option value="@item.Idncc">@item.Tenncc</option>
+                            }
 
-        <select asp-for="Idncc" id="multipleSelect" placeholder="Chọn hãng sản xuất " data-search="true"
-                data-silent-initial-value-set="true">
-            @foreach (var item in nhacungcap)
-            {
-                <option value="@item.Idncc">@item.Tenncc</option>
-            }
+                        </select>
 
-        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-2 col-sm-12">
+                        Ghi Chú
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <textarea asp-for="Ghichu" id="" row="" style="height:10px;" class="form-control"></textarea>
+                        <span asp-validation-for="Ghichu" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Số phiếu
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input asp-for="Sophieu" type="text" class="form-control">
+                        <span asp-validation-for="Sophieu" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Ngày Lập
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+
+                        <input asp-for="Ngaylap" class="form-control" />
+                        <span asp-validation-for="Ngaylap" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        Số HĐ
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input asp-for="Sohd" class="form-control">
+                        <span asp-validation-for="Sohd" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-3 col-sm-12">
+                        Ngày HĐ
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+
+                        <input asp-for="Ngayhd" class="form-control" />
+                        <span asp-validation-for="Ngayhd" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class=" mt-3 d-flex flex-row-reverse">
+
+            <input type="submit" id="TaoPhieu" value="Tạo phiếu" class="btn btn-primary w-25" />
+            @Html.ActionLink("Quay lại", "Index", "Phieunhapkho", null, new { @class = "btn btn-cancel w-25" })
+
+        </div>
     </div>
-    <div class="form-group col-md-6 col-sm-12">
-
-        <label asp-for="Sophieu" class="control-label">Số phiếu </label>
-        <input asp-for="Sophieu" class="form-control" type="text" placeholder="">
-    </div>
-    <div class="form-group col-md-6 col-sm-12">
-
-        <label asp-for="Ngaylap" class="control-label">Ngày nhập</label>
-        <input asp-for="Ngaylap" class="form-control" type="date">
-    </div>
 
 
-    <div class="form-group col-md-6 col-sm-12">
-
-        <label asp-for="Sohd" class="control-label">Số hóa đơn</label>
-        <input asp-for="Sohd" class="form-control" type="text">
-    </div>
-    <div class="form-group col-md-6 col-sm-12">
-
-        <label asp-for="Ngayhd" class="control-label">Ngày hóa đơn</label>
-        <input asp-for="Ngayhd" class="form-control" type="date" name="Ngayhd">
-    </div>
-    <div class="form-group col-md-12 col-sm-12">
-
-        <label asp-for="Ghichu" class="control-label">Ghi chú</label>
-        <textarea asp-for="Ghichu" class="form-control" type="text" name="Ghichu"></textarea>
-    </div>
 
 
-    <div class="text-center mt-3 align-items-md-center">
-        @Html.ActionLink("Quay lại", "Index", "Phieunhapkho", null, new { @class = "btn btn-cancel mt-3 w-25" })
-        <button class="btn btn-success w-25" type="submit">Lưu</button>
-    </div>
+
 </form>
-
-
-
-
 

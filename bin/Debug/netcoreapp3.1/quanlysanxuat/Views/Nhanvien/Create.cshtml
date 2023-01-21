@@ -5,125 +5,109 @@
 
 }
 
-<div class="row">
-    <div class="col-md-12">
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="tile pl-3 pr-2">
+    <div class="row">
+        <div class="form-group col-md-6">
 
-            <h3 class="tile-title">Thêm mới nhân viên</h3>
-            <div class="tile-body">
+            <label asp-for="Manv" class="control-label">Mã nhân viên</label>
+            <input asp-for="Manv" class="form-control form-control-lg" />
+            <span asp-validation-for="Manv" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
 
+            <label asp-for="Tennv" class="control-label">Họ và tên</label>
+            <input asp-for="Tennv" class="form-control form-control-lg" />
+            <span asp-validation-for="Tennv" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
 
-                <form asp-action="Create" enctype="multipart/form-data" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="Cccd" class="control-label">CCCD</label>
+            <input asp-for="Cccd" class="form-control form-control-lg" />
+            <span asp-validation-for="Cccd" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
 
-                    <div class="row">
-                        <div class="form-group col-md-6">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control form-control-lg" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
 
-                            <label asp-for="Manv" class="control-label">Mã nhân viên</label>
-                            <input asp-for="Manv" class="form-control form-control-lg" />
-                            <span asp-validation-for="Manv" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
+            <label asp-for="Diachi" class="control-label">Địa chỉ</label>
+            <input asp-for="Diachi" class="form-control form-control-lg" />
+            <span asp-validation-for="Diachi" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
 
-                            <label asp-for="Tennv" class="control-label">Họ và tên</label>
-                            <input asp-for="Tennv" class="form-control form-control-lg" />
-                            <span asp-validation-for="Tennv" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-
-                            <label asp-for="Cccd" class="control-label">CCCD</label>
-                            <input asp-for="Cccd" class="form-control form-control-lg" />
-                            <span asp-validation-for="Cccd" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-
-                            <label asp-for="Email" class="control-label">Email</label>
-                            <input asp-for="Email" class="form-control form-control-lg" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-
-                            <label asp-for="Diachi" class="control-label">Địa chỉ</label>
-                            <input asp-for="Diachi" class="form-control form-control-lg" />
-                            <span asp-validation-for="Diachi" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-
-                            <label asp-for="Sdt" class="control-label">Số điện thoại</label>
-                            <input asp-for="Sdt" class="form-control form-control-lg" />
-                            <span asp-validation-for="Sdt" class="text-danger"></span>
-                        </div>
+            <label asp-for="Sdt" class="control-label">Số điện thoại</label>
+            <input asp-for="Sdt" class="form-control form-control-lg" />
+            <span asp-validation-for="Sdt" class="text-danger"></span>
+        </div>
 
 
-                        <div class="form-group col-md-6">
+        <div class="form-group col-md-6">
 
-                            <label asp-for="Masothue" class="control-label">Mã số thuế</label>
-                            <input asp-for="Masothue" class="form-control form-control-lg" />
-                            <span asp-validation-for="Masothue" class="text-danger"></span>
-                        </div>
+            <label asp-for="Masothue" class="control-label">Mã số thuế</label>
+            <input asp-for="Masothue" class="form-control form-control-lg" />
+            <span asp-validation-for="Masothue" class="text-danger"></span>
+        </div>
 
-                        <div class="form-group col-md-3">
-                            <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
-                            <input asp-for="Ngaysinh" type="date" class="form-control form-control-lg" />
-                            <span asp-validation-for="Ngaysinh" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-3">
+        <div class="form-group col-md-3">
+            <label asp-for="Ngaysinh" class="control-label">Ngày sinh</label>
+            <input asp-for="Ngaysinh" type="date" class="form-control form-control-lg" />
+            <span asp-validation-for="Ngaysinh" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
 
-                            <label class="control-label">Giới tính</label>
-                            <select asp-for="Gioitinh" class="form-control form-control-lg" id="exampleSelect2">
-                                <option>-- Chọn giới tính --</option>
-                                <option>Nam</option>
-                                <option>Nữ</option>
-                                <option>Khác</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Facebook" class="control-label">Facebook</label>
-                            <input asp-for="Facebook" type="text" class="form-control form-control-lg" />
-                            <span asp-validation-for="Facebook" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Zalo" class="control-label">Zalo</label>
-                            <input asp-for="Zalo" type="text" class="form-control form-control-lg" />
-                            <span asp-validation-for="Zalo" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Ghichu" class="control-label">Ghi chú</label>
-                            <textarea asp-for="Ghichu" type="text" class="form-control form-control-lg"></textarea>
-                            <span asp-validation-for="Ghichu" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Hinhanh" class="control-label"></label>
-                            <div class="custom-file">
-                                <input asp-for="Hinhanh" class="custom-file-input " id="customFile">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                            <span asp-validation-for="Hinhanh" class="text-danger"></span>
-
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <input asp-for="Hinhanh" class="form-control" type="hidden" />
-                        </div>
-
-
-                    </div>
-
-                    <div class="text-center mt-3 col-12">
-                        @Html.ActionLink("Quay lại", "Index", "Nhanvien", null, new { @class = "btn btn-cancel mt-3 w-25" })
-
-                        <button class="btn btn-success w-50 mt-3" type="submit">Them</button>
-
-                    </div>
-
-                </form>
-
+            <label class="control-label">Giới tính</label>
+            <select asp-for="Gioitinh" class="form-control form-control-lg" id="exampleSelect2">
+                <option>-- Chọn giới tính --</option>
+                <option>Nam</option>
+                <option>Nữ</option>
+                <option>Khác</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Facebook" class="control-label">Facebook</label>
+            <input asp-for="Facebook" type="text" class="form-control form-control-lg" />
+            <span asp-validation-for="Facebook" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Zalo" class="control-label">Zalo</label>
+            <input asp-for="Zalo" type="text" class="form-control form-control-lg" />
+            <span asp-validation-for="Zalo" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Ghichu" class="control-label">Ghi chú</label>
+            <input asp-for="Ghichu" type="text" class="form-control form-control-lg"/>
+            <span asp-validation-for="Ghichu" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Hinhanh" class="control-label"></label>
+            <div class="custom-file">
+                <input asp-for="Hinhanh" class="custom-file-input " id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
+            <span asp-validation-for="Hinhanh" class="text-danger"></span>
 
         </div>
 
+        <div class="form-group col-md-4">
+            <input asp-for="Hinhanh" class="form-control" type="hidden" />
+        </div>
+
+
     </div>
-</div>
+
+    <div class="text-center d-flex mt-3 col-12">
+        @Html.ActionLink("Quay lại", "Index", "Nhanvien", null, new { @class = "btn btn-cancel w-25" })
+
+        <button class="btn btn-success w-50" type="submit">Thêm</button>
+
+    </div>
+
+</form>
 
 

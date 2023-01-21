@@ -43,6 +43,35 @@ namespace QuanLySanXuat.Controllers
 
             return View(nhomvatlieu);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Nhomvl nhomvl, string action)
+        {
+            try
+            {
+                if (action.Equals("addItem"))
+                {
+                    nhomvl.Idnvl = 0;
+                    _context.Add(nhomvl);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    nhomvl.Active = 1;
+                    _context.Update(nhomvl);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
 
         // GET: Nhomvatlieu/Create
         public IActionResult Create()
@@ -140,24 +169,43 @@ namespace QuanLySanXuat.Controllers
             }
             return View(nhomvatlieu);
         }
-
-        // GET: Nhomvatlieu/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var nvl = _context.Nhomvl.Where(m => m.Idnvl == id).FirstOrDefault();
+
+                _context.Nhomvl.Remove(nvl);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var nhomvatlieu = await _context.Nhomvl
-                .FirstOrDefaultAsync(m => m.Idnvl == id);
-            if (nhomvatlieu == null)
-            {
-                return NotFound();
-            }
 
-            return View(nhomvatlieu);
+
         }
+        // GET: Nhomvatlieu/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var nhomvatlieu = await _context.Nhomvl
+        //        .FirstOrDefaultAsync(m => m.Idnvl == id);
+        //    if (nhomvatlieu == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(nhomvatlieu);
+        //}
 
         // POST: Nhomvatlieu/Delete/5
         [HttpPost, ActionName("Delete")]

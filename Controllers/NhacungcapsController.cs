@@ -43,7 +43,35 @@ namespace QuanLySanXuat.Controllers
 
             return View(nhacungcap);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Nhacungcapvl ncc, string action)
+        {
+            try
+            {
+                if (action.Equals("addItem"))
+                {
+                    ncc.Idncc = 0;
+                    _context.Add(ncc);
 
+                }
+                if (action.Equals("editItem"))
+                {
+                    ncc.Active = 1;
+                    _context.Update(ncc);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
         // GET: Nhacungcaps/Create
         public IActionResult Create()
         {
@@ -123,23 +151,43 @@ namespace QuanLySanXuat.Controllers
             return View(nhacungcap);
         }
 
-        // GET: Nhacungcaps/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            try
             {
-                return NotFound();
+                var ncc = _context.Nhacungcapvl.Where(m => m.Idncc == id).FirstOrDefault();
+
+                _context.Nhacungcapvl.Remove(ncc);
+                _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Index));
             }
 
-            var nhacungcap = await _context.Nhacungcapvl
-                .FirstOrDefaultAsync(m => m.Idncc == id);
-            if (nhacungcap == null)
-            {
-                return NotFound();
-            }
 
-            return View(nhacungcap);
+
         }
+        // GET: Nhacungcaps/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var nhacungcap = await _context.Nhacungcapvl
+        //        .FirstOrDefaultAsync(m => m.Idncc == id);
+        //    if (nhacungcap == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(nhacungcap);
+        //}
 
         // POST: Nhacungcaps/Delete/5
         [HttpPost, ActionName("Delete")]

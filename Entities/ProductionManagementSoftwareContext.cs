@@ -760,7 +760,9 @@ namespace QuanLySanXuat.Entities
                 entity.Property(e => e.Solo)
                     .HasColumnName("SOLO")
                     .HasMaxLength(255);
-
+                entity.Property(e => e.Donvitinh)
+                    .HasColumnName("DONVITINH")
+                    .HasMaxLength(255);
                 entity.Property(e => e.Soluong).HasColumnName("SOLUONG");
 
                 entity.HasOne(d => d.IdpnkNavigation)
@@ -1084,7 +1086,7 @@ namespace QuanLySanXuat.Entities
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Sophieu)
-                    .IsRequired()
+                   
                     .HasColumnName("SOPHIEU")
                     .HasMaxLength(255);
 
