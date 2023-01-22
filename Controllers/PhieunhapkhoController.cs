@@ -75,7 +75,7 @@ namespace QuanLySanXuat.Controllers
                 if (action.Equals("editItem"))
                 {
                     noidungphieunhap.Idndpnk = phieunhap;
-
+                   
                   
                     _context.Noidungpnk.Update(noidungphieunhap);
 
@@ -84,9 +84,11 @@ namespace QuanLySanXuat.Controllers
                 if (action.Equals("TaoPhieu"))
                 {
                     Phieutranoncc phieutranoncc = new Phieutranoncc();
+                    phieutranoncc.Sophieu = noidungphieunhap.IdpnkNavigation.Sophieu;
                     phieutranoncc.Ngaylap = DateTime.Now;
                     phieutranoncc.Idhttt = 1;
-                    //_context.Noidungtranoncc.Add(noidungtranoncc);
+                    _context.Phieutranoncc.Add(phieutranoncc);
+                    await _context.SaveChangesAsync();
                 }
                 //phieunhapkho.Active = 1;
                 //phieunhapkho.Ngaylap = DateTime.Now;

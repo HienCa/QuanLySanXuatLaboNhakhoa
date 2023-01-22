@@ -100,9 +100,10 @@
 
                             <select asp-for="Tosxid" id="multipleSelect" data-search="true"
                                     data-silent-initial-value-set="true">
+                                <option value="">Không</option>
                                 @foreach (var item in tosanxuat)
                                 {
-                                    <option value="">Không</option>
+
                                     <option value="@item.Idtsx">@item.Tentsx</option>
                                 }
 

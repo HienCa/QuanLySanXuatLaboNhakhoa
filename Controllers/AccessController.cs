@@ -51,11 +51,11 @@ namespace QuanLySanXuat.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 Nhanvien employee = _context.Nhanvien.Where(tk => tk.Email.Equals(account.Email)).Where(tk => tk.Matkhau.Equals(account.PassWord)).FirstOrDefault();
                 Khachhang customer = _context.Khachhang.Where(tk => tk.Email.Equals(account.Email)).Where(tk => tk.Matkhau.Equals(account.PassWord)).FirstOrDefault();
                 if (employee != null || customer != null)
                 {
+                    Response.Cookies.Append("HienCaCookie", account.Email);
                     List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, account.Email),
@@ -73,7 +73,14 @@ namespace QuanLySanXuat.Controllers
 
 
                     return RedirectToAction("Index", "PhieuNhapKho");
-
+                    //if (employee != null)
+                    //{
+                    //    return RedirectToAction("Index", "PhieuNhapKho");
+                    //}
+                    //else if (customer != null)
+                    //{
+                    //    return RedirectToAction("Index", "");//gắn controller cho khách hàng
+                    //}
 
                 }
                 else

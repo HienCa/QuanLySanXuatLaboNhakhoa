@@ -149,7 +149,7 @@ btnUpdateNdptn.addEventListener("click", function () {
 
 
 
-btnCancel.addEventListener("click", function () {
+btnCancelNdptn.addEventListener("click", function () {
     btnUpdateNdptn.style.display = "none";
     btnCancelNdptn.style.display = "none";
     btnAddNdptn.style.display = "block";
@@ -221,8 +221,59 @@ function checkSotienTraNoNcc() {
         inputPrice.value = inputValueA.slice(0, inputValueA.length - 1)
 
     }
-
+    checkTheAmountEntered();
 }
+
+const checkTheAmountEntered = function () {
+    let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+    checkSotienNdpt.innerText = "";//reset error
+    let SotienNdpt = document.getElementById("SotienNdpt");
+    let ThanhToanThuc = document.getElementById("ThanhToanThuc");//tong số tiền cần thanh toán
+    const formNDTNNCC = document.getElementById("formNDTNNCC");
+    const btnAddNdptn = document.getElementById("btnAddNdptn");
+    SotienNdptThuc = (SotienNdpt.value).replaceAll(",", "");
+    SotienNdpt.style.border = "1px solid #ced4da";//reset border
+
+    let TongTienDaThanhtoan = 0;
+    let tr = document.querySelectorAll(".trNDTNNCC");
+    for (let i = 0; i <= tr.length - 1; i++) {
+
+        TongTienDaThanhtoan += parseFloat((tr[i].children[1].innerText).replaceAll(",", ""));
+        console.log((tr[i].children[1].innerText));
+    }
+    let Tientra = Number(parseFloat(SotienNdptThuc).toFixed(2));
+    let Tiencantra = Number(parseFloat((ThanhToanThuc.value)).toFixed(2));
+    let Tiendathanhtoan = Number(parseFloat((TongTienDaThanhtoan).toFixed(2)));
+    
+    if (Tientra > Tiencantra || Tientra + Tiendathanhtoan > Tiencantra) {
+        checkSotienNdpt.innerText = "Số tiền vượt quá số tiền cần thành toán!";
+        btnAddNdptn.disabled = true;
+        SotienNdpt.style.border = "5px solid #C82333";
+    }
+    else if (Tiendathanhtoan == Tiencantra) {
+        SotienNdpt.readOnly = true;
+        console.log("Tiencantra: " + Tiencantra);
+        console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+    }
+    else if (Tientra <= Tiencantra) {
+        btnAddNdptn.disabled = false;
+        SotienNdpt.style.border = "5px solid #218838";
+        SotienNdpt.readOnly = false;
+        console.log("Tientra: " + Tientra);
+        console.log("Tiencantra: " + Tiencantra);
+    }
+    console.log("------------------------------------------------");
+    console.log("Tientra: " + Tientra);
+    console.log("Tiencantra: " + Tiencantra);
+    console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+    console.log("------------------------------------------------");
+    console.log("toFixed(2)");
+    console.log("ThanhToanThuc: " + parseFloat((ThanhToanThuc.value)));
+    console.log("SotienNdptThuc: " + parseFloat(SotienNdptThuc).toFixed(2));
+    console.log("TongTienDaThanhtoan: " + parseFloat((TongTienDaThanhtoan.value)));
+    console.log("tr.length: " + tr.length);
+}
+
 
 
 

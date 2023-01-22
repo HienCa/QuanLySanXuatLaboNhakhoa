@@ -6,72 +6,73 @@
 
 
 }
-<form asp-action="CreateOrEdit" asp-controller="Nhomvatlieu" method="post" onsubmit="return onSubmitFormNVL()">
-    <input id="action" type="hidden" name="action" />
-    <input id="Idnvl" type="hidden" name="Idnvl" />
-    <div class="bg-light p-1 border border-secondary rounded">
-        <h2>Quản Lý Nhóm Vật Liệu</h2>
+<div>
+    <form asp-action="CreateOrEdit" asp-controller="Nhomvatlieu" method="post" onsubmit="return onSubmitFormNVL()">
+        <input id="action" type="hidden" name="action" />
+        <input id="Idnvl" type="hidden" name="Idnvl" />
+        <div class="bg-light p-1 border border-secondary rounded">
+            <h2>Quản Lý Nhóm Vật Liệu</h2>
 
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-4 col-sm-12">
-                        Mã NVL
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-4 col-sm-12">
+                            Mã NVL
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" name="Manvl" maxlength="255" id="Manvl" onfocus="this.value=''" class="form-control">
+
+
+                        </div>
                     </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="text" name="Manvl" maxlength="255" id="Manvl" onfocus="this.value=''" class="form-control">
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-2 col-sm-12">
+                            Tên NVL
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" name="Tennvl" maxlength="255" id="Tennvl" onfocus="this.value=''" class="form-control">
+                            <span id="checkTennvl" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 ">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-2 col-sm-12">
+                            Loại NVL
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" name="Loainvl" id="Loainvl" onfocus="this.value=''" class="form-control">
+                            <span id="checkLoainvl" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-9 col-sm-12">
 
 
+                </div>
+                <div class="col-md-3 col-sm-12 ">
+                    <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddNvl">Thêm</button>
+                    <div class="d-flex">
+                        <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNvl">Hủy</button>
+                        <button type="submit" class="btn btn-primary w-50" onclick="onEditNVL()" id="btnUpdateNvl" style="display:none; float: right;">
+                            Cập
+                            nhật
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-2 col-sm-12">
-                        Tên NVL
-                    </div>
-                    <div class="col-md-10 col-sm-12">
-                        <input type="text" name="Tennvl" maxlength="255" id="Tennvl" onfocus="this.value=''" class="form-control">
-                        <span id="checkTennvl" class="text-danger"></span>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12 ">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-2 col-sm-12">
-                        Loại NVL
-                    </div>
-                    <div class="col-md-10 col-sm-12">
-                        <input type="text" name="Loainvl" id="Loainvl" onfocus="this.value=''" class="form-control">
-                        <span id="checkLoainvl" class="text-danger"></span>
-
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-md-9 col-sm-12">
 
-
-            </div>
-            <div class="col-md-3 col-sm-12 ">
-                <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddNvl">Thêm</button>
-                <div class="d-flex">
-                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNvl">Hủy</button>
-                    <button type="submit" class="btn btn-primary w-50" onclick="onEditNVL()" id="btnUpdateNvl" style="display:none; float: right;">
-                        Cập
-                        nhật
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</form>
-
+    </form>
+</div>
 <div class="x_content">
     <div class="row">
         <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
@@ -101,7 +102,7 @@
                                 <td>@item.Manvl</td>
                                 <td>@item.Tennvl</td>
                                 <td>@item.Loainvl</td>
-                                <td style="display:none">@item.Idnvl</td>
+                                <td class="d-none">@item.Idnvl</td>
 
 
                                 <td class="table-td-center d-flex">

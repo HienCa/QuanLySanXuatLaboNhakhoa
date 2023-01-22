@@ -405,6 +405,7 @@
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <input readonly id="totalAmount" type="number" value="" placeholder="Tiền hàng" class="form-control">
+                        <input readonly id="totalAmountThuc" type="hidden" value="" placeholder="Tiền hàng" class="form-control">
                     </div>
                 </div>
             </div>
@@ -415,6 +416,7 @@
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <input id="TienCK" readonly type="number" placeholder="Tiền chiếc khấu" class="form-control">
+                        <input id="TienCKThuc" readonly type="hidden" placeholder="Tiền chiếc khấu" class="form-control">
                     </div>
                 </div>
             </div>
@@ -425,6 +427,7 @@
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <input readonly id="TienThue" type="number" placeholder="Tiền thuế" class="form-control">
+                        <input readonly id="TienThueThuc" type="hidden" placeholder="Tiền thuế" class="form-control">
                     </div>
                 </div>
             </div>
@@ -435,6 +438,8 @@
                     </div>
                     <div class="col-md-9 col-sm-12">
                         <input readonly id="ThanhToan" onload="Payment()" type="number" placeholder="Thanh toán" class="form-control">
+                        <input readonly id="ThanhToanThuc"  type="hidden" placeholder="Thanh toán" class="form-control">
+                        
                     </div>
                 </div>
             </div>
@@ -454,11 +459,11 @@
 <div id="tab-2" class="tab-content ">
     
 
-    <form asp-action="Create" asp-controller="Noidungtranoncc" method="post" onsubmit="return checkInputNdptn()">
+    <form asp-action="Create" asp-controller="Noidungtranoncc" id="formNDTNNCC" method="post" onsubmit="return checkInputNdptn()">
         <input type="hidden" name="Idpnk" value="@phieunhapkho.Idpnk" />
         <input type="hidden" name="Idndptnncc" id="IdntnnccEdit"/>
 
-        <div class="bg-light p-1 mt-2 border border-secondary rounded">
+        <div class="bg-light p-1  border border-secondary rounded">
             <div class="row">
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
@@ -538,12 +543,12 @@
             <tbody>
                 @foreach (var item in TempData["noidungphieutranoncc"] as List<Noidungtranoncc>)
                 {
-                <tr>
+                <tr class="trNDTNNCC">
                     <th scope="row">@item.IdpnkNavigation.IdnvNavigation.Tennv</th>
                     @{
                         var Sotien = String.Format("{0:0,0}", (@item.Sotien));
                     }
-                    <td>@Sotien</td>
+                    <td >@Sotien</td>
                     @if (item.Ngaytrano != null)
                     {
                         DateTime Ngaytn = item.Ngaytrano;
