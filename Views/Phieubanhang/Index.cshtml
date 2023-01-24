@@ -2,59 +2,140 @@
 @using QuanLySanXuat.Entities;
 @{
     Layout = "_Layout";
+    ProductionManagementSoftwareContext _context = new ProductionManagementSoftwareContext();
+
+    List<Khachhang> khachhang = _context.Khachhang.Where(n => n.Active == 1).ToList();
+
 }
 
-<div class="d-flex">
-    <h2>Quản Lý Phiếu Xuất Kho</h2>
-    <div class="col-md-3 col-sm-12">
-        <a href="/Phieubanhang/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
-            <i class="fas fa-plus"></i>Thêm mới
-        </a>
-        <a href="/Phieubanhang/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-excel"></i>
-        </a>
-        <a href="/Phieubanhang/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-pdf"></i>
-        </a>
-        <a href="/Phieubanhang/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
-            <i class="fas fa-file-csv"></i>
-        </a>
-    </div>
+<div class="">
+    <form asp-action="CreateOrEdit" asp-controller="Phieubanhang" enctype="multipart/form-data">
+        <input id="action" type="hidden" name="action" />
+        <input id="Idpbh" type="hidden" name="Idpbh" />
+        <div class="bg-light p-1 border border-secondary rounded ">
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-2 col-sm-12">
+                            Khách hàng
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <select name="Idkh"  id="multipleSelect" data-search="true"
+                                    data-silent-initial-value-set="true">
+                                @foreach (var item in khachhang)
+                                {
+                                    <option value="@item.Idkh">@item.Tenkh</option>
+                                }
 
+                            </select>
 
-    <div class="col-md-3 col-sm-12">
-        <form asp-action="Import" asp-controller="Phieubanhang" method="post" enctype="multipart/form-data">
-            <div class=" d-flex">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Số phiếu
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input name="Sophieu" id="Sophieu" onfocus="this.value=''" maxlength="255" type="text" class="form-control">
+                            <span id="checkSophieu" class="text-danger"></span>
 
-                <input id="fileExcel" class="" required type="file" name="file" />
-                <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Ngày Lập
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+
+                            <input readonly type="datetime-local" name="Ngaylap" id="Ngaylap" class="form-control" />
+                            <span name="checkNgaylap" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </form>
+            <div class="row mt-2">
+                <div class="col-md-6 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-2 col-sm-12">
+                            Ghi Chú
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <textarea name="Ghichu" id="Ghichu" onfocus="this.value=''" maxlength="255" row="" style="height:10px;" class="form-control"></textarea>
+                            <span id="checkGhichu" class="text-danger"></span>
 
-    </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Số HĐ
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input name="Sohd" id="Sohd" onfocus="this.value=''" maxlength="255" class="form-control">
+                            <span id="checkSohd" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Ngày HĐ
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+
+                            <input type="datetime-local" name="Ngayhd" id="Ngayhd" class="form-control" />
+                            <span id="checkNgayhd" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-9 col-sm-12">
+
+
+                </div>
+                <div class="col-md-3 col-sm-12 ">
+                    <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddPBH">Thêm</button>
+                    <div class="d-flex">
+                        <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelPBH">Hủy</button>
+                        <button type="submit" class="btn btn-primary w-50" onclick="onEditPBH()" id="btnUpdatePBH" style="display:none; float: right;">
+                            Cập
+                            nhật
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-
-
-
 
 <div class="x_content">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
             <div class="card-box table-responsive">
-
-
                 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
                        cellspacing="0" width="100%">
                     <thead>
-                        <tr  class="text-center">
+                        <tr class="text-center">
                             <th>Số phiếu</th>
                             <th>Nhân viên lập</th>
                             <th>Ngày lập phiếu</th>
                             <th>Khách hàng</th>
-                            @*<th>Số hóa đơn</th>
-                                <th>Ngày hóa đơn</th>
-                                <th>Ghi chú</th>*@
+                            <th>Số hóa đơn</th>
+                            <th>Ngày hóa đơn</th>
+                            <th>Ghi chú</th>
+                            <td></td>
 
                         </tr>
                     </thead>
@@ -64,9 +145,10 @@
                             <td>.</td>
                             <td>.</td>
                             <td>.</td>
-                            @*<td>.</td>
-                                <td>.</td>
-                                <td>.</td>*@
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
+                            <td>.</td>
                         </tr>
 
                         @foreach (var item in Model)
@@ -75,25 +157,40 @@
                                 <td>@item.Sophieu</td>
                                 <td>@item.IdnvNavigation.Tennv</td>
                                 @{
-                                    DateTime dt = item.Ngaylap;
-                                }
-                                <td>@dt.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
-                                <td>@item.IdkhNavigation.Tenkh</td>
-                                @*<td>@item.Sohd</td>
-                                    <td>@item.Ngayhd</td>
-                                    <td>@item.Ghichu</td>*@
+                                    DateTime Ngaylap = item.Ngaylap;
 
+                                }
+                                <td>@Ngaylap.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                                <td class="d-none">@Ngaylap.ToString("yyyy-MM-dd HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture)</td>
+                                <td>@item.IdkhNavigation.Tenkh</td>
+                                <td>@item.Sohd</td>
+                                @if (item.Ngayhd != null)
+                                {
+                                    DateTime Ngayhd = (DateTime)item.Ngayhd;
+                                    <td>@Ngayhd.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                                    <td class="d-none">@Ngayhd.ToString("yyyy-MM-dd HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture)</td>
+
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td class="d-none"></td>
+                                }
+                                <td>@item.Ghichu</td>
+                                <td class="d-none">@item.Idpbh</td>
                                 <td class="table-td-center d-flex">
-                                    @*<a asp-action="EditPN" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpnk">Nhập</a>*@
+                                <td class="table-td-center d-flex">
                                     <a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpbh"><i class="fas fa-eye text-white"></i></a>
-                                    <a asp-action="Edit" class="btn  btn-sm btn-warning " asp-route-id="@item.Idpbh"><i class="fas fa-edit text-white"></i></a>
-                                    @*<a asp-action="Delete" class="btn btn-sm  btn-danger " asp-route-id="@item.Idpbh"><i class="fas fa-trash-alt text-white"></i></a>*@
+                                    <a class="btn  btn-sm btn-warning " onclick="onEditPBH(this)"><i class="fas fa-edit text-white"></i></a>
                                     <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idpbh" asp-controller="Phieubanhang">
                                         <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
                                     </form>
+
                                 </td>
                             </tr>
                         }
+
+
 
                     </tbody>
                 </table>
@@ -102,44 +199,160 @@
         </div>
     </div>
 </div>
+
+
+
+
+@*<div class="d-flex">
+        <h2>Quản Lý Phiếu Nhập Kho</h2>
+        <div class="col-md-3 col-sm-12">
+            <a href="/Phieunhapkho/Create" class="btn p-2" style="background-color: #EDEDED; color: #73879C; font-size:17px">
+                <i class="fas fa-plus"></i>Thêm mới
+            </a>
+            <a href="/Phieunhapkho/ExportToExcel" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+                <i class="fas fa-file-excel"></i>
+            </a>
+            <a href="/Phieunhapkho/ExportToPDF" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+                <i class="fas fa-file-pdf"></i>
+            </a>
+            <a href="/Phieunhapkho/ExportToCSV" class="btn ml-2 p-2" style="background-color: #EDEDED; color: #73879C; font-size: 17px ">
+                <i class="fas fa-file-csv"></i>
+            </a>
+        </div>
+
+
+        <div class="col-md-3 col-sm-12">
+            <form asp-action="Import" asp-controller="Phieunhapkho" method="post" enctype="multipart/form-data">
+                <div class=" d-flex">
+
+                    <input id="fileExcel" class="" required type="file" name="file" />
+                    <button class="btn" style="background-color: #EDEDED; color: #73879C; font-size: 17px " type="submit"><i class="fas fa-upload"></i></button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>*@
+
+
+
+
+
 <script>
-        let deleteBtns = document.querySelectorAll('.formDelete');
-        deleteBtns.forEach(function (deleteBtn) {
-            deleteBtn.addEventListener('submit', function (e) {
+    let deleteBtns = document.querySelectorAll('.formDelete');
+    deleteBtns.forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('submit', function (e) {
 
-                var form = this;
+            var form = this;
 
-                e.preventDefault();
+            e.preventDefault();
 
-                swal({
-                    title: 'Bạn có chắc chắn muốn xóa?',
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
 
-                    icon: 'warning',
-                    buttons: ['Hủy bỏ!', 'Xác nhận'],
-                    dangerMode: true,
-                }).then(function (isConfirm) {
-                    if (isConfirm) {
+                icon: 'warning',
+                buttons: ['Hủy bỏ!', 'Xác nhận'],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
 
-                        form.submit().then(function () {
+                    form.submit().then(function () {
 
-                        })
-                        swal({
-                            title: 'Đã xóa!',
-                            icon: 'success',
-                            timer: 1500,
-                            button: false,
-                        });
+                    })
+                    swal({
+                        title: 'Đã xóa!',
+                        icon: 'success',
+                        timer: 1500,
+                        button: false,
+                    });
 
-                    } else {
-                        swal({
-                            title: 'Đã hủy!',
-                            button: false,
-                            icon: 'error',
-                            timer: 500,
-                        });
-                    }
-                });
+                } else {
+                    swal({
+                        title: 'Đã hủy!',
+                        button: false,
+                        icon: 'error',
+                        timer: 500,
+                    });
+                }
             });
-        })
+        });
+    })
+
+
+    function onSubmitFormPBH() {
+        let isSubmit = false;
+        let Sophieu = document.getElementById("Sophieu").value;
+        let Sohd = document.getElementById("Sohd").value;
+        let Ngaylap = document.getElementById("Ngaylap").value;
+        let Ngayhd = document.getElementById("Ngayhd").value;
+        let Idkh = document.querySelector(".Idkh").value;
+        let checkSophieu = document.getElementById("checkSophieu");
+
+        if (Sophieu.length == 0) {
+            checkSophieu.innerText = "Vui lòng nhập thông tin!";
+
+        }
+        else {
+            isSubmit = true;
+        }
+        return isSubmit;
+    }
+
+
+    let btnAddPBH = document.getElementById("btnAddPBH");
+    let btnUpdatePBH = document.getElementById("btnUpdatePBH");
+    let btnCancelPBH = document.getElementById("btnCancelPBH");
+    let action = document.getElementById("action");
+
+    btnCancelPBH.addEventListener("click", function () {
+        btnUpdatePBH.style.display = "none";
+        btnCancelPBH.style.display = "none";
+        btnAddPBH.style.display = "block";
+        document.getElementById("Ngaylap").readOnly = true;
+
+    })
+
+
+    btnAddPBH.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdatePBH.addEventListener("click", function () {
+        document.getElementById("Ngaylap").readOnly = true;
+
+        action.value = "editItem";
+    })
+
+
+    function onEditPBH(td) {
+        document.getElementById("Ngaylap").readOnly = false;
+
+        selectedRow = td.parentElement.parentElement;
+
+        document.getElementById("Sophieu").value = selectedRow.cells[0].innerHTML;
+        //document.getElementById("Nhanvien").value = selectedRow.cells[1].innerHTML;
+        var Ngaylap = selectedRow.cells[3].innerHTML;
+        document.getElementById("Ngaylap").value = Ngaylap;
+        //document.querySelector(".Idkh").value = selectedRow.cells[4].innerHTML;
+
+        document.getElementById("Sohd").value = selectedRow.cells[5].innerHTML;
+        if (selectedRow.cells[7].innerHTML != "") {
+            var Ngayhd = selectedRow.cells[7].innerHTML;
+            document.getElementById("Ngayhd").value = Ngayhd;
+        }
+        document.getElementById("Ghichu").value = selectedRow.cells[8].innerHTML;
+        document.getElementById("Idpbh").value = selectedRow.cells[9].innerHTML;
+
+
+        btnAddPBH.style.display = "none";
+        btnUpdatePBH.style.display = "block";
+        btnCancelPBH.style.display = "block";
+
+    }
+    btnUpdatePBH.addEventListener("click", function () {
+        btnAddPBH.style.display = "block";
+        btnUpdatePBH.style.display = "none";
+        btnCancelPBH.style.display = "none";
+
+    })
 </script>
 

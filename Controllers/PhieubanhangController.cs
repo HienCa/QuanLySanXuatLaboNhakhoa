@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,36 +24,206 @@ namespace QuanLySanXuat.Controllers
         // GET: Phieunhapkho
         public async Task<IActionResult> Index()
         {
-            var phieunhapkho = _context.Phieubanhang.Where(p=>p.Active==1).Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation);
+            var phieunhapkho = _context.Phieubanhang.Where(p => p.Active == 1).Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation);
 
             return View(await phieunhapkho.ToListAsync());
         }
 
-        // GET: Phieunhapkho/Details/5
-        
-        public async Task<IActionResult> Details(int? id)
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Phieubanhang pbh, string action)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                string employeeEmail = Request.Cookies["HienCaCookie"];
+                Nhanvien nhanvien = _context.Nhanvien.Where(nv => nv.Email == employeeEmail).FirstOrDefault();
+
+                if (nhanvien == null)
+                {
+                    pbh.Idnv = 2;
+                }
+                else
+                {
+                    pbh.Idnv = nhanvien.Idnv;
+                }
+                if (action.Equals("addItem"))
+                {
+                    pbh.Ngaylap = DateTime.Now;
+                    pbh.Idpbh = 0;
+                    _context.Add(pbh);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    pbh.Active = 1;
+                    _context.Update(pbh);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
             }
 
 
-            var phieubanhang = await _context.Phieubanhang
-                .Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation)
-                .FirstOrDefaultAsync(m => m.Idpbh == id);
-            ViewBag.Idpbh = phieubanhang.Idpbh;
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SearchProduct(int? IdpbhSearch, string searchString)
+        {
 
-            TempData["Noidungphieubanhang"]  = await _context.Noidungpbh
+            TempData["phieubanhang"] = await _context.Phieubanhang
+                //.Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation)
+                .FirstOrDefaultAsync(m => m.Idpbh == IdpbhSearch);
+            ViewBag.Idpbh = IdpbhSearch;
+
+            TempData["noidungphieubanhang"] = await _context.Noidungpbh
                 .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
                 .Include(n => n.IdvlNavigation)
-                .Where(pn => pn.Idpbh == phieubanhang.Idpbh)
+                .Where(pn => pn.Idpbh == IdpbhSearch)
                 .ToListAsync();
+
+
+            TempData["noidungphieuthunokh"] = await _context.Noidungthunokh
+                .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
+                .Include(n => n.IdptnkhNavigation)
+                .Where(pn => pn.Idpbh == IdpbhSearch)
+                .ToListAsync();
+
+
+            TempData["VatlieuSearch"] = await _context.Noidungpnk
+            .Include(n => n.IdpnkNavigation).Include(n => n.IdpnkNavigation.IdnvNavigation)
+                .Include(n => n.IdvlNavigation)
+                .Where(pn => pn.IdvlNavigation.Mavl.Equals(searchString))
+                .ToListAsync();
+
 
 
             return View();
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+
+            TempData["phieubanhang"] = await _context.Phieubanhang
+                .Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation)
+                .FirstOrDefaultAsync(m => m.Idpbh == id);
+            ViewBag.Idpbh = id;
+
+            TempData["noidungphieubanhang"] = await _context.Noidungpbh
+                .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
+                .Include(n => n.IdvlNavigation)
+                .Where(pn => pn.Idpbh == id)
+                .ToListAsync();
+
+
+            TempData["noidungphieuthunokh"] = await _context.Noidungthunokh
+                .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
+                .Include(n => n.IdptnkhNavigation)
+                .Where(pn => pn.Idpbh == id)
+                .ToListAsync();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Actions(Noidungpbh noidungpbh, string action, int phieubanhang, string searchString = "")
+        {
+
+            try
+            {
+
+
+                if (action.Equals("addItem"))
+                {
+                    _context.Noidungpbh.Add(noidungpbh);
+                    await _context.SaveChangesAsync();
+                }
+                if (action.Equals("editItem"))
+                {
+                    noidungpbh.Idndpbh = phieubanhang;
+
+
+                    _context.Noidungpbh.Update(noidungpbh);
+
+                    await _context.SaveChangesAsync();
+                }
+                if (action.Equals("TaoPhieu"))
+                {
+                    Phieutranoncc phieutranoncc = new Phieutranoncc();
+                    phieutranoncc.Sophieu = noidungpbh.IdpbhNavigation.Sophieu;
+                    phieutranoncc.Ngaylap = DateTime.Now;
+                    phieutranoncc.Idhttt = 1;
+                    _context.Phieutranoncc.Add(phieutranoncc);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToAction("Details", "Phieubanhang", new { id = noidungpbh.Idpbh });
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            TempData["phieubanhang"] = await _context.Phieubanhang
+                .Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation)
+                .FirstOrDefaultAsync(m => m.Idpbh == noidungpbh.Idpbh);
+            ViewBag.Idpbh = noidungpbh.Idpbh;
+
+
+            TempData["noidungphieubanhang"] = await _context.Noidungpbh
+                 .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
+                 .Include(n => n.IdvlNavigation)
+                 .Where(pn => pn.Idpbh == noidungpbh.Idpbh)
+                 .ToListAsync();
+
+            if (!searchString.Equals(""))
+            {
+                TempData["VatlieuSearch"] = await _context.Noidungpnk
+                .Include(n => n.IdvlNavigation)
+                .Where(pn => pn.IdvlNavigation.Mavl.Equals(searchString))
+                .ToListAsync();
+            }
+
+            TempData["noidungphieuthunokh"] = await _context.Noidungthunokh
+                .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
+                .Include(n => n.IdptnkhNavigation)
+                .Where(pn => pn.Idpbh == noidungpbh.Idpbh)
+                .ToListAsync();
+
+            return View();
+
+
+        }
+        // GET: Phieunhapkho/Details/5
+
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+
+        //    var phieubanhang = await _context.Phieubanhang
+        //        .Include(p => p.IdnvNavigation).Include(p => p.IdkhNavigation)
+        //        .FirstOrDefaultAsync(m => m.Idpbh == id);
+        //    ViewBag.Idpbh = phieubanhang.Idpbh;
+
+
+        //    TempData["Noidungphieubanhang"]  = await _context.Noidungpbh
+        //        .Include(n => n.IdpbhNavigation).Include(n => n.IdpbhNavigation.IdnvNavigation)
+        //        .Include(n => n.IdvlNavigation)
+        //        .Where(pn => pn.Idpbh == phieubanhang.Idpbh)
+        //        .ToListAsync();
+
+
+        //    return View();
+        //}
 
         // GET: Phieunhapkho/Create
         public IActionResult Create()
@@ -72,7 +243,7 @@ namespace QuanLySanXuat.Controllers
             {
                 string employeeEmail = Request.Cookies["HienCaCookie"];
                 Nhanvien nhanvien = _context.Nhanvien.Where(nv => nv.Email == employeeEmail).FirstOrDefault();
-                
+
                 if (nhanvien == null)
                 {
                     phieubanhang.Idnv = 2;
@@ -96,7 +267,7 @@ namespace QuanLySanXuat.Controllers
 
         }
 
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -132,7 +303,7 @@ namespace QuanLySanXuat.Controllers
                 {
                     string employeeEmail = Request.Cookies["HienCaCookie"];
                     Nhanvien nhanvien = _context.Nhanvien.Where(nv => nv.Email == employeeEmail).FirstOrDefault();
-                   
+
                     if (nhanvien == null)
                     {
                         phieubanhang.Idnv = 2;
@@ -169,8 +340,8 @@ namespace QuanLySanXuat.Controllers
             try
             {
                 var pbh = _context.Phieubanhang.Where(m => m.Idpbh == id).FirstOrDefault();
-
-                _context.Phieubanhang.Remove(pbh);
+                pbh.Active = 0;
+                _context.Phieubanhang.Update(pbh);
                 _context.SaveChangesAsync();
                 return new JsonResult(new { code = 200, msg = "Xóa thành công!" });
 

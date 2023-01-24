@@ -5,136 +5,139 @@
 
 
 }
-<form asp-action="CreateOrEdit" asp-controller="Nhacungcaps" method="post" onsubmit="return onSubmitFormNCC()">
-    <input id="action" type="hidden" name="action" />
-    <input id="Idncc" type="hidden" name="Idncc" />
-    <div class="bg-light p-1 border border-secondary rounded">
-        <h2>Quản Lý Nhà Cung Cấp</h2>
+<div class="">
 
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Mã NCC
+    <form asp-action="CreateOrEdit" asp-controller="Nhacungcaps" method="post" onsubmit="return onSubmitFormNCC()">
+        <input id="action" type="hidden" name="action" />
+        <input id="Idncc" type="hidden" name="Idncc" />
+        <div class="bg-light p-1 border border-secondary rounded">
+            <h2>Quản Lý Nhà Cung Cấp</h2>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Mã NCC
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input name="Mancc" id="Mancc" maxlength="255" onfocus="this.value=''" type="text" class="form-control">
+
+                        </div>
                     </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input name="Mancc" id="Mancc" maxlength="255" onfocus="this.value=''" type="text" class="form-control">
+                </div>
 
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Tên NCC
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input name="Tenncc" id="Tenncc" onfocus="this.value=''" maxlength="255" type="text" class="form-control">
+                            <span id="checkTenncc" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Email
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input id="Email" name="Email" onfocus="this.value=''" maxlength="255" type="text" class="form-control">
+                            <span id="checkEmail" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            SĐT
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="text" name="Sdt" maxlength="255" onfocus="this.value=''" id="Sdt" class="form-control">
+                            <span id="checkSdt" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Địa Chỉ
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="text" name="Diachi" onfocus="this.value=''" maxlength="255" id="Diachi" class="form-control">
+                            <span id="checkDiachi" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Số Thuế
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="text" name="Masothue" onfocus="this.value=''" maxlength="255" id="Masothue" class="form-control">
+                            <span id="checkMasothue" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Facebook
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="text" name="Facebook" onfocus="this.value=''" id="Facebook" maxlength="255" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Zalo
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="text" id="Zalo" onfocus="this.value=''" name="Zalo" maxlength="255" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-9 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-1 col-sm-12">
+                            Ghi chú
+                        </div>
+                        <div class="col-md-11 col-sm-12">
+                            <textarea name="Ghichu" id="Ghichu" onfocus="this.value=''" row="" maxlength="4000" style="height:10px;" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 ">
+                    <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddNcc">Thêm</button>
+                    <div class="d-flex">
+                        <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNcc">Hủy</button>
+                        <button type="submit" class="btn btn-primary w-50" onclick="onEditNCC()" id="btnUpdateNcc" style="display:none; float: right;">
+                            Cập
+                            nhật
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Tên NCC
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input name="Tenncc" id="Tenncc" onfocus="this.value=''" maxlength="255" type="text" class="form-control">
-                        <span id="checkTenncc" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Email
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input id="Email" name="Email" onfocus="this.value=''" maxlength="255" type="text" class="form-control">
-                        <span id="checkEmail" class="text-danger"></span>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        SĐT
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input type="text" name="Sdt" maxlength="255" onfocus="this.value=''" id="Sdt" class="form-control">
-                        <span id="checkSdt" class="text-danger"></span>
-
-                    </div>
-                </div>
-            </div>
-
         </div>
-        <div class="row mt-2">
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Địa Chỉ
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input type="text" name="Diachi"onfocus="this.value=''" maxlength="255" id="Diachi" class="form-control">
-                        <span id="checkDiachi" class="text-danger"></span>
 
-                    </div>
-                </div>
-            </div>
+    </form>
 
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Số Thuế
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input type="text" name="Masothue"onfocus="this.value=''" maxlength="255" id="Masothue" class="form-control">
-                        <span id="checkMasothue" class="text-danger"></span>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Facebook
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input type="text" name="Facebook"onfocus="this.value=''" id="Facebook" maxlength="255" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-3 col-sm-12">
-                        Zalo
-                    </div>
-                    <div class="col-md-9 col-sm-12">
-                        <input type="text" id="Zalo"onfocus="this.value=''" name="Zalo" maxlength="255" class="form-control">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row mt-2">
-            <div class="col-md-9 col-sm-12">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-1 col-sm-12">
-                        Ghi chú
-                    </div>
-                    <div class="col-md-11 col-sm-12">
-                        <textarea name="Ghichu" id="Ghichu"onfocus="this.value=''" row="" maxlength="4000" style="height:10px;" class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12 ">
-                <button type="submit" style="float: right;" class="btn btn-primary w-100" id="btnAddNcc">Thêm</button>
-                <div class="d-flex">
-                    <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNcc">Hủy</button>
-                    <button type="submit" class="btn btn-primary w-50" onclick="onEditNCC()" id="btnUpdateNcc" style="display:none; float: right;">
-                        Cập
-                        nhật
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</form>
-
+</div>
 <div class="x_content">
     <div class="row">
         <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
@@ -159,6 +162,7 @@
                     </thead>
                     <tbody>
                         <tr class="d-none">
+                            <td>.</td>
                             <td>.</td>
                             <td>.</td>
                             <td>.</td>

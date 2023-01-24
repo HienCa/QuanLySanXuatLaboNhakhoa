@@ -45,11 +45,12 @@ function onEdit(td) {
     document.getElementById("Thanhtien").value = selectedRow.cells[5].innerHTML;
 
 
-    var Ngaysx = new Date(selectedRow.cells[6].innerHTML);
-    var Hansd = new Date(selectedRow.cells[7].innerHTML);
-    document.getElementById("Ngaysx").value = formatDate(Ngaysx);
-    document.getElementById("Hansd").value = formatDate(Hansd);
-    document.getElementById("Idndpnk").value = selectedRow.cells[8].innerHTML;
+    var Ngaysx = selectedRow.cells[7].innerHTML;
+    var Hansd = selectedRow.cells[9].innerHTML;
+
+    document.getElementById("Ngaysx").value = Ngaysx;
+    document.getElementById("Hansd").value = Hansd;
+    document.getElementById("Idndpnk").value = selectedRow.cells[10].innerHTML;
 
 
 
@@ -66,44 +67,6 @@ btnUpdate.addEventListener("click", function () {
 })
 
 
-
-//let deleteBtnPnks = document.querySelectorAll('.formDelete');
-//deleteBtnPnks.forEach(function (deleteBtn) {
-//    deleteBtn.addEventListener('submit', function (e) {
-       
-//        var form = this;
-
-//        e.preventDefault();
-
-//        swal({
-//            title: 'Bạn có chắc chắn muốn xóa?',
-
-//            icon: 'warning',
-//            buttons: ['Hủy bỏ!', 'Xác nhận'],
-//            dangerMode: true,
-//        }).then(function (isConfirm) {
-//            if (isConfirm) {
-
-//                form.submit()
-
-//                swal({
-//                    title: 'Đã xóa!',
-//                    icon: 'success',
-//                    timer: 1500,
-//                    button: false,
-//                });
-
-//            } else {
-//                swal({
-//                    title: 'Đã hủy!',
-//                    button: false,
-//                    icon: 'error',
-//                    timer: 500,
-//                });
-//            }
-//        });
-//    });
-//})
 
 //Phiếu trả nợ
 function checkInputNdptn() {

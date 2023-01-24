@@ -66,7 +66,7 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-2 col-sm-12">
-                            Nhà CC
+                            KH
                         </div>
                         <div class="col-md-10 col-sm-12">
                             @*<select id="multipleSelect" asp-for="@phieubanhang.Idkh" placeholder="Chọn vật liệu muốn nhập kho" data-search="true"
@@ -77,7 +77,7 @@
                                     }
 
                                 </select>*@
-                            <input readonly value="@phieubanhang.IdkhNavigation.Tenkh" class="form-control" />
+                            @*<input readonly value="@phieubanhang.IdkhNavigation.Tenkh" class="form-control" />*@
 
                         </div>
                     </div>
@@ -482,6 +482,9 @@
 </form>
 
 <script>
+
+
+    //dùng khi edit, selected theo giá trị
     window.addEventListener("load", function (e) {
         deteleSelected();
         changeSelectAndSubmit();
@@ -506,7 +509,7 @@
                 let formSearchProduct = document.getElementById("formSearchProduct");
                 let searchString = document.getElementById("searchString");
                 let selectedValue = option.getAttribute("data-value");// id-ma
-                alert("option.getAttribute('data - value'):"  + option.getAttribute('data-value'));
+                alert("option.getAttribute('data - value'):" + option.getAttribute('data-value'));
 
                 let splitString = selectedValue.split("-");
                 alert(selectedValue);
@@ -528,6 +531,36 @@
         });
 
     }
+
+
+
+
+    //function changeSelectAndSubmit() {
+    //    let listOption = document.querySelectorAll(".vscomp-option");
+    //    listOption.forEach(function (option) {
+
+    //        option.addEventListener("change", function () {
+    //            let formSearchProduct = document.getElementById("formSearchProduct");
+    //            let searchString = document.getElementById("searchString");
+    //            let selectBoxOfProduct = document.querySelector(".Idvl");// id của select tag
+
+    //            let selectedValue = selectBoxOfProduct.value; //giá trị được lấy là Id-Ma
+    //            let splitString = selectedValue.split("-");
+
+    //            let Idvl = splitString[0];// lấy Idvl
+    //            let Mavl = splitString[1];// lấy Mavl
+    //            console.log(selectedValue);
+    //            console.log(Idvl);
+    //            console.log(Mavl);
+
+    //            searchString.value = Mavl;
+
+    //            formSearchProduct.submit();
+    //            alert("đã làm");
+    //        });
+    //    });
+
+    //}
 
     @*$(document).ready(function () {
         //Filter ListProduct
@@ -766,174 +799,174 @@
 
 
 
-    //Phiếu trả nợ
-    //function checkInputNdptn() {
+//Phiếu trả nợ
+//function checkInputNdptn() {
 
-    //    let SotienNdpt = document.getElementById("SotienNdpt").value;
-    //    let GhichuNdpt = document.getElementById("GhichuNdpt").value;
-    //    let checkSotienNdpt = document.getElementById("checkSotienNdpt");
-    //    let checkGhichuNdpt = document.getElementById("checkGhichuNdpt");
-    //    let errorMessage = "Dữ liệu cung cấp quá dài!";
-    //    if (SotienNdpt.length > 255 || GhichuNdpt.length > 255) {
-    //        checkGhichuNdpt.innerText = errorMessage;
-    //        checkSotienNdpt.innerText = errorMessage;
-    //        return false;
-    //    }
-    //    if (SotienNdpt.length == 0) {
-    //        checkSotienNdpt.innerText = "Vui lòng nhập số tiền muốn trả!";
+//    let SotienNdpt = document.getElementById("SotienNdpt").value;
+//    let GhichuNdpt = document.getElementById("GhichuNdpt").value;
+//    let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+//    let checkGhichuNdpt = document.getElementById("checkGhichuNdpt");
+//    let errorMessage = "Dữ liệu cung cấp quá dài!";
+//    if (SotienNdpt.length > 255 || GhichuNdpt.length > 255) {
+//        checkGhichuNdpt.innerText = errorMessage;
+//        checkSotienNdpt.innerText = errorMessage;
+//        return false;
+//    }
+//    if (SotienNdpt.length == 0) {
+//        checkSotienNdpt.innerText = "Vui lòng nhập số tiền muốn trả!";
 
-    //        return false;
-    //    }
-    //    else {
+//        return false;
+//    }
+//    else {
 
-    //        return true;
-    //    }
-    //}
-
-
-
-
-    //Nội dung phiếu trả nợ nhà cung cấp
-    //let btnAddNdptnkh = document.getElementById("btnAddNdptn");
-    //let btnUpdateNdptn = document.getElementById("btnUpdateNdptn");
-    //let btnCancelNdptn = document.getElementById("btnCancelNdptn");
-
-
-    //btnAddNdptn.addEventListener("click", function () {
-    //    let action = document.getElementById("actionNd");
-    //    action.value = "addItem";
-    //})
-    //btnUpdateNdptn.addEventListener("click", function () {
-    //    let action = document.getElementById("actionNd");
-    //    action.value = "editItem";
-    //})
-
-
-
-    //btnCancelNdptn.addEventListener("click", function () {
-    //    btnUpdateNdptn.style.display = "none";
-    //    btnCancelNdptn.style.display = "none";
-    //    btnAddNdptn.style.display = "block";
-    //})
-    ////Edit nội dung phiếu
-    //function onEditNdptnKH(td) {
-
-    //    const IdntnkhEdit = document.getElementById("IdntnkhEdit");
-    //    selectedRow = td.parentElement.parentElement;
-    //    document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
-    //    document.getElementById("SotienNdptthu").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
-
-    //    IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
-    //    document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
-
-
-    //    btnAddNdptn.style.display = "none";
-    //    btnUpdateNdptn.style.display = "block";
-    //    btnCancelNdptn.style.display = "block";
-
-    //}
+//        return true;
+//    }
+//}
 
 
 
 
-    ////validate number số tiền trả
-
-    //function changeSotienNdptn() {
-
-    //    const moneyElement = document.getElementById("SotienNdpt");
-
-    //    Formater = new Intl.NumberFormat('vi-VN');
-    //    priceFormated = Formater.format(moneyElement.value);
+//Nội dung phiếu trả nợ nhà cung cấp
+//let btnAddNdptnkh = document.getElementById("btnAddNdptn");
+//let btnUpdateNdptn = document.getElementById("btnUpdateNdptn");
+//let btnCancelNdptn = document.getElementById("btnCancelNdptn");
 
 
-    //    document.getElementById("SotienNdptthu").value = document.getElementById("SotienNdpt").value;
-    //    //đổi sau khi gán số không có dấu phẩy
-    //    document.getElementById("SotienNdpt").value = priceFormated.replaceAll(".", ",");
-
-
-    //}
-
-
-    ////Nội dung phiếu nhập
-    //function onEditNdptnKH(td) {
-
-    //    const IdntnnccEdit = document.getElementById("IdntnnccEdit");
-    //    selectedRow = td.parentElement.parentElement;
-    //    document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
-    //    document.getElementById("SotienNdptthu").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
-
-    //    IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
-    //    document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
-
-
-    //    btnAddNdptn.style.display = "none";
-    //    btnUpdateNdptn.style.display = "block";
-    //    btnCancelNdptn.style.display = "block";
-
-    //}
+//btnAddNdptn.addEventListener("click", function () {
+//    let action = document.getElementById("actionNd");
+//    action.value = "addItem";
+//})
+//btnUpdateNdptn.addEventListener("click", function () {
+//    let action = document.getElementById("actionNd");
+//    action.value = "editItem";
+//})
 
 
 
-    //function checkSotienThuNoNcc() {
-    //    var inputPrice = document.getElementById('SotienNdpt');
-    //    inputValueA = inputPrice.value;
+//btnCancelNdptn.addEventListener("click", function () {
+//    btnUpdateNdptn.style.display = "none";
+//    btnCancelNdptn.style.display = "none";
+//    btnAddNdptn.style.display = "block";
+//})
+////Edit nội dung phiếu
+//function onEditNdptnKH(td) {
 
-    //    if (isNaN(inputValueA)) {
-    //        inputPrice.value = inputValueA.slice(0, inputValueA.length - 1)
+//    const IdntnkhEdit = document.getElementById("IdntnkhEdit");
+//    selectedRow = td.parentElement.parentElement;
+//    document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
+//    document.getElementById("SotienNdptthu").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
 
-    //    }
-    //    checkTheAmountEntered();
-    //}
+//    IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
+//    document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
 
-    //const checkTheAmountEntered = function () {
-    //    let checkSotienNdpt = document.getElementById("checkSotienNdpt");
-    //    checkSotienNdpt.innerText = "";//reset error
-    //    let SotienNdpt = document.getElementById("SotienNdpt");
-    //    let ThanhToanThuc = document.getElementById("ThanhToanThuc");//tong số tiền cần thanh toán
-    //    const formNDTNNCC = document.getElementById("formNDTNNCC");
-    //    const btnAddNdptn = document.getElementById("btnAddNdptn");
-    //    SotienNdptThuc = (SotienNdpt.value).replaceAll(",", "");
-    //    SotienNdpt.style.border = "1px solid #ced4da";//reset border
 
-    //    let TongTienDaThanhtoan = 0;
-    //    let tr = document.querySelectorAll(".trNDTNNCC");
-    //    for (let i = 0; i <= tr.length - 1; i++) {
+//    btnAddNdptn.style.display = "none";
+//    btnUpdateNdptn.style.display = "block";
+//    btnCancelNdptn.style.display = "block";
 
-    //        TongTienDaThanhtoan += parseFloat((tr[i].children[1].innerText).replaceAll(",", ""));
-    //        console.log((tr[i].children[1].innerText));
-    //    }
-    //    let Tienthu = Number(parseFloat(SotienNdptThuc).toFixed(2));
-    //    let Tiencanthu = Number(parseFloat((ThanhToanThuc.value)).toFixed(2));
-    //    let Tiendathanhtoan = Number(parseFloat((TongTienDaThanhtoan).toFixed(2)));
+//}
 
-    //    if (Tienthu > Tiencanthu || Tienthu + Tiendathanhtoan > Tiencanthu) {
-    //        checkSotienNdpt.innerText = "Số tiền vượt quá số tiền cần thành toán!";
-    //        btnAddNdptn.disabled = true;
-    //        SotienNdpt.style.border = "5px solid #C82333";
-    //    }
-    //    else if (Tiendathanhtoan == Tiencanthu) {
-    //        SotienNdpt.readOnly = true;
-    //        console.log("Tiencanthu: " + Tiencanthu);
-    //        console.log("Tiendathanhtoan: " + Tiendathanhtoan);
-    //    }
-    //    else if (Tienthu <= Tiencanthu) {
-    //        btnAddNdptn.disabled = false;
-    //        SotienNdpt.style.border = "5px solid #218838";
-    //        SotienNdpt.readOnly = false;
-    //        console.log("Tienthu: " + Tienthu);
-    //        console.log("Tiencanthu: " + Tiencanthu);
-    //    }
-    //    console.log("------------------------------------------------");
-    //    console.log("Tienthu: " + Tienthu);
-    //    console.log("Tiencanthu: " + Tiencanthu);
-    //    console.log("Tiendathanhtoan: " + Tiendathanhtoan);
-    //    console.log("------------------------------------------------");
-    //    console.log("toFixed(2)");
-    //    console.log("ThanhToanThuc: " + parseFloat((ThanhToanThuc.value)));
-    //    console.log("SotienNdptThuc: " + parseFloat(SotienNdptThuc).toFixed(2));
-    //    console.log("TongTienDaThanhtoan: " + parseFloat((TongTienDaThanhtoan.value)));
-    //    console.log("tr.length: " + tr.length);
-    //}
+
+
+
+////validate number số tiền trả
+
+//function changeSotienNdptn() {
+
+//    const moneyElement = document.getElementById("SotienNdpt");
+
+//    Formater = new Intl.NumberFormat('vi-VN');
+//    priceFormated = Formater.format(moneyElement.value);
+
+
+//    document.getElementById("SotienNdptthu").value = document.getElementById("SotienNdpt").value;
+//    //đổi sau khi gán số không có dấu phẩy
+//    document.getElementById("SotienNdpt").value = priceFormated.replaceAll(".", ",");
+
+
+//}
+
+
+////Nội dung phiếu nhập
+//function onEditNdptnKH(td) {
+
+//    const IdntnnccEdit = document.getElementById("IdntnnccEdit");
+//    selectedRow = td.parentElement.parentElement;
+//    document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
+//    document.getElementById("SotienNdptthu").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
+
+//    IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
+//    document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
+
+
+//    btnAddNdptn.style.display = "none";
+//    btnUpdateNdptn.style.display = "block";
+//    btnCancelNdptn.style.display = "block";
+
+//}
+
+
+
+//function checkSotienThuNoNcc() {
+//    var inputPrice = document.getElementById('SotienNdpt');
+//    inputValueA = inputPrice.value;
+
+//    if (isNaN(inputValueA)) {
+//        inputPrice.value = inputValueA.slice(0, inputValueA.length - 1)
+
+//    }
+//    checkTheAmountEntered();
+//}
+
+//const checkTheAmountEntered = function () {
+//    let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+//    checkSotienNdpt.innerText = "";//reset error
+//    let SotienNdpt = document.getElementById("SotienNdpt");
+//    let ThanhToanThuc = document.getElementById("ThanhToanThuc");//tong số tiền cần thanh toán
+//    const formNDTNNCC = document.getElementById("formNDTNNCC");
+//    const btnAddNdptn = document.getElementById("btnAddNdptn");
+//    SotienNdptThuc = (SotienNdpt.value).replaceAll(",", "");
+//    SotienNdpt.style.border = "1px solid #ced4da";//reset border
+
+//    let TongTienDaThanhtoan = 0;
+//    let tr = document.querySelectorAll(".trNDTNNCC");
+//    for (let i = 0; i <= tr.length - 1; i++) {
+
+//        TongTienDaThanhtoan += parseFloat((tr[i].children[1].innerText).replaceAll(",", ""));
+//        console.log((tr[i].children[1].innerText));
+//    }
+//    let Tienthu = Number(parseFloat(SotienNdptThuc).toFixed(2));
+//    let Tiencanthu = Number(parseFloat((ThanhToanThuc.value)).toFixed(2));
+//    let Tiendathanhtoan = Number(parseFloat((TongTienDaThanhtoan).toFixed(2)));
+
+//    if (Tienthu > Tiencanthu || Tienthu + Tiendathanhtoan > Tiencanthu) {
+//        checkSotienNdpt.innerText = "Số tiền vượt quá số tiền cần thành toán!";
+//        btnAddNdptn.disabled = true;
+//        SotienNdpt.style.border = "5px solid #C82333";
+//    }
+//    else if (Tiendathanhtoan == Tiencanthu) {
+//        SotienNdpt.readOnly = true;
+//        console.log("Tiencanthu: " + Tiencanthu);
+//        console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+//    }
+//    else if (Tienthu <= Tiencanthu) {
+//        btnAddNdptn.disabled = false;
+//        SotienNdpt.style.border = "5px solid #218838";
+//        SotienNdpt.readOnly = false;
+//        console.log("Tienthu: " + Tienthu);
+//        console.log("Tiencanthu: " + Tiencanthu);
+//    }
+//    console.log("------------------------------------------------");
+//    console.log("Tienthu: " + Tienthu);
+//    console.log("Tiencanthu: " + Tiencanthu);
+//    console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+//    console.log("------------------------------------------------");
+//    console.log("toFixed(2)");
+//    console.log("ThanhToanThuc: " + parseFloat((ThanhToanThuc.value)));
+//    console.log("SotienNdptThuc: " + parseFloat(SotienNdptThuc).toFixed(2));
+//    console.log("TongTienDaThanhtoan: " + parseFloat((TongTienDaThanhtoan.value)));
+//    console.log("tr.length: " + tr.length);
+//}
 
 </script>
 

@@ -28,8 +28,48 @@ namespace QuanLySanXuat.Controllers
             return View(await phieunhapkho.ToListAsync());
         }
 
-        // GET: Phieunhapkho/Details/5
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrEdit(Phieunhapkho pnk, string action)
+        {
+            try
+            {
+                string employeeEmail = Request.Cookies["HienCaCookie"];
+                Nhanvien nhanvien = _context.Nhanvien.Where(nv => nv.Email == employeeEmail).FirstOrDefault();
+
+                if (nhanvien == null)
+                {
+                    pnk.Idnv = 2;
+                }
+                else
+                {
+                    pnk.Idnv = nhanvien.Idnv;
+                }
+                if (action.Equals("addItem"))
+                {
+                    pnk.Ngaylap = DateTime.Now;
+                    pnk.Idpnk = 0;
+                    _context.Add(pnk);
+
+                }
+                if (action.Equals("editItem"))
+                {
+                    pnk.Active = 1;
+                    _context.Update(pnk);
+
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
+
+
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -63,9 +103,7 @@ namespace QuanLySanXuat.Controllers
         {
             
             try {
-                DateTime Ngaysx = (DateTime)noidungphieunhap.Ngaysx;
-                DateTime Hansd = ((DateTime)noidungphieunhap.Hansd);
-
+                
                 
                 if (action.Equals("addItem"))
                 {
@@ -245,8 +283,8 @@ namespace QuanLySanXuat.Controllers
             try
             {
                 var phieunhapkho = _context.Phieunhapkho.Where(m => m.Idpnk == id).FirstOrDefault();
-
-                _context.Phieunhapkho.Remove(phieunhapkho);
+                phieunhapkho.Active = 0;
+                _context.Phieunhapkho.Update(phieunhapkho);
                 _context.SaveChangesAsync();
                 return new JsonResult(new { code = 200, msg = "Xóa thành công!" });
 

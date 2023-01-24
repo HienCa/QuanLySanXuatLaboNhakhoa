@@ -110,7 +110,7 @@
                             }
                             else
                             {
-                                <input readonly class="form-control" value="@phieunhapkho.Ngaylap" />
+                                <input readonly class="form-control" value="@phieunhapkho.Ngayhd" />
                             }
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-4 col-sm-12">
-                            Số lô
+                            Số Lô
                         </div>
                         <div class="col-md-8 col-sm-12">
 
@@ -238,7 +238,7 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-4 col-sm-12">
-                            Số lượng
+                            Số Lượng
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <input type="number" id="Count" oninput="ValidateIsNaN()" onblur="myFunction()" placeholder="0.0" class="form-control">
@@ -251,7 +251,7 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-4 col-sm-12">
-                            Đơn giá
+                            Đơn Giá
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <input class="form-control" placeholder="0.0" inputmode="numeric" onfocus="this.value=''" type="text" id="Gianhap" oninput="ValidateIsNaN()"
@@ -351,46 +351,49 @@
             </thead>
             @foreach (var item in TempData["noidungphieunhap"] as List<Noidungpnk>)
             {
-                <tr class="tr">
+        <tr class="tr">
 
-                    <td>@item.Solo</td>
+            <td>@item.Solo</td>
 
-                    <td>@item.IdvlNavigation.Tenvl</td>
-                    <td class="SL">@item.Soluong</td>
-                    <td>@item.Donvitinh</td>
+            <td>@item.IdvlNavigation.Tenvl</td>
+            <td class="SL">@item.Soluong</td>
+            <td>@item.Donvitinh</td>
 
-                    @{
-                        var Dongia = String.Format("{0:0,0}", (@item.Dongia));
-                        var ThanhTien = String.Format("{0:0,0}", (@item.Soluong * @item.Dongia));
-                    }
-                    <td class="Gia">@Dongia</td>
-                    <td>@ThanhTien</td>
+            @{
+                var Dongia = String.Format("{0:0,0}", (@item.Dongia));
+                var ThanhTien = String.Format("{0:0,0}", (@item.Soluong * @item.Dongia));
+            }
+            <td class="Gia">@Dongia</td>
+            <td>@ThanhTien</td>
 
-                    @{
-                        DateTime Ngaysx = (DateTime)item.Ngaysx;
-                        DateTime Hansd = (DateTime)item.Hansd;
-                    }
-                    @*<td>@item.CKTM</td>*@
+            @{
+                DateTime Ngaysx = (DateTime)item.Ngaysx;
+                DateTime Hansd = (DateTime)item.Hansd;
+            }
+            @*<td>@item.CKTM</td>*@
 
-                    @*<td>@Ngaysx.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
-                        <td>@Hansd.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>*@
-                    <td>@Ngaysx.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td>@Hansd.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td class="d-none">@item.Idndpnk</td>
+           
+            <td>@Ngaysx.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+            <td class="d-none">@Ngaysx.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
+
+            <td>@Hansd.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+            <td class="d-none">@Hansd.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
+
+            <td class="d-none">@item.Idndpnk</td>
 
 
-                    <td class="table-td-center d-flex">
-                        @*<a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpnk"><i class="fas fa-eye text-white"></i></a>*@
-                        <a class="btn  btn-sm btn-warning " onclick="onEdit(this)"><i class="fas fa-edit text-white"></i></a>
-                        <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idndpnk" asp-controller="Noidungphieunhap">
-                            <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
-                        </form>
-                        @*<a onclick="showPopUp('@Url.Action("Detals", "Noidungphieunhap" , new { id = item.Idndpnk }, Context.Request.Scheme)','Thông Tin Chi Tiết')" class="btn  btn-sm btn-danger ">
-                                <i class="fas fa-trash text-white"></i>
-                            </a>*@
-                    </td>
+            <td class="table-td-center d-flex">
+                @*<a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpnk"><i class="fas fa-eye text-white"></i></a>*@
+                <a class="btn  btn-sm btn-warning " onclick="onEdit(this)"><i class="fas fa-edit text-white"></i></a>
+                <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idndpnk" asp-controller="Noidungphieunhap">
+                    <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                </form>
+                @*<a onclick="showPopUp('@Url.Action("Detals", "Noidungphieunhap" , new { id = item.Idndpnk }, Context.Request.Scheme)','Thông Tin Chi Tiết')" class="btn  btn-sm btn-danger ">
+                <i class="fas fa-trash text-white"></i>
+            </a>*@
+            </td>
 
-                </tr>
+        </tr>
             }
         </table>
     </div>

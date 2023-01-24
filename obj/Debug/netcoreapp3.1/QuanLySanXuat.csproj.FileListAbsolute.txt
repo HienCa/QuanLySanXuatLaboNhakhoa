@@ -7247,3 +7247,13 @@ D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlys
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\99d6b736-1849-4bfe-9f4c-bb024260ccff_anhthe9.jpg
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\bf2cab44-328f-4386-9f24-c2181f141f3b_anhthe9.jpg
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\bd310407-834e-4197-8e89-d6d6817108e4_anhthe9.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\0737cbaa-820b-4aac-ba77-6f9f3f9380b4_anhVN.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\1f807410-640b-409d-8674-770c8b28fd0b_anhthe6.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\8878ec9c-4e61-4310-9825-92c0826e8533_anhthe15.jpg
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Images\c2020d65-e282-4dff-8582-d5207492093d_anhthe33.png
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Phieubanhang\Actions.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieubanhang\Actions.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Phieubanhang\SearchProduct.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieubanhang\SearchProduct.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Shared\_LayoutPhieuBan.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutPhieuBan.cshtml.g.cs

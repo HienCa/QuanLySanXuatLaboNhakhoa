@@ -11,6 +11,7 @@
 
     return [year, month, day].join('-');
 
+
 }
 /*from dd-mm-yyyy to yyyy-mm-dd*/
 function reformatDateString(s) {

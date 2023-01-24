@@ -110,7 +110,7 @@
                             }
                             else
                             {
-                                <input readonly class="form-control" value="@phieunhapkho.Ngaylap" />
+                                <input readonly class="form-control" value="@phieunhapkho.Ngayhd" />
                             }
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-4 col-sm-12">
-                            Số lô
+                            Số Lô
                         </div>
                         <div class="col-md-8 col-sm-12">
 
@@ -238,7 +238,7 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-4 col-sm-12">
-                            Số lượng
+                            Số Lượng
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <input type="number" id="Count" oninput="ValidateIsNaN()" onblur="myFunction()" placeholder="0.0" class="form-control">
@@ -251,7 +251,7 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-4 col-sm-12">
-                            Đơn giá
+                            Đơn Giá
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <input class="form-control" placeholder="0.0" inputmode="numeric" onfocus="this.value=''" type="text" id="Gianhap" oninput="ValidateIsNaN()"
@@ -372,10 +372,13 @@
                     }
                     @*<td>@item.CKTM</td>*@
 
-                    @*<td>@Ngaysx.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
-                        <td>@Hansd.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>*@
+
                     <td>@Ngaysx.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="d-none">@Ngaysx.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
+
                     <td>@Hansd.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="d-none">@Hansd.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
+
                     <td class="d-none">@item.Idndpnk</td>
 
 

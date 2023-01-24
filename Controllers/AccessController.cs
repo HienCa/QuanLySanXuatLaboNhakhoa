@@ -29,7 +29,7 @@ namespace QuanLySanXuat.Controllers
             ClaimsPrincipal claimUser = HttpContext.User;
             if (claimUser.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "PhieuNhapKho");
+                return RedirectToAction("Index", "Phieubanhang");
 
             }
             return View();
@@ -72,7 +72,7 @@ namespace QuanLySanXuat.Controllers
                         new ClaimsPrincipal(claimIdentity), properties);
 
 
-                    return RedirectToAction("Index", "PhieuNhapKho");
+                    return RedirectToAction("Index", "Phieubanhang");
                     //if (employee != null)
                     //{
                     //    return RedirectToAction("Index", "PhieuNhapKho");
