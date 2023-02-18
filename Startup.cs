@@ -40,7 +40,9 @@ namespace QuanLySanXuat
                     //options.Cookie.Name = "HienCaCookie";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 });
-            services.AddMvc();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession(); ;
+
             services.AddControllersWithViews();
             //services.AddDbContext<ProductionManagementSoftwareContext>();
             //services.AddRazorPages();
@@ -60,7 +62,8 @@ namespace QuanLySanXuat
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-          
+            app.UseSession();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

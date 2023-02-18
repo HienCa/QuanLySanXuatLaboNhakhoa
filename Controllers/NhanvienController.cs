@@ -350,7 +350,7 @@ namespace QuanLySanXuat.Controllers
                 builder.AppendLine($"{nv.Manv}, {nv.Tennv}, {nv.Cccd}, {nv.Sdt}, {nv.Email}, {nv.Diachi}, {nv.Ngaysinh}, {nv.Gioitinh}, {nv.Masothue}");
             }
 
-            return File(new System.Text.UTF8Encoding().GetBytes(builder.ToString()), "text/csv", "employees.csv");
+            return File(new UTF8Encoding().GetBytes(builder.ToString()), "text/csv", "employees.csv");
 
 
         }

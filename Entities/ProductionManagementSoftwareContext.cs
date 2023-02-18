@@ -37,6 +37,7 @@ namespace QuanLySanXuat.Entities
         public virtual DbSet<Noidungddhsx> Noidungddhsx { get; set; }
         public virtual DbSet<Noidungpbh> Noidungpbh { get; set; }
         public virtual DbSet<Noidungpnk> Noidungpnk { get; set; }
+        public virtual DbSet<Noidungpnkshow> Noidungpnkshow { get; set; }
         public virtual DbSet<Noidungthunoddhsx> Noidungthunoddhsx { get; set; }
         public virtual DbSet<Noidungthunokh> Noidungthunokh { get; set; }
         public virtual DbSet<Noidungtranoncc> Noidungtranoncc { get; set; }
@@ -731,7 +732,52 @@ namespace QuanLySanXuat.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKNOIDUNGPBH386396");
             });
+            modelBuilder.Entity<Noidungpnkshow>(entity =>
+            {
+                entity.HasKey(e => new { e.Idndpnk, e.Idpnk, e.Idvl })
+                    .HasName("PK__NOIDUNGP__3FA318903E44A182");
 
+                entity.ToTable("NOIDUNGPNKSHOW");
+
+                entity.Property(e => e.Idndpnk)
+                    .HasColumnName("IDNDPNK")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Idpnk).HasColumnName("IDPNK");
+
+                entity.Property(e => e.Idvl).HasColumnName("IDVL");
+
+                entity.Property(e => e.Dongia).HasColumnName("DONGIA");
+
+                entity.Property(e => e.Hansd)
+                    .HasColumnName("HANSD")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Ngaysx)
+                    .HasColumnName("NGAYSX")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Solo)
+                    .HasColumnName("SOLO")
+                    .HasMaxLength(255);
+                entity.Property(e => e.Donvitinh)
+                    .HasColumnName("DONVITINH")
+                    .HasMaxLength(255);
+                entity.Property(e => e.Soluong).HasColumnName("SOLUONG");
+                entity.Property(e => e.Slc).HasColumnName("SLC");
+
+                //entity.HasOne(d => d.IdpnkNavigation)
+                //    .WithMany(p => p.Noidungpnk)
+                //    .HasForeignKey(d => d.Idpnk)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_NDPNKSHOWIDVL");
+
+                //entity.HasOne(d => d.IdvlNavigation)
+                //    .WithMany(p => p.Noidungpnk)
+                //    .HasForeignKey(d => d.Idvl)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_NDPNKSHOWIDPNK");
+            });
             modelBuilder.Entity<Noidungpnk>(entity =>
             {
                 entity.HasKey(e => new { e.Idndpnk, e.Idpnk, e.Idvl })

@@ -195,13 +195,13 @@
                                     <a><i class="fa fa-desktop"></i> Báo Cáo <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li class="sub_menu">
-                                            @Html.ActionLink("Báo Cáo A", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                            @Html.ActionLink("Báo Cáo Nhập Kho", "ShowReport", "Phieunhapkho", null, new { @class = " app-menu__label" })
                                         </li>
                                         <li class="sub_menu">
-                                            @Html.ActionLink("Báo Cáo B", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                            @Html.ActionLink("Báo Cáo Xuất Kho", "ShowReport", "Phieubanhang", null, new { @class = " app-menu__label" })
                                         </li>
                                         <li class="sub_menu">
-                                            @Html.ActionLink("Báo Cáo C", "Index", "Nhanvien", null, new { @class = " app-menu__label" })
+                                            @Html.ActionLink("Báo Cáo Nhập Xuất Tồn", "Report", "Report", null, new { @class = " app-menu__label" })
                                         </li>
                                     </ul>
                                 </li>
@@ -440,7 +440,7 @@
     }
     <script src="~/popUp/popUp.js"></script>
 
-
+    @*<script src="~/crudFE/test.js"></script>*@
 
     <!-- Number Format -->
     <script src="~/number/currency.js"></script>
@@ -451,8 +451,9 @@
     @*<script src="~/crudFE/crud.js"></script>*@
 
     <!-- Email -->
-<script src="~/crudFE/validateEmail.js"></script>
-
+    <script src="~/crudFE/validateEmail.js"></script>
+    <!-- Pagination -->
+    @*<script src="~/Pagination/pagination.js"></script>*@
 </body>
 
 </html>

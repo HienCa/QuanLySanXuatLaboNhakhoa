@@ -284,7 +284,7 @@
                             %CKTM
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <input class="form-control" id="CKTM" placeholder="Chiếc khấu" />
+                            <input oninput="totalBill()" class="form-control" type="number" id="CKTM" placeholder="Chiếc khấu" />
                         </div>
                     </div>
                 </div>
@@ -349,14 +349,14 @@
                     <th scope="col" style="width:35px"></th>
                 </tr>
             </thead>
-            @foreach (var item in TempData["noidungphieunhap"] as List<Noidungpnk>)
+            @foreach (var item in TempData["noidungphieunhap"] as List<Noidungpnkshow>)
             {
                 <tr class="tr">
 
                     <td>@item.Solo</td>
 
                     <td>@item.IdvlNavigation.Tenvl</td>
-                    <td class="SL">@item.Soluong</td>
+                    <td class="SL">@item.Slc</td>
                     <td>@item.Donvitinh</td>
 
                     @{
@@ -407,7 +407,7 @@
                         Tiền hàng
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input readonly id="totalAmount" type="number" value="" placeholder="Tiền hàng" class="form-control">
+                        <input readonly id="totalAmount" value="" placeholder="Tiền hàng" class="form-control">
                         <input readonly id="totalAmountThuc" type="hidden" value="" placeholder="Tiền hàng" class="form-control">
                     </div>
                 </div>
@@ -418,7 +418,7 @@
                         Tiền CK
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input id="TienCK" readonly type="number" placeholder="Tiền chiếc khấu" class="form-control">
+                        <input id="TienCK" readonly placeholder="Tiền chiếc khấu" class="form-control">
                         <input id="TienCKThuc" readonly type="hidden" placeholder="Tiền chiếc khấu" class="form-control">
                     </div>
                 </div>
@@ -429,7 +429,7 @@
                         Tiền thuế
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input readonly id="TienThue" type="number" placeholder="Tiền thuế" class="form-control">
+                        <input readonly id="TienThue" placeholder="Tiền thuế" class="form-control">
                         <input readonly id="TienThueThuc" type="hidden" placeholder="Tiền thuế" class="form-control">
                     </div>
                 </div>
@@ -440,7 +440,7 @@
                         Th.Toán
                     </div>
                     <div class="col-md-9 col-sm-12">
-                        <input readonly id="ThanhToan" onload="Payment()" type="number" placeholder="Thanh toán" class="form-control">
+                        <input readonly id="ThanhToan" onload="Payment()" placeholder="Thanh toán" class="form-control">
                         <input readonly id="ThanhToanThuc" type="hidden" placeholder="Thanh toán" class="form-control">
 
                     </div>
@@ -644,5 +644,353 @@
 
 
 </script>
+<script>
+
+    function totalBill() {
+
+        let tr = document.querySelectorAll(".tr");
+        let SL = document.querySelectorAll(".SL");
+        let Gia = document.querySelectorAll(".Gia");
+        let totalAmount = document.getElementById("totalAmount");
+        let ThanhToan = document.getElementById("ThanhToan");
+        let TienCK = document.getElementById("TienCK");
+        let TienThue = document.getElementById("TienThue");
+        let vat = document.getElementById("VAT");
+        let cktm = document.getElementById("CKTM");
+
+        let totalAmountThuc = document.getElementById("totalAmountThuc");
+        let ThanhToanThuc = document.getElementById("ThanhToanThuc");
+        let TienCKThuc = document.getElementById("TienCKThuc");
+        let TienThueThuc = document.getElementById("TienThueThuc");
+
+        let Payment = 0;
+        let Amount = 0;
+        let CK = 0;
+        let Thue = 0;
+        for (let i = 0; i <= tr.length - 1; i++) {
+            let count = parseFloat((SL[i].innerText).replaceAll(",", ""));
+            let price = parseFloat((Gia[i].innerText).replaceAll(",", ""));
+            console.log(count);
+            console.log(price);
+            //Tiền hàng
+            Amount += count * price;
+
+        }
+        console.log("Amount " + Amount);
+
+        //Tiền Chiếc khấu
+        CKTM = (Number(Amount) * Number(cktm.value)) / 100;
 
 
+        //Thuế giá trị gia tăng
+        VAT = vat.value;
+
+        //Thuế
+        Thue = ((Amount - CKTM) * Number(VAT)) / 100;
+
+        Payment = Amount - CKTM + parseFloat(Thue);
+
+
+        Formater = new Intl.NumberFormat('vi-VN');
+        let tienhang = Formater.format(Amount);
+        let tienchieckhau = Formater.format(CKTM);
+        let tienthue = Formater.format(Thue);
+        let tienthanhtoan = Formater.format(Payment);
+
+        //Hiển thị tiền dấu phẩy
+        totalAmount.value = tienhang.replaceAll(".", ",");
+        TienCK.value = tienchieckhau.replaceAll(".", ",");
+        TienThue.value = tienthue.replaceAll(".", ",");
+        ThanhToan.value = tienthanhtoan.replaceAll(".", ",");
+
+        //toFixed(2)
+
+        //Dữ liệu tính toán
+        totalAmountThuc.value = parseFloat(Amount).toFixed(2);
+        TienCKThuc.value = parseFloat(CKTM).toFixed(2);
+        TienThueThuc.value = parseFloat(Thue).toFixed(2);
+        ThanhToanThuc.value = parseFloat(Payment).toFixed(2);
+        console.log("parseFloat(Amount).toFixed(2) " + parseFloat(Amount).toFixed(2));
+        console.log("parseFloat(CKTM).toFixed(2) " + parseFloat(CKTM).toFixed(2));
+        console.log("parseFloat(Thue).toFixed(2) " + parseFloat(Thue).toFixed(2));
+        console.log("parseFloat(Payment).toFixed(2) " + parseFloat(Payment).toFixed(2));
+
+        //Dữ liệu hiển thị
+
+        //totalAmount.value =parseFloat(Amount).toFixed(2);
+        //TienCK.value = parseFloat(CK).toFixed(2);
+        //TienThue.value = parseFloat(Thue).toFixed(2);
+        //ThanhToan.value = parseFloat(Payment).toFixed(2);
+
+
+    }
+
+
+    const formatCurrencyed = function (money) {
+        Formater = new Intl.NumberFormat('vi-VN');
+        moneyFormated = Formater.format(money);
+
+        return moneyFormated.replaceAll(".", ",");
+    }
+</script>
+<script>
+
+    //Nội dung phiếu nhập
+    let btnAdd = document.getElementById("btnAdd");
+    let btnUpdate = document.getElementById("btnUpdate");
+    let btnCancel = document.getElementById("btnCancel");
+    btnCancel.addEventListener("click", function () {
+        btnUpdate.style.display = "none";
+        btnCancel.style.display = "none";
+        btnAdd.style.display = "block";
+    })
+
+    let action = document.getElementById("action");
+
+    let TaoPhieu = document.getElementById("TaoPhieu");
+
+    btnAdd.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdate.addEventListener("click", function () {
+        action.value = "editItem";
+    })
+    TaoPhieu.addEventListener("click", function () {
+        action.value = "TaoPhieu";
+    })
+
+
+    function onEdit(td) {
+        let formNdpnk = document.getElementById("formNdpnk");
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Solo").value = selectedRow.cells[0].innerHTML;
+
+        //let Tenvl = selectedRow.cells[1].innerHTML;
+        //for (var i = 0; i < document.getElementById("multipleSelect").length; i++)
+        //    if (formNdpnk.multipleSelect[i].innerText[i].innerText == Tenvl) document.getElementById("multipleSelect")[i].selected = true;
+
+        document.getElementById("Soluong").value = selectedRow.cells[2].innerHTML;
+        document.getElementById("Count").value = selectedRow.cells[2].innerHTML;
+        //let Donvitinh = selectedRow.cells[3].innerHTML;
+        //for (var i = 0; i < document.getElementById("Donvitinh").length; i++)
+        //    if (formNdpnk.Donvitinh[i].innerText == Donvitinh) document.getElementById("multipleSelect")[i].selected = true;
+
+        document.getElementById("Gianhap").value = selectedRow.cells[4].innerHTML;
+
+        let priceFormated = (selectedRow.cells[4].innerHTML).replaceAll(",", "");
+        document.getElementById("Dongia").value = priceFormated;
+        document.getElementById("Thanhtien").value = selectedRow.cells[5].innerHTML;
+
+
+        var Ngaysx = selectedRow.cells[7].innerHTML;
+        var Hansd = selectedRow.cells[9].innerHTML;
+
+        document.getElementById("Ngaysx").value = Ngaysx;
+        document.getElementById("Hansd").value = Hansd;
+        document.getElementById("Idndpnk").value = selectedRow.cells[10].innerHTML;
+
+
+
+        btnAdd.style.display = "none";
+        btnUpdate.style.display = "block";
+        btnCancel.style.display = "block";
+
+    }
+    btnUpdate.addEventListener("click", function () {
+        btnAdd.style.display = "block";
+        btnUpdate.style.display = "none";
+        btnCancel.style.display = "none";
+
+    })
+
+
+
+    //Phiếu trả nợ
+    function checkInputNdptn() {
+
+        let SotienNdpt = document.getElementById("SotienNdpt").value;
+        let GhichuNdpt = document.getElementById("GhichuNdpt").value;
+        let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+        let checkGhichuNdpt = document.getElementById("checkGhichuNdpt");
+        let errorMessage = "Dữ liệu cung cấp quá dài!";
+        if (SotienNdpt.length > 255 || GhichuNdpt.length > 255) {
+            checkGhichuNdpt.innerText = errorMessage;
+            checkSotienNdpt.innerText = errorMessage;
+            return false;
+        }
+        if (SotienNdpt.length == 0) {
+            checkSotienNdpt.innerText = "Vui lòng nhập số tiền muốn trả!";
+
+            return false;
+        }
+        else {
+
+            return true;
+        }
+    }
+
+
+
+
+    //Nội dung phiếu trả nợ nhà cung cấp
+    let btnAddNdptn = document.getElementById("btnAddNdptn");
+    let btnUpdateNdptn = document.getElementById("btnUpdateNdptn");
+    let btnCancelNdptn = document.getElementById("btnCancelNdptn");
+    let btnFinishNdptn = document.getElementById("btnFinishNdptn");
+
+
+    btnAddNdptn.addEventListener("click", function () {
+        let action = document.getElementById("actionNd");
+        action.value = "addItem";
+    })
+    btnUpdateNdptn.addEventListener("click", function () {
+        let action = document.getElementById("actionNd");
+        action.value = "editItem";
+    })
+    btnFinishNdptn.addEventListener("click", function () {
+        let action = document.getElementById("actionNd");
+        action.value = "finish";
+    })
+
+
+
+    btnCancelNdptn.addEventListener("click", function () {
+        btnUpdateNdptn.style.display = "none";
+        btnCancelNdptn.style.display = "none";
+        btnAddNdptn.style.display = "block";
+    })
+    //Edit nội dung phiếu
+    function onEditNdptnncc(td) {
+
+        const IdntnnccEdit = document.getElementById("IdntnnccEdit");
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("SotienNdpttra").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
+
+        IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
+        document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
+
+
+        btnAddNdptn.style.display = "none";
+        btnUpdateNdptn.style.display = "block";
+        btnCancelNdptn.style.display = "block";
+
+    }
+
+
+
+
+    //validate number số tiền trả
+
+    function changeSotienNdptn() {
+
+        const moneyElement = document.getElementById("SotienNdpt");
+
+        Formater = new Intl.NumberFormat('vi-VN');
+        priceFormated = Formater.format(moneyElement.value);
+
+
+        document.getElementById("SotienNdpttra").value = document.getElementById("SotienNdpt").value;
+        //đổi sau khi gán số không có dấu phẩy
+        document.getElementById("SotienNdpt").value = priceFormated.replaceAll(".", ",");
+
+
+    }
+
+
+    //Nội dung phiếu nhập
+    function onEditNdptnncc(td) {
+
+        const IdntnnccEdit = document.getElementById("IdntnnccEdit");
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("SotienNdpttra").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
+
+        IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
+        document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
+
+
+        btnAddNdptn.style.display = "none";
+        btnUpdateNdptn.style.display = "block";
+        btnCancelNdptn.style.display = "block";
+
+    }
+
+
+
+    function checkSotienTraNoNcc() {
+        var inputPrice = document.getElementById('SotienNdpt');
+        inputValueA = inputPrice.value;
+
+        if (isNaN(inputValueA)) {
+            inputPrice.value = inputValueA.slice(0, inputValueA.length - 1)
+
+        }
+        checkTheAmountEntered();
+    }
+
+    const checkTheAmountEntered = function () {
+        let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+        checkSotienNdpt.innerText = "";//reset error
+        let SotienNdpt = document.getElementById("SotienNdpt");
+        let ThanhToanThuc = document.getElementById("ThanhToanThuc");//tong số tiền cần thanh toán
+        const formNDTNNCC = document.getElementById("formNDTNNCC");
+        const btnAddNdptn = document.getElementById("btnAddNdptn");
+        let btnFinishNdptn = document.getElementById("btnFinishNdptn");
+        let GhichuNdpt = document.getElementById("GhichuNdpt");
+        let phieutra = document.getElementById("phieutra");
+
+        SotienNdptThuc = (SotienNdpt.value).replaceAll(",", "");
+        SotienNdpt.style.border = "1px solid #ced4da";//reset border
+
+        let TongTienDaThanhtoan = 0;
+        let tr = document.querySelectorAll(".trNDTNNCC");
+        for (let i = 0; i <= tr.length - 1; i++) {
+
+            TongTienDaThanhtoan += parseFloat((tr[i].children[1].innerText).replaceAll(",", ""));
+            console.log((tr[i].children[1].innerText));
+        }
+        let Tientra = Number(parseFloat(SotienNdptThuc).toFixed(2));
+        let Tiencantra = Number(parseFloat((ThanhToanThuc.value)).toFixed(2));
+        let Tiendathanhtoan = Number(parseFloat((TongTienDaThanhtoan).toFixed(2)));
+
+        Formater = new Intl.NumberFormat('vi-VN');
+        tienphaitra = Formater.format(Number(parseFloat(ThanhToanThuc.value)));
+
+        if (Tientra > Tiencantra || Tientra + Tiendathanhtoan > Tiencantra) {
+            checkSotienNdpt.innerText = "Số tiền vượt quá số tiền cần thành toán! Cần trả thêm: " + tienphaitra.replaceAll(".", ",") + "đ";
+            btnAddNdptn.disabled = true;
+            SotienNdpt.style.border = "5px solid #C82333";
+        }
+        if (Tiendathanhtoan == Tiencantra) {
+            btnFinishNdptn.style.display = "";
+            btnAddNdptn.style.display = "none";
+            SotienNdpt.readOnly = true;
+            GhichuNdpt.readOnly = true;
+            phieutra.readOnly = true;
+            console.log("Tiencantra: " + Tiencantra);
+            console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+        }
+        else if (Tientra <= Tiencantra) {
+            btnAddNdptn.style.display = "";
+            btnAddNdptn.disabled = false;
+            SotienNdpt.style.border = "5px solid #218838";
+            SotienNdpt.readOnly = false;
+            GhichuNdpt.readOnly = false;
+            phieutra.readOnly = false;
+            console.log("Tientra: " + Tientra);
+            console.log("Tiencantra: " + Tiencantra);
+        }
+        console.log("------------------------------------------------");
+        console.log("Tientra: " + Tientra);
+        console.log("Tiencantra: " + Tiencantra);
+        console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+        console.log("------------------------------------------------");
+        console.log("toFixed(2)");
+        console.log("ThanhToanThuc: " + parseFloat((ThanhToanThuc.value)));
+        console.log("SotienNdptThuc: " + parseFloat(SotienNdptThuc).toFixed(2));
+        console.log("TongTienDaThanhtoan: " + parseFloat((TongTienDaThanhtoan.value)));
+        console.log("tr.length: " + tr.length);
+    }
+
+</script>

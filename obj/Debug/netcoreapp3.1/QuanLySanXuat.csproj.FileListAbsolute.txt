@@ -7257,3 +7257,12 @@ D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlys
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieubanhang\SearchProduct.cshtml.g.cs
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Shared\_LayoutPhieuBan.cshtml
 D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutPhieuBan.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\crudFE\test.js
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Pagination\pagination.css
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\wwwroot\Pagination\pagination.js
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Phieunhapkho\ShowReport.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieunhapkho\ShowReport.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Phieubanhang\ShowReport.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Phieubanhang\ShowReport.cshtml.g.cs
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\bin\Debug\netcoreapp3.1\quanlysanxuat\Views\Report\Report.cshtml
+D:\ĐH-08CNTT1\HienCa\NetFramework\QuanLySanXuat\obj\Debug\netcoreapp3.1\Razor\Views\Report\Report.cshtml.g.cs

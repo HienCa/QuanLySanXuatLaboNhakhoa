@@ -57,7 +57,7 @@ namespace QuanLySanXuat.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Noidungtranoncc Noidungtranoncc, string action)
+        public async Task<IActionResult> Create(Noidungtranoncc Noidungtranoncc, string action, int Idpnk, Phieutranoncc ptn, string SoPhieuNK)
         {
             try
             {
@@ -72,10 +72,46 @@ namespace QuanLySanXuat.Controllers
                     _context.Update(Noidungtranoncc);
 
                 }
+                if (action.Equals("createPTNNCC"))
+                {
+                    string employeeEmail = Request.Cookies["HienCaCookie"];
+                    Nhanvien nhanvien = _context.Nhanvien.Where(nv => nv.Email == employeeEmail).FirstOrDefault();
+                    var Idnv = 2;
+                    if (nhanvien == null)
+                    {
+                        Idnv = 2;
+                    }
+                    else
+                    {
+                        Idnv = nhanvien.Idnv;
+                    }
+                    ptn.Sophieu = SoPhieuNK + Idpnk;
+                    ptn.Idnv = Idnv;
+                    ptn.Ngaylap = DateTime.Now;
+                    ptn.Active = 1;
+                    _context.Phieutranoncc.Add(ptn);
+
+
+                    await _context.SaveChangesAsync();
+                    Phieutranoncc ptnncc = _context.Phieutranoncc.Where(nv => nv.Sophieu == ptn.Sophieu).FirstOrDefault();
+                    TempData["Idptnncc"] = ptnncc.Idptnncc;
+                    TempData["SophieuTNNCC"] = ptnncc.Sophieu;
+                    return RedirectToAction("Details", "Phieunhapkho", new { @id = Noidungtranoncc.Idpnk });
+
+                }
+                if (action.Equals("finish"))
+                {
+                    Phieunhapkho pnk = _context.Phieunhapkho.Where(id => id.Idpnk == Noidungtranoncc.Idpnk).FirstOrDefault();
+                    pnk.Active = 0;
+                    _context.Phieunhapkho.Update(pnk);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Phieunhapkho");
+
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "Phieunhapkho", new { @id = Noidungtranoncc.Idpnk });
             }
-
 
             catch {
                 return RedirectToAction("Details", "Phieunhapkho", new { @id = Noidungtranoncc.Idpnk });

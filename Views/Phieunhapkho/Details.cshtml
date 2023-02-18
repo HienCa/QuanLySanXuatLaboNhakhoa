@@ -11,8 +11,10 @@
 
     List<Vatlieu> vatlieu = _context.Vatlieu.Where(active => active.Active == 1).ToList();
     List<Nhacungcapvl> nhacungcap = _context.Nhacungcapvl.Where(n => n.Active == 1).ToList();
-   
+
     List<Phieutranoncc> phieutranoncc = _context.Phieutranoncc.Where(n => n.Active == 1).ToList();
+    List<Hinhthucthanhtoan> httt = _context.Hinhthucthanhtoan.Where(n => n.Active == 1).ToList();
+
 
 }
 
@@ -23,7 +25,7 @@
 
 </ul>
 <div id="tab-1" class="tab-content current">
-    <form id="formNdpnk" asp-action="Actions" asp-controller="PhieuNhapKho" method="post" >
+    <form id="formNdpnk" asp-action="Actions" asp-controller="PhieuNhapKho" method="post">
         @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
         <input id="Idndpnk" name="phieunhap" type="hidden" />
 
@@ -284,7 +286,7 @@
                             %CKTM
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <input class="form-control" id="CKTM" placeholder="Chiếc khấu" />
+                            <input oninput="totalBill()" class="form-control" type="number" id="CKTM" placeholder="Chiếc khấu" />
                         </div>
                     </div>
                 </div>
@@ -335,7 +337,7 @@
         <table id="grid-pnks" class="table table-striped table-bordered text-center">
 
             <thead>
-                <tr  class="text-center">
+                <tr class="text-center">
                     <th scope="col">Số lô</th>
                     <th scope="col">Tên hàng hóa</th>
                     <th scope="col">Số lượng</th>
@@ -349,51 +351,51 @@
                     <th scope="col" style="width:35px"></th>
                 </tr>
             </thead>
-            @foreach (var item in TempData["noidungphieunhap"] as List<Noidungpnk>)
+            @foreach (var item in TempData["noidungphieunhap"] as List<Noidungpnkshow>)
             {
-        <tr class="tr">
+                <tr class="tr">
 
-            <td>@item.Solo</td>
+                    <td>@item.Solo</td>
 
-            <td>@item.IdvlNavigation.Tenvl</td>
-            <td class="SL">@item.Soluong</td>
-            <td>@item.Donvitinh</td>
+                    <td>@item.IdvlNavigation.Tenvl</td>
+                    <td class="SL">@item.Slc</td>
+                    <td>@item.Donvitinh</td>
 
-            @{
-                var Dongia = String.Format("{0:0,0}", (@item.Dongia));
-                var ThanhTien = String.Format("{0:0,0}", (@item.Soluong * @item.Dongia));
-            }
-            <td class="Gia">@Dongia</td>
-            <td>@ThanhTien</td>
+                    @{
+                        var Dongia = String.Format("{0:0,0}", (@item.Dongia));
+                        var ThanhTien = String.Format("{0:0,0}", (@item.Soluong * @item.Dongia));
+                    }
+                    <td class="Gia">@Dongia</td>
+                    <td>@ThanhTien</td>
 
-            @{
-                DateTime Ngaysx = (DateTime)item.Ngaysx;
-                DateTime Hansd = (DateTime)item.Hansd;
-            }
-            @*<td>@item.CKTM</td>*@
-
-           
-            <td>@Ngaysx.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
-            <td class="d-none">@Ngaysx.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
-
-            <td>@Hansd.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
-            <td class="d-none">@Hansd.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
-
-            <td class="d-none">@item.Idndpnk</td>
+                    @{
+                        DateTime Ngaysx = (DateTime)item.Ngaysx;
+                        DateTime Hansd = (DateTime)item.Hansd;
+                    }
+                    @*<td>@item.CKTM</td>*@
 
 
-            <td class="table-td-center d-flex">
-                @*<a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpnk"><i class="fas fa-eye text-white"></i></a>*@
-                <a class="btn  btn-sm btn-warning " onclick="onEdit(this)"><i class="fas fa-edit text-white"></i></a>
-                <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idndpnk" asp-controller="Noidungphieunhap">
-                    <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
-                </form>
-                @*<a onclick="showPopUp('@Url.Action("Detals", "Noidungphieunhap" , new { id = item.Idndpnk }, Context.Request.Scheme)','Thông Tin Chi Tiết')" class="btn  btn-sm btn-danger ">
-                <i class="fas fa-trash text-white"></i>
-            </a>*@
-            </td>
+                    <td>@Ngaysx.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="d-none">@Ngaysx.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
 
-        </tr>
+                    <td>@Hansd.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="d-none">@Hansd.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)</td>
+
+                    <td class="d-none">@item.Idndpnk</td>
+
+
+                    <td class="table-td-center d-flex">
+                        @*<a asp-action="Details" class="btn  btn-sm btn-info" asp-route-id="@item.Idpnk"><i class="fas fa-eye text-white"></i></a>*@
+                        <a class="btn  btn-sm btn-warning " onclick="onEdit(this)"><i class="fas fa-edit text-white"></i></a>
+                        <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idndpnk" asp-controller="Noidungphieunhap">
+                            <button type="submit" class="btn  btn-sm btn-danger "><i class="fas fa-trash text-white"></i></button>
+                        </form>
+                        @*<a onclick="showPopUp('@Url.Action("Detals", "Noidungphieunhap" , new { id = item.Idndpnk }, Context.Request.Scheme)','Thông Tin Chi Tiết')" class="btn  btn-sm btn-danger ">
+                                <i class="fas fa-trash text-white"></i>
+                            </a>*@
+                    </td>
+
+                </tr>
             }
         </table>
     </div>
@@ -407,7 +409,7 @@
                         Tiền hàng
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input readonly id="totalAmount" type="number" value="" placeholder="Tiền hàng" class="form-control">
+                        <input readonly id="totalAmount" value="" placeholder="Tiền hàng" class="form-control">
                         <input readonly id="totalAmountThuc" type="hidden" value="" placeholder="Tiền hàng" class="form-control">
                     </div>
                 </div>
@@ -418,7 +420,7 @@
                         Tiền CK
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input id="TienCK" readonly type="number" placeholder="Tiền chiếc khấu" class="form-control">
+                        <input id="TienCK" readonly placeholder="Tiền chiếc khấu" class="form-control">
                         <input id="TienCKThuc" readonly type="hidden" placeholder="Tiền chiếc khấu" class="form-control">
                     </div>
                 </div>
@@ -429,7 +431,7 @@
                         Tiền thuế
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input readonly id="TienThue" type="number" placeholder="Tiền thuế" class="form-control">
+                        <input readonly id="TienThue" placeholder="Tiền thuế" class="form-control">
                         <input readonly id="TienThueThuc" type="hidden" placeholder="Tiền thuế" class="form-control">
                     </div>
                 </div>
@@ -440,9 +442,9 @@
                         Th.Toán
                     </div>
                     <div class="col-md-9 col-sm-12">
-                        <input readonly id="ThanhToan" onload="Payment()" type="number" placeholder="Thanh toán" class="form-control">
-                        <input readonly id="ThanhToanThuc"  type="hidden" placeholder="Thanh toán" class="form-control">
-                        
+                        <input readonly id="ThanhToan" onload="Payment()" placeholder="Thanh toán" class="form-control">
+                        <input readonly id="ThanhToanThuc" type="hidden" placeholder="Thanh toán" class="form-control">
+
                     </div>
                 </div>
             </div>
@@ -460,20 +462,63 @@
 </div>
 
 <div id="tab-2" class="tab-content ">
-    
 
+    <div class="bg-light p-1  border border-secondary rounded">
+        <form id="createPTNNCC" asp-action="Create" asp-controller="Noidungtranoncc">
+
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            Hình thức
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <select id="selectDefault" name="Idhttt">
+
+                                @foreach (var item in httt)
+                                {
+                                    <option value="@item.Idhttt">@item.Tenhttt</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-1 col-sm-12">
+                            Ghi chú
+                        </div>
+                        <div class="col-md-11 col-sm-12" @*style="flex: 0 0 auto; width: 90.33333333%; margin-left:10px"*@>
+                            <textarea name="Ghichu" onfocus="this.value=''" row="" style="height:10px;" class="form-control"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-12">
+
+                    <input type="hidden" name="action" value="createPTNNCC" />
+                    <input type="hidden" name="Idpnk" value="@phieunhapkho.Idpnk" />
+                    <input type="hidden" name="SoPhieuNK" value="@phieunhapkho.Sophieu" />
+                    <input type="submit" id="TaoPhieu" value="Tạo Phiếu" class="btn btn-primary w-100" />
+
+                </div>
+            </div>
+        </form>
+    </div>
     <form asp-action="Create" asp-controller="Noidungtranoncc" id="formNDTNNCC" method="post" onsubmit="return checkInputNdptn()">
         <input type="hidden" name="Idpnk" value="@phieunhapkho.Idpnk" />
-        <input type="hidden" name="Idndptnncc" id="IdntnnccEdit"/>
+        <input type="hidden" name="Idndptnncc" id="IdntnnccEdit" />
+        <input type="hidden" name="action" id="actionNd" />
 
         <div class="bg-light p-1  border border-secondary rounded">
             <div class="row">
                 <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             Số Tiền
                         </div>
-                        <div class="col-md-8 col-sm-12">
+                        <div class="col-md-9 col-sm-12">
                             <input id="SotienNdpt" inputmode="numeric" onfocus="this.value=''" onchange="changeSotienNdptn()" oninput="checkSotienTraNoNcc()" type="text" class="form-control">
                             <input name="Sotien" id="SotienNdpttra" type="hidden" class="form-control">
                             <span id="checkSotienNdpt" class="text-danger"></span>
@@ -481,46 +526,63 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-12">
+                @*<div class="col-md-3 col-sm-12">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-3 col-sm-12">
+                                Phiếu trả
+                            </div>
+                            <div class="col-md-9 col-sm-12">
+                                <div class="col-md-12 col-sm-12">
+                                    <select id="multipleSelect" name="Idptnncc" class="phieutra" data-search="true"
+                                            data-silent-initial-value-set="true">
+                                        @foreach (var item in phieutranoncc)
+                                        {
+                                            <option value="@item.Idptnncc">@item.Sophieu</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-3 col-sm-12">
-                            Phiếu trả
+                            P.Trả Nợ
                         </div>
                         <div class="col-md-9 col-sm-12">
-                            <div class="col-md-12 col-sm-12">
-                                <select id="multipleSelect" name="Idptnncc" class="" data-search="true"
-                                        data-silent-initial-value-set="true">
-                                    @foreach (var item in phieutranoncc)
-                                    {
-                                        <option value="@item.Idptnncc">@item.Sophieu</option>
-                                    }
+                            @if (TempData["Idptnncc"] != null && TempData["SophieuTNNCC"] != null)
+                            {
 
-                                </select>
-                            </div>
+
+                                <input id="SoPhieuTra" readonly value="@TempData["SophieuTNNCC"]" class="form-control">
+                                <input name="Idptnncc" id="Idptnncc" value="@TempData["Idptnncc"]" type="hidden" class="form-control">
+                            }
+                            else
+                            {
+                                <input id="SoPhieuTra" readonly name="SoPhieu" class="form-control">
+                                <input id="Idptnncc" type="hidden" name="Idptnncc" class="form-control">
+
+                            }
+                            
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="row d-flex align-items-center">
-                        <div class="col-md-2 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             Ghi chú
                         </div>
-                        <div class="col-md-10 col-sm-12">
+                        <div class="col-md-9 col-sm-12">
                             <textarea name="Ghichu" id="GhichuNdpt" onfocus="this.value=''" row="" style="height:10px;" class="form-control"></textarea>
                             <span id="checkGhichuNdpt" class="text-danger"></span>
 
                         </div>
                     </div>
                 </div>
-
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-9 col-sm-12">
-                    <input id="actionNd" type="hidden" name="action" />
-
-                </div>
                 <div class="col-md-3 col-sm-12 ">
                     <button type="submit" style="float: right;" class="btn btn-primary w-50" id="btnAddNdptn">Thêm</button>
+                    <button type="submit" style="float: right;display:none" class="btn btn-primary w-50" id="btnFinishNdptn">Đã thanh toán</button>
                     <div class="d-flex">
                         <button type="button" style="display:none;" class="btn btn-light w-50" id="btnCancelNdptn">Hủy</button>
                         <button type="submit" class="btn btn-primary w-50" id="btnUpdateNdptn" style="display:none; float: right;">
@@ -530,6 +592,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
     <div class="bg-light p-1 border border-secondary rounded mt-2">
@@ -551,19 +614,22 @@
                     @{
                         var Sotien = String.Format("{0:0,0}", (@item.Sotien));
                     }
-                    <td >@Sotien</td>
+                    <td>@Sotien</td>
                     @if (item.Ngaytrano != null)
                     {
                         DateTime Ngaytn = item.Ngaytrano;
                         <td>@Ngaytn.ToString("dd/MM/yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)</td>
+                        <td class="d-none">@Ngaytn.ToString("yyyy-MM-dd HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture)</td>
 
                     }
                     else
                     {
-                        <td>@item.Ngaytrano</td>
+                        <td></td>
                     }
                     <td style="display:none">@item.Idndptnncc</td>
                     <td>@item.Ghichu</td>
+                    <td class="d-none sophieu">@item.IdptnnccNavigation.Sophieu</td>
+                    <td class="d-none idptnncc">@item.IdptnnccNavigation.Idptnncc</td>
                     <td class="table-td-center d-flex">
                         <a class="btn  btn-sm btn-warning " onclick="onEditNdptnncc(this)"><i class="fas fa-edit text-white"></i></a>
                         <form class="formDelete" asp-action="Delete" asp-route-id="@item.Idndptnncc" asp-controller="Noidungtranoncc">
@@ -582,10 +648,46 @@
 
 
 
+
 <script>
+    const SoTienInput = document.getElementById("SotienNdpt");
+
+    SoTienInput.addEventListener("focus", getSoPhieu);
+    function getSoPhieu() {
+        let SoPhieuTra = document.getElementById("SoPhieuTra");
+        let Idptnncc = document.getElementById("Idptnncc");
+
+        let SoPhieuTraSession = sessionStorage.getItem("SoPhieuTra");
+        let IdptnnccSession = sessionStorage.getItem("Idptnncc");
+
+        if (SoPhieuTraSession != null && Idptnncc != null) {
+            SoPhieuTra.value = SoPhieuTraSession;
+            Idptnncc.value = IdptnnccSession;
+        }
+        let sophieu = document.querySelectorAll(".sophieu");
+        let idptnncc = document.querySelectorAll(".idptnncc");
+        if (sophieu != null && idptnncc != null) {
+            SoPhieuTra.value = sophieu[0].innerText;
+            Idptnncc.value = idptnncc[0].innerText;
+        }
+
+    }
+    window.addEventListener("load", function (e) {
+        let SoPhieuTra = document.getElementById("SoPhieuTra");
+        let Idptnncc = document.getElementById("Idptnncc");
 
 
-    
+        let SoPhieuTraSession = sessionStorage.getItem("SoPhieuTra");
+        let IdptnnccSession = sessionStorage.getItem("Idptnncc");
+
+        if (SoPhieuTraSession != null && Idptnncc != null) {
+            SoPhieuTra.value = SoPhieuTraSession;
+            Idptnncc.value = IdptnnccSession;
+        }
+    });
+</script>
+
+<script>
 
 
 
@@ -618,7 +720,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
 
-                    
+
                     KeepPage();
                     swal({
                         title: 'Đã xóa!',
@@ -642,7 +744,359 @@
 
 
 
-    
+
+</script>
+<script>
+
+    function totalBill() {
+
+        let tr = document.querySelectorAll(".tr");
+        let SL = document.querySelectorAll(".SL");
+        let Gia = document.querySelectorAll(".Gia");
+        let totalAmount = document.getElementById("totalAmount");
+        let ThanhToan = document.getElementById("ThanhToan");
+        let TienCK = document.getElementById("TienCK");
+        let TienThue = document.getElementById("TienThue");
+        let vat = document.getElementById("VAT");
+        let cktm = document.getElementById("CKTM");
+
+        let totalAmountThuc = document.getElementById("totalAmountThuc");
+        let ThanhToanThuc = document.getElementById("ThanhToanThuc");
+        let TienCKThuc = document.getElementById("TienCKThuc");
+        let TienThueThuc = document.getElementById("TienThueThuc");
+
+        let Payment = 0;
+        let Amount = 0;
+        let CK = 0;
+        let Thue = 0;
+        for (let i = 0; i <= tr.length - 1; i++) {
+            let count = parseFloat((SL[i].innerText).replaceAll(",", ""));
+            let price = parseFloat((Gia[i].innerText).replaceAll(",", ""));
+            console.log(count);
+            console.log(price);
+            //Tiền hàng
+            Amount += count * price;
+
+        }
+        console.log("Amount " + Amount);
+
+        //Tiền Chiếc khấu
+        CKTM = (Number(Amount) * Number(cktm.value)) / 100;
+
+
+        //Thuế giá trị gia tăng
+        VAT = vat.value;
+
+        //Thuế
+        Thue = ((Amount - CKTM) * Number(VAT)) / 100;
+
+        Payment = Amount - CKTM + parseFloat(Thue);
+
+
+        Formater = new Intl.NumberFormat('vi-VN');
+        let tienhang = Formater.format(Amount);
+        let tienchieckhau = Formater.format(CKTM);
+        let tienthue = Formater.format(Thue);
+        let tienthanhtoan = Formater.format(Payment);
+
+        //Hiển thị tiền dấu phẩy
+        totalAmount.value = tienhang.replaceAll(".", ",");
+        TienCK.value = tienchieckhau.replaceAll(".", ",");
+        TienThue.value = tienthue.replaceAll(".", ",");
+        ThanhToan.value = tienthanhtoan.replaceAll(".", ",");
+
+        //toFixed(2)
+
+        //Dữ liệu tính toán
+        totalAmountThuc.value = parseFloat(Amount).toFixed(2);
+        TienCKThuc.value = parseFloat(CKTM).toFixed(2);
+        TienThueThuc.value = parseFloat(Thue).toFixed(2);
+        ThanhToanThuc.value = parseFloat(Payment).toFixed(2);
+        console.log("parseFloat(Amount).toFixed(2) " + parseFloat(Amount).toFixed(2));
+        console.log("parseFloat(CKTM).toFixed(2) " + parseFloat(CKTM).toFixed(2));
+        console.log("parseFloat(Thue).toFixed(2) " + parseFloat(Thue).toFixed(2));
+        console.log("parseFloat(Payment).toFixed(2) " + parseFloat(Payment).toFixed(2));
+
+        //Dữ liệu hiển thị
+
+        //totalAmount.value =parseFloat(Amount).toFixed(2);
+        //TienCK.value = parseFloat(CK).toFixed(2);
+        //TienThue.value = parseFloat(Thue).toFixed(2);
+        //ThanhToan.value = parseFloat(Payment).toFixed(2);
+
+
+    }
+
+
+    const formatCurrencyed = function (money) {
+        Formater = new Intl.NumberFormat('vi-VN');
+        moneyFormated = Formater.format(money);
+
+        return moneyFormated.replaceAll(".", ",");
+    }
 </script>
 
+<script>
 
+    //Nội dung phiếu nhập
+    let btnAdd = document.getElementById("btnAdd");
+    let btnUpdate = document.getElementById("btnUpdate");
+    let btnCancel = document.getElementById("btnCancel");
+    btnCancel.addEventListener("click", function () {
+        btnUpdate.style.display = "none";
+        btnCancel.style.display = "none";
+        btnAdd.style.display = "block";
+    })
+
+    let action = document.getElementById("action");
+
+    let TaoPhieu = document.getElementById("TaoPhieu");
+
+    btnAdd.addEventListener("click", function () {
+        action.value = "addItem";
+    })
+    btnUpdate.addEventListener("click", function () {
+        action.value = "editItem";
+    })
+    TaoPhieu.addEventListener("click", function () {
+        action.value = "TaoPhieu";
+    })
+
+
+    function onEdit(td) {
+        let formNdpnk = document.getElementById("formNdpnk");
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("Solo").value = selectedRow.cells[0].innerHTML;
+
+        //let Tenvl = selectedRow.cells[1].innerHTML;
+        //for (var i = 0; i < document.getElementById("multipleSelect").length; i++)
+        //    if (formNdpnk.multipleSelect[i].innerText[i].innerText == Tenvl) document.getElementById("multipleSelect")[i].selected = true;
+
+        document.getElementById("Soluong").value = selectedRow.cells[2].innerHTML;
+        document.getElementById("Count").value = selectedRow.cells[2].innerHTML;
+        //let Donvitinh = selectedRow.cells[3].innerHTML;
+        //for (var i = 0; i < document.getElementById("Donvitinh").length; i++)
+        //    if (formNdpnk.Donvitinh[i].innerText == Donvitinh) document.getElementById("multipleSelect")[i].selected = true;
+
+        document.getElementById("Gianhap").value = selectedRow.cells[4].innerHTML;
+
+        let priceFormated = (selectedRow.cells[4].innerHTML).replaceAll(",", "");
+        document.getElementById("Dongia").value = priceFormated;
+        document.getElementById("Thanhtien").value = selectedRow.cells[5].innerHTML;
+
+
+        var Ngaysx = selectedRow.cells[7].innerHTML;
+        var Hansd = selectedRow.cells[9].innerHTML;
+
+        document.getElementById("Ngaysx").value = Ngaysx;
+        document.getElementById("Hansd").value = Hansd;
+        document.getElementById("Idndpnk").value = selectedRow.cells[10].innerHTML;
+
+
+
+        btnAdd.style.display = "none";
+        btnUpdate.style.display = "block";
+        btnCancel.style.display = "block";
+
+    }
+    btnUpdate.addEventListener("click", function () {
+        btnAdd.style.display = "block";
+        btnUpdate.style.display = "none";
+        btnCancel.style.display = "none";
+
+    })
+
+
+
+    //Phiếu trả nợ
+    function checkInputNdptn() {
+
+        let SotienNdpt = document.getElementById("SotienNdpt").value;
+        let GhichuNdpt = document.getElementById("GhichuNdpt").value;
+        let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+        let checkGhichuNdpt = document.getElementById("checkGhichuNdpt");
+        let errorMessage = "Dữ liệu cung cấp quá dài!";
+        if (SotienNdpt.length > 255 || GhichuNdpt.length > 255) {
+            checkGhichuNdpt.innerText = errorMessage;
+            checkSotienNdpt.innerText = errorMessage;
+            return false;
+        }
+        if (SotienNdpt.length == 0) {
+            checkSotienNdpt.innerText = "Vui lòng nhập số tiền muốn trả!";
+
+            return false;
+        }
+        else {
+
+            return true;
+        }
+    }
+
+
+
+
+    //Nội dung phiếu trả nợ nhà cung cấp
+    let btnAddNdptn = document.getElementById("btnAddNdptn");
+    let btnUpdateNdptn = document.getElementById("btnUpdateNdptn");
+    let btnCancelNdptn = document.getElementById("btnCancelNdptn");
+    let btnFinishNdptn = document.getElementById("btnFinishNdptn");
+
+
+    btnAddNdptn.addEventListener("click", function () {
+        let action = document.getElementById("actionNd");
+        action.value = "addItem";
+    })
+    btnUpdateNdptn.addEventListener("click", function () {
+        let action = document.getElementById("actionNd");
+        action.value = "editItem";
+    })
+    btnFinishNdptn.addEventListener("click", function () {
+        let action = document.getElementById("actionNd");
+        action.value = "finish";
+    })
+
+
+
+    btnCancelNdptn.addEventListener("click", function () {
+        btnUpdateNdptn.style.display = "none";
+        btnCancelNdptn.style.display = "none";
+        btnAddNdptn.style.display = "block";
+    })
+    //Edit nội dung phiếu
+    function onEditNdptnncc(td) {
+
+        const IdntnnccEdit = document.getElementById("IdntnnccEdit");
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("SotienNdpttra").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
+
+        IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
+        document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
+
+
+        btnAddNdptn.style.display = "none";
+        btnUpdateNdptn.style.display = "block";
+        btnCancelNdptn.style.display = "block";
+
+    }
+
+
+
+
+    //validate number số tiền trả
+
+    function changeSotienNdptn() {
+
+        const moneyElement = document.getElementById("SotienNdpt");
+
+        Formater = new Intl.NumberFormat('vi-VN');
+        priceFormated = Formater.format(moneyElement.value);
+
+
+        document.getElementById("SotienNdpttra").value = document.getElementById("SotienNdpt").value;
+        //đổi sau khi gán số không có dấu phẩy
+        document.getElementById("SotienNdpt").value = priceFormated.replaceAll(".", ",");
+
+
+    }
+
+
+    //Nội dung phiếu nhập
+    function onEditNdptnncc(td) {
+
+        const IdntnnccEdit = document.getElementById("IdntnnccEdit");
+        selectedRow = td.parentElement.parentElement;
+        document.getElementById("SotienNdpt").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("SotienNdpttra").value = (selectedRow.cells[1].innerHTML).replaceAll(",", "");
+
+        IdntnnccEdit.value = selectedRow.cells[3].innerHTML;
+        document.getElementById("GhichuNdpt").value = selectedRow.cells[4].innerHTML;
+
+
+        btnAddNdptn.style.display = "none";
+        btnUpdateNdptn.style.display = "block";
+        btnCancelNdptn.style.display = "block";
+
+    }
+
+
+
+    function checkSotienTraNoNcc() {
+        var inputPrice = document.getElementById('SotienNdpt');
+        inputValueA = inputPrice.value;
+
+        if (isNaN(inputValueA)) {
+            inputPrice.value = inputValueA.slice(0, inputValueA.length - 1)
+
+        }
+        checkTheAmountEntered();
+    }
+
+    const checkTheAmountEntered = function () {
+        let checkSotienNdpt = document.getElementById("checkSotienNdpt");
+        checkSotienNdpt.innerText = "";//reset error
+        let SotienNdpt = document.getElementById("SotienNdpt");
+        let ThanhToanThuc = document.getElementById("ThanhToanThuc");//tong số tiền cần thanh toán
+        const formNDTNNCC = document.getElementById("formNDTNNCC");
+        const btnAddNdptn = document.getElementById("btnAddNdptn");
+        let btnFinishNdptn = document.getElementById("btnFinishNdptn");
+        let GhichuNdpt = document.getElementById("GhichuNdpt");
+        let phieutra = document.getElementById("phieutra");
+
+        SotienNdptThuc = (SotienNdpt.value).replaceAll(",", "");
+        SotienNdpt.style.border = "1px solid #ced4da";//reset border
+
+        let TongTienDaThanhtoan = 0;
+        let tr = document.querySelectorAll(".trNDTNNCC");
+        for (let i = 0; i <= tr.length - 1; i++) {
+
+            TongTienDaThanhtoan += parseFloat((tr[i].children[1].innerText).replaceAll(",", ""));
+            console.log((tr[i].children[1].innerText));
+        }
+        let Tientra = Number(parseFloat(SotienNdptThuc).toFixed(2));
+        let Tiencantra = Number(parseFloat((ThanhToanThuc.value)).toFixed(2));
+        let Tiendathanhtoan = Number(parseFloat((TongTienDaThanhtoan).toFixed(2)));
+
+        Formater = new Intl.NumberFormat('vi-VN');
+        tienphaitra = Formater.format(Number(parseFloat(ThanhToanThuc.value)));
+
+        if (Tientra > Tiencantra || Tientra + Tiendathanhtoan > Tiencantra) {
+            checkSotienNdpt.innerText = "Số tiền vượt quá số tiền cần thành toán! Cần trả thêm: " + tienphaitra.replaceAll(".", ",") + "đ";
+            btnAddNdptn.disabled = true;
+            SotienNdpt.style.border = "5px solid #C82333";
+        }
+        if (Tiendathanhtoan == Tiencantra) {
+            checkSotienNdpt.innerText = "Đã thanh toán đủ. Vui lòng nhấn nút 'Đã thanh toán'";
+            btnFinishNdptn.style.display = "";
+            btnAddNdptn.style.display = "none";
+            SotienNdpt.readOnly = true;
+            GhichuNdpt.readOnly = true;
+            phieutra.readOnly = true;
+            console.log("Tiencantra: " + Tiencantra);
+            console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+        }
+        else if (Tientra <= Tiencantra) {
+            checkSotienNdpt.innerText = "";
+
+            btnAddNdptn.style.display = "";
+            btnAddNdptn.disabled = false;
+            SotienNdpt.style.border = "5px solid #218838";
+            SotienNdpt.readOnly = false;
+            GhichuNdpt.readOnly = false;
+            phieutra.readOnly = false;
+            console.log("Tientra: " + Tientra);
+            console.log("Tiencantra: " + Tiencantra);
+        }
+        console.log("------------------------------------------------");
+        console.log("Tientra: " + Tientra);
+        console.log("Tiencantra: " + Tiencantra);
+        console.log("Tiendathanhtoan: " + Tiendathanhtoan);
+        console.log("------------------------------------------------");
+        console.log("toFixed(2)");
+        console.log("ThanhToanThuc: " + parseFloat((ThanhToanThuc.value)));
+        console.log("SotienNdptThuc: " + parseFloat(SotienNdptThuc).toFixed(2));
+        console.log("TongTienDaThanhtoan: " + parseFloat((TongTienDaThanhtoan.value)));
+        console.log("tr.length: " + tr.length);
+    }
+
+</script>

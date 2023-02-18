@@ -144,6 +144,20 @@ namespace QuanLySanXuat.Controllers
                 var noidungphieunhap = _context.Noidungpnk.Where(m => m.Idndpnk == id).FirstOrDefault();
                
                 _context.Noidungpnk.Remove(noidungphieunhap);
+
+                Noidungpnkshow ndpnkshow = new Noidungpnkshow();
+                ndpnkshow.Idndpnk = noidungphieunhap.Idndpnk;
+                ndpnkshow.Solo = noidungphieunhap.Solo;
+                ndpnkshow.Soluong = noidungphieunhap.Soluong;
+                ndpnkshow.Slc = noidungphieunhap.Soluong;
+                ndpnkshow.Dongia = noidungphieunhap.Dongia;
+                ndpnkshow.Donvitinh = noidungphieunhap.Donvitinh;
+                ndpnkshow.Ngaysx = noidungphieunhap.Ngaysx;
+                ndpnkshow.Hansd = noidungphieunhap.Hansd;
+                ndpnkshow.Idpnk = noidungphieunhap.Idpnk;
+                ndpnkshow.Idvl = noidungphieunhap.Idvl;
+
+                _context.Noidungpnkshow.Remove(ndpnkshow);
                  _context.SaveChangesAsync();
                 return new JsonResult(new { code = 200, msg = "Xóa thành công!" });
 

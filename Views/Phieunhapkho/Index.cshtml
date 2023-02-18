@@ -123,7 +123,35 @@
 <div class="x_content">
     <div class="row">
         <div class="col-sm-12" style="height:60vh;overflow-y:scroll">
-            <div class="card-box table-responsive">
+            <div style="position: relative;" class="card-box table-responsive filterTable">
+                <form asp-action="" asp-controller="">
+                    <div style="position: absolute; top:3px;left:17px" class="searchToFrom row w-75 ">
+
+                        <div class="col-md-3">
+                            <div class="d-flex justify-content-around align-items-center">
+                                <div class="">Từ: </div>
+                                <input style="z-index:1" type="date" id="from" name="from" placeholder="Từ" class=" form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex justify-content-around align-items-center">
+                                <div class="">Đến: </div>
+                                <input style="z-index:1" type="date" id="to" name="to" placeholder="Đến" class=" form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="z-index:1">
+                            <select class=" filterType" data-search="true"
+                                    data-silent-initial-value-set="true" id="multipleSelect">
+                                <option value="">Reset</option>
+                                <option value="3">Ngày lập</option>
+                                <option value="7">Ngày HĐ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" style="z-index:1">
+                            <input type="button" id="searchDate" value="Tìm" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
                 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
                        cellspacing="0" width="100%">
                     <thead>
@@ -237,7 +265,68 @@
 
 
 
+<script>
+    //Đổi tên hiển thị ô select
+    window.addEventListener("load", function (e) {
+        let selectTagText = document.querySelectorAll(".vscomp-value");
 
+        selectTagText[0].innerText = "--- Chọn nhà cung cấp ---";
+        selectTagText[1].innerText = "--- Chọn ---";
+       
+
+    });
+    //filter from date to date
+    const searchDate = document.getElementById("searchDate");
+    searchDate.addEventListener("click", FilterDateInTable);
+
+    function FilterDateInTable() {
+
+        let from, to, table, tr, td, i, txtValue;
+        let filterType = document.querySelector(".filterType");
+        let fromInput = document.getElementById("from");
+        let toInput = document.getElementById("to");
+        from = new Date(fromInput.value);
+        to = new Date(toInput.value);
+
+        table = document.querySelector(".filterTable");
+        tr = table.getElementsByTagName("tr");
+
+
+        for (i = 0; i < tr.length; i++) {
+            //nếu table thay đổi thì thay đổi số cột của ngày
+            //td bắt đầu = 0
+            if (filterType.value != "") {
+                //alert("filterType " + filterType.value);
+                td = tr[i].getElementsByTagName("td")[filterType.value];
+                if (td) {
+                    txtValue = td.innerText;
+                    //convert innerText (dd/MM/yyyy HH:mm:ss) to Date (yyyy/MM/dd)
+                    let stringDate = txtValue;
+
+                    stringDate = (stringDate.split(" ")[0]).split("-");
+
+                    let newString = stringDate[0] + "-" + stringDate[1] + "-" + stringDate[2];
+
+                    let dateComparison = new Date(newString);
+
+                    if (from != "" && to != "" && txtValue != "") {
+                        if ((dateComparison >= from && dateComparison <= to) || fromInput.value == "" && toInput.value == "") {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+
+                }
+            } else {
+                tr[i].style.display = "";
+                fromInput.value = "";
+                toInput.value = "";
+            }
+            
+        }
+    }
+</script>
 <script>
     let deleteBtns = document.querySelectorAll('.formDelete');
     deleteBtns.forEach(function (deleteBtn) {
